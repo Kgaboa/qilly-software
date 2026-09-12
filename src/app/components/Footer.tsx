@@ -36,9 +36,10 @@ export function Footer({ onNavigate }: FooterProps) {
               <p>210 Kirkness Avenue</p>
               <p>Pierre van Ryneveld, 0157</p>
               <p>South Africa</p>
-              <p className="mt-3">
-                <a href="tel:+27839412655" className="text-[#00b4d8] hover:text-[#0096c7] transition-colors">
-                  +27 83 941 2655
+              <p className="mt-3">General enquiries</p>
+              <p>
+                <a href="tel:+27768765069" className="text-[#00b4d8] hover:text-[#0096c7] transition-colors">
+                  +27 76 876 5069
                 </a>
               </p>
               <p>
@@ -150,7 +151,7 @@ export function Footer({ onNavigate }: FooterProps) {
             Qilly is not liable for project cost variations or supplier pricing changes.
           </p>
           <p className="text-xs text-gray-600 mt-3">
-            Built with ❤️ in South Africa | Powered by BuildAid 2025/2026 Standards
+            Built with ❤️ in South Africa | BuildAid 2025/2026 referenced
           </p>
         </div>
       </div>
