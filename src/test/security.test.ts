@@ -133,3 +133,17 @@ describe('MEDIUM: Content-Security-Policy header configured', () => {
     expect(csp?.value).toContain("default-src 'self'");
   });
 });
+
+
+// ─── REGRESSION: Monthly BOQ quota persists across sessions ──────────────────
+describe('REGRESSION: Monthly BOQ count is database-backed', () => {
+  const dashboard = readSrc('app/components/MainDashboard.tsx');
+
+  it('saves contractor_id on every persisted BOQ', () => {
+    expect(dashboard).toMatch(/contractor_id:\s*contractorData\?\.id/);
+  });
+
+  it('counts legacy BOQs saved with user_id after login', () => {
+    expect(dashboard).toMatch(/contractor_id\.eq\.\$\{contractorId\},user_id\.eq\.\$\{authUser\.id\}/);
+  });
+});
