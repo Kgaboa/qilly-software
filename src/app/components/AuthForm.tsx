@@ -37,7 +37,6 @@ export function AuthForm({ onSuccess, onSupplierSignup, onContractorSignup, onAd
       'fallback_free@qilly-test.com': { tier: 'free',         type: 'contractor' },
       'fallback_pro@qilly-test.com':  { tier: 'professional', type: 'contractor' },
       'fallback_ent@qilly-test.com':  { tier: 'enterprise',   type: 'contractor' },
-      'enter123@gmail.com':           { tier: 'enterprise',   type: 'contractor', company: 'Enter Construction (Pty) Ltd' },
     };
 
     const tryFallbackLogin = (email: string): boolean => {
