@@ -909,7 +909,7 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* FREE Tier Training Mode Banner */}
+          {/* Read-only template training banner */}
           {isFromTemplate && (
             <div className="w-full p-4 bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-400 rounded-lg shadow-sm">
               <div className="flex items-start gap-3">
@@ -932,12 +932,14 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                       ✅ Can generate pricing
                     </span>
                   </div>
-                  <div className="mt-3 pt-3 border-t border-amber-300">
-                    <p className="text-xs text-amber-800">
-                      <strong>Want to upload your own BOQs?</strong> Upgrade to <strong className="text-amber-900">PROFESSIONAL</strong> or higher.{' '}
-                      <a href="mailto:support@qilly.co.za" className="underline font-semibold hover:text-amber-950">Contact sales</a>
-                    </p>
-                  </div>
+                  {!canUploadBOQ && (
+                    <div className="mt-3 pt-3 border-t border-amber-300">
+                      <p className="text-xs text-amber-800">
+                        <strong>Want to upload your own BOQs?</strong> Upgrade to <strong className="text-amber-900">PROFESSIONAL</strong> or higher.{' '}
+                        <a href="mailto:support@qilly.co.za" className="underline font-semibold hover:text-amber-950">Contact sales</a>
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
