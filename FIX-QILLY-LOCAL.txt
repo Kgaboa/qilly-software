@@ -1,0 +1,57 @@
+═══════════════════════════════════════════════════════════════════════
+  QILLY FIX - MANUAL STEPS FOR LOCAL DIRECTORY
+═══════════════════════════════════════════════════════════════════════
+
+📋 STEP 1: Open your project in VS Code
+   cd "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main"
+   code .
+
+═══════════════════════════════════════════════════════════════════════
+
+📋 STEP 2: Create NEW file - MainDashboard.tsx
+
+   Location: src\app\components\MainDashboard.tsx
+   
+   Copy the ENTIRE contents from the chat above (starting from line 1)
+   OR I'll provide it in the next message as a separate code block
+
+═══════════════════════════════════════════════════════════════════════
+
+📋 STEP 3: Update App.tsx
+
+   Find line 9:
+      import { Dashboard } from '@/app/components/Dashboard';
+   
+   Change to:
+      import { MainDashboard } from '@/app/components/MainDashboard';
+   
+   Find line 129:
+      <Dashboard accessToken={accessToken} onLogout={handleLogout} />
+   
+   Change to:
+      <MainDashboard accessToken={accessToken} onLogout={handleLogout} />
+
+═══════════════════════════════════════════════════════════════════════
+
+📋 STEP 4: Delete OLD Dashboard.tsx
+
+   DELETE this file:
+   C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\src\app\components\Dashboard.tsx
+
+═══════════════════════════════════════════════════════════════════════
+
+📋 STEP 5: Clear cache and restart
+
+   Run in your terminal:
+   
+   rmdir /s /q node_modules\.vite
+   npm run dev
+
+═══════════════════════════════════════════════════════════════════════
+
+✅ EXPECTED RESULT:
+   - No figma:asset errors
+   - App starts successfully
+   - Dashboard loads correctly
+
+═══════════════════════════════════════════════════════════════════════

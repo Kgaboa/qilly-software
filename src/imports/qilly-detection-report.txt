@@ -1,0 +1,54 @@
+index-B4lzUHCA.js:1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-B4lzUHCA.js:1 🔍 QILLY ENVIRONMENT DETECTION
+index-B4lzUHCA.js:1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-B4lzUHCA.js:1   VITE_ENVIRONMENT: sit
+index-B4lzUHCA.js:1   MODE: production
+index-B4lzUHCA.js:1   DEV: false
+index-B4lzUHCA.js:1   PROD: true
+index-B4lzUHCA.js:1   📌 Using hardcoded Supabase configs from info.ts (not env vars)
+index-B4lzUHCA.js:1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-B4lzUHCA.js:1 🌍 Using environment from VITE_ENVIRONMENT: SIT
+kcptusoevqapcvptlgkd.supabase.co/rest/v1/contractors?select=*&user_id=eq.c36eb0dd-0fab-4f44-b38e-92d893723a5c:1   Failed to load resource: the server responded with a status of 406 ()
+kcptusoevqapcvptlgkd.supabase.co/rest/v1/suppliers?select=*&user_id=eq.c36eb0dd-0fab-4f44-b38e-92d893723a5c:1   Failed to load resource: the server responded with a status of 406 ()
+index-B4lzUHCA.js:1 📋 Project Settings Updated: Object
+kcptusoevqapcvptlgkd.supabase.co/rest/v1/contractors?select=*&email=eq.sit-test%40gmail.com:1   Failed to load resource: the server responded with a status of 406 ()
+(index):1  Access to fetch at 'https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/profile' from origin 'https://qilly-sit.vercel.app' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: It does not have HTTP ok status.
+kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/profile:1   Failed to load resource: net::ERR_FAILED
+index-B4lzUHCA.js:15  ❌ [sit] Supabase edge function unreachable: Failed to fetch
+is @ index-B4lzUHCA.js:15
+index-B4lzUHCA.js:48  Unexpected error fetching profile: Error: Supabase edge function is unreachable in sit environment. Please check your Supabase configuration and CORS settings.
+    at is (index-B4lzUHCA.js:15:1166)
+    at async X (index-B4lzUHCA.js:48:14552)
+    at async index-B4lzUHCA.js:48:13274
+X @ index-B4lzUHCA.js:48
+kcptusoevqapcvptlgkd.supabase.co/rest/v1/contractors?select=*&email=eq.sit-test%40gmail.com:1   Failed to load resource: the server responded with a status of 406 ()
+index-B4lzUHCA.js:1 🤖 QILLY AI DETECTION REPORT:
+index-B4lzUHCA.js:1 ═══════════════════════════════════════════════════════════
+index-B4lzUHCA.js:1 📁 File: Drawing.png (61.0 KB)
+index-B4lzUHCA.js:1 
+🎯 FINAL PREDICTION: HOUSING (29% confidence)
+index-B4lzUHCA.js:2 🔧 Method: Multi-Phase Analysis: Filename + OCR + File Analysis
+index-B4lzUHCA.js:2 
+📊 DETECTION PHASES:
+index-B4lzUHCA.js:3   ✅ Phase 1 (REAL) → Filename analysis: "Drawing.png" → 30% match for unknown
+index-B4lzUHCA.js:3   ✅ Phase 2 (REAL OCR!) → OCR detected keywords: (No keywords detected) → 40% confidence
+index-B4lzUHCA.js:3   ✅ Phase 3 (BASIC) → File analysis: 61KB file → 45% confidence for housing
+index-B4lzUHCA.js:3   ✅ Phase 4 (ENSEMBLE) → Ensemble: 30% filename + 50% OCR + 20% file analysis → 38% overall confidence
+index-B4lzUHCA.js:4 
+💡 PRODUCTION NOTES:
+index-B4lzUHCA.js:5   • Phase 1: Real filename detection
+index-B4lzUHCA.js:5   • Phase 2: Real OCR using Tesseract.js
+index-B4lzUHCA.js:5   • Phase 3: Basic file analysis
+index-B4lzUHCA.js:5   • Phase 4: Weighted ensemble scoring
+index-B4lzUHCA.js:5 ═══════════════════════════════════════════════════════════
+
+(index):1  Access to fetch at 'https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill' from origin 'https://qilly-sit.vercel.app' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: It does not have HTTP ok status.
+kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill:1   Failed to load resource: net::ERR_FAILED
+index-B4lzUHCA.js:15  ❌ [sit] Supabase edge function unreachable: Failed to fetch
+is @ index-B4lzUHCA.js:15
+index-B4lzUHCA.js:15  ❌ [SIT] Supabase edge function failed - NOT falling back to demo mode
+processBill @ index-B4lzUHCA.js:15
+index-B4lzUHCA.js:15  Error details: Error: Supabase edge function is unreachable in sit environment. Please check your Supabase configuration and CORS settings.
+    at is (index-B4lzUHCA.js:15:1166)
+    at async Object.processBill (index-B4lzUHCA.js:15:6393)
+    at async R (index-B4lzUHCA.js:48:15405)

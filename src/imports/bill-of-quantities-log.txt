@@ -1,0 +1,67 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-B4lzUHCA.js:1 🔍 QILLY ENVIRONMENT DETECTION
+index-B4lzUHCA.js:1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-B4lzUHCA.js:1   VITE_ENVIRONMENT: sit
+index-B4lzUHCA.js:1   MODE: production
+index-B4lzUHCA.js:1   DEV: false
+index-B4lzUHCA.js:1   PROD: true
+index-B4lzUHCA.js:1   📌 Using hardcoded Supabase configs from info.ts (not env vars)
+index-B4lzUHCA.js:1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-B4lzUHCA.js:1 🌍 Using environment from VITE_ENVIRONMENT: SIT
+index-B4lzUHCA.js:1 📋 Project Settings Updated: Object
+index-B4lzUHCA.js:48 ✅ Contractor data loaded from Supabase: Object
+index-B4lzUHCA.js:1 📋 Project Settings Updated: Object
+index-B4lzUHCA.js:1 🔍 Loading contractor data for user: kgabo123@gmail.com
+index-B4lzUHCA.js:1 ✅ Contractor data loaded from Supabase: Object
+index-B4lzUHCA.js:1   📍 Province (single): Eastern Cape
+index-B4lzUHCA.js:1   📍 Operating provinces (array): Array(2)
+index-B4lzUHCA.js:1   🏗️ CIDB grade: Grade 3 CE
+index-B4lzUHCA.js:1   ✅ Using operating_provinces[0]: "Gauteng" → "GP"
+index-B4lzUHCA.js:1   📋 Available municipalities for "GP": 11 found
+index-B4lzUHCA.js:1   🏗️ CIDB grade: "Grade 3 CE" → "GB3"
+index-B4lzUHCA.js:1   🎯 Setting defaults:
+index-B4lzUHCA.js:1     - Province: GP
+index-B4lzUHCA.js:1     - Municipality: JHB
+index-B4lzUHCA.js:1     - CIDB: GB3
+index-B4lzUHCA.js:1   ✅ Project settings state updated
+index-B4lzUHCA.js:1 📋 Project Settings Updated: Object
+index-B4lzUHCA.js:1 ✅ Excel Header detected at row 0. Found columns: ItemNo=true, Description=true, Unit=true, Quantity=true
+index-B4lzUHCA.js:1 ✅ Found Excel header row at index 0: Object
+index-B4lzUHCA.js:1 Excel Row 2: Raw qty="500" → Cleaned qty="500"
+index-B4lzUHCA.js:1 Excel Row 3: Raw qty="300" → Cleaned qty="300"
+index-B4lzUHCA.js:1 Excel Row 4: Raw qty="2000" → Cleaned qty="2000"
+index-B4lzUHCA.js:1 Excel Row 7: Raw qty="50" → Cleaned qty="50"
+index-B4lzUHCA.js:1 Excel Row 8: Raw qty="200" → Cleaned qty="200"
+index-B4lzUHCA.js:1 Excel Row 9: Raw qty="300" → Cleaned qty="300"
+index-B4lzUHCA.js:1 Excel Row 12: Raw qty="150000" → Cleaned qty="150000"
+index-B4lzUHCA.js:1 Excel Row 13: Raw qty="80000" → Cleaned qty="80000"
+index-B4lzUHCA.js:1 Excel Row 14: Raw qty="100" → Cleaned qty="100"
+index-B4lzUHCA.js:1 Excel Row 17: Raw qty="15000" → Cleaned qty="15000"
+index-B4lzUHCA.js:1 Excel Row 18: Raw qty="8000" → Cleaned qty="8000"
+index-B4lzUHCA.js:1 Excel Row 21: Raw qty="5000" → Cleaned qty="5000"
+index-B4lzUHCA.js:1 Excel Row 22: Raw qty="100" → Cleaned qty="100"
+index-B4lzUHCA.js:1 Excel Row 25: Raw qty="200" → Cleaned qty="200"
+index-B4lzUHCA.js:1 Excel Row 26: Raw qty="300" → Cleaned qty="300"
+index-B4lzUHCA.js:1 Excel Row 29: Raw qty="1500" → Cleaned qty="1500"
+index-B4lzUHCA.js:1 Excel Row 30: Raw qty="100" → Cleaned qty="100"
+index-B4lzUHCA.js:1 Excel Row 33: Raw qty="100" → Cleaned qty="100"
+index-B4lzUHCA.js:1 Excel Row 34: Raw qty="100" → Cleaned qty="100"
+index-B4lzUHCA.js:1 Sheet "Sheet1" - Column Map: Object
+index-B4lzUHCA.js:1 Parsed Excel BOQ items: Array(19)
+index-B4lzUHCA.js:1 📊 Excel Parsing Summary: 19 total items, 0 summary rows
+index-B4lzUHCA.js:1 Submitting bill with items: Array(19)
+index-B4lzUHCA.js:1 Project settings: Object
+index-B4lzUHCA.js:48 🔧 Merging contractor profile data with project settings
+index-B4lzUHCA.js:48 📋 Final project settings: Object
+kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill:1   Failed to load resource: the server responded with a status of 401 ()
+index-B4lzUHCA.js:15  Unexpected API error: Error: HTTP 401: 
+    at is (index-B4lzUHCA.js:15:737)
+    at async Object.processBill (index-B4lzUHCA.js:15:6393)
+    at async R (index-B4lzUHCA.js:48:15405)
+is @ index-B4lzUHCA.js:15
+index-B4lzUHCA.js:15  ❌ [SIT] Supabase edge function failed - NOT falling back to demo mode
+processBill @ index-B4lzUHCA.js:15
+index-B4lzUHCA.js:15  Error details: Error: HTTP 401: 
+    at is (index-B4lzUHCA.js:15:737)
+    at async Object.processBill (index-B4lzUHCA.js:15:6393)
+    at async R (

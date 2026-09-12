@@ -1,0 +1,110 @@
+🔐 Admin Login: Authenticating with Supabase...
+ ✅ Supabase authentication successful
+ 👤 User ID: b7d45dbb-ae3a-4d5e-aaaa-94788d110d0f
+ 📧 Email: admin@qilly.co.za
+ ✅ User has admin role
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 🔧 ADMIN DASHBOARD - ENVIRONMENT DETECTION
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Current Environment: Development 🔧
+ Environment Type: development
+ Database Mode: Real (Supabase)
+ API URL: http://localhost:5173/api
+ Dev Tools Visible: true
+ Testing Tabs Visible: true
+ Supabase URL: https://zzdzrlglivtpawtitvgu.supabase.co
+ 📊 Connected to: DEVELOPMENT database (zzdzrlglivtpawtitvgu)
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 🔍 AdminDashboard: Loading contractors from Supabase...
+ ✅ Loaded suppliers from Supabase: 59
+ ✅ Loaded contractors from Supabase: 56
+ ✅ First contractor: {
+  "id": "bbf12278-5020-4fb7-8193-6499948906bd",
+  "user_id": "7f736d3e-3bf7-4cd2-8583-487366342ef4",
+  "company_name": "Enteprise Test Contractor",
+  "cidb_registration_number": "CIBB/Enteprise",
+  "cidb_grade": "SH6 - Specialist Handling (Grade 6)",
+  "contact_person": "Qilly Enteprise",
+  "email": "fallback_ent@qilly-test.com",
+  "phone": "+27766245678",
+  "street_address": "370 Nantes Street",
+  "city": "Johannesburg South",
+  "province": "Eastern Cape",
+  "postal_code": "2345",
+  "project_types": [
+    "Water & Sanitation",
+    "Commercial Building"
+  ],
+  "operating_provinces": [
+    "Gauteng",
+    "Limpopo"
+  ],
+  "years_in_business": 4,
+  "annual_turnover": 75000000,
+  "bbbee_level": "Level 3",
+  "has_certification": true,
+  "status": "approved",
+  "subscription_tier": "enterprise",
+  "billing_cycle": "monthly",
+  "subscription_status": "active",
+  "subscription_start_date": "2026-03-19T12:17:57.567+00:00",
+  "next_billing_date": null,
+  "payment_method": "payfast",
+  "popia_consent_given": true,
+  "popia_consent_date": "2026-03-19T12:18:00.31+00:00",
+  "popia_consent_version": "1.0",
+  "terms_consent_given": true,
+  "terms_consent_date": "2026-03-19T12:18:00.31+00:00",
+  "terms_consent_version": "1.0",
+  "created_at": "2026-03-19T12:18:03.668516+00:00",
+  "updated_at": "2026-03-19T12:18:03.668516+00:00",
+  "approved_at": null,
+  "rejected_at": null,
+  "approved_by": null,
+  "rejected_by": null,
+  "rejection_reason": null,
+  "contact_email": null,
+  "contact_phone": null,
+  "website": null,
+  "logo_url": null,
+  "is_active": true,
+  "notes": null,
+  "cipc_number": null,
+  "vat_number": null,
+  "bee_level": null,
+  "nhbrc_number": null,
+  "certifications": [],
+  "selected_tier": "FREE",
+  "payment_status": "not_required",
+  "payment_verified": false,
+  "payment_verified_at": null,
+  "payment_verified_by": null,
+  "boq_count": 0,
+  "boq_limit": null,
+  "monthly_boq_reset_date": null,
+  "payment_notes": null,
+  "payment_approved": true,
+  "payment_approved_at": null,
+  "payment_approved_by": null,
+  "payment_reference": "PAYFAST-1773922677565-OSTU2",
+  "monthly_boq_limit": null,
+  "boqs_generated_this_month": 0,
+  "current_month_start": "2026-03-19T12:18:03.668516+00:00",
+  "boq_quota_used": 0,
+  "boq_quota_reset_date": "2026-03-19T12:18:03.668516+00:00",
+  "payment_amount": 8999,
+  "organization_id": null,
+  "last_payment_date": null,
+  "subscription_cycle": "monthly",
+  "paid_status": false
+}
+ ✅ All contractor emails: Array(56)
+ ✅ PaymentVerification: loaded 47 paid-tier contractors
+zzdzrlglivtpawtitvgu.supabase.co/rest/v1/contractors?select=id%2Ccompany_name%2Ccontact_person%2Cemail%2Cphone%2Csubscription_tier%2Cpayment_method%2Cpayment_reference%2Cpayment_amount%2Cpayment_approved%2Cstatus%2Ccreated_at%2Capproved_at&subscription_tier=neq.free&order=created_at.desc:1  Failed to load resource: net::ERR_CONNECTION_CLOSEDUnderstand this error
+zzdzrlglivtpawtitvgu.supabase.co/rest/v1/contractors?select=id%2Ccompany_name%2Ccontact_person%2Cemail%2Cphone%2Csubscription_tier%2Cpayment_method%2Cpayment_reference%2Cpayment_amount%2Cpayment_approved%2Cstatus%2Ccreated_at%2Capproved_at&subscription_tier=neq.free&order=created_at.desc:1  Failed to load resource: net::ERR_CONNECTION_CLOSEDUnderstand this error
+zzdzrlglivtpawtitvgu.supabase.co/rest/v1/contractors?select=id%2Ccompany_name%2Ccontact_person%2Cemail%2Cphone%2Csubscription_tier%2Cpayment_method%2Cpayment_reference%2Cpayment_amount%2Cpayment_approved%2Cstatus%2Ccreated_at%2Capproved_at&subscription_tier=neq.free&order=created_at.desc:1  Failed to load resource: net::ERR_CONNECTION_CLOSEDUnderstand this error
+ Supabase network error - check internet connection
+(anonymous) @ code_components_prev…889db9.min.js.br:90Understand this warning
+ PaymentVerification load error: Object
+(anonymous) @ code_components_prev…889db9.min.js.br:90Understand this error
+2 ✅ PaymentVerification: loaded 47 paid-tier contractors

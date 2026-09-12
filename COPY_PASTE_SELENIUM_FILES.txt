@@ -1,0 +1,111 @@
+================================================================================
+QILLY SELENIUM TEST FILES - COPY-PASTE BUNDLE
+================================================================================
+
+Instructions:
+1. Create a folder on your computer: selenium_tests/
+2. Create 3 files inside it with the content below
+3. Follow the setup instructions at the bottom
+
+================================================================================
+FILE 1: selenium_tests/requirements.txt
+================================================================================
+
+selenium==4.16.0
+webdriver-manager==4.0.1
+pytest==7.4.3
+pytest-html==4.1.1
+pytest-xdist==3.5.0
+allure-pytest==2.13.2
+python-dotenv==1.0.0
+
+================================================================================
+FILE 2: selenium_tests/qilly_regression_suite.py
+================================================================================
+
+[NOTE: This file is 500+ lines. You can find it in /selenium_tests/qilly_regression_suite.py]
+[Copy the entire content from that file in Figma Make]
+
+Quick access: In Figma Make left sidebar → selenium_tests → qilly_regression_suite.py → Copy All
+
+================================================================================
+FILE 3: selenium_tests/README.md
+================================================================================
+
+[NOTE: Full documentation is in /selenium_tests/README.md]
+[Copy the entire content from that file in Figma Make]
+
+Quick access: In Figma Make left sidebar → selenium_tests → README.md → Copy All
+
+================================================================================
+SETUP & RUN INSTRUCTIONS (After copying files)
+================================================================================
+
+Step 1: Install Dependencies
+-----------------------------
+cd selenium_tests
+pip install -r requirements.txt
+
+Step 2: Set Qilly App URL
+--------------------------
+# If running locally:
+export QILLY_BASE_URL=http://localhost:5173
+
+# If deployed to Vercel:
+export QILLY_BASE_URL=https://your-app.vercel.app
+
+Step 3: Run Tests
+-----------------
+# Full test suite:
+python qilly_regression_suite.py
+
+# With pytest (prettier output):
+pytest qilly_regression_suite.py -v
+
+# Generate HTML report:
+pytest qilly_regression_suite.py --html=report.html --self-contained-html
+
+Step 4: View Results
+--------------------
+# Terminal output shows pass/fail
+# Screenshots saved to: selenium_tests/screenshots/
+# HTML report: Open report.html in browser
+
+================================================================================
+QUICK DEMO FOR ETENDER (Tuesday)
+================================================================================
+
+Option 1: Against Deployed App (No Local Setup Needed)
+-------------------------------------------------------
+1. Deploy Qilly to Vercel from Figma Make
+2. Get the URL (e.g., https://qilly-abc123.vercel.app)
+3. Run tests:
+   export QILLY_BASE_URL=https://qilly-abc123.vercel.app
+   pytest qilly_regression_suite.py -v --html=etender_report.html
+4. Open etender_report.html to show eTender team
+
+Option 2: Local Development
+----------------------------
+1. Terminal 1: npm run dev (start Qilly app)
+2. Terminal 2:
+   cd selenium_tests
+   export QILLY_BASE_URL=http://localhost:5173
+   python qilly_regression_suite.py
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Error: "ChromeDriver not found"
+→ Solution: pip install webdriver-manager (should be in requirements.txt)
+
+Error: "Connection refused"
+→ Solution: Make sure Qilly app is running (npm run dev or deployed)
+
+Error: "Element not found"
+→ Solution: Increase wait time in line 27: WebDriverWait(cls.driver, 20)
+
+Tests failing randomly?
+→ Solution: Disable headless mode (comment out options.add_argument('--headless'))
+
+================================================================================

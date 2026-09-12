@@ -1,0 +1,490 @@
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 🔍 Loading contractor data for user: thabo@gmail.com
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ✅ Contractor data loaded from Supabase: {id: '768a8fb5-dd33-431a-81f8-c958d7a3d4a7', user_id: '82be7fe1-ed4c-4e72-9e46-26f6e61b1d60', company_name: 'Kgabo Contractor', cidb_registration_number: 'CIDB/cr2020/2092', cidb_grade: 'Grade 4 CE', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Province (single): Western Cape
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Operating provinces (array): (3) ['Gauteng', 'Western Cape', 'Limpopo']
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏗️ CIDB grade: Grade 4 CE
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Using operating_provinces[0]: "Gauteng" → "GP"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📋 Available municipalities for "GP": 11 found
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏗️ CIDB grade: "Grade 4 CE" → "GB4"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🎯 Setting defaults:
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28     - Province: GP
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28     - Municipality: JHB
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28     - CIDB: GB4
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Project settings state updated
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ✅ Excel Header detected at row 0. Found columns: ItemNo=true, Description=true, Unit=true, Quantity=true
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ✅ Found Excel header row at index 0: {itemNo: 0, description: 1, unit: 2, quantity: 3, rate: 4, …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 2: Raw qty="500" → Cleaned qty="500"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 3: Raw qty="300" → Cleaned qty="300"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 4: Raw qty="2000" → Cleaned qty="2000"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 7: Raw qty="50" → Cleaned qty="50"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 8: Raw qty="200" → Cleaned qty="200"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 9: Raw qty="300" → Cleaned qty="300"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 12: Raw qty="150000" → Cleaned qty="150000"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 13: Raw qty="80000" → Cleaned qty="80000"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 14: Raw qty="100" → Cleaned qty="100"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 17: Raw qty="15000" → Cleaned qty="15000"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 18: Raw qty="8000" → Cleaned qty="8000"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 21: Raw qty="5000" → Cleaned qty="5000"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 22: Raw qty="100" → Cleaned qty="100"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 25: Raw qty="200" → Cleaned qty="200"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 26: Raw qty="300" → Cleaned qty="300"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 29: Raw qty="1500" → Cleaned qty="1500"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 30: Raw qty="100" → Cleaned qty="100"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 33: Raw qty="100" → Cleaned qty="100"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 34: Raw qty="100" → Cleaned qty="100"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Sheet "Sheet1" - Column Map: {itemNo: 0, description: 1, unit: 2, quantity: 3, rate: 4, …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Parsed Excel BOQ items: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📊 Excel Parsing Summary: 19 total items, 0 summary rows
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Submitting bill with items: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Project settings: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 🔧 Merging contractor profile data with project settings
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📋 Final project settings: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🌍 Regional Pricing Engine Started
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📍 Project Location: City of Johannesburg (JHB), GP
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📌 Coordinates: -26.2041, 28.0473
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📦 Processing 19 items...
+
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Excavation in soft soil" (500 m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: EARTHWORKS
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Earthworks keywords detected - Labor + Equipment pricing only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Excavation in soft soil" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  No labor rate found - using default
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Backfilling with selected material" (300 m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: EARTHWORKS
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Earthworks keywords detected - Labor + Equipment pricing only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Backfilling with selected material" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  No labor rate found - using default
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Compaction of subgrade" (2000 m²)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: EARTHWORKS
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Earthworks keywords detected - Labor + Equipment pricing only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Compaction of subgrade" (m²)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  No labor rate found - using default
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Blinding concrete 10MPa" (50 m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section B default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Blinding concrete 10MPa"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 39 matches (top: 70)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Ready Mix Concrete" from Buco
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Buco (Buco Johannesburg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R1250.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R450.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R1259.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R306.85/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R78292.49 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Blinding concrete 10MPa" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Ready-mix concrete 25MPa (foundations)" (200 m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section B default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Ready-mix concrete 25MPa (foundations)"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 40 matches (top: 90)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Concrete 25MPa" from Raumix
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 90 | Confidence: VERY HIGH | Item name found in search term
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Lafarge (Lafarge Johannesburg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R1180.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R450.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R1182.25/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R288.14/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R294078.78 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Ready-mix concrete 25MPa (foundations)" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Ready-mix concrete 30MPa (slabs)" (300 m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section B default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Ready-mix concrete 30MPa (slabs)"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 40 matches (top: 90)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Concrete 30MPa" from Lafarge
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 90 | Confidence: VERY HIGH | Item name found in search term
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Raumix (Raumix Johannesburg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R1200.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R450.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R1201.50/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R292.84/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R448300.68 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Ready-mix concrete 30MPa (slabs)" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Face bricks" (150000 nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section C default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Face bricks"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 8 matches (top: 75)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Stock Brick" from Buco
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 75 | Confidence: HIGH | 1/2 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Raumix (Raumix Johannesburg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R2.75/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R300.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R2.75/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R0.67/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R513409.68 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Face bricks" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Common bricks (internal)" (80000 nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section C default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Common bricks (internal)"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 9 matches (top: 70)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Door Internal Hollow Core" from TALISMAN
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Raumix (Raumix Johannesburg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R2.75/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R300.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R2.75/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R0.67/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R273992.62 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Common bricks (internal)" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Mortar for brickwork" (100 m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section C default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Mortar for brickwork"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 50 matches (top: 70)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Face brickwork (220mm thick)" from Buco
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Buco (Buco Johannesburg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R680.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R450.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R684.50/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R166.83/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R85132.98 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Mortar for brickwork" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Steel reinforcement Y12" (15000 kg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: EARTHWORKS
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section D (Earthworks) - Labor + Equipment pricing only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Steel reinforcement Y12" (kg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  No labor rate found - using default
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Steel reinforcement Y16" (8000 kg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: EARTHWORKS
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section D (Earthworks) - Labor + Equipment pricing only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Steel reinforcement Y16" (kg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  No labor rate found - using default
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Roof tiles concrete" (5000 m²)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section E default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Roof tiles concrete"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 48 matches (top: 70)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Ready Mix Concrete" from Buco
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📐 SQUARE METER DETECTED: Adjusted unit price from R1250.09 to R0.25
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Buco (Buco Johannesburg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R1250.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R450.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R1250.09/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R0.06/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R1554.77 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Roof tiles concrete" (m²)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Roof trusses (timber)" (100 lump sum)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: SPECIAL
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Special unit type (lump sum) - Handled separately
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Roof trusses (timber)" (lump sum)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  No labor rate found - using default
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Aluminum windows 1200x1200" (200 nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section F default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Aluminum windows 1200x1200"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 10 matches (top: 57)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Barrier kerbing (SABS 927 fg 1)" from Buco
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 57 | Confidence: LOW | 1/3 partial keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Buco (Buco Johannesburg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R195.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R300.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R196.50/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R47.89/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R48878.39 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Aluminum windows 1200x1200" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Wooden doors 813x2032" (300 nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section F default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Wooden doors 813x2032"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 11 matches (top: 57)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Pine Timber 38x114mm" from Buco
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 57 | Confidence: LOW | 1/3 partial keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Buco (Buco Johannesburg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R58.50/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R300.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R59.50/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R14.50/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R22200.49 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Wooden doors 813x2032" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "110mm PVC sewer pipes" (1500 m)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section G default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "110mm PVC sewer pipes"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 28 matches (top: 83)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "PVC Sewer Pipe 110mm" from MARLEY
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 83 | Confidence: HIGH | 3/4 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: MARLEY (Marley Johannesburg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R135.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R300.00 (2.8km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R135.20/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R32.95/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R252227.43 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "110mm PVC sewer pipes" (m)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Hot water cylinders 150L" (100 nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section G default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Hot water cylinders 150L"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 39 matches (top: 68)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Precast concrete channel units" from Buco
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 68 | Confidence: MEDIUM | 1/4 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Buco (Buco Johannesburg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R280.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R300.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R283.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R68.97/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R35197.42 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Hot water cylinders 150L" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Distribution boards 8-way" (100 nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: UNKNOWN
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Unknown section - Defaulting to mixed pricing
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Distribution boards 8-way"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 17 matches (top: 80)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Distribution Board 12-Way" from VOLTEX
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 80 | Confidence: HIGH | 2/3 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Buco (Buco Johannesburg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R439.66/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R300.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R442.66/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R107.89/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R55054.73 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Distribution boards 8-way" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Electrical wiring complete" (100 lump sum)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: SPECIAL
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Special unit type (lump sum) - Handled separately
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Electrical wiring complete" (lump sum)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 40 labor rates from database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  No labor rate found - using default
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+✅ Regional Pricing Complete: 19 items priced
+
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 💾 Saving bill to Supabase with project settings...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ✅ Bill saved to Supabase: {id: 'e50240f8-0104-4e80-913c-f8741199ce01', user_id: '82be7fe1-ed4c-4e72-9e46-26f6e61b1d60', project_name: 'BOQ 3/4/2026', bill_number: 'demo_bill_1772628594910', created_at: '2026-03-04T12:49:58.572131+00:00', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ✅ 19 bill items saved to Supabase
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 💰 BOQ Totals Calculation:
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   Total on Delivery (Grand Total): R 8 575 690,46
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   Delivery Fees (Transport): R 4 350,00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   Total on Collection (No Transport): R 8 571 340,46
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   Verification (Collection + Delivery = Total): ✅
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   Difference: 0.00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 🕐 RegionalPricedBillView received processingTime: 7302.0999999940395

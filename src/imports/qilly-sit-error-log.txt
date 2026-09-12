@@ -1,0 +1,128 @@
+Navigated to https://qilly-sit.vercel.app/
+index-DCiV0-NS.js:1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-DCiV0-NS.js:1 🔍 QILLY ENVIRONMENT DETECTION
+index-DCiV0-NS.js:1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-DCiV0-NS.js:1   VITE_ENVIRONMENT: sit
+index-DCiV0-NS.js:1   MODE: production
+index-DCiV0-NS.js:1   DEV: false
+index-DCiV0-NS.js:1   PROD: true
+index-DCiV0-NS.js:1   📌 Using hardcoded Supabase configs from info.ts (not env vars)
+index-DCiV0-NS.js:1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-DCiV0-NS.js:1 🌍 Using environment from VITE_ENVIRONMENT: SIT
+index-DCiV0-NS.js:1 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+(index):1  Access to fetch at 'https://zzdzrlglivtpawtitvgu.supabase.co/functions/v1/server/make-server-9db710f3/profile' from origin 'https://qilly-sit.vercel.app' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: It does not have HTTP ok status.
+index-DCiV0-NS.js:15   GET https://zzdzrlglivtpawtitvgu.supabase.co/functions/v1/server/make-server-9db710f3/profile net::ERR_FAILED
+is @ index-DCiV0-NS.js:15
+getProfile @ index-DCiV0-NS.js:15
+ee @ index-DCiV0-NS.js:48
+await in ee
+(anonymous) @ index-DCiV0-NS.js:48
+(anonymous) @ index-DCiV0-NS.js:48
+xl @ radix-vendor-35yt3xcj.js:40
+xr @ radix-vendor-35yt3xcj.js:40
+$f @ radix-vendor-35yt3xcj.js:40
+hn @ radix-vendor-35yt3xcj.js:38
+Wv @ radix-vendor-35yt3xcj.js:40
+$n @ radix-vendor-35yt3xcj.js:40
+Vf @ radix-vendor-35yt3xcj.js:40
+G @ radix-vendor-35yt3xcj.js:25
+ve @ radix-vendor-35yt3xcj.js:25
+index-DCiV0-NS.js:15  ❌ [sit] Supabase edge function unreachable: Failed to fetch
+is @ index-DCiV0-NS.js:15
+await in is
+getProfile @ index-DCiV0-NS.js:15
+ee @ index-DCiV0-NS.js:48
+await in ee
+(anonymous) @ index-DCiV0-NS.js:48
+(anonymous) @ index-DCiV0-NS.js:48
+xl @ radix-vendor-35yt3xcj.js:40
+xr @ radix-vendor-35yt3xcj.js:40
+$f @ radix-vendor-35yt3xcj.js:40
+hn @ radix-vendor-35yt3xcj.js:38
+Wv @ radix-vendor-35yt3xcj.js:40
+$n @ radix-vendor-35yt3xcj.js:40
+Vf @ radix-vendor-35yt3xcj.js:40
+G @ radix-vendor-35yt3xcj.js:25
+ve @ radix-vendor-35yt3xcj.js:25
+index-DCiV0-NS.js:48  Unexpected error fetching profile: Error: Supabase edge function is unreachable in sit environment. Please check your Supabase configuration and CORS settings.
+    at is (index-DCiV0-NS.js:15:1178)
+    at async ee (index-DCiV0-NS.js:48:14578)
+    at async index-DCiV0-NS.js:48:13298
+ee @ index-DCiV0-NS.js:48
+await in ee
+(anonymous) @ index-DCiV0-NS.js:48
+(anonymous) @ index-DCiV0-NS.js:48
+xl @ radix-vendor-35yt3xcj.js:40
+xr @ radix-vendor-35yt3xcj.js:40
+$f @ radix-vendor-35yt3xcj.js:40
+hn @ radix-vendor-35yt3xcj.js:38
+Wv @ radix-vendor-35yt3xcj.js:40
+$n @ radix-vendor-35yt3xcj.js:40
+Vf @ radix-vendor-35yt3xcj.js:40
+G @ radix-vendor-35yt3xcj.js:25
+ve @ radix-vendor-35yt3xcj.js:25
+index-DCiV0-NS.js:48 No authenticated user found
+Navigated to https://qilly-sit.vercel.app/
+index-DCiV0-NS.js:1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-DCiV0-NS.js:1 🔍 QILLY ENVIRONMENT DETECTION
+index-DCiV0-NS.js:1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-DCiV0-NS.js:1   VITE_ENVIRONMENT: sit
+index-DCiV0-NS.js:1   MODE: production
+index-DCiV0-NS.js:1   DEV: false
+index-DCiV0-NS.js:1   PROD: true
+index-DCiV0-NS.js:1   📌 Using hardcoded Supabase configs from info.ts (not env vars)
+index-DCiV0-NS.js:1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-DCiV0-NS.js:1 🌍 Using environment from VITE_ENVIRONMENT: SIT
+index-DCiV0-NS.js:1 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+(index):1  Access to fetch at 'https://zzdzrlglivtpawtitvgu.supabase.co/functions/v1/server/make-server-9db710f3/profile' from origin 'https://qilly-sit.vercel.app' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: It does not have HTTP ok status.
+index-DCiV0-NS.js:15   GET https://zzdzrlglivtpawtitvgu.supabase.co/functions/v1/server/make-server-9db710f3/profile net::ERR_FAILED
+is @ index-DCiV0-NS.js:15
+getProfile @ index-DCiV0-NS.js:15
+ee @ index-DCiV0-NS.js:48
+await in ee
+(anonymous) @ index-DCiV0-NS.js:48
+(anonymous) @ index-DCiV0-NS.js:48
+xl @ radix-vendor-35yt3xcj.js:40
+xr @ radix-vendor-35yt3xcj.js:40
+$f @ radix-vendor-35yt3xcj.js:40
+hn @ radix-vendor-35yt3xcj.js:38
+Wv @ radix-vendor-35yt3xcj.js:40
+$n @ radix-vendor-35yt3xcj.js:40
+Vf @ radix-vendor-35yt3xcj.js:40
+G @ radix-vendor-35yt3xcj.js:25
+ve @ radix-vendor-35yt3xcj.js:25
+index-DCiV0-NS.js:15  ❌ [sit] Supabase edge function unreachable: Failed to fetch
+is @ index-DCiV0-NS.js:15
+await in is
+getProfile @ index-DCiV0-NS.js:15
+ee @ index-DCiV0-NS.js:48
+await in ee
+(anonymous) @ index-DCiV0-NS.js:48
+(anonymous) @ index-DCiV0-NS.js:48
+xl @ radix-vendor-35yt3xcj.js:40
+xr @ radix-vendor-35yt3xcj.js:40
+$f @ radix-vendor-35yt3xcj.js:40
+hn @ radix-vendor-35yt3xcj.js:38
+Wv @ radix-vendor-35yt3xcj.js:40
+$n @ radix-vendor-35yt3xcj.js:40
+Vf @ radix-vendor-35yt3xcj.js:40
+G @ radix-vendor-35yt3xcj.js:25
+ve @ radix-vendor-35yt3xcj.js:25
+index-DCiV0-NS.js:48  Unexpected error fetching profile: Error: Supabase edge function is unreachable in sit environment. Please check your Supabase configuration and CORS settings.
+    at is (index-DCiV0-NS.js:15:1178)
+    at async ee (index-DCiV0-NS.js:48:14578)
+    at async index-DCiV0-NS.js:48:13298
+ee @ index-DCiV0-NS.js:48
+await in ee
+(anonymous) @ index-DCiV0-NS.js:48
+(anonymous) @ index-DCiV0-NS.js:48
+xl @ radix-vendor-35yt3xcj.js:40
+xr @ radix-vendor-35yt3xcj.js:40
+$f @ radix-vendor-35yt3xcj.js:40
+hn @ radix-vendor-35yt3xcj.js:38
+Wv @ radix-vendor-35yt3xcj.js:40
+$n @ radix-vendor-35yt3xcj.js:40
+Vf @ radix-vendor-35yt3xcj.js:40
+G @ radix-vendor-35yt3xcj.js:25
+ve @ radix-vendor-35yt3xcj.js:25
+index-DCiV0-NS.js:48 No authenticated user found

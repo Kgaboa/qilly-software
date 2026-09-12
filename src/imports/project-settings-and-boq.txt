@@ -1,0 +1,66 @@
+index-DKwFjt-v.js:1349 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+index-DKwFjt-v.js:1393 ✅ Contractor data loaded from Supabase: {id: 'b4b746b6-25b8-4146-922b-6626c5a1c400', user_id: 'c36eb0dd-0fab-4f44-b38e-92d893723a5c', company_name: 'Test SIT Construction CC', cidb_registration_number: '2024/123456/07', cidb_grade: 'Grade 2 CE', …}
+index-DKwFjt-v.js:1349 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+index-DKwFjt-v.js:1349 🔍 Loading contractor data for user: sit-test@gmail.com
+index-DKwFjt-v.js:1349 ✅ Contractor data loaded from Supabase: {id: 'b4b746b6-25b8-4146-922b-6626c5a1c400', user_id: 'c36eb0dd-0fab-4f44-b38e-92d893723a5c', company_name: 'Test SIT Construction CC', cidb_registration_number: '2024/123456/07', cidb_grade: 'Grade 2 CE', …}
+index-DKwFjt-v.js:1349   📍 Province (single): Limpopo
+index-DKwFjt-v.js:1349   📍 Operating provinces (array): (2) ['Gauteng', 'Free State']
+index-DKwFjt-v.js:1349   🏗️ CIDB grade: Grade 2 CE
+index-DKwFjt-v.js:1349   ✅ Using operating_provinces[0]: "Gauteng" → "GP"
+index-DKwFjt-v.js:1349   📋 Available municipalities for "GP": 11 found
+index-DKwFjt-v.js:1349   🏗️ CIDB grade: "Grade 2 CE" → "GB2"
+index-DKwFjt-v.js:1349   🎯 Setting defaults:
+index-DKwFjt-v.js:1349     - Province: GP
+index-DKwFjt-v.js:1349     - Municipality: JHB
+index-DKwFjt-v.js:1349     - CIDB: GB2
+index-DKwFjt-v.js:1349   ✅ Project settings state updated
+index-DKwFjt-v.js:1349 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB2', duration: '6', …}
+index-DKwFjt-v.js:1349 ✅ Excel Header detected at row 0. Found columns: ItemNo=true, Description=true, Unit=true, Quantity=true
+index-DKwFjt-v.js:1349 ✅ Found Excel header row at index 0: {itemNo: 0, description: 1, unit: 2, quantity: 3, rate: 4, …}
+index-DKwFjt-v.js:1349 Excel Row 2: Raw qty="500" → Cleaned qty="500"
+index-DKwFjt-v.js:1349 Excel Row 3: Raw qty="300" → Cleaned qty="300"
+index-DKwFjt-v.js:1349 Excel Row 4: Raw qty="2000" → Cleaned qty="2000"
+index-DKwFjt-v.js:1349 Excel Row 7: Raw qty="50" → Cleaned qty="50"
+index-DKwFjt-v.js:1349 Excel Row 8: Raw qty="200" → Cleaned qty="200"
+index-DKwFjt-v.js:1349 Excel Row 9: Raw qty="300" → Cleaned qty="300"
+index-DKwFjt-v.js:1349 Excel Row 12: Raw qty="150000" → Cleaned qty="150000"
+index-DKwFjt-v.js:1349 Excel Row 13: Raw qty="80000" → Cleaned qty="80000"
+index-DKwFjt-v.js:1349 Excel Row 14: Raw qty="100" → Cleaned qty="100"
+index-DKwFjt-v.js:1349 Excel Row 17: Raw qty="15000" → Cleaned qty="15000"
+index-DKwFjt-v.js:1349 Excel Row 18: Raw qty="8000" → Cleaned qty="8000"
+index-DKwFjt-v.js:1349 Excel Row 21: Raw qty="5000" → Cleaned qty="5000"
+index-DKwFjt-v.js:1349 Excel Row 22: Raw qty="100" → Cleaned qty="100"
+index-DKwFjt-v.js:1349 Excel Row 25: Raw qty="200" → Cleaned qty="200"
+index-DKwFjt-v.js:1349 Excel Row 26: Raw qty="300" → Cleaned qty="300"
+index-DKwFjt-v.js:1349 Excel Row 29: Raw qty="1500" → Cleaned qty="1500"
+index-DKwFjt-v.js:1349 Excel Row 30: Raw qty="100" → Cleaned qty="100"
+index-DKwFjt-v.js:1349 Excel Row 33: Raw qty="100" → Cleaned qty="100"
+index-DKwFjt-v.js:1349 Excel Row 34: Raw qty="100" → Cleaned qty="100"
+index-DKwFjt-v.js:1349 Sheet "Sheet1" - Column Map: {itemNo: 0, description: 1, unit: 2, quantity: 3, rate: 4, …}
+index-DKwFjt-v.js:1349 Parsed Excel BOQ items: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+index-DKwFjt-v.js:1349 📊 Excel Parsing Summary: 19 total items, 0 summary rows
+index-DKwFjt-v.js:1349 Submitting bill with items: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+index-DKwFjt-v.js:1349 Project settings: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB2', duration: '6', …}
+index-DKwFjt-v.js:1393 🔧 Merging contractor profile data with project settings
+index-DKwFjt-v.js:1393 📋 Final project settings: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB2', duration: '6', …}
+(index):1  Access to fetch at 'https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill' from origin 'https://qilly-sit.vercel.app' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: It does not have HTTP ok status.
+index-DKwFjt-v.js:1354   POST https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill net::ERR_FAILED
+ss @ index-DKwFjt-v.js:1354
+processBill @ index-DKwFjt-v.js:1354
+R @ index-DKwFjt-v.js:1393
+await in R
+R @ index-DKwFjt-v.js:1349
+ih @ radix-vendor-DttqZk44.js:37
+uh @ radix-vendor-DttqZk44.js:37
+ah @ radix-vendor-DttqZk44.js:37
+gc @ radix-vendor-DttqZk44.js:37
+yc @ radix-vendor-DttqZk44.js:37
+(anonymous) @ radix-vendor-DttqZk44.js:37
+eu @ radix-vendor-DttqZk44.js:40
+_a @ radix-vendor-DttqZk44.js:37
+es @ radix-vendor-DttqZk44.js:37
+Fi @ radix-vendor-DttqZk44.js:37
+Ph @ radix-vendor-DttqZk44.js:37
+index-DKwFjt-v.js:1349  Uncaught (in promise) ReferenceError: getMunicipalityByCode is not defined
+    at ym (index-DKwFjt-v.js:1349:170904)
+    at index-DKwFjt-v.js:1354:3166

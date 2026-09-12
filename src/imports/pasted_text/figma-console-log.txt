@@ -1,0 +1,63 @@
+3962ae99b3d44ec0029d3ba76d25f09ef339248f
+vendor-core-83c17265f2588e9e.min.js.br:54 Statsig is not ready to log exposures, will retry in 1 seconds
+(anonymous) @ vendor-core-83c17265f2588e9e.min.js.br:54Understand this warning
+vendor-core-83c17265f2588e9e.min.js.br:54 [bootstrap_waiting_on_user_state] You appear to be logging a relative timestamp and not an epoch timestamp. Try adding performance.timeOrigin to the timestamp.
+(anonymous) @ vendor-core-83c17265f2588e9e.min.js.br:54Understand this warning
+1085-869fdb2d01126556.min.js.br:7 The powerPreference option is currently ignored when calling requestAdapter() on Windows. See https://crbug.com/369219127
+initialize @ 1085-869fdb2d01126556.min.js.br:7Understand this warning
+vendor-core-83c17265f2588e9e.min.js.br:54 Autosave Changes not available or already claimed by another tab undefined
+vendor-core-83c17265f2588e9e.min.js.br:54 [import] git: 795ca6f1ee9882dfe1a8301c1dd929a1216cbc73, stamp: 9F7B891A935AF638
+(index):1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+vendor-core-83c17265f2588e9e.min.js.br:54 Loaded 0 scripts (0b), 0 from cache (0b)
+vendor-core-83c17265f2588e9e.min.js.br:54 [Fullscreen] Booting... (emscripten version 4.0.21)
+vendor-core-83c17265f2588e9e.min.js.br:54 [GPU] graphicsAPI:"WebGPU", vendor:"Google Inc. (Intel)" renderer:"ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A1) Direct3D11 vs_5_0 ps_5_0, D3D11)" deviceArchitecture:"gen-12lp" deviceDescription:"" webGPUDevice:"" webGPUVendor:"intel" bindings:"emdawnwebgpu"
+vendor-core-83c17265f2588e9e.min.js.br:54 [Fullscreen] Ready in 58500.7ms
+vendor-core-83c17265f2588e9e.min.js.br:54 [FullscreenApp] calling setEditorTheme and setting preference light
+vendor-core-83c17265f2588e9e.min.js.br:54 [MultiplayerSession] connecting to wss://www.figma.com/api/multiplayer/WxKSbAwJsYt0g6aP1mmCfu?role=editor&tracking_session_id=2rdK0dt19aplMHEO&version=151&recentReload=0&file-load-streaming-compression&user-id=1395110072994207006&client_release=3962ae99b3d44ec0029d3ba76d25f09ef339248f
+vendor-core-83c17265f2588e9e.min.js.br:54 [FullscreenApp] calling setEditorTheme and setting preference light
+vendor-core-83c17265f2588e9e.min.js.br:54 [MultiplayerSession] Joining file version 106 (initial load)
+vendor-core-83c17265f2588e9e.min.js.br:54 Migration succeeded: context: fullscreen_migrate_SceneGraphManager, version: 106, duration: 0ms.
+vendor-core-83c17265f2588e9e.min.js.br:54 [devtools] Initialized LS
+/api/make/fetch_ds_code_gen_status:1  Failed to load resource: the server responded with a status of 400 ()Understand this error
+vendor-core-83c17265f2588e9e.min.js.br:54 [devtools] Initialized LS
+vendor-core-83c17265f2588e9e.min.js.br:54 [MultiplayerSession] connecting to wss://www.figma.com/api/multiplayer/WxKSbAwJsYt0g6aP1mmCfu?role=editor&tracking_session_id=2rdK0dt19aplMHEO&version=151&recentReload=0&file-load-streaming-compression=&user-id=1395110072994207006&client_release=3962ae99b3d44ec0029d3ba76d25f09ef339248f&reconnect-key=b82b71aee8275455e84b0544c6029148ce5b7dcf&reconnect-sequence-number=6180&initialFileVersion=106&previousLoadMode=full&incremental-loading-validation=0
+vendor-core-83c17265f2588e9e.min.js.br:54 [Fullscreen] loadtime=149.17s maxmem=309098388
+vendor-core-83c17265f2588e9e.min.js.br:54 [MultiplayerSession] Joining file version 106 (skip_reload reconnect)
+vendor-core-83c17265f2588e9e.min.js.br:54 Too many elapsed hits of react since last report
+(anonymous) @ vendor-core-83c17265f2588e9e.min.js.br:54Understand this warning
+vendor-core-83c17265f2588e9e.min.js.br:54 [MultiplayerSession] connecting to wss://www.figma.com/api/multiplayer/WxKSbAwJsYt0g6aP1mmCfu?role=editor&tracking_session_id=2rdK0dt19aplMHEO&version=151&recentReload=0&file-load-streaming-compression=&user-id=1395110072994207006&client_release=3962ae99b3d44ec0029d3ba76d25f09ef339248f&reconnect-key=b82b71aee8275455e84b0544c6029148ce5b7dcf&reconnect-sequence-number=6180&initialFileVersion=106&previousLoadMode=full&incremental-loading-validation=0
+ WebSocket connection to 'wss://app-3ydiz5tgklwybravuarctyqow2wrdxbvpul27ejlf45gu4bwieya.makeproxy-c.figma.site/' failed: 
+ping @ app-3ydiz5tgklwybrav…e/@vite/client:1035Understand this error
+vendor-core-83c17265f2588e9e.min.js.br:54 [MultiplayerSession] Joining file version 106 (skip_reload reconnect)
+ WebSocket connection to 'wss://app-3ydiz5tgklwybravuarctyqow2wrdxbvpul27ejlf45gu4bwieya.makeproxy-c.figma.site/' failed: 
+ping @ app-3ydiz5tgklwybrav…e/@vite/client:1035Understand this error
+ WebSocket connection to 'wss://app-3ydiz5tgklwybravuarctyqow2wrdxbvpul27ejlf45gu4bwieya.makeproxy-c.figma.site/' failed: 
+ping @ app-3ydiz5tgklwybrav…e/@vite/client:1035Understand this error
+ WebSocket connection to 'wss://app-3ydiz5tgklwybravuarctyqow2wrdxbvpul27ejlf45gu4bwieya.makeproxy-c.figma.site/' failed: 
+ping @ app-3ydiz5tgklwybrav…e/@vite/client:1035Understand this error
+ WebSocket connection to 'wss://app-3ydiz5tgklwybravuarctyqow2wrdxbvpul27ejlf45gu4bwieya.makeproxy-c.figma.site/' failed: 
+ping @ app-3ydiz5tgklwybrav…e/@vite/client:1035Understand this error
+ WebSocket connection to 'wss://app-3ydiz5tgklwybravuarctyqow2wrdxbvpul27ejlf45gu4bwieya.makeproxy-c.figma.site/' failed: 
+ping @ app-3ydiz5tgklwybrav…e/@vite/client:1035Understand this error
+ WebSocket connection to 'wss://app-3ydiz5tgklwybravuarctyqow2wrdxbvpul27ejlf45gu4bwieya.makeproxy-c.figma.site/' failed: 
+ping @ app-3ydiz5tgklwybrav…e/@vite/client:1035Understand this error
+ WebSocket connection to 'wss://app-3ydiz5tgklwybravuarctyqow2wrdxbvpul27ejlf45gu4bwieya.makeproxy-c.figma.site/' failed: 
+ping @ app-3ydiz5tgklwybrav…e/@vite/client:1035Understand this error
+ WebSocket connection to 'wss://app-3ydiz5tgklwybravuarctyqow2wrdxbvpul27ejlf45gu4bwieya.makeproxy-c.figma.site/' failed: 
+ping @ app-3ydiz5tgklwybrav…e/@vite/client:1035Understand this error
+ WebSocket connection to 'wss://app-3ydiz5tgklwybravuarctyqow2wrdxbvpul27ejlf45gu4bwieya.makeproxy-c.figma.site/' failed: 
+ping @ app-3ydiz5tgklwybrav…e/@vite/client:1035Understand this error
+ WebSocket connection to 'wss://app-3ydiz5tgklwybravuarctyqow2wrdxbvpul27ejlf45gu4bwieya.makeproxy-c.figma.site/' failed: 
+ping @ app-3ydiz5tgklwybrav…e/@vite/client:1035Understand this error
+code_components_preview_iframe-aee2937bf6889db9.min.js.br:90 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+code_components_preview_iframe-aee2937bf6889db9.min.js.br:90 🔍 QILLY ENVIRONMENT DETECTION
+code_components_preview_iframe-aee2937bf6889db9.min.js.br:90 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+code_components_preview_iframe-aee2937bf6889db9.min.js.br:90   VITE_ENVIRONMENT: undefined
+code_components_preview_iframe-aee2937bf6889db9.min.js.br:90   MODE: development
+code_components_preview_iframe-aee2937bf6889db9.min.js.br:90   DEV: true
+code_components_preview_iframe-aee2937bf6889db9.min.js.br:90   PROD: false
+code_components_preview_iframe-aee2937bf6889db9.min.js.br:90   📌 Using hardcoded Supabase configs from info.ts (not env vars)
+code_components_preview_iframe-aee2937bf6889db9.min.js.br:90 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+code_components_preview_iframe-aee2937bf6889db9.min.js.br:90 🔧 Using DEVELOPMENT environment (local dev mode)
+vendor-core-83c17265f2588e9e.min.js.br:54 [MultiplayerSession] connecting to wss://www.figma.com/api/multiplayer/WxKSbAwJsYt0g6aP1mmCfu?role=editor&tracking_session_id=2rdK0dt19aplMHEO&version=151&recentReload=0&file-load-streaming-compression=&user-id=1395110072994207006&client_release=3962ae99b3d44ec0029d3ba76d25f09ef339248f&reconnect-key=b82b71aee8275455e84b0544c6029148ce5b7dcf&reconnect-sequence-number=6180&initialFileVersion=106&previousLoadMode=full&incremental-loading-validation=0
+vendor-core-83c17265f2588e9e.min.js.br:54 [MultiplayerSession] Joining file version 106 (skip_reload reconnect)

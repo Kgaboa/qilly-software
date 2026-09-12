@@ -1,0 +1,95 @@
+[CWD] C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests
+[URL] https://qilly-multi-env.figma.site
+
+[MODE] HTML Report (auto-named, opens in browser)
+
+[CWD] C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests
+[REPORTS DIR] C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\reports
+
+📊 Report target  : C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\reports\qilly_report_20260317_231303.html
+   Output dir     : C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\reports
+   Tests to run   : 32
+
+▶  Running tests ...
+──────────────────────────────────────────────────────────────────────
+
+Running tests...
+----------------------------------------------------------------------
+ test_01_register_free_account (__main__.TestAccountSetup.test_01_register_free_account) ... OK (27.092832)s
+ test_02_register_professional_account (__main__.TestAccountSetup.test_02_register_professional_account) ... OK (29.780301)s
+ test_03_register_enterprise_account (__main__.TestAccountSetup.test_03_register_enterprise_account) ... OK (27.293788)s
+ test_04_verify_instant_payment_logins (__main__.TestAccountSetup.test_04_verify_instant_payment_logins) ... OK (16.782361)s
+ test_05_admin_verify_instant_payment_statuses (__main__.TestAccountSetup.test_05_admin_verify_instant_payment_statuses) ... Traceback (most recent call last):
+  File "C:\Python314\Lib\unittest\case.py", line 58, in testPartExecutor
+    yield
+  File "C:\Python314\Lib\unittest\case.py", line 672, in run
+    self._callTearDown()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\unittest\case.py", line 629, in _callTearDown
+    self.tearDown()
+    ~~~~~~~~~~~~~^^
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 182, in tearDown
+    self.fail(f"\n  ASSERTION FAILURES:\n  {msg}")
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\unittest\case.py", line 750, in fail
+    raise self.failureException(msg)
+AssertionError:
+  ASSERTION FAILURES:
+  ❌ FAIL: PRO (Stitch): payment badge shows 'Stitch Auto ✓' — auto-approved at registration
+  ❌ FAIL: ENT (PayFast): payment badge shows 'PayFast Auto ✓' — auto-approved at registration
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 2778, in <module>
+    result = runner.run(suite)
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\HtmlTestRunner\runner.py", line 72, in run
+    test(result)
+    ~~~~^^^^^^^^
+  File "C:\Python314\Lib\unittest\suite.py", line 84, in __call__
+    return self.run(*args, **kwds)
+           ~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\unittest\suite.py", line 122, in run
+    test(result)
+    ~~~~^^^^^^^^
+  File "C:\Python314\Lib\unittest\case.py", line 725, in __call__
+    return self.run(*args, **kwds)
+           ~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\unittest\case.py", line 671, in run
+    with outcome.testPartExecutor(self):
+         ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Python314\Lib\unittest\case.py", line 75, in testPartExecutor
+    _addError(self.result, test_case, exc_info)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\unittest\case.py", line 98, in _addError
+    result.addFailure(test, exc_info)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\unittest\result.py", line 17, in inner
+    return method(self, *args, **kw)
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\HtmlTestRunner\result.py", line 205, in addFailure
+    testinfo = self.infoclass(self, test, self.infoclass.FAILURE, err)
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\HtmlTestRunner\result.py", line 90, in __init__
+    else self.test_result._exc_info_to_string(
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.err, test_method))
+        ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\HtmlTestRunner\result.py", line 425, in _exc_info_to_string
+    length = self._count_relevant_tb_levels(tb)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'HtmlTestResult' object has no attribute '_count_relevant_tb_levels'. Did you mean: '_is_relevant_tb_level'?
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  STATUS  : FAILURES DETECTED Γ¥î  (exit code 1)
+
+  Reports    : C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\reports\
+  Screenshots: C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\screenshots\
+
+  Tip: run_tests.bat html       ΓåÉ HTML report  (default)
+       run_tests.bat pytest      ΓåÉ pytest runner
+       run_tests.bat console     ΓåÉ console only
+       run_tests.bat class Name  ΓåÉ single test class
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+Press any key to continue . . .

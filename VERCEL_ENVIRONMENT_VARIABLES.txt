@@ -1,0 +1,51 @@
+# VERCEL ENVIRONMENT VARIABLES FOR SIT DEPLOYMENT
+# Copy these values into Vercel dashboard at:
+# https://vercel.com/assure-tech-solution/qilly-sit/settings/environment-variables
+
+================================================================================
+VARIABLE 1: VITE_ENVIRONMENT
+================================================================================
+Name:        VITE_ENVIRONMENT
+Value:       sit
+Environment: Production
+Description: Tells the app to use SIT configuration
+================================================================================
+
+================================================================================
+VARIABLE 2: VITE_SUPABASE_URL  
+================================================================================
+Name:        VITE_SUPABASE_URL
+Value:       https://kcptusoevqapcvptlgkd.supabase.co
+Environment: Production
+Description: SIT Supabase project URL
+================================================================================
+
+================================================================================
+VARIABLE 3: VITE_SUPABASE_ANON_KEY
+================================================================================
+Name:        VITE_SUPABASE_ANON_KEY
+Value:       eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjcHR1c29ldnFhcGN2cHRsZ2tkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIwMTA4NTAsImV4cCI6MjA4NzU4Njg1MH0.VCSkMR_EIvqFHjGzqkSiH_ANrzRiyFWvPEI3--T2YwY
+Environment: Production  
+Description: SIT Supabase anon (public) key
+================================================================================
+
+INSTRUCTIONS:
+1. Go to: https://vercel.com/assure-tech-solution/qilly-sit/settings/environment-variables
+2. Click "Add New" button
+3. For each variable above:
+   - Enter the Name (e.g., VITE_ENVIRONMENT)
+   - Enter the Value (copy exactly as shown)
+   - Select Environment: "Production"
+   - Click "Save"
+4. After all 3 are added, redeploy:
+   - vercel --prod
+   OR
+   - Click "Redeploy" in Vercel dashboard
+
+VERIFICATION:
+After deployment, check console logs. You should see:
+"🌍 Using environment from VITE_ENVIRONMENT: SIT"
+
+This means the app is now using the SIT database instead of development!
+
+================================================================================

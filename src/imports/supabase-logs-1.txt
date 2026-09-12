@@ -1,0 +1,679 @@
+index-BfM8BxYw.js:1   DEV: false
+index-BfM8BxYw.js:1   PROD: true
+index-BfM8BxYw.js:1   📌 Using hardcoded Supabase configs from info.ts (not env vars)
+index-BfM8BxYw.js:1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-BfM8BxYw.js:1 🌍 Using environment from VITE_ENVIRONMENT: SIT
+index-BfM8BxYw.js:1 📋 Project Settings Updated: Object
+index-BfM8BxYw.js:48 ✅ Contractor data loaded from Supabase: Object
+index-BfM8BxYw.js:1 📋 Project Settings Updated: Object
+index-BfM8BxYw.js:48 ✅ Contractor data loaded from Supabase: Object
+index-BfM8BxYw.js:1 📋 Project Settings Updated: Object
+index-BfM8BxYw.js:1 🔍 Loading contractor data for user: kgabo123@gmail.com
+index-BfM8BxYw.js:1 ✅ Contractor data loaded from Supabase: Object
+index-BfM8BxYw.js:1   📍 Province (single): Eastern Cape
+index-BfM8BxYw.js:1   📍 Operating provinces (array): Array(2)
+index-BfM8BxYw.js:1   🏗️ CIDB grade: Grade 3 CE
+index-BfM8BxYw.js:1   ✅ Using operating_provinces[0]: "Gauteng" → "GP"
+index-BfM8BxYw.js:1   📋 Available municipalities for "GP": 11 found
+index-BfM8BxYw.js:1   🏗️ CIDB grade: "Grade 3 CE" → "GB3"
+index-BfM8BxYw.js:1   🎯 Setting defaults:
+index-BfM8BxYw.js:1     - Province: GP
+index-BfM8BxYw.js:1     - Municipality: JHB
+index-BfM8BxYw.js:1     - CIDB: GB3
+index-BfM8BxYw.js:1   ✅ Project settings state updated
+index-BfM8BxYw.js:1 📋 Project Settings Updated: Object
+index-BfM8BxYw.js:1 ✅ Excel Header detected at row 0. Found columns: ItemNo=true, Description=true, Unit=true, Quantity=true
+index-BfM8BxYw.js:1 ✅ Found Excel header row at index 0: Object
+index-BfM8BxYw.js:1 Excel Row 2: Raw qty="500" → Cleaned qty="500"
+index-BfM8BxYw.js:1 Excel Row 3: Raw qty="300" → Cleaned qty="300"
+index-BfM8BxYw.js:1 Excel Row 4: Raw qty="2000" → Cleaned qty="2000"
+index-BfM8BxYw.js:1 Excel Row 7: Raw qty="50" → Cleaned qty="50"
+index-BfM8BxYw.js:1 Excel Row 8: Raw qty="200" → Cleaned qty="200"
+index-BfM8BxYw.js:1 Excel Row 9: Raw qty="300" → Cleaned qty="300"
+index-BfM8BxYw.js:1 Excel Row 12: Raw qty="150000" → Cleaned qty="150000"
+index-BfM8BxYw.js:1 Excel Row 13: Raw qty="80000" → Cleaned qty="80000"
+index-BfM8BxYw.js:1 Excel Row 14: Raw qty="100" → Cleaned qty="100"
+index-BfM8BxYw.js:1 Excel Row 17: Raw qty="15000" → Cleaned qty="15000"
+index-BfM8BxYw.js:1 Excel Row 18: Raw qty="8000" → Cleaned qty="8000"
+index-BfM8BxYw.js:1 Excel Row 21: Raw qty="5000" → Cleaned qty="5000"
+index-BfM8BxYw.js:1 Excel Row 22: Raw qty="100" → Cleaned qty="100"
+index-BfM8BxYw.js:1 Excel Row 25: Raw qty="200" → Cleaned qty="200"
+index-BfM8BxYw.js:1 Excel Row 26: Raw qty="300" → Cleaned qty="300"
+index-BfM8BxYw.js:1 Excel Row 29: Raw qty="1500" → Cleaned qty="1500"
+index-BfM8BxYw.js:1 Excel Row 30: Raw qty="100" → Cleaned qty="100"
+index-BfM8BxYw.js:1 Excel Row 33: Raw qty="100" → Cleaned qty="100"
+index-BfM8BxYw.js:1 Excel Row 34: Raw qty="100" → Cleaned qty="100"
+index-BfM8BxYw.js:1 Sheet "Sheet1" - Column Map: Object
+index-BfM8BxYw.js:1 Parsed Excel BOQ items: Array(19)
+index-BfM8BxYw.js:1 📊 Excel Parsing Summary: 19 total items, 0 summary rows
+index-BfM8BxYw.js:1 Submitting bill with items: Array(19)
+index-BfM8BxYw.js:1 Project settings: Object
+index-BfM8BxYw.js:48 🔑 Token Debug: Object
+index-BfM8BxYw.js:48 🔧 Merging contractor profile data with project settings
+index-BfM8BxYw.js:48 📋 Final project settings: Object
+kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill:1   Failed to load resource: the server responded with a status of 401 ()
+index-BfM8BxYw.js:15  Unexpected API error: Error: HTTP 401: 
+    at is (index-BfM8BxYw.js:15:749)
+    at async Object.processBill (index-BfM8BxYw.js:15:6400)
+    at async E (index-BfM8BxYw.js:48:15855)
+is @ index-BfM8BxYw.js:15
+index-BfM8BxYw.js:15 ℹ️ [SIT] Edge function unavailable - using client-side pricing
+index-BfM8BxYw.js:10 
+🌍 Regional Pricing Engine Started
+index-BfM8BxYw.js:11 📍 Project Location: City of Johannesburg (JHB), GP
+index-BfM8BxYw.js:11 📌 Coordinates: -26.2041, 28.0473
+index-BfM8BxYw.js:11 📦 Processing 19 items...
+
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Excavation in soft soil" (500 m³)
+index-BfM8BxYw.js:13    📊 Category: EARTHWORKS
+index-BfM8BxYw.js:13    ℹ️  Earthworks keywords detected - Labor + Equipment pricing only
+index-BfM8BxYw.js:13    ✓ Supplier: NO
+index-BfM8BxYw.js:13    ✓ Transport: NO
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: YES
+index-BfM8BxYw.js:13    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Excavation in soft soil" (m³)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "excavation in soft soil" (m³)
+index-BfM8BxYw.js:10   🏆 Best match: "Excavation soft soil machine" (earthworks)
+index-BfM8BxYw.js:10   📊 Score: 75/100
+index-BfM8BxYw.js:10   ✅ Confidence: MEDIUM
+index-BfM8BxYw.js:10   💰 Labor rate: R45.00/m³
+index-BfM8BxYw.js:10   🚜 Equipment rate: R85.00/m³
+index-BfM8BxYw.js:13    ✅ Labor rate: R45.00/m³
+index-BfM8BxYw.js:13    ✅ Equipment rate: R85.00/m³
+index-BfM8BxYw.js:13    ✅ Total rate: R130.00/m³
+index-BfM8BxYw.js:13    ✅ Total cost: R65000.00
+index-BfM8BxYw.js:13    📋 Matched: "Excavation soft soil machine" (earthworks)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Backfilling with selected material" (300 m³)
+index-BfM8BxYw.js:13    📊 Category: EARTHWORKS
+index-BfM8BxYw.js:13    ℹ️  Earthworks keywords detected - Labor + Equipment pricing only
+index-BfM8BxYw.js:13    ✓ Supplier: NO
+index-BfM8BxYw.js:13    ✓ Transport: NO
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: YES
+index-BfM8BxYw.js:13    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Backfilling with selected material" (m³)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "backfilling with selected material" (m³)
+index-BfM8BxYw.js:10   🏆 Best match: "Backfill selected material" (earthworks)
+index-BfM8BxYw.js:10   📊 Score: 65/100
+index-BfM8BxYw.js:10   ✅ Confidence: MEDIUM
+index-BfM8BxYw.js:10   💰 Labor rate: R74.00/m³
+index-BfM8BxYw.js:10   🚜 Equipment rate: R18.50/m³
+index-BfM8BxYw.js:13    ✅ Labor rate: R74.00/m³
+index-BfM8BxYw.js:13    ✅ Equipment rate: R18.50/m³
+index-BfM8BxYw.js:13    ✅ Total rate: R92.50/m³
+index-BfM8BxYw.js:13    ✅ Total cost: R27750.00
+index-BfM8BxYw.js:13    📋 Matched: "Backfill selected material" (earthworks)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Compaction of subgrade" (2000 m²)
+index-BfM8BxYw.js:13    📊 Category: EARTHWORKS
+index-BfM8BxYw.js:13    ℹ️  Earthworks keywords detected - Labor + Equipment pricing only
+index-BfM8BxYw.js:13    ✓ Supplier: NO
+index-BfM8BxYw.js:13    ✓ Transport: NO
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: YES
+index-BfM8BxYw.js:13    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Compaction of subgrade" (m²)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "compaction of subgrade" (m²)
+index-BfM8BxYw.js:10   🏆 Best match: "Compact subgrade" (earthworks)
+index-BfM8BxYw.js:10   📊 Score: 45/100
+index-BfM8BxYw.js:10   ✅ Confidence: LOW
+index-BfM8BxYw.js:10   💰 Labor rate: R16.00/m²
+index-BfM8BxYw.js:10   🚜 Equipment rate: R12.80/m²
+index-BfM8BxYw.js:13    ⚠️  No labor rate found - using default
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Blinding concrete 10MPa" (50 m³)
+index-BfM8BxYw.js:13    📊 Category: MIXED
+index-BfM8BxYw.js:13    ℹ️  Section B default - Material + Labor
+index-BfM8BxYw.js:13    ✓ Supplier: YES
+index-BfM8BxYw.js:13    ✓ Transport: YES
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: NO
+index-BfM8BxYw.js:13    🔍 Searching for suppliers (material item)...
+index-BfM8BxYw.js:6 
+🔍 ENHANCED SEARCH: "Blinding concrete 10MPa"
+index-BfM8BxYw.js:7   📍 Level 1: Trying exact/fuzzy match...
+index-BfM8BxYw.js:7   📍 Level 2: Trying scored match with brands...
+index-BfM8BxYw.js:7   ✅ Level 2 SUCCESS: Found 39 matches (top: 70)
+index-BfM8BxYw.js:7 
+🏆 TOP MATCH: "Ready Mix Concrete" from Buco
+index-BfM8BxYw.js:8    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-BfM8BxYw.js:13    ✅ Found 6 supplier matches
+index-BfM8BxYw.js:13    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-BfM8BxYw.js:13    📦 Base Price: R1250.00/unit
+index-BfM8BxYw.js:13    🚚 Transport: R450.00 (0km)
+index-BfM8BxYw.js:13    💰 Landed Cost: R1259.00/unit
+index-BfM8BxYw.js:13    💵 Additional Fees: R291.94/unit
+index-BfM8BxYw.js:13    💵 Final Price: R77546.85 (incl. all fees)
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Blinding concrete 10MPa" (m³)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "blinding concrete 10mpa" (m³)
+index-BfM8BxYw.js:10   🏆 Best match: "Concrete 15MPa blinding" (concrete)
+index-BfM8BxYw.js:10   📊 Score: 73/100
+index-BfM8BxYw.js:10   ✅ Confidence: MEDIUM
+index-BfM8BxYw.js:10   💰 Labor rate: R171.00/m³
+index-BfM8BxYw.js:10   🚜 Equipment rate: R114.00/m³
+index-BfM8BxYw.js:13    🔧 Labor Rate: R171.00/m³ (MEDIUM confidence)
+index-BfM8BxYw.js:13    🚜 Equipment Rate: R114.00/m³
+index-BfM8BxYw.js:13    👷 Total Labor: R8550.00 | Total Equipment: R5700.00
+index-BfM8BxYw.js:13    📋 Matched: "Concrete 15MPa blinding" (concrete)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Ready-mix concrete 25MPa (foundations)" (200 m³)
+index-BfM8BxYw.js:13    📊 Category: MIXED
+index-BfM8BxYw.js:13    ℹ️  Section B default - Material + Labor
+index-BfM8BxYw.js:13    ✓ Supplier: YES
+index-BfM8BxYw.js:13    ✓ Transport: YES
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: NO
+index-BfM8BxYw.js:13    🔍 Searching for suppliers (material item)...
+index-BfM8BxYw.js:6 
+🔍 ENHANCED SEARCH: "Ready-mix concrete 25MPa (foundations)"
+index-BfM8BxYw.js:7   📍 Level 1: Trying exact/fuzzy match...
+index-BfM8BxYw.js:7   📍 Level 2: Trying scored match with brands...
+index-BfM8BxYw.js:7   ✅ Level 2 SUCCESS: Found 40 matches (top: 90)
+index-BfM8BxYw.js:7 
+🏆 TOP MATCH: "Concrete 25MPa" from Raumix
+index-BfM8BxYw.js:8    Score: 90 | Confidence: VERY HIGH | Item name found in search term
+index-BfM8BxYw.js:13    ✅ Found 6 supplier matches
+index-BfM8BxYw.js:13    🏆 Best Supplier: Lafarge (Lafarge Johannesburg)
+index-BfM8BxYw.js:13    📦 Base Price: R1180.00/unit
+index-BfM8BxYw.js:13    🚚 Transport: R450.00 (0km)
+index-BfM8BxYw.js:13    💰 Landed Cost: R1182.25/unit
+index-BfM8BxYw.js:13    💵 Additional Fees: R274.14/unit
+index-BfM8BxYw.js:13    💵 Final Price: R291278.03 (incl. all fees)
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Ready-mix concrete 25MPa (foundations)" (m³)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "ready mix concrete 25mpa foundations " (m³)
+index-BfM8BxYw.js:10   🏆 Best match: "Concrete 25MPa foundations" (concrete)
+index-BfM8BxYw.js:10   📊 Score: 93/100
+index-BfM8BxYw.js:10   ✅ Confidence: HIGH
+index-BfM8BxYw.js:10   💰 Labor rate: R216.00/m³
+index-BfM8BxYw.js:10   🚜 Equipment rate: R144.00/m³
+index-BfM8BxYw.js:13    🔧 Labor Rate: R216.00/m³ (HIGH confidence)
+index-BfM8BxYw.js:13    🚜 Equipment Rate: R144.00/m³
+index-BfM8BxYw.js:13    👷 Total Labor: R43200.00 | Total Equipment: R28800.00
+index-BfM8BxYw.js:13    📋 Matched: "Concrete 25MPa foundations" (concrete)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Ready-mix concrete 30MPa (slabs)" (300 m³)
+index-BfM8BxYw.js:13    📊 Category: MIXED
+index-BfM8BxYw.js:13    ℹ️  Section B default - Material + Labor
+index-BfM8BxYw.js:13    ✓ Supplier: YES
+index-BfM8BxYw.js:13    ✓ Transport: YES
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: NO
+index-BfM8BxYw.js:13    🔍 Searching for suppliers (material item)...
+index-BfM8BxYw.js:6 
+🔍 ENHANCED SEARCH: "Ready-mix concrete 30MPa (slabs)"
+index-BfM8BxYw.js:7   📍 Level 1: Trying exact/fuzzy match...
+index-BfM8BxYw.js:7   📍 Level 2: Trying scored match with brands...
+index-BfM8BxYw.js:7   ✅ Level 2 SUCCESS: Found 40 matches (top: 90)
+index-BfM8BxYw.js:7 
+🏆 TOP MATCH: "Concrete 30MPa" from Lafarge
+index-BfM8BxYw.js:8    Score: 90 | Confidence: VERY HIGH | Item name found in search term
+index-BfM8BxYw.js:13    ✅ Found 6 supplier matches
+index-BfM8BxYw.js:13    🏆 Best Supplier: Raumix (Raumix Johannesburg)
+index-BfM8BxYw.js:13    📦 Base Price: R1200.00/unit
+index-BfM8BxYw.js:13    🚚 Transport: R450.00 (0km)
+index-BfM8BxYw.js:13    💰 Landed Cost: R1201.50/unit
+index-BfM8BxYw.js:13    💵 Additional Fees: R278.60/unit
+index-BfM8BxYw.js:13    💵 Final Price: R444031.15 (incl. all fees)
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Ready-mix concrete 30MPa (slabs)" (m³)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "ready mix concrete 30mpa slabs " (m³)
+index-BfM8BxYw.js:10   🏆 Best match: "Concrete 30MPa slabs" (concrete)
+index-BfM8BxYw.js:10   📊 Score: 93/100
+index-BfM8BxYw.js:10   ✅ Confidence: HIGH
+index-BfM8BxYw.js:10   💰 Labor rate: R243.00/m³
+index-BfM8BxYw.js:10   🚜 Equipment rate: R162.00/m³
+index-BfM8BxYw.js:13    🔧 Labor Rate: R243.00/m³ (HIGH confidence)
+index-BfM8BxYw.js:13    🚜 Equipment Rate: R162.00/m³
+index-BfM8BxYw.js:13    👷 Total Labor: R72900.00 | Total Equipment: R48600.00
+index-BfM8BxYw.js:13    📋 Matched: "Concrete 30MPa slabs" (concrete)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Face bricks" (150000 nr)
+index-BfM8BxYw.js:13    📊 Category: MIXED
+index-BfM8BxYw.js:13    ℹ️  Section C default - Material + Labor
+index-BfM8BxYw.js:13    ✓ Supplier: YES
+index-BfM8BxYw.js:13    ✓ Transport: YES
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: NO
+index-BfM8BxYw.js:13    🔍 Searching for suppliers (material item)...
+index-BfM8BxYw.js:6 
+🔍 ENHANCED SEARCH: "Face bricks"
+index-BfM8BxYw.js:7   📍 Level 1: Trying exact/fuzzy match...
+index-BfM8BxYw.js:7   📍 Level 2: Trying scored match with brands...
+index-BfM8BxYw.js:7   ✅ Level 2 SUCCESS: Found 8 matches (top: 75)
+index-BfM8BxYw.js:7 
+🏆 TOP MATCH: "Stock Brick" from Buco
+index-BfM8BxYw.js:8    Score: 75 | Confidence: HIGH | 1/2 exact keyword matches
+index-BfM8BxYw.js:13    ✅ Found 6 supplier matches
+index-BfM8BxYw.js:13    🏆 Best Supplier: Raumix (Raumix Johannesburg)
+index-BfM8BxYw.js:13    📦 Base Price: R2.75/unit
+index-BfM8BxYw.js:13    🚚 Transport: R300.00 (0km)
+index-BfM8BxYw.js:13    💰 Landed Cost: R2.75/unit
+index-BfM8BxYw.js:13    💵 Additional Fees: R0.64/unit
+index-BfM8BxYw.js:13    💵 Final Price: R508520.06 (incl. all fees)
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Face bricks" (nr)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "face bricks" (nr)
+index-BfM8BxYw.js:10   🏆 Best match: "Face brickwork 220mm face brick" (brickwork)
+index-BfM8BxYw.js:10   📊 Score: 35/100
+index-BfM8BxYw.js:10   ✅ Confidence: LOW
+index-BfM8BxYw.js:10   💰 Labor rate: R346.50/m²
+index-BfM8BxYw.js:10   🚜 Equipment rate: R66.00/m²
+index-BfM8BxYw.js:13    ⚠️  Labor/Equipment: No match found (using R0)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Common bricks (internal)" (80000 nr)
+index-BfM8BxYw.js:13    📊 Category: MIXED
+index-BfM8BxYw.js:13    ℹ️  Section C default - Material + Labor
+index-BfM8BxYw.js:13    ✓ Supplier: YES
+index-BfM8BxYw.js:13    ✓ Transport: YES
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: NO
+index-BfM8BxYw.js:13    🔍 Searching for suppliers (material item)...
+index-BfM8BxYw.js:6 
+🔍 ENHANCED SEARCH: "Common bricks (internal)"
+index-BfM8BxYw.js:7   📍 Level 1: Trying exact/fuzzy match...
+index-BfM8BxYw.js:7   📍 Level 2: Trying scored match with brands...
+index-BfM8BxYw.js:7   ✅ Level 2 SUCCESS: Found 9 matches (top: 70)
+index-BfM8BxYw.js:7 
+🏆 TOP MATCH: "Door Internal Hollow Core" from TALISMAN
+index-BfM8BxYw.js:8    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-BfM8BxYw.js:13    ✅ Found 6 supplier matches
+index-BfM8BxYw.js:13    🏆 Best Supplier: Raumix (Raumix Johannesburg)
+index-BfM8BxYw.js:13    📦 Base Price: R2.75/unit
+index-BfM8BxYw.js:13    🚚 Transport: R300.00 (0km)
+index-BfM8BxYw.js:13    💰 Landed Cost: R2.75/unit
+index-BfM8BxYw.js:13    💵 Additional Fees: R0.64/unit
+index-BfM8BxYw.js:13    💵 Final Price: R271383.16 (incl. all fees)
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Common bricks (internal)" (nr)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "common bricks internal " (nr)
+index-BfM8BxYw.js:10   🏆 Best match: "Door solid core 813x2032" (doors)
+index-BfM8BxYw.js:10   📊 Score: 30/100
+index-BfM8BxYw.js:10   ✅ Confidence: LOW
+index-BfM8BxYw.js:10   💰 Labor rate: R500.00/nr
+index-BfM8BxYw.js:10   🚜 Equipment rate: R125.00/nr
+index-BfM8BxYw.js:13    ⚠️  Labor/Equipment: No match found (using R0)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Mortar for brickwork" (100 m³)
+index-BfM8BxYw.js:13    📊 Category: MIXED
+index-BfM8BxYw.js:13    ℹ️  Section C default - Material + Labor
+index-BfM8BxYw.js:13    ✓ Supplier: YES
+index-BfM8BxYw.js:13    ✓ Transport: YES
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: NO
+index-BfM8BxYw.js:13    🔍 Searching for suppliers (material item)...
+index-BfM8BxYw.js:6 
+🔍 ENHANCED SEARCH: "Mortar for brickwork"
+index-BfM8BxYw.js:7   📍 Level 1: Trying exact/fuzzy match...
+index-BfM8BxYw.js:7   📍 Level 2: Trying scored match with brands...
+index-BfM8BxYw.js:7   ✅ Level 2 SUCCESS: Found 50 matches (top: 70)
+index-BfM8BxYw.js:7 
+🏆 TOP MATCH: "Face brickwork (220mm thick)" from Buco
+index-BfM8BxYw.js:8    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-BfM8BxYw.js:13    ✅ Found 6 supplier matches
+index-BfM8BxYw.js:13    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-BfM8BxYw.js:13    📦 Base Price: R680.00/unit
+index-BfM8BxYw.js:13    🚚 Transport: R450.00 (0km)
+index-BfM8BxYw.js:13    💰 Landed Cost: R684.50/unit
+index-BfM8BxYw.js:13    💵 Additional Fees: R158.72/unit
+index-BfM8BxYw.js:13    💵 Final Price: R84322.19 (incl. all fees)
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Mortar for brickwork" (m³)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "mortar for brickwork" (m³)
+index-BfM8BxYw.js:10   🏆 Best match: "Concrete 15MPa blinding" (concrete)
+index-BfM8BxYw.js:10   📊 Score: 30/100
+index-BfM8BxYw.js:10   ✅ Confidence: LOW
+index-BfM8BxYw.js:10   💰 Labor rate: R171.00/m³
+index-BfM8BxYw.js:10   🚜 Equipment rate: R114.00/m³
+index-BfM8BxYw.js:13    ⚠️  Labor/Equipment: No match found (using R0)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Steel reinforcement Y12" (15000 kg)
+index-BfM8BxYw.js:13    📊 Category: EARTHWORKS
+index-BfM8BxYw.js:13    ℹ️  Section D (Earthworks) - Labor + Equipment pricing only
+index-BfM8BxYw.js:13    ✓ Supplier: NO
+index-BfM8BxYw.js:13    ✓ Transport: NO
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: YES
+index-BfM8BxYw.js:13    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Steel reinforcement Y12" (kg)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "steel reinforcement y12" (kg)
+index-BfM8BxYw.js:10   🏆 Best match: "Reinforcement Y12 bars" (reinforcement)
+index-BfM8BxYw.js:10   📊 Score: 73/100
+index-BfM8BxYw.js:10   ✅ Confidence: MEDIUM
+index-BfM8BxYw.js:10   💰 Labor rate: R9.63/kg
+index-BfM8BxYw.js:10   🚜 Equipment rate: R0.88/kg
+index-BfM8BxYw.js:13    ✅ Labor rate: R9.63/kg
+index-BfM8BxYw.js:13    ✅ Equipment rate: R0.88/kg
+index-BfM8BxYw.js:13    ✅ Total rate: R10.51/kg
+index-BfM8BxYw.js:13    ✅ Total cost: R157650.00
+index-BfM8BxYw.js:13    📋 Matched: "Reinforcement Y12 bars" (reinforcement)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Steel reinforcement Y16" (8000 kg)
+index-BfM8BxYw.js:13    📊 Category: EARTHWORKS
+index-BfM8BxYw.js:13    ℹ️  Section D (Earthworks) - Labor + Equipment pricing only
+index-BfM8BxYw.js:13    ✓ Supplier: NO
+index-BfM8BxYw.js:13    ✓ Transport: NO
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: YES
+index-BfM8BxYw.js:13    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Steel reinforcement Y16" (kg)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "steel reinforcement y16" (kg)
+index-BfM8BxYw.js:10   🏆 Best match: "Reinforcement Y16 bars" (reinforcement)
+index-BfM8BxYw.js:10   📊 Score: 73/100
+index-BfM8BxYw.js:10   ✅ Confidence: MEDIUM
+index-BfM8BxYw.js:10   💰 Labor rate: R10.18/kg
+index-BfM8BxYw.js:10   🚜 Equipment rate: R0.93/kg
+index-BfM8BxYw.js:13    ✅ Labor rate: R10.18/kg
+index-BfM8BxYw.js:13    ✅ Equipment rate: R0.93/kg
+index-BfM8BxYw.js:13    ✅ Total rate: R11.11/kg
+index-BfM8BxYw.js:13    ✅ Total cost: R88880.00
+index-BfM8BxYw.js:13    📋 Matched: "Reinforcement Y16 bars" (reinforcement)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Roof tiles concrete" (5000 m²)
+index-BfM8BxYw.js:13    📊 Category: MIXED
+index-BfM8BxYw.js:13    ℹ️  Section E default - Material + Labor
+index-BfM8BxYw.js:13    ✓ Supplier: YES
+index-BfM8BxYw.js:13    ✓ Transport: YES
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: NO
+index-BfM8BxYw.js:13    🔍 Searching for suppliers (material item)...
+index-BfM8BxYw.js:6 
+🔍 ENHANCED SEARCH: "Roof tiles concrete"
+index-BfM8BxYw.js:7   📍 Level 1: Trying exact/fuzzy match...
+index-BfM8BxYw.js:7   📍 Level 2: Trying scored match with brands...
+index-BfM8BxYw.js:7   ✅ Level 2 SUCCESS: Found 48 matches (top: 70)
+index-BfM8BxYw.js:7 
+🏆 TOP MATCH: "Ready Mix Concrete" from Buco
+index-BfM8BxYw.js:8    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-BfM8BxYw.js:13    ✅ Found 6 supplier matches
+index-BfM8BxYw.js:13    📐 SQUARE METER DETECTED: Adjusted unit price from R1250.09 to R0.25
+index-BfM8BxYw.js:13    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-BfM8BxYw.js:13    📦 Base Price: R1250.00/unit
+index-BfM8BxYw.js:13    🚚 Transport: R450.00 (0km)
+index-BfM8BxYw.js:13    💰 Landed Cost: R1250.09/unit
+index-BfM8BxYw.js:13    💵 Additional Fees: R0.06/unit
+index-BfM8BxYw.js:13    💵 Final Price: R1539.96 (incl. all fees)
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Roof tiles concrete" (m²)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "roof tiles concrete" (m²)
+index-BfM8BxYw.js:10   🏆 Best match: "Roof tiles concrete" (roofing)
+index-BfM8BxYw.js:10   📊 Score: 100/100
+index-BfM8BxYw.js:10   ✅ Confidence: HIGH
+index-BfM8BxYw.js:10   💰 Labor rate: R118.00/m²
+index-BfM8BxYw.js:10   🚜 Equipment rate: R29.50/m²
+index-BfM8BxYw.js:13    🔧 Labor Rate: R118.00/m² (HIGH confidence)
+index-BfM8BxYw.js:13    🚜 Equipment Rate: R29.50/m²
+index-BfM8BxYw.js:13    👷 Total Labor: R590000.00 | Total Equipment: R147500.00
+index-BfM8BxYw.js:13    📋 Matched: "Roof tiles concrete" (roofing)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Roof trusses (timber)" (100 lump sum)
+index-BfM8BxYw.js:13    📊 Category: SPECIAL
+index-BfM8BxYw.js:13    ℹ️  Special unit type (lump sum) - Handled separately
+index-BfM8BxYw.js:13    ✓ Supplier: NO
+index-BfM8BxYw.js:13    ✓ Transport: NO
+index-BfM8BxYw.js:13    ✓ Labor: NO
+index-BfM8BxYw.js:13    ✓ Equipment: NO
+index-BfM8BxYw.js:13    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Roof trusses (timber)" (lump sum)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "roof trusses timber " (sum)
+index-BfM8BxYw.js:10   🏆 Best match: "Roof trusses timber" (roofing)
+index-BfM8BxYw.js:10   📊 Score: 54/100
+index-BfM8BxYw.js:10   ✅ Confidence: LOW
+index-BfM8BxYw.js:10   💰 Labor rate: R126.00/m²
+index-BfM8BxYw.js:10   🚜 Equipment rate: R42.00/m²
+index-BfM8BxYw.js:13    ✅ Labor rate: R126.00/lump sum
+index-BfM8BxYw.js:13    ✅ Equipment rate: R42.00/lump sum
+index-BfM8BxYw.js:13    ✅ Total rate: R168.00/lump sum
+index-BfM8BxYw.js:13    ✅ Total cost: R16800.00
+index-BfM8BxYw.js:13    📋 Matched: "Roof trusses timber" (roofing)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Aluminum windows 1200x1200" (200 nr)
+index-BfM8BxYw.js:13    📊 Category: MIXED
+index-BfM8BxYw.js:13    ℹ️  Section F default - Material + Labor
+index-BfM8BxYw.js:13    ✓ Supplier: YES
+index-BfM8BxYw.js:13    ✓ Transport: YES
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: NO
+index-BfM8BxYw.js:13    🔍 Searching for suppliers (material item)...
+index-BfM8BxYw.js:6 
+🔍 ENHANCED SEARCH: "Aluminum windows 1200x1200"
+index-BfM8BxYw.js:7   📍 Level 1: Trying exact/fuzzy match...
+index-BfM8BxYw.js:7   📍 Level 2: Trying scored match with brands...
+index-BfM8BxYw.js:7   ✅ Level 2 SUCCESS: Found 10 matches (top: 57)
+index-BfM8BxYw.js:7 
+🏆 TOP MATCH: "Barrier kerbing (SABS 927 fg 1)" from Buco
+index-BfM8BxYw.js:8    Score: 57 | Confidence: LOW | 1/3 partial keyword matches
+index-BfM8BxYw.js:13    ✅ Found 6 supplier matches
+index-BfM8BxYw.js:13    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-BfM8BxYw.js:13    📦 Base Price: R195.00/unit
+index-BfM8BxYw.js:13    🚚 Transport: R300.00 (0km)
+index-BfM8BxYw.js:13    💰 Landed Cost: R196.50/unit
+index-BfM8BxYw.js:13    💵 Additional Fees: R45.56/unit
+index-BfM8BxYw.js:13    💵 Final Price: R48412.88 (incl. all fees)
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Aluminum windows 1200x1200" (nr)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "aluminum windows 1200x1200" (nr)
+index-BfM8BxYw.js:10   🏆 Best match: "Window aluminum sliding 1200x1200" (windows)
+index-BfM8BxYw.js:10   📊 Score: 78/100
+index-BfM8BxYw.js:10   ✅ Confidence: MEDIUM
+index-BfM8BxYw.js:10   💰 Labor rate: R740.00/nr
+index-BfM8BxYw.js:10   🚜 Equipment rate: R185.00/nr
+index-BfM8BxYw.js:13    🔧 Labor Rate: R740.00/nr (MEDIUM confidence)
+index-BfM8BxYw.js:13    🚜 Equipment Rate: R185.00/nr
+index-BfM8BxYw.js:13    👷 Total Labor: R148000.00 | Total Equipment: R37000.00
+index-BfM8BxYw.js:13    📋 Matched: "Window aluminum sliding 1200x1200" (windows)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Wooden doors 813x2032" (300 nr)
+index-BfM8BxYw.js:13    📊 Category: MIXED
+index-BfM8BxYw.js:13    ℹ️  Section F default - Material + Labor
+index-BfM8BxYw.js:13    ✓ Supplier: YES
+index-BfM8BxYw.js:13    ✓ Transport: YES
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: NO
+index-BfM8BxYw.js:13    🔍 Searching for suppliers (material item)...
+index-BfM8BxYw.js:6 
+🔍 ENHANCED SEARCH: "Wooden doors 813x2032"
+index-BfM8BxYw.js:7   📍 Level 1: Trying exact/fuzzy match...
+index-BfM8BxYw.js:7   📍 Level 2: Trying scored match with brands...
+index-BfM8BxYw.js:7   ✅ Level 2 SUCCESS: Found 11 matches (top: 57)
+index-BfM8BxYw.js:7 
+🏆 TOP MATCH: "Pine Timber 38x114mm" from Buco
+index-BfM8BxYw.js:8    Score: 57 | Confidence: LOW | 1/3 partial keyword matches
+index-BfM8BxYw.js:13    ✅ Found 6 supplier matches
+index-BfM8BxYw.js:13    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-BfM8BxYw.js:13    📦 Base Price: R58.50/unit
+index-BfM8BxYw.js:13    🚚 Transport: R300.00 (0km)
+index-BfM8BxYw.js:13    💰 Landed Cost: R59.50/unit
+index-BfM8BxYw.js:13    💵 Additional Fees: R13.80/unit
+index-BfM8BxYw.js:13    💵 Final Price: R21989.06 (incl. all fees)
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Wooden doors 813x2032" (nr)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "wooden doors 813x2032" (nr)
+index-BfM8BxYw.js:10   🏆 Best match: "Door solid core 813x2032" (doors)
+index-BfM8BxYw.js:10   📊 Score: 58/100
+index-BfM8BxYw.js:10   ✅ Confidence: LOW
+index-BfM8BxYw.js:10   💰 Labor rate: R500.00/nr
+index-BfM8BxYw.js:10   🚜 Equipment rate: R125.00/nr
+index-BfM8BxYw.js:13    🔧 Labor Rate: R500.00/nr (LOW confidence)
+index-BfM8BxYw.js:13    🚜 Equipment Rate: R125.00/nr
+index-BfM8BxYw.js:13    👷 Total Labor: R150000.00 | Total Equipment: R37500.00
+index-BfM8BxYw.js:13    📋 Matched: "Door solid core 813x2032" (doors)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "110mm PVC sewer pipes" (1500 m)
+index-BfM8BxYw.js:13    📊 Category: MIXED
+index-BfM8BxYw.js:13    ℹ️  Section G default - Material + Labor
+index-BfM8BxYw.js:13    ✓ Supplier: YES
+index-BfM8BxYw.js:13    ✓ Transport: YES
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: NO
+index-BfM8BxYw.js:13    🔍 Searching for suppliers (material item)...
+index-BfM8BxYw.js:6 
+🔍 ENHANCED SEARCH: "110mm PVC sewer pipes"
+index-BfM8BxYw.js:7   📍 Level 1: Trying exact/fuzzy match...
+index-BfM8BxYw.js:7   📍 Level 2: Trying scored match with brands...
+index-BfM8BxYw.js:7   ✅ Level 2 SUCCESS: Found 28 matches (top: 83)
+index-BfM8BxYw.js:7 
+🏆 TOP MATCH: "PVC Sewer Pipe 110mm" from MARLEY
+index-BfM8BxYw.js:8    Score: 83 | Confidence: HIGH | 3/4 exact keyword matches
+index-BfM8BxYw.js:13    ✅ Found 6 supplier matches
+index-BfM8BxYw.js:13    🏆 Best Supplier: MARLEY (Marley Johannesburg)
+index-BfM8BxYw.js:13    📦 Base Price: R135.00/unit
+index-BfM8BxYw.js:13    🚚 Transport: R300.00 (2.8km)
+index-BfM8BxYw.js:13    💰 Landed Cost: R135.20/unit
+index-BfM8BxYw.js:13    💵 Additional Fees: R31.35/unit
+index-BfM8BxYw.js:13    💵 Final Price: R249825.26 (incl. all fees)
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "110mm PVC sewer pipes" (m)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "110mm pvc sewer pipes" (m)
+index-BfM8BxYw.js:10   🏆 Best match: "Gutters and downpipes" (roofing)
+index-BfM8BxYw.js:10   📊 Score: 35/100
+index-BfM8BxYw.js:10   ✅ Confidence: LOW
+index-BfM8BxYw.js:10   💰 Labor rate: R42.00/m
+index-BfM8BxYw.js:10   🚜 Equipment rate: R10.50/m
+index-BfM8BxYw.js:13    ⚠️  Labor/Equipment: No match found (using R0)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Hot water cylinders 150L" (100 nr)
+index-BfM8BxYw.js:13    📊 Category: MIXED
+index-BfM8BxYw.js:13    ℹ️  Section G default - Material + Labor
+index-BfM8BxYw.js:13    ✓ Supplier: YES
+index-BfM8BxYw.js:13    ✓ Transport: YES
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: NO
+index-BfM8BxYw.js:13    🔍 Searching for suppliers (material item)...
+index-BfM8BxYw.js:6 
+🔍 ENHANCED SEARCH: "Hot water cylinders 150L"
+index-BfM8BxYw.js:7   📍 Level 1: Trying exact/fuzzy match...
+index-BfM8BxYw.js:7   📍 Level 2: Trying scored match with brands...
+index-BfM8BxYw.js:7   ✅ Level 2 SUCCESS: Found 39 matches (top: 68)
+index-BfM8BxYw.js:7 
+🏆 TOP MATCH: "Precast concrete channel units" from Buco
+index-BfM8BxYw.js:8    Score: 68 | Confidence: MEDIUM | 1/4 exact keyword matches
+index-BfM8BxYw.js:13    ✅ Found 6 supplier matches
+index-BfM8BxYw.js:13    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-BfM8BxYw.js:13    📦 Base Price: R280.00/unit
+index-BfM8BxYw.js:13    🚚 Transport: R300.00 (0km)
+index-BfM8BxYw.js:13    💰 Landed Cost: R283.00/unit
+index-BfM8BxYw.js:13    💵 Additional Fees: R65.62/unit
+index-BfM8BxYw.js:13    💵 Final Price: R34862.20 (incl. all fees)
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Hot water cylinders 150L" (nr)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "hot water cylinders 150l" (nr)
+index-BfM8BxYw.js:10   🏆 Best match: "Door solid core 813x2032" (doors)
+index-BfM8BxYw.js:10   📊 Score: 30/100
+index-BfM8BxYw.js:10   ✅ Confidence: LOW
+index-BfM8BxYw.js:10   💰 Labor rate: R500.00/nr
+index-BfM8BxYw.js:10   🚜 Equipment rate: R125.00/nr
+index-BfM8BxYw.js:13    ⚠️  Labor/Equipment: No match found (using R0)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Distribution boards 8-way" (100 nr)
+index-BfM8BxYw.js:13    📊 Category: UNKNOWN
+index-BfM8BxYw.js:13    ℹ️  Unknown section - Defaulting to mixed pricing
+index-BfM8BxYw.js:13    ✓ Supplier: YES
+index-BfM8BxYw.js:13    ✓ Transport: YES
+index-BfM8BxYw.js:13    ✓ Labor: YES
+index-BfM8BxYw.js:13    ✓ Equipment: NO
+index-BfM8BxYw.js:13    🔍 Searching for suppliers (material item)...
+index-BfM8BxYw.js:6 
+🔍 ENHANCED SEARCH: "Distribution boards 8-way"
+index-BfM8BxYw.js:7   📍 Level 1: Trying exact/fuzzy match...
+index-BfM8BxYw.js:7   📍 Level 2: Trying scored match with brands...
+index-BfM8BxYw.js:7   ✅ Level 2 SUCCESS: Found 17 matches (top: 80)
+index-BfM8BxYw.js:7 
+🏆 TOP MATCH: "Distribution Board 12-Way" from VOLTEX
+index-BfM8BxYw.js:8    Score: 80 | Confidence: HIGH | 2/3 exact keyword matches
+index-BfM8BxYw.js:13    ✅ Found 6 supplier matches
+index-BfM8BxYw.js:13    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-BfM8BxYw.js:13    📦 Base Price: R439.66/unit
+index-BfM8BxYw.js:13    🚚 Transport: R300.00 (0km)
+index-BfM8BxYw.js:13    💰 Landed Cost: R442.66/unit
+index-BfM8BxYw.js:13    💵 Additional Fees: R102.64/unit
+index-BfM8BxYw.js:13    💵 Final Price: R54530.40 (incl. all fees)
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Distribution boards 8-way" (nr)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "distribution boards 8 way" (nr)
+index-BfM8BxYw.js:10   🏆 Best match: "Door solid core 813x2032" (doors)
+index-BfM8BxYw.js:10   📊 Score: 35/100
+index-BfM8BxYw.js:10   ✅ Confidence: LOW
+index-BfM8BxYw.js:10   💰 Labor rate: R500.00/nr
+index-BfM8BxYw.js:10   🚜 Equipment rate: R125.00/nr
+index-BfM8BxYw.js:13    ⚠️  Labor/Equipment: No match found (using R0)
+index-BfM8BxYw.js:12 
+🔍 Pricing: "Electrical wiring complete" (100 lump sum)
+index-BfM8BxYw.js:13    📊 Category: SPECIAL
+index-BfM8BxYw.js:13    ℹ️  Special unit type (lump sum) - Handled separately
+index-BfM8BxYw.js:13    ✓ Supplier: NO
+index-BfM8BxYw.js:13    ✓ Transport: NO
+index-BfM8BxYw.js:13    ✓ Labor: NO
+index-BfM8BxYw.js:13    ✓ Equipment: NO
+index-BfM8BxYw.js:13    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+index-BfM8BxYw.js:9 
+🔧 LABOR RATE LOOKUP: "Electrical wiring complete" (lump sum)
+index-BfM8BxYw.js:10   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-BfM8BxYw.js:10   ✅ 39 valid labor rates to match against
+index-BfM8BxYw.js:10   🔍 Normalized search: "electrical wiring complete" (sum)
+index-BfM8BxYw.js:10   🏆 Best match: "Health and safety file" (professional)
+index-BfM8BxYw.js:10   📊 Score: 30/100
+index-BfM8BxYw.js:10   ✅ Confidence: LOW
+index-BfM8BxYw.js:10   💰 Labor rate: R5000.00/sum
+index-BfM8BxYw.js:10   🚜 Equipment rate: R0.00/sum
+index-BfM8BxYw.js:13    ⚠️  No labor rate found - using default
+index-BfM8BxYw.js:13 
+✅ Regional Pricing Complete: 19 items priced
+
+index-BfM8BxYw.js:48 💾 Saving bill to Supabase with project settings...
+kcptusoevqapcvptlgkd.supabase.co/rest/v1/users?select=id&id=eq.e71f8fa4-defd-44c9-af49-0ee5f6430ea9:1   Failed to load resource: the server responded with a status of 406 ()
+index-BfM8BxYw.js:48 ✅ Bill saved to Supabase: Object
+index-BfM8BxYw.js:48 ✅ 19 bill items saved to Supabase
+index-BfM8BxYw.js:18 💰 BOQ Totals Calculation:
+index-BfM8BxYw.js:18   Total on Delivery (Grand Total): R 3 044 278,62
+index-BfM8BxYw.js:18   Delivery Fees (Transport): R 4 350,00
+index-BfM8BxYw.js:18   Total on Collection (No Transport): R 3 039 928,62
+index-BfM8BxYw.js:18   Verification (Collection + Delivery = Total): ✅
+index-BfM8BxYw.js:18   Difference: 0.00
+index-BfM8BxYw.js:18 🕐 RegionalPricedBillView received processingTime: 10246.20000000298

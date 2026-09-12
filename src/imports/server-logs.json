@@ -1,0 +1,106 @@
+[
+  {
+    "event_message": "shutdown",
+    "event_type": "Shutdown",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "c1dd9dd9-8ee9-4e4b-8d2e-dad005e2ff05",
+    "level": "log",
+    "timestamp": 1772785813309000
+  },
+  {
+    "event_message": "--> OPTIONS /server/make-server-9db710f3/process-bill 204 1ms\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "ae255c60-e1dc-4d0d-83ca-69d0c15dc722",
+    "level": "info",
+    "timestamp": 1772785738360000
+  },
+  {
+    "event_message": "<-- OPTIONS /server/make-server-9db710f3/process-bill\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "568a0909-4507-499a-a261-347176d42347",
+    "level": "info",
+    "timestamp": 1772785738358000
+  },
+  {
+    "event_message": "booted (time: 37ms)",
+    "event_type": "Boot",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "083080d5-4ec6-4995-9ce6-dbdb33285019",
+    "level": "log",
+    "timestamp": 1772785738280000
+  },
+  {
+    "event_message": "shutdown",
+    "event_type": "Shutdown",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "b79c64e1-094d-48b1-b7fe-7e8d1f97dfd6",
+    "level": "log",
+    "timestamp": 1772784884672000
+  },
+  {
+    "event_message": "--> OPTIONS /server/make-server-9db710f3/process-bill 204 2ms\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "40be7e3c-a3f0-4bcd-bfec-4dde4de431fc",
+    "level": "info",
+    "timestamp": 1772784809709000
+  },
+  {
+    "event_message": "<-- OPTIONS /server/make-server-9db710f3/process-bill\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "f70f02f6-a401-4891-ada5-0223d09db105",
+    "level": "info",
+    "timestamp": 1772784809707000
+  },
+  {
+    "event_message": "booted (time: 39ms)",
+    "event_type": "Boot",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "6bf28359-5013-4fd4-9dc5-75ad052bf7a4",
+    "level": "log",
+    "timestamp": 1772784809632000
+  },
+  {
+    "event_message": "shutdown",
+    "event_type": "Shutdown",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "21a82166-01dc-46c7-bec9-ebeb36a5d392",
+    "level": "log",
+    "timestamp": 1772783511781000
+  },
+  {
+    "event_message": "--> OPTIONS /server/make-server-9db710f3/process-bill 204 1ms\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "7bcdd3cc-824d-45eb-8834-1216968f5ab4",
+    "level": "info",
+    "timestamp": 1772783436841000
+  },
+  {
+    "event_message": "<-- OPTIONS /server/make-server-9db710f3/process-bill\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "5087ed85-2b48-44b1-b208-7552b4fafb0c",
+    "level": "info",
+    "timestamp": 1772783436839000
+  },
+  {
+    "event_message": "booted (time: 39ms)",
+    "event_type": "Boot",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "573ff2ea-c547-4ca3-9d50-9b58309fab99",
+    "level": "log",
+    "timestamp": 1772783436752000
+  },
+  {
+    "event_message": "shutdown",
+    "event_type": "Shutdown",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "218fa8ef-3997-4702-b8ef-675be014c964",
+    "level": "log",
+    "timestamp": 1772782784992000
+  }
+]

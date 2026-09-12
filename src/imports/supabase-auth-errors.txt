@@ -1,0 +1,26 @@
+  📌 Using hardcoded Supabase configs from info.ts (not env vars)
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28 🔧 Defaulting to DEVELOPMENT environment (Figma Make default)
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28 💡 Use Environment Switcher or ?env=sit to switch to SIT
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28 🔍 QILLY ENVIRONMENT DETECTION
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28   VITE_ENVIRONMENT: undefined
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28   MODE: development
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28   DEV: true
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28   PROD: false
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28   📌 Using hardcoded Supabase configs from info.ts (not env vars)
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28 🔧 Using DEVELOPMENT environment (local dev mode)
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28 ✅ User account created: 0d0b5e04-fea9-4a43-9402-dbee44e41b6d
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28 ✅ POPIA consent saved for contractor
+zzdzrlglivtpawtitvgu.supabase.co/rest/v1/contractors?columns=%22user_id%22%2C%22company_name%22%2C%22cidb_registration_number%22%2C%22cidb_grade%22%2C%22contact_person%22%2C%22email%22%2C%22phone%22%2C%22street_address%22%2C%22city%22%2C%22province%22%2C%22postal_code%22%2C%22project_types%22%2C%22operating_provinces%22%2C%22years_in_business%22%2C%22annual_turnover%22%2C%22bbbee_level%22%2C%22has_certification%22%2C%22status%22%2C%22subscription_tier%22%2C%22billing_cycle%22%2C%22subscription_status%22%2C%22subscription_start_date%22%2C%22next_billing_date%22%2C%22popia_consent_given%22%2C%22popia_consent_date%22%2C%22popia_consent_version%22%2C%22terms_consent_given%22%2C%22terms_consent_date%22%2C%22terms_consent_version%22&select=*:1   Failed to load resource: the server responded with a status of 403 ()
+zzdzrlglivtpawtitvgu.supabase.co/rest/v1/contractors?columns=%22user_id%22%2C%22company_name%22%2C%22cidb_registration_number%22%2C%22cidb_grade%22%2C%22contact_person%22%2C%22email%22%2C%22phone%22%2C%22street_address%22%2C%22city%22%2C%22province%22%2C%22postal_code%22%2C%22project_types%22%2C%22operating_provinces%22%2C%22years_in_business%22%2C%22annual_turnover%22%2C%22bbbee_level%22%2C%22has_certification%22%2C%22status%22%2C%22subscription_tier%22%2C%22billing_cycle%22%2C%22subscription_status%22%2C%22subscription_start_date%22%2C%22next_billing_date%22%2C%22popia_consent_given%22%2C%22popia_consent_date%22%2C%22popia_consent_version%22%2C%22terms_consent_given%22%2C%22terms_consent_date%22%2C%22terms_consent_version%22&select=*:1   Failed to load resource: the server responded with a status of 403 ()
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28  ❌ Contractor insert error: Object
+(anonymous) @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28  ❌ Error details: {
+  "code": "42501",
+  "details": null,
+  "hint": null,
+  "message": "permission denied for table users"
+}

@@ -1,0 +1,64 @@
+Code: 4010, reason: server_idle
+vendor-core-ade2edecaf4781c7.min.js.br:54 [MultiplayerSession] connecting to wss://www.figma.com/api/multiplayer/WxKSbAwJsYt0g6aP1mmCfu?role=editor&tracking_session_id=pnmebbN6wcgrQUcG&version=151&recentReload=0&file-load-streaming-compression=&user-id=1395110072994207006&client_release=71a654e3f7c84371a154bcee0380e86a4f6c3018&reconnect-key=e27c734a1fc02c3ffa2a3cae17bd3f0f66e7aadb&reconnect-sequence-number=5161&initialFileVersion=106&previousLoadMode=full&incremental-loading-validation=0
+devtools_worker-cb4b391887eb8867.min.js.br:1190 [esbuild-wasm] Initializing from URL: /webpack-artifacts/assets/2b68f2d3d5e8b3d6.wasm
+vendor-core-ade2edecaf4781c7.min.js.br:54 [MultiplayerSession] Joining file version 106 (skip_reload reconnect)
+/api/rev/WxKSbAwJsYt0g6aP1mmCfu/code_snapshot/dfdaf31a7352825d993f5cc92b9b4afaaa8215b32c4aad679c2db5a9c03b80ed:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+vendor-core-ade2edecaf4781c7.min.js.br:54 Failed to fetch snapshot files: E: XHR for "/api/rev/WxKSbAwJsYt0g6aP1mmCfu/code_snapshot/dfdaf31a7352825d993f5cc92b9b4afaaa8215b32c4aad679c2db5a9c03b80ed" failed with status 404
+    at C (3186-5d955a18ed0f9b29.min.js.br:1135:13967)
+    at async Object.k [as get] (3186-5d955a18ed0f9b29.min.js.br:1135:14350)
+    at async 5531-b8e5f076817d173e.min.js.br:3:24675
+    at async 5531-b8e5f076817d173e.min.js.br:34:205801
+    at async 5531-b8e5f076817d173e.min.js.br:3:25105
+    at async k (5531-b8e5f076817d173e.min.js.br:34:205309)
+    at async 5531-b8e5f076817d173e.min.js.br:34:114835
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:54Understand this warning
+devtools_worker-cb4b391887eb8867.min.js.br:1190 [esbuild-wasm] Initialized
+devtools_worker-cb4b391887eb8867.min.js.br:1973 [esbuild] Build error: Error: Build failed with 1 error:
+virtual-fs:file:///src/app/components/AdminDashboard.tsx:33:9: ERROR: No matching export in "virtual-fs:file:///utils/supabase/info.ts" for import "getSupabaseConfig"
+    at Z (devtools_worker-cb4b391887eb8867.min.js.br:8:5768)
+    at devtools_worker-cb4b391887eb8867.min.js.br:676:23008
+    at y (devtools_worker-cb4b391887eb8867.min.js.br:676:17720)
+    at G (devtools_worker-cb4b391887eb8867.min.js.br:676:22961)
+    at devtools_worker-cb4b391887eb8867.min.js.br:676:23116
+    at new Promise (<anonymous>)
+    at c.on-end (devtools_worker-cb4b391887eb8867.min.js.br:676:23100)
+    at devtools_worker-cb4b391887eb8867.min.js.br:676:10232
+    at Generator.next (<anonymous>)
+    at devtools_worker-cb4b391887eb8867.min.js.br:3:376
+(anonymous) @ devtools_worker-cb4b391887eb8867.min.js.br:1973Understand this error
+devtools_worker-cb4b391887eb8867.min.js.br:3209 Error: Build failed with 1 error:
+virtual-fs:file:///src/app/components/AdminDashboard.tsx:33:9: ERROR: No matching export in "virtual-fs:file:///utils/supabase/info.ts" for import "getSupabaseConfig"
+    at Z (devtools_worker-cb4b391887eb8867.min.js.br:8:5768)
+    at devtools_worker-cb4b391887eb8867.min.js.br:676:23008
+    at y (devtools_worker-cb4b391887eb8867.min.js.br:676:17720)
+    at G (devtools_worker-cb4b391887eb8867.min.js.br:676:22961)
+    at devtools_worker-cb4b391887eb8867.min.js.br:676:23116
+    at new Promise (<anonymous>)
+    at c.on-end (devtools_worker-cb4b391887eb8867.min.js.br:676:23100)
+    at devtools_worker-cb4b391887eb8867.min.js.br:676:10232
+    at Generator.next (<anonymous>)
+    at devtools_worker-cb4b391887eb8867.min.js.br:3:376
+m5 @ devtools_worker-cb4b391887eb8867.min.js.br:3209Understand this error
+/api/rev/WxKSbAwJsYt0g6aP1mmCfu/code_snapshot/7fdcce142ba90e306f3bec2be7e06648e615a21b8167f1105c09db65ff64e483:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+vendor-core-ade2edecaf4781c7.min.js.br:54 Failed to fetch snapshot files: E: XHR for "/api/rev/WxKSbAwJsYt0g6aP1mmCfu/code_snapshot/7fdcce142ba90e306f3bec2be7e06648e615a21b8167f1105c09db65ff64e483" failed with status 404
+    at C (3186-5d955a18ed0f9b29.min.js.br:1135:13967)
+    at async Object.k [as get] (3186-5d955a18ed0f9b29.min.js.br:1135:14350)
+    at async 5531-b8e5f076817d173e.min.js.br:3:24675
+    at async 5531-b8e5f076817d173e.min.js.br:34:205801
+    at async 5531-b8e5f076817d173e.min.js.br:3:25105
+    at async k (5531-b8e5f076817d173e.min.js.br:34:205309)
+    at async 5531-b8e5f076817d173e.min.js.br:34:114835
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:54Understand this warning
+vendor-core-ade2edecaf4781c7.min.js.br:54 [Livegraph] Connection closed. Code: 1006, reason: 
+/api/figment-proxy/monitor:1  Failed to load resource: net::ERR_NAME_NOT_RESOLVEDUnderstand this error
+vendor-core-ade2edecaf4781c7.min.js.br:54 [MultiplayerSession] connecting to wss://www.figma.com/api/multiplayer/WxKSbAwJsYt0g6aP1mmCfu?role=editor&tracking_session_id=pnmebbN6wcgrQUcG&version=151&recentReload=0&file-load-streaming-compression=&user-id=1395110072994207006&client_release=71a654e3f7c84371a154bcee0380e86a4f6c3018&reconnect-key=e27c734a1fc02c3ffa2a3cae17bd3f0f66e7aadb&reconnect-sequence-number=5168&initialFileVersion=106&previousLoadMode=full&incremental-loading-validation=0
+vendor-core-ade2edecaf4781c7.min.js.br:54 [MultiplayerSession] Joining file version 106 (skip_reload reconnect)
+/api/rev/WxKSbAwJsYt0g6aP1mmCfu/code_snapshot/fd6a11aeec3a7d126b7fb56e2bec6878235369b38b1f47b2911915810aca1c72:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+vendor-core-ade2edecaf4781c7.min.js.br:54 Failed to fetch snapshot files: E: XHR for "/api/rev/WxKSbAwJsYt0g6aP1mmCfu/code_snapshot/fd6a11aeec3a7d126b7fb56e2bec6878235369b38b1f47b2911915810aca1c72" failed with status 404
+    at C (3186-5d955a18ed0f9b29.min.js.br:1135:13967)
+    at async Object.k [as get] (3186-5d955a18ed0f9b29.min.js.br:1135:14350)
+    at async 5531-b8e5f076817d173e.min.js.br:3:24675
+    at async 5531-b8e5f076817d173e.min.js.br:34:205801
+    at async 5531-b8e5f076817d173e.min.js.br:3:25105
+    at async k (5531-b8e5f076817d173e.min.js.br:34:205309)
+    at async 5531-b8e5f076817d173e.min.js.br:34:114835

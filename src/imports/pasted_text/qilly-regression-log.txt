@@ -1,0 +1,523 @@
+Kgabo Sekhula@DESKTOP-85VH3KR MINGW64 ~/Onlinepricingsystem-main/selenium_tests (dev-branch)
+$ python qilly_regression_suite.py
+
+DevTools listening on ws://127.0.0.1:60402/devtools/browser/99cdc8e2-50db-45cd-869d-41aae4fe1443
+
+🌐 Testing against: https://qilly-test.figma.site/
+test_01_admin_login (__main__.TestAuthenticationFlows.test_01_admin_login)
+Test admin login flow ...
+🔐 Testing Admin Login...
+ERROR
+test_02_partner_login (__main__.TestAuthenticationFlows.test_02_partner_login)
+Test partner portal login ...
+🤝 Testing Partner Login...
+ERROR
+test_03_free_tier_signup (__main__.TestAuthenticationFlows.test_03_free_tier_signup)
+Test free tier user signup ...
+📝 Testing Free Tier Signup...
+ERROR
+
+DevTools listening on ws://127.0.0.1:61709/devtools/browser/68ff5496-2cbb-412c-8eaa-0d900d436624
+
+🌐 Testing against: https://qilly-test.figma.site/
+test_01_submit_construction_partner_application (__main__.TestPartnerApplicationFlow.test_01_submit_construction_partner_application)
+Test construction firm partner application ...
+🏗️ Testing Construction Partner Application...
+ERROR
+test_02_submit_software_partner_application (__main__.TestPartnerApplicationFlow.test_02_submit_software_partner_application)
+Test software platform partner application ...
+💻 Testing Software Partner Application...
+ERROR
+
+DevTools listening on ws://127.0.0.1:65411/devtools/browser/8ce87481-f298-4eff-be1e-98fcfc23b2f8
+
+🌐 Testing against: https://qilly-test.figma.site/
+test_01_admin_approve_partner_application (__main__.TestAdminPartnerApproval.test_01_admin_approve_partner_application)
+Test admin approving a partner application ...
+✅ Testing Admin Partner Approval...
+ERROR
+
+DevTools listening on ws://127.0.0.1:58743/devtools/browser/db220e4a-befd-4c18-bd80-955f2772837d
+
+🌐 Testing against: https://qilly-test.figma.site/
+test_01_create_new_project (__main__.TestBOQCreationFlow.test_01_create_new_project)
+Test creating a new project ...
+📋 Testing New Project Creation...
+ERROR
+test_02_add_boq_items (__main__.TestBOQCreationFlow.test_02_add_boq_items)
+Test adding BOQ items to project ...
+📝 Testing BOQ Item Addition...
+ERROR
+
+DevTools listening on ws://127.0.0.1:51324/devtools/browser/16e79912-1c19-498c-a250-d9697c035f21
+
+🌐 Testing against: https://qilly-test.figma.site/
+test_01_upgrade_to_professional (__main__.TestPaymentFlow.test_01_upgrade_to_professional)
+Test upgrading from FREE to PROFESSIONAL tier ...
+💳 Testing Tier Upgrade to Professional...
+ERROR
+
+DevTools listening on ws://127.0.0.1:57760/devtools/browser/7d74dcf8-0500-40d2-a006-e6ad57fe358a
+
+🌐 Testing against: https://qilly-test.figma.site/
+test_01_admin_dashboard_tabs (__main__.TestNavigationAndUI.test_01_admin_dashboard_tabs)
+Test all admin dashboard tabs are accessible ...
+🧭 Testing Admin Dashboard Navigation...
+ERROR
+test_02_responsive_design (__main__.TestNavigationAndUI.test_02_responsive_design)
+Test responsive design at different screen sizes ...
+📱 Testing Responsive Design...
+📸 Screenshot saved: screenshots/mobile_view_20260316_165405.png
+📸 Screenshot saved: screenshots/tablet_view_20260316_165407.png
+📸 Screenshot saved: screenshots/desktop_view_20260316_165408.png
+✅ Responsive design tested at all breakpoints
+ok
+
+DevTools listening on ws://127.0.0.1:50098/devtools/browser/09861cfb-3882-4372-9692-18c808d904c7
+
+🌐 Testing against: https://qilly-test.figma.site/
+test_01_login_validation (__main__.TestDataValidation.test_01_login_validation)
+Test login form validation ...
+🔍 Testing Login Validation...
+⚠️  No validation error found
+ERROR
+test_02_boq_quantity_validation (__main__.TestDataValidation.test_02_boq_quantity_validation)
+Test BOQ quantity must be positive number ...
+🔢 Testing BOQ Quantity Validation...
+ERROR
+
+======================================================================
+ERROR: test_01_admin_login (__main__.TestAuthenticationFlows.test_01_admin_login)
+Test admin login flow
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite.py", line 110, in test_01_admin_login
+    email_input = self.wait.until(
+        EC.presence_of_element_located((By.NAME, "email"))
+    )
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\wait.py", line 105, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message:
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff73f3eaa55
+        0x7ff73f148630
+        0x7ff73eedd75d
+        0x7ff73ef3862e
+        0x7ff73ef3893c
+        0x7ff73ef88d87
+        0x7ff73ef8591c
+        0x7ff73ef29098
+        0x7ff73ef29f83
+        0x7ff73f417810
+        0x7ff73f411afd
+        0x7ff73f432c1a
+        0x7ff73f163345
+        0x7ff73f16b81c
+        0x7ff73f151924
+        0x7ff73f151ad6
+        0x7ff73f137e47
+        0x7ff95ac6e8d7
+        0x7ff95c86c48c
+
+
+======================================================================
+ERROR: test_02_partner_login (__main__.TestAuthenticationFlows.test_02_partner_login)
+Test partner portal login
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite.py", line 152, in test_02_partner_login
+    email_input = self.wait.until(
+        EC.presence_of_element_located((By.NAME, "email"))
+    )
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\wait.py", line 105, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message:
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff73f3eaa55
+        0x7ff73f148630
+        0x7ff73eedd75d
+        0x7ff73ef3862e
+        0x7ff73ef3893c
+        0x7ff73ef88d87
+        0x7ff73ef8591c
+        0x7ff73ef29098
+        0x7ff73ef29f83
+        0x7ff73f417810
+        0x7ff73f411afd
+        0x7ff73f432c1a
+        0x7ff73f163345
+        0x7ff73f16b81c
+        0x7ff73f151924
+        0x7ff73f151ad6
+        0x7ff73f137e47
+        0x7ff95ac6e8d7
+        0x7ff95c86c48c
+
+
+======================================================================
+ERROR: test_03_free_tier_signup (__main__.TestAuthenticationFlows.test_03_free_tier_signup)
+Test free tier user signup
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite.py", line 185, in test_03_free_tier_signup
+    email_input = self.wait.until(
+        EC.presence_of_element_located((By.NAME, "email"))
+    )
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\wait.py", line 105, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message:
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff73f3eaa55
+        0x7ff73f148630
+        0x7ff73eedd75d
+        0x7ff73ef3862e
+        0x7ff73ef3893c
+        0x7ff73ef88d87
+        0x7ff73ef8591c
+        0x7ff73ef29098
+        0x7ff73ef29f83
+        0x7ff73f417810
+        0x7ff73f411afd
+        0x7ff73f432c1a
+        0x7ff73f163345
+        0x7ff73f16b81c
+        0x7ff73f151924
+        0x7ff73f151ad6
+        0x7ff73f137e47
+        0x7ff95ac6e8d7
+        0x7ff95c86c48c
+
+
+======================================================================
+ERROR: test_01_submit_construction_partner_application (__main__.TestPartnerApplicationFlow.test_01_submit_construction_partner_application)
+Test construction firm partner application
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite.py", line 231, in test_01_submit_construction_partner_application
+    company_input = self.driver.find_element(By.NAME, "company")
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py", line 742, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py", line 348, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"css selector","selector":"[name="company"]"}
+  (Session info: chrome=145.0.7632.162); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff73f3eaa55
+        0x7ff73f148630
+        0x7ff73eedd75d
+        0x7ff73ef3862e
+        0x7ff73ef3893c
+        0x7ff73ef88d87
+        0x7ff73ef8591c
+        0x7ff73ef29098
+        0x7ff73ef29f83
+        0x7ff73f417810
+        0x7ff73f411afd
+        0x7ff73f432c1a
+        0x7ff73f163345
+        0x7ff73f16b81c
+        0x7ff73f151924
+        0x7ff73f151ad6
+        0x7ff73f137e47
+        0x7ff95ac6e8d7
+        0x7ff95c86c48c
+
+
+======================================================================
+ERROR: test_02_submit_software_partner_application (__main__.TestPartnerApplicationFlow.test_02_submit_software_partner_application)
+Test software platform partner application
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite.py", line 285, in test_02_submit_software_partner_application
+    software_tab = self.wait.until(
+        EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Software Platform')]"))
+    )
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\wait.py", line 105, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message:
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff73f3eaa55
+        0x7ff73f148630
+        0x7ff73eedd75d
+        0x7ff73ef3862e
+        0x7ff73ef3893c
+        0x7ff73ef88d87
+        0x7ff73ef8591c
+        0x7ff73ef29098
+        0x7ff73ef29f83
+        0x7ff73f417810
+        0x7ff73f411afd
+        0x7ff73f432c1a
+        0x7ff73f163345
+        0x7ff73f16b81c
+        0x7ff73f151924
+        0x7ff73f151ad6
+        0x7ff73f137e47
+        0x7ff95ac6e8d7
+        0x7ff95c86c48c
+
+
+======================================================================
+ERROR: test_01_admin_approve_partner_application (__main__.TestAdminPartnerApproval.test_01_admin_approve_partner_application)
+Test admin approving a partner application
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite.py", line 341, in test_01_admin_approve_partner_application
+    email_input = self.wait.until(EC.presence_of_element_located((By.NAME, "email")))
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\wait.py", line 105, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message:
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff73f3eaa55
+        0x7ff73f148630
+        0x7ff73eedd75d
+        0x7ff73ef3862e
+        0x7ff73ef3893c
+        0x7ff73ef88d87
+        0x7ff73ef8591c
+        0x7ff73ef29098
+        0x7ff73ef29f83
+        0x7ff73f417810
+        0x7ff73f411afd
+        0x7ff73f432c1a
+        0x7ff73f163345
+        0x7ff73f16b81c
+        0x7ff73f151924
+        0x7ff73f151ad6
+        0x7ff73f137e47
+        0x7ff95ac6e8d7
+        0x7ff95c86c48c
+
+
+======================================================================
+ERROR: test_01_create_new_project (__main__.TestBOQCreationFlow.test_01_create_new_project)
+Test creating a new project
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite.py", line 389, in test_01_create_new_project
+    email_input = self.wait.until(EC.presence_of_element_located((By.NAME, "email")))
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\wait.py", line 105, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message:
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff73f3eaa55
+        0x7ff73f148630
+        0x7ff73eedd75d
+        0x7ff73ef3862e
+        0x7ff73ef3893c
+        0x7ff73ef88d87
+        0x7ff73ef8591c
+        0x7ff73ef29098
+        0x7ff73ef29f83
+        0x7ff73f417810
+        0x7ff73f411afd
+        0x7ff73f432c1a
+        0x7ff73f163345
+        0x7ff73f16b81c
+        0x7ff73f151924
+        0x7ff73f151ad6
+        0x7ff73f137e47
+        0x7ff95ac6e8d7
+        0x7ff95c86c48c
+
+
+======================================================================
+ERROR: test_02_add_boq_items (__main__.TestBOQCreationFlow.test_02_add_boq_items)
+Test adding BOQ items to project
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite.py", line 424, in test_02_add_boq_items
+    add_item_button = self.wait.until(
+        EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Add BOQ Item')]"))
+    )
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\wait.py", line 105, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message:
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff73f3eaa55
+        0x7ff73f148630
+        0x7ff73eedd75d
+        0x7ff73ef3862e
+        0x7ff73ef3893c
+        0x7ff73ef88d87
+        0x7ff73ef8591c
+        0x7ff73ef29098
+        0x7ff73ef29f83
+        0x7ff73f417810
+        0x7ff73f411afd
+        0x7ff73f432c1a
+        0x7ff73f163345
+        0x7ff73f16b81c
+        0x7ff73f151924
+        0x7ff73f151ad6
+        0x7ff73f137e47
+        0x7ff95ac6e8d7
+        0x7ff95c86c48c
+
+
+======================================================================
+ERROR: test_01_upgrade_to_professional (__main__.TestPaymentFlow.test_01_upgrade_to_professional)
+Test upgrading from FREE to PROFESSIONAL tier
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite.py", line 459, in test_01_upgrade_to_professional
+    email_input = self.wait.until(EC.presence_of_element_located((By.NAME, "email")))
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\wait.py", line 105, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message:
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff73f3eaa55
+        0x7ff73f148630
+        0x7ff73eedd75d
+        0x7ff73ef3862e
+        0x7ff73ef3893c
+        0x7ff73ef88d87
+        0x7ff73ef8591c
+        0x7ff73ef29098
+        0x7ff73ef29f83
+        0x7ff73f417810
+        0x7ff73f411afd
+        0x7ff73f432c1a
+        0x7ff73f163345
+        0x7ff73f16b81c
+        0x7ff73f151924
+        0x7ff73f151ad6
+        0x7ff73f137e47
+        0x7ff95ac6e8d7
+        0x7ff95c86c48c
+
+
+======================================================================
+ERROR: test_01_admin_dashboard_tabs (__main__.TestNavigationAndUI.test_01_admin_dashboard_tabs)
+Test all admin dashboard tabs are accessible
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite.py", line 503, in test_01_admin_dashboard_tabs
+    email_input = self.wait.until(EC.presence_of_element_located((By.NAME, "email")))
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\wait.py", line 105, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message:
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff73f3eaa55
+        0x7ff73f148630
+        0x7ff73eedd75d
+        0x7ff73ef3862e
+        0x7ff73ef3893c
+        0x7ff73ef88d87
+        0x7ff73ef8591c
+        0x7ff73ef29098
+        0x7ff73ef29f83
+        0x7ff73f417810
+        0x7ff73f411afd
+        0x7ff73f432c1a
+        0x7ff73f163345
+        0x7ff73f16b81c
+        0x7ff73f151924
+        0x7ff73f151ad6
+        0x7ff73f137e47
+        0x7ff95ac6e8d7
+        0x7ff95c86c48c
+
+
+======================================================================
+ERROR: test_01_login_validation (__main__.TestDataValidation.test_01_login_validation)
+Test login form validation
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite.py", line 574, in test_01_login_validation
+    email_input = self.driver.find_element(By.NAME, "email")
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py", line 742, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py", line 348, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"css selector","selector":"[name="email"]"}
+  (Session info: chrome=145.0.7632.162); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff73f3eaa55
+        0x7ff73f148630
+        0x7ff73eedd75d
+        0x7ff73ef3862e
+        0x7ff73ef3893c
+        0x7ff73ef88d87
+        0x7ff73ef8591c
+        0x7ff73ef29098
+        0x7ff73ef29f83
+        0x7ff73f417810
+        0x7ff73f411afd
+        0x7ff73f432c1a
+        0x7ff73f163345
+        0x7ff73f16b81c
+        0x7ff73f151924
+        0x7ff73f151ad6
+        0x7ff73f137e47
+        0x7ff95ac6e8d7
+        0x7ff95c86c48c
+
+
+======================================================================
+ERROR: test_02_boq_quantity_validation (__main__.TestDataValidation.test_02_boq_quantity_validation)
+Test BOQ quantity must be positive number
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite.py", line 589, in test_02_boq_quantity_validation
+    email_input = self.wait.until(EC.presence_of_element_located((By.NAME, "email")))
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\wait.py", line 105, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message:
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff73f3eaa55
+        0x7ff73f148630
+        0x7ff73eedd75d
+        0x7ff73ef3862e
+        0x7ff73ef3893c
+        0x7ff73ef88d87
+        0x7ff73ef8591c
+        0x7ff73ef29098
+        0x7ff73ef29f83
+        0x7ff73f417810
+        0x7ff73f411afd
+        0x7ff73f432c1a
+        0x7ff73f163345
+        0x7ff73f16b81c
+        0x7ff73f151924
+        0x7ff73f151ad6
+        0x7ff73f137e47
+        0x7ff95ac6e8d7
+        0x7ff95c86c48c
+
+
+----------------------------------------------------------------------
+Ran 13 tests in 426.750s
+
+FAILED (errors=12)
+
+======================================================================
+🎯 QILLY REGRESSION TEST SUITE - RESULTS
+======================================================================
+Tests Run: 13
+✅ Passed: 1
+❌ Failed: 0
+⚠️  Errors: 12
+======================================================================
+
+Kgabo Sekhula@DESKT

@@ -1,0 +1,257 @@
+[CWD] C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests
+[URL] https://qilly-multi-env.figma.site/
+[PYTHON VERSION] 3.14.3
+
+[MODE] HTML Report (auto-named, opens in browser)
+
+[COMPAT] ✅ Patched unittest._count_relevant_tb_levels (Python 3.12+ / html-testRunner fix — reports will now be written even when tests fail)
+[CWD] C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests
+[REPORTS DIR] C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\reports
+
+📊 Report target  : C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\reports\qilly_report_20260318_161200.html
+   Output dir     : C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\reports
+   Tests to run   : 32
+
+▶  Running tests ...
+──────────────────────────────────────────────────────────────────────
+
+Running tests...
+----------------------------------------------------------------------
+ test_01_register_free_account (__main__.TestAccountSetup.test_01_register_free_account) ... OK (50.207367)s
+ test_02_register_professional_account (__main__.TestAccountSetup.test_02_register_professional_account) ... OK (28.635771)s
+ test_03_register_enterprise_account (__main__.TestAccountSetup.test_03_register_enterprise_account) ... OK (28.562388)s
+ test_04_verify_instant_payment_logins (__main__.TestAccountSetup.test_04_verify_instant_payment_logins) ... OK (17.598386)s
+ test_05_admin_verify_instant_payment_statuses (__main__.TestAccountSetup.test_05_admin_verify_instant_payment_statuses) ... OK (20.845407)s
+ test_01_admin_login (__main__.TestAuthenticationFlows.test_01_admin_login) ... OK (25.370118)s
+ test_02_partner_login (__main__.TestAuthenticationFlows.test_02_partner_login) ... OK (28.943536)s
+ test_03_basic_user_signup (__main__.TestAuthenticationFlows.test_03_basic_user_signup) ... OK (14.179136)s
+ test_04_free_tier_login (__main__.TestAuthenticationFlows.test_04_free_tier_login) ... OK (9.780938)s
+ test_01_construction_partner_application (__main__.TestPartnerApplicationFlow.test_01_construction_partner_application) ... OK (15.973159)s
+ test_02_software_partner_application (__main__.TestPartnerApplicationFlow.test_02_software_partner_application) ... OK (12.703020)s
+ test_01_admin_approve_partner_application (__main__.TestAdminPartnerApproval.test_01_admin_approve_partner_application) ... OK (46.386619)s
+ test_01_create_new_project (__main__.TestBOQCreationFlow.test_01_create_new_project) ... OK (15.178807)s
+ test_02_add_boq_items (__main__.TestBOQCreationFlow.test_02_add_boq_items) ... OK (19.248456)s
+ test_01_admin_dashboard_tabs (__main__.TestNavigationAndUI.test_01_admin_dashboard_tabs) ... OK (25.461837)s
+ test_02_responsive_design (__main__.TestNavigationAndUI.test_02_responsive_design) ... OK (7.150195)s
+ test_01_login_with_invalid_credentials (__main__.TestDataValidation.test_01_login_with_invalid_credentials) ... OK (11.537371)s
+ test_02_contractor_form_validation (__main__.TestDataValidation.test_02_contractor_form_validation) ... OK (7.499309)s
+ test_01_manual_eft_payment_flow (__main__.TestPaymentProcessingFlows.test_01_manual_eft_payment_flow) ... FAIL (64.687636)s
+ test_02_stitch_instant_eft_flow (__main__.TestPaymentProcessingFlows.test_02_stitch_instant_eft_flow) ... OK (27.940973)s
+ test_03_payfast_payment_flow (__main__.TestPaymentProcessingFlows.test_03_payfast_payment_flow) ... OK (27.832770)s
+ test_04_admin_approves_manual_eft_via_payments_tab (__main__.TestPaymentProcessingFlows.test_04_admin_approves_manual_eft_via_payments_tab) ... OK (33.758502)s
+ test_01_register_manual_eft_contractor (__main__.TestPaymentGating.test_01_register_manual_eft_contractor) ... FAIL (67.576987)s
+ test_02_verify_login_is_blocked_before_approval (__main__.TestPaymentGating.test_02_verify_login_is_blocked_before_approval) ... OK (2.609804)s
+ test_03_admin_approves_manual_eft_via_payments_tab (__main__.TestPaymentGating.test_03_admin_approves_manual_eft_via_payments_tab) ... OK (2.092726)s
+ test_04_verify_login_succeeds_after_approval (__main__.TestPaymentGating.test_04_verify_login_succeeds_after_approval) ... OK (2.101496)s
+ test_01_enterprise_team_management_access (__main__.TestMultiUserTeamManagement.test_01_enterprise_team_management_access) ... OK (14.921199)s
+ test_02_add_team_member (__main__.TestMultiUserTeamManagement.test_02_add_team_member) ... OK (24.344248)s
+ test_01_professional_quota_display (__main__.TestBOQQuotaLimits.test_01_professional_quota_display) ... OK (12.552758)s
+ test_02_enterprise_quota_display (__main__.TestBOQQuotaLimits.test_02_enterprise_quota_display) ... ERROR (7.415508)s
+ test_03_free_tier_trial_limit (__main__.TestBOQQuotaLimits.test_03_free_tier_trial_limit) ... ERROR (7.242695)s
+ test_04_quota_upgrade_prompt_chain (__main__.TestBOQQuotaLimits.test_04_quota_upgrade_prompt_chain) ... OK (2.721481)s
+
+======================================================================
+ERROR [7.415508s]: __main__.TestBOQQuotaLimits.test_02_enterprise_quota_display
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 2702, in test_02_enterprise_quota_display
+    self.logout("enterprise")
+    ~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 264, in logout
+    btn.click()
+    ~~~~~~~~~^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webelement.py", line 94, in click
+    self._execute(Command.CLICK_ELEMENT)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webelement.py", line 395, in _execute
+    return self._parent.execute(command, params)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py", line 348, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=145.0.7632.162); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff63845aa55
+        0x7ff6381b8630
+        0x7ff637f4d75d
+        0x7ff637f556c1
+        0x7ff637f587e4
+        0x7ff637f588af
+        0x7ff637fac360
+        0x7ff637fa9aa3
+        0x7ff637f9b426
+        0x7ff637fd19da
+        0x7ff637f9aca6
+        0x7ff637ff591c
+        0x7ff637f99098
+        0x7ff637f99f83
+        0x7ff638487810
+        0x7ff638481afd
+        0x7ff6384a2c1a
+        0x7ff6381d3345
+        0x7ff6381db81c
+        0x7ff6381c1924
+        0x7ff6381c1ad6
+        0x7ff6381a7e47
+        0x7ff9aa7be8d7
+        0x7ff9abf6c48c
+
+
+======================================================================
+ERROR [7.242695s]: __main__.TestBOQQuotaLimits.test_03_free_tier_trial_limit
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 2726, in test_03_free_tier_trial_limit
+    self.logout("free")
+    ~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 255, in logout
+    btn = WebDriverWait(self.driver, 8).until(
+        EC.element_to_be_clickable((
+    ...<4 lines>...
+        ))
+    )
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\wait.py", line 96, in until
+    value = method(self._driver)
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\expected_conditions.py", line 364, in _predicate
+    element = visibility_of(target)(driver)
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\expected_conditions.py", line 173, in _predicate
+    return _element_if_visible(element)
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\expected_conditions.py", line 179, in _element_if_visible
+    return element if element.is_displayed() == visibility else False
+                      ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webelement.py", line 252, in is_displayed
+    return self.parent.execute_script(f"/* isDisplayed */return ({isDisplayed_js}).apply(null, arguments);", self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py", line 408, in execute_script
+    return self.execute(command, {"script": script, "args": converted_args})["value"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py", line 348, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=145.0.7632.162); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff63845aa55
+        0x7ff6381b8630
+        0x7ff637f4d75d
+        0x7ff637f556c1
+        0x7ff637f58b7e
+        0x7ff637ff6ce1
+        0x7ff637fd19da
+        0x7ff637ff591c
+        0x7ff637f99098
+        0x7ff637f99f83
+        0x7ff638487810
+        0x7ff638481afd
+        0x7ff6384a2c1a
+        0x7ff6381d3345
+        0x7ff6381db81c
+        0x7ff6381c1924
+        0x7ff6381c1ad6
+        0x7ff6381a7e47
+        0x7ff9aa7be8d7
+        0x7ff9abf6c48c
+
+
+======================================================================
+FAIL [64.687636s]: __main__.TestPaymentProcessingFlows.test_01_manual_eft_payment_flow
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 189, in tearDown
+    self.fail(f"\n  ASSERTION FAILURES:\n  {msg}")
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError:
+  ASSERTION FAILURES:
+  ❌ FAIL: Redirected to auth after manual EFT registration
+
+======================================================================
+FAIL [67.576987s]: __main__.TestPaymentGating.test_01_register_manual_eft_contractor
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 189, in tearDown
+    self.fail(f"\n  ASSERTION FAILURES:\n  {msg}")
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError:
+  ASSERTION FAILURES:
+  ❌ FAIL: Not redirected to auth after Manual EFT
+
+----------------------------------------------------------------------
+Ran 32 tests in 0:12:47
+
+FAILED
+ (Failures=2, Errors=2)
+
+Generating HTML reports...
+reports\qilly_report_20260318_161200.html
+──────────────────────────────────────────────────────────────────────
+
+======================================================================
+📄  REPORT SAVED  (67,705 bytes)
+    C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\reports\qilly_report_20260318_161200.html
+======================================================================
+
+🌐 Opened in browser: file:///C:/Users/Kgabo%20Sekhula/Onlinepricingsystem-main/selenium_tests/reports/qilly_report_20260318_161200.html
+
+======================================================================
+🎯  QILLY REGRESSION SUITE v4.0 — SUMMARY
+======================================================================
+  Suite Run ID : 510571d6  (unique per run — no email clashes)
+  Tests Run    : 32
+  ✅ Passed    : 28
+  ❌ Failed    : 2
+  ⚠️  Errors    : 2
+
+  ACCOUNTS REGISTERED THIS RUN:
+  FREE  (free_510571d6@qilly-test.com): ✅
+  PRO   (pro_510571d6@qilly-test.com): ✅
+  ENT   (ent_510571d6@qilly-test.com): ✅
+
+  ISSUE FIXES APPLIED (v7.0):
+  1. Payment cards: clicked as cursor-pointer <div>, then pay button
+  2. Admin login: always via AdminLogin (id=admin-email), not AuthForm
+  3. Assertions: _require() → fail in tearDown; _soft_warn() = non-critical
+  4. Payment expansion: select_payment_method() enforces 2-step sequence
+  5. Payment-gated login (ContractorSignup/AuthForm/AdminDashboard):
+       FREE/Stitch/PayFast → status=approved, payment_approved=True (instant)
+       Manual EFT          → status=pending,  payment_approved=False (awaits admin)
+  6. Email uniqueness: SUITE_RUN_ID=uuid4().hex[:8] → fresh every run
+  7. Toast overlay: dismiss_toasts() + JS click before Logout button
+  8. PAYMENT ADMIN FIXES (v6.0):
+     PaymentVerification.tsx: reads from SUPABASE contractors table (NOT localStorage)
+       Stitch/PayFast → 'Auto-Approved' (green) — no admin action needed
+       Manual EFT     → 'EFT Pending' (amber)  — admin must verify bank statement
+       EFT Verified   → 'EFT Verified' (blue)  — after admin approval
+     Verify & Approve EFT button: sets status=approved + payment_approved=True in DB
+     AdminDashboard Contractors tab: Payment column shows method+status at a glance
+  9. BLANK REPORTS ROOT CAUSE FIXED (v7.0) — Python 3.12 / 3.14 incompatibility:
+     unittest.TestResult._count_relevant_tb_levels() removed in Python 3.12.
+     html-testRunner calls it when recording ANY test failure → AttributeError
+     → runner crashes BEFORE writing the HTML file → reports/ always empty.
+     Fix: monkey-patch restores the method at startup using _is_relevant_tb_level().
+     This patch runs BEFORE import HtmlTestRunner so HtmlTestResult inherits it.
+  SELENIUM TEST FIXES (v7.0):
+     SETUP.05: badge checks downgraded from _require to _soft_warn (UI nicety,
+               not core logic — test_04 is the hard proof Stitch/PayFast work).
+     SETUP.05: XPath uses plain text 'Stitch'/'PayFast' not emoji, more robust.
+     TC-7.04:  approves via Payments tab, verifies Stitch has no approve button.
+======================================================================
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  STATUS  : FAILURES DETECTED Γ¥î  (exit code 1)
+
+  Reports    : C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\reports\
+  Screenshots: C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\screenshots\
+
+  Tip: run_tests.bat html       ΓåÉ HTML report  (default)
+       run_tests.bat pytest      ΓåÉ pytest runner
+       run_tests.bat console     ΓåÉ console only
+       run_tests.bat class Name  ΓåÉ single test class
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+Press any key to continue . . .

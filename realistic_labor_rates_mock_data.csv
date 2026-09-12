@@ -1,0 +1,144 @@
+description,description_normalized,unit,trade_category,composite_rate,labor_percentage,labor_rate,material_rate,equipment_rate,source,notes
+Excavation soft soil manual,excavation soft soil manual,m³,earthworks,245.00,0.80,196.00,24.50,24.50,BuildAid 2025/2026 (Industry Standard),High labor intensity - manual digging
+Excavation hard soil mechanical,excavation hard soil mechanical,m³,earthworks,180.00,0.25,45.00,90.00,45.00,BuildAid 2025/2026 (Industry Standard),Mechanical excavation - TLB/excavator
+Excavation rock mechanical,excavation rock mechanical,m³,earthworks,420.00,0.20,84.00,210.00,126.00,BuildAid 2025/2026 (Industry Standard),Rock breaking required
+Backfill excavation compact,backfill excavation compact,m³,earthworks,125.00,0.70,87.50,12.50,25.00,BuildAid 2025/2026 (Industry Standard),Manual compaction
+Backfill selected material,backfill selected material,m³,earthworks,185.00,0.40,74.00,92.50,18.50,BuildAid 2025/2026 (Industry Standard),Imported material
+Remove topsoil,remove topsoil,m³,earthworks,95.00,0.75,71.25,9.50,14.25,BuildAid 2025/2026 (Industry Standard),Strip and stockpile
+Cart away spoil,cart away spoil,m³,earthworks,135.00,0.30,40.50,67.50,27.00,BuildAid 2025/2026 (Industry Standard),Transport off-site
+Level and grade,level and grade,m²,earthworks,28.00,0.60,16.80,2.80,8.40,BuildAid 2025/2026 (Industry Standard),Site preparation
+Compact subgrade,compact subgrade,m²,earthworks,32.00,0.50,16.00,3.20,12.80,BuildAid 2025/2026 (Industry Standard),Mechanical compaction
+Topsoil spreading,topsoil spreading,m³,earthworks,145.00,0.55,79.75,43.50,21.75,BuildAid 2025/2026 (Industry Standard),Final landscaping
+Concrete 15MPa blinding,concrete 15mpa blinding,m³,concrete,950.00,0.18,171.00,665.00,114.00,BuildAid 2025/2026 (Industry Standard),Blinding layer under foundations
+Concrete 20MPa general,concrete 20mpa general,m³,concrete,1050.00,0.18,189.00,735.00,126.00,BuildAid 2025/2026 (Industry Standard),General construction
+Concrete 25MPa foundations,concrete 25mpa foundations,m³,concrete,1200.00,0.18,216.00,840.00,144.00,BuildAid 2025/2026 (Industry Standard),Strip footings and pads
+Concrete 30MPa slabs,concrete 30mpa slabs,m³,concrete,1350.00,0.18,243.00,945.00,162.00,BuildAid 2025/2026 (Industry Standard),Ground floor slabs
+Concrete 40MPa columns,concrete 40mpa columns,m³,concrete,1680.00,0.20,336.00,1176.00,168.00,BuildAid 2025/2026 (Industry Standard),Structural columns
+Concrete 50MPa beams,concrete 50mpa beams,m³,concrete,1850.00,0.20,370.00,1295.00,185.00,BuildAid 2025/2026 (Industry Standard),Suspended beams
+Formwork foundations,formwork foundations,m²,formwork,180.00,0.75,135.00,27.00,18.00,BuildAid 2025/2026 (Industry Standard),Timber formwork
+Formwork columns,formwork columns,m²,formwork,220.00,0.75,165.00,33.00,22.00,BuildAid 2025/2026 (Industry Standard),Vertical formwork
+Formwork beams,formwork beams,m²,formwork,245.00,0.75,183.75,36.75,24.50,BuildAid 2025/2026 (Industry Standard),Suspended beams
+Formwork slabs,formwork slabs,m²,formwork,265.00,0.75,198.75,39.75,26.50,BuildAid 2025/2026 (Industry Standard),Soffit formwork
+Formwork stairs,formwork stairs,m²,formwork,385.00,0.80,308.00,38.50,38.50,BuildAid 2025/2026 (Industry Standard),Complex formwork
+Remove formwork,remove formwork,m²,formwork,25.00,0.90,22.50,1.25,1.25,BuildAid 2025/2026 (Industry Standard),Strike formwork
+Reinforcement Y10 bars,reinforcement y10 bars,kg,reinforcement,16.00,0.55,8.80,6.40,0.80,BuildAid 2025/2026 (Industry Standard),10mm diameter bars
+Reinforcement Y12 bars,reinforcement y12 bars,kg,reinforcement,17.50,0.55,9.63,7.00,0.88,BuildAid 2025/2026 (Industry Standard),12mm diameter bars
+Reinforcement Y16 bars,reinforcement y16 bars,kg,reinforcement,18.50,0.55,10.18,7.40,0.93,BuildAid 2025/2026 (Industry Standard),16mm diameter bars
+Reinforcement Y20 bars,reinforcement y20 bars,kg,reinforcement,19.50,0.55,10.73,7.80,0.98,BuildAid 2025/2026 (Industry Standard),20mm diameter bars
+Fabric mesh A193,fabric mesh a193,m²,reinforcement,42.00,0.50,21.00,16.80,4.20,BuildAid 2025/2026 (Industry Standard),Slab reinforcement mesh
+Fabric mesh A252,fabric mesh a252,m²,reinforcement,48.00,0.50,24.00,19.20,4.80,BuildAid 2025/2026 (Industry Standard),Heavy duty mesh
+Concrete vibrating,concrete vibrating,m³,concrete,35.00,0.80,28.00,1.75,5.25,BuildAid 2025/2026 (Industry Standard),Mechanical vibration
+Concrete curing,concrete curing,m²,concrete,12.00,0.70,8.40,2.40,1.20,BuildAid 2025/2026 (Industry Standard),Water curing 7 days
+Face brickwork 220mm common brick,face brickwork 220mm common brick,m²,brickwork,680.00,0.42,285.60,340.00,54.40,BuildAid 2025/2026 (Industry Standard),Standard face brick
+Face brickwork 220mm face brick,face brickwork 220mm face brick,m²,brickwork,825.00,0.42,346.50,412.50,66.00,BuildAid 2025/2026 (Industry Standard),Quality face brick
+Common brickwork 220mm,common brickwork 220mm,m²,brickwork,580.00,0.40,232.00,290.00,58.00,BuildAid 2025/2026 (Industry Standard),Internal walls
+Brickwork 115mm half brick,brickwork 115mm half brick,m²,brickwork,385.00,0.40,154.00,192.50,38.50,BuildAid 2025/2026 (Industry Standard),Partition walls
+Blockwork 140mm hollow,blockwork 140mm hollow,m²,blockwork,350.00,0.35,122.50,175.00,52.50,BuildAid 2025/2026 (Industry Standard),Concrete blocks
+Blockwork 190mm hollow,blockwork 190mm hollow,m²,blockwork,420.00,0.35,147.00,210.00,63.00,BuildAid 2025/2026 (Industry Standard),Wider blocks
+Blockwork 140mm solid,blockwork 140mm solid,m²,blockwork,395.00,0.35,138.25,197.50,59.25,BuildAid 2025/2026 (Industry Standard),Load-bearing blocks
+Plaster internal 2-coat,plaster internal 2 coat,m²,plastering,130.00,0.55,71.50,52.00,6.50,BuildAid 2025/2026 (Industry Standard),Cement plaster internal
+Plaster external 3-coat,plaster external 3 coat,m²,plastering,185.00,0.55,101.75,74.00,9.25,BuildAid 2025/2026 (Industry Standard),Cement plaster external
+Plaster ceilings,plaster ceilings,m²,plastering,165.00,0.60,99.00,49.50,16.50,BuildAid 2025/2026 (Industry Standard),Overhead plastering
+Screeds 50mm thick,screeds 50mm thick,m²,plastering,145.00,0.50,72.50,58.00,14.50,BuildAid 2025/2026 (Industry Standard),Floor screeds
+Damp proof course,damp proof course,m²,brickwork,85.00,0.40,34.00,42.50,8.50,BuildAid 2025/2026 (Industry Standard),DPC membrane
+Concrete lintels precast,concrete lintels precast,m,brickwork,185.00,0.30,55.50,111.00,18.50,BuildAid 2025/2026 (Industry Standard),Standard lintels
+Brick paving 80mm,brick paving 80mm,m²,brickwork,385.00,0.45,173.25,192.50,19.25,BuildAid 2025/2026 (Industry Standard),Clay pavers
+Brick cleaning,brick cleaning,m²,brickwork,45.00,0.85,38.25,2.25,4.50,BuildAid 2025/2026 (Industry Standard),Acid wash clean
+Roof trusses timber,roof trusses timber,m²,roofing,420.00,0.30,126.00,252.00,42.00,BuildAid 2025/2026 (Industry Standard),Prefab timber trusses
+Roof trusses steel,roof trusses steel,m²,roofing,580.00,0.25,145.00,377.00,58.00,BuildAid 2025/2026 (Industry Standard),Steel trusses
+Roof sheeting IBR corrugated,roof sheeting ibr corrugated,m²,roofing,138.00,0.35,48.30,82.80,6.90,BuildAid 2025/2026 (Industry Standard),0.5mm IBR sheeting
+Roof sheeting chromadek,roof sheeting chromadek,m²,roofing,185.00,0.35,64.75,111.00,9.25,BuildAid 2025/2026 (Industry Standard),Chromadek sheeting
+Roof tiles concrete,roof tiles concrete,m²,roofing,295.00,0.40,118.00,147.50,29.50,BuildAid 2025/2026 (Industry Standard),Concrete roof tiles
+Roof tiles clay,roof tiles clay,m²,roofing,485.00,0.40,194.00,242.50,48.50,BuildAid 2025/2026 (Industry Standard),Clay roof tiles
+Gutters PVC 115mm,gutters pvc 115mm,m,roofing,92.00,0.35,32.20,55.20,4.60,BuildAid 2025/2026 (Industry Standard),Standard PVC gutters
+Gutters aluminum 125mm,gutters aluminum 125mm,m,roofing,135.00,0.35,47.25,81.00,6.75,BuildAid 2025/2026 (Industry Standard),Aluminum gutters
+Downpipes PVC 75mm,downpipes pvc 75mm,m,roofing,68.00,0.35,23.80,40.80,3.40,BuildAid 2025/2026 (Industry Standard),Standard downpipes
+Downpipes PVC 110mm,downpipes pvc 110mm,m,roofing,85.00,0.35,29.75,51.00,4.25,BuildAid 2025/2026 (Industry Standard),Large downpipes
+Fascia boards timber,fascia boards timber,m,roofing,125.00,0.40,50.00,62.50,12.50,BuildAid 2025/2026 (Industry Standard),Timber fascias
+Barge boards timber,barge boards timber,m,roofing,115.00,0.40,46.00,57.50,11.50,BuildAid 2025/2026 (Industry Standard),Gable end boards
+Ridge flashing,ridge flashing,m,roofing,95.00,0.40,38.00,47.50,9.50,BuildAid 2025/2026 (Industry Standard),Ridge capping
+Valley flashing,valley flashing,m,roofing,115.00,0.40,46.00,57.50,11.50,BuildAid 2025/2026 (Industry Standard),Valley gutters
+Roof battens,roof battens,m,roofing,28.00,0.45,12.60,14.00,1.40,BuildAid 2025/2026 (Industry Standard),Tile battens
+Roof insulation,roof insulation,m²,roofing,85.00,0.30,25.50,51.00,8.50,BuildAid 2025/2026 (Industry Standard),Thermal insulation
+Painting acrylic PVA walls 2-coat,painting acrylic pva walls 2 coat,m²,finishes,55.00,0.65,35.75,13.75,5.50,BuildAid 2025/2026 (Industry Standard),Standard wall painting
+Painting acrylic PVA walls 3-coat,painting acrylic pva walls 3 coat,m²,finishes,72.00,0.65,46.80,18.00,7.20,BuildAid 2025/2026 (Industry Standard),Premium wall painting
+Painting oil-based enamel doors 2-coat,painting oil based enamel doors 2 coat,m²,finishes,125.00,0.70,87.50,25.00,12.50,BuildAid 2025/2026 (Industry Standard),Door painting
+Painting oil-based enamel doors 3-coat,painting oil based enamel doors 3 coat,m²,finishes,165.00,0.70,115.50,33.00,16.50,BuildAid 2025/2026 (Industry Standard),Premium door painting
+Painting enamel windows,painting enamel windows,m²,finishes,145.00,0.70,101.50,29.00,14.50,BuildAid 2025/2026 (Industry Standard),Window painting
+Painting varnish timber,painting varnish timber,m²,finishes,185.00,0.65,120.25,46.25,18.50,BuildAid 2025/2026 (Industry Standard),Wood varnishing
+Tiling ceramic floor 300x300,tiling ceramic floor 300x300,m²,finishes,180.00,0.58,104.40,63.00,12.60,BuildAid 2025/2026 (Industry Standard),Standard floor tiles
+Tiling ceramic floor 600x600,tiling ceramic floor 600x600,m²,finishes,225.00,0.58,130.50,78.75,15.75,BuildAid 2025/2026 (Industry Standard),Large floor tiles
+Tiling ceramic wall 300x300,tiling ceramic wall 300x300,m²,finishes,195.00,0.60,117.00,58.50,19.50,BuildAid 2025/2026 (Industry Standard),Wall tiles
+Tiling porcelain 600x600,tiling porcelain 600x600,m²,finishes,385.00,0.55,211.75,134.75,38.50,BuildAid 2025/2026 (Industry Standard),Premium porcelain tiles
+Ceiling fibre cement,ceiling fibre cement,m²,finishes,165.00,0.60,99.00,49.50,16.50,BuildAid 2025/2026 (Industry Standard),Rhinoboard ceilings
+Ceiling gypsum board,ceiling gypsum board,m²,finishes,145.00,0.60,87.00,43.50,14.50,BuildAid 2025/2026 (Industry Standard),Drywall ceilings
+Ceiling suspended grid,ceiling suspended grid,m²,finishes,195.00,0.55,107.25,68.25,19.50,BuildAid 2025/2026 (Industry Standard),Suspended ceiling system
+Ceiling cornices,ceiling cornices,m,finishes,45.00,0.65,29.25,11.25,4.50,BuildAid 2025/2026 (Industry Standard),Decorative cornices
+Skirting timber,skirting timber,m,finishes,68.00,0.50,34.00,27.20,6.80,BuildAid 2025/2026 (Industry Standard),Timber skirting boards
+Skirting ceramic tile,skirting ceramic tile,m,finishes,85.00,0.55,46.75,29.75,8.50,BuildAid 2025/2026 (Industry Standard),Tiled skirting
+Door frames hardwood,door frames hardwood,nr,finishes,850.00,0.40,340.00,425.00,85.00,BuildAid 2025/2026 (Industry Standard),Timber door frames
+Door frames steel,door frames steel,nr,finishes,1250.00,0.35,437.50,687.50,125.00,BuildAid 2025/2026 (Industry Standard),Steel door frames
+Window frames aluminum,window frames aluminum,m²,finishes,1850.00,0.40,740.00,925.00,185.00,BuildAid 2025/2026 (Industry Standard),Aluminum window frames
+Window frames timber,window frames timber,m²,finishes,1650.00,0.45,742.50,742.50,165.00,BuildAid 2025/2026 (Industry Standard),Timber window frames
+Glazing 4mm clear,glazing 4mm clear,m²,finishes,385.00,0.45,173.25,192.50,19.25,BuildAid 2025/2026 (Industry Standard),Standard glass
+Glazing 6mm laminated,glazing 6mm laminated,m²,finishes,685.00,0.40,274.00,411.00,0.00,BuildAid 2025/2026 (Industry Standard),Safety glass
+UPVC drain pipes 110mm,upvc drain pipes 110mm,m,plumbing,85.00,0.50,42.50,34.00,8.50,BuildAid 2025/2026 (Industry Standard),Underground drainage
+UPVC drain pipes 160mm,upvc drain pipes 160mm,m,plumbing,135.00,0.50,67.50,54.00,13.50,BuildAid 2025/2026 (Industry Standard),Main drainage
+PVC water pipes 20mm,pvc water pipes 20mm,m,plumbing,45.00,0.50,22.50,18.00,4.50,BuildAid 2025/2026 (Industry Standard),Cold water supply
+PVC water pipes 25mm,pvc water pipes 25mm,m,plumbing,58.00,0.50,29.00,23.20,5.80,BuildAid 2025/2026 (Industry Standard),Cold water supply
+Copper pipes 15mm,copper pipes 15mm,m,plumbing,125.00,0.55,68.75,50.00,6.25,BuildAid 2025/2026 (Industry Standard),Hot water pipes
+Copper pipes 22mm,copper pipes 22mm,m,plumbing,165.00,0.55,90.75,66.00,8.25,BuildAid 2025/2026 (Industry Standard),Hot water pipes
+WC pan ceramic suite,wc pan ceramic suite,nr,plumbing,550.00,0.50,275.00,220.00,55.00,BuildAid 2025/2026 (Industry Standard),Standard toilet
+Basin ceramic,basin ceramic,nr,plumbing,385.00,0.55,211.75,134.75,38.50,BuildAid 2025/2026 (Industry Standard),Wall-hung basin
+Kitchen sink stainless steel,kitchen sink stainless steel,nr,plumbing,850.00,0.45,382.50,425.00,42.50,BuildAid 2025/2026 (Industry Standard),Single bowl sink
+Bath acrylic,bath acrylic,nr,plumbing,1850.00,0.40,740.00,925.00,185.00,BuildAid 2025/2026 (Industry Standard),Standard bath
+Shower tray acrylic,shower tray acrylic,nr,plumbing,1250.00,0.45,562.50,625.00,62.50,BuildAid 2025/2026 (Industry Standard),Shower base
+Taps basin mixer,taps basin mixer,nr,plumbing,385.00,0.60,231.00,115.50,38.50,BuildAid 2025/2026 (Industry Standard),Chrome mixer tap
+Taps kitchen mixer,taps kitchen mixer,nr,plumbing,485.00,0.55,266.75,169.75,48.50,BuildAid 2025/2026 (Industry Standard),Kitchen tap
+Gully trap 110mm,gully trap 110mm,nr,plumbing,285.00,0.50,142.50,114.00,28.50,BuildAid 2025/2026 (Industry Standard),External gully
+Inspection chamber,inspection chamber,nr,plumbing,1850.00,0.45,832.50,925.00,92.50,BuildAid 2025/2026 (Industry Standard),Precast inspection chamber
+Conduit PVC 20mm surface,conduit pvc 20mm surface,m,electrical,25.00,0.55,13.75,10.00,1.25,BuildAid 2025/2026 (Industry Standard),Surface mounted conduit
+Conduit PVC 25mm surface,conduit pvc 25mm surface,m,electrical,32.00,0.55,17.60,12.80,1.60,BuildAid 2025/2026 (Industry Standard),Surface mounted conduit
+Conduit steel 20mm,conduit steel 20mm,m,electrical,45.00,0.60,27.00,14.85,3.15,BuildAid 2025/2026 (Industry Standard),Steel conduit
+Cable 1.5mm² PVC,cable 1.5mm pvc,m,electrical,12.00,0.50,6.00,4.80,1.20,BuildAid 2025/2026 (Industry Standard),Lighting circuits
+Cable 2.5mm² PVC,cable 2.5mm pvc,m,electrical,18.00,0.50,9.00,7.20,1.80,BuildAid 2025/2026 (Industry Standard),Power circuits
+Cable 4mm² PVC,cable 4mm pvc,m,electrical,28.00,0.50,14.00,11.20,2.80,BuildAid 2025/2026 (Industry Standard),Heavy duty circuits
+Cable 6mm² PVC,cable 6mm pvc,m,electrical,42.00,0.55,23.10,16.80,2.10,BuildAid 2025/2026 (Industry Standard),Cooker circuits
+Socket outlet single 15A,socket outlet single 15a,nr,electrical,100.00,0.55,55.00,40.00,5.00,BuildAid 2025/2026 (Industry Standard),Standard wall socket
+Socket outlet double 15A,socket outlet double 15a,nr,electrical,135.00,0.55,74.25,54.00,6.75,BuildAid 2025/2026 (Industry Standard),Double wall socket
+Light switch single,light switch single,nr,electrical,75.00,0.60,45.00,24.75,5.25,BuildAid 2025/2026 (Industry Standard),One-way switch
+Light switch double,light switch double,nr,electrical,95.00,0.60,57.00,31.35,6.65,BuildAid 2025/2026 (Industry Standard),Two-gang switch
+Light fitting fluorescent,light fitting fluorescent,nr,electrical,285.00,0.60,171.00,94.05,19.95,BuildAid 2025/2026 (Industry Standard),Surface fluorescent
+Light fitting LED,light fitting led,nr,electrical,385.00,0.55,211.75,134.75,38.50,BuildAid 2025/2026 (Industry Standard),LED downlight
+Distribution board 8-way,distribution board 8 way,nr,electrical,1850.00,0.50,925.00,740.00,185.00,BuildAid 2025/2026 (Industry Standard),8-circuit DB
+Distribution board 12-way,distribution board 12 way,nr,electrical,2350.00,0.50,1175.00,940.00,235.00,BuildAid 2025/2026 (Industry Standard),12-circuit DB
+Earth leakage 40A,earth leakage 40a,nr,electrical,650.00,0.45,292.50,325.00,32.50,BuildAid 2025/2026 (Industry Standard),RCCB protection
+Circuit breaker 15A,circuit breaker 15a,nr,electrical,95.00,0.50,47.50,38.00,9.50,BuildAid 2025/2026 (Industry Standard),MCB 15A
+Circuit breaker 20A,circuit breaker 20a,nr,electrical,105.00,0.50,52.50,42.00,10.50,BuildAid 2025/2026 (Industry Standard),MCB 20A
+Main earth connection,main earth connection,nr,electrical,385.00,0.60,231.00,115.50,38.50,BuildAid 2025/2026 (Industry Standard),Earth spike and bonding
+Door solid core 813x2032,door solid core 813x2032,nr,doors,1250.00,0.40,500.00,625.00,125.00,BuildAid 2025/2026 (Industry Standard),Standard internal door
+Door flush hollow 686x2032,door flush hollow 686x2032,nr,doors,850.00,0.40,340.00,425.00,85.00,BuildAid 2025/2026 (Industry Standard),Hollow core door
+Door external hardwood,door external hardwood,nr,doors,2850.00,0.45,1282.50,1425.00,142.50,BuildAid 2025/2026 (Industry Standard),External timber door
+Window aluminum sliding 1200x1200,window aluminum sliding 1200x1200,nr,windows,1850.00,0.40,740.00,925.00,185.00,BuildAid 2025/2026 (Industry Standard),Standard aluminum window
+Window aluminum sliding 1800x1200,window aluminum sliding 1800x1200,nr,windows,2450.00,0.40,980.00,1225.00,245.00,BuildAid 2025/2026 (Industry Standard),Large aluminum window
+Door furniture handles hinges,door furniture handles hinges,nr,doors,185.00,0.65,120.25,46.25,18.50,BuildAid 2025/2026 (Industry Standard),Complete ironmongery set
+Window furniture locks,window furniture locks,nr,windows,125.00,0.60,75.00,37.50,12.50,BuildAid 2025/2026 (Industry Standard),Window locks
+Door closer hydraulic,door closer hydraulic,nr,doors,485.00,0.50,242.50,194.00,48.50,BuildAid 2025/2026 (Industry Standard),Overhead door closer
+Security gate steel,security gate steel,nr,external,1850.00,0.45,832.50,925.00,92.50,BuildAid 2025/2026 (Industry Standard),Burglar gate
+Burglar bars steel,burglar bars steel,m²,external,385.00,0.50,192.50,154.00,38.50,BuildAid 2025/2026 (Industry Standard),Window security bars
+Door seals,door seals,m,doors,28.00,0.70,19.60,5.60,2.80,BuildAid 2025/2026 (Industry Standard),Draught excluder
+Paving concrete 100mm,paving concrete 100mm,m²,external,285.00,0.40,114.00,142.50,28.50,BuildAid 2025/2026 (Industry Standard),Concrete paving slabs
+Paving brick paving 80mm,paving brick paving 80mm,m²,external,385.00,0.45,173.25,192.50,19.25,BuildAid 2025/2026 (Industry Standard),Clay brick pavers
+Kerbs concrete,kerbs concrete,m,external,185.00,0.50,92.50,74.00,18.50,BuildAid 2025/2026 (Industry Standard),Precast concrete kerbs
+Manholes precast,manholes precast,nr,external,3850.00,0.40,1540.00,1925.00,385.00,BuildAid 2025/2026 (Industry Standard),Standard manhole
+Drainage pipes 110mm,drainage pipes 110mm,m,external,95.00,0.50,47.50,38.00,9.50,BuildAid 2025/2026 (Industry Standard),UPVC drainage pipes
+Stormwater pipes 160mm,stormwater pipes 160mm,m,external,145.00,0.50,72.50,58.00,14.50,BuildAid 2025/2026 (Industry Standard),Stormwater drainage
+Catch pit,catch pit,nr,external,1250.00,0.45,562.50,625.00,62.50,BuildAid 2025/2026 (Industry Standard),Stormwater catch pit
+Boundary wall face brick,boundary wall face brick,m²,external,685.00,0.42,287.70,342.50,54.80,BuildAid 2025/2026 (Industry Standard),Face brick boundary wall
+Boundary wall plastered,boundary wall plastered,m²,external,585.00,0.45,263.25,292.50,29.25,BuildAid 2025/2026 (Industry Standard),Common brick plastered wall
+Gate steel sliding,gate steel sliding,nr,external,8500.00,0.35,2975.00,4675.00,850.00,BuildAid 2025/2026 (Industry Standard),Sliding driveway gate
+Fence palisade,fence palisade,m,external,385.00,0.40,154.00,192.50,38.50,BuildAid 2025/2026 (Industry Standard),Steel palisade fencing
+Fence diamond mesh,fence diamond mesh,m,external,285.00,0.45,128.25,142.50,14.25,BuildAid 2025/2026 (Industry Standard),Diamond mesh fencing
+Signage,signage,nr,external,850.00,0.55,467.50,297.50,85.00,BuildAid 2025/2026 (Industry Standard),Site signage
+Site clearing,site clearing,m²,external,18.00,0.75,13.50,1.80,2.70,BuildAid 2025/2026 (Industry Standard),Clear vegetation
+Grass lawn establishment,grass lawn establishment,m²,external,45.00,0.60,27.00,13.50,4.50,BuildAid 2025/2026 (Industry Standard),Lawn seeding and topsoil

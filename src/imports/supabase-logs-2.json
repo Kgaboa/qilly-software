@@ -1,0 +1,90 @@
+[
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_13",
+    "event_message": "OPTIONS | 500 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 2313,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "6f42c65c-1278-4e71-a938-eff623d64dfa",
+    "method": "OPTIONS",
+    "status_code": 500,
+    "timestamp": 1772788456667000,
+    "version": "13"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_9",
+    "event_message": "POST | 401 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 330,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "c8939611-7799-49f8-9ea1-d4266d5e0202",
+    "method": "POST",
+    "status_code": 401,
+    "timestamp": 1772787848426000,
+    "version": "9"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_9",
+    "event_message": "OPTIONS | 204 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 590,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "3ff25810-dcff-460f-93bd-15b84ca6bcf6",
+    "method": "OPTIONS",
+    "status_code": 204,
+    "timestamp": 1772787848021000,
+    "version": "9"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_9",
+    "event_message": "POST | 401 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 345,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "7d22ceba-9c65-43dd-b928-134ba083c7d2",
+    "method": "POST",
+    "status_code": 401,
+    "timestamp": 1772787245617000,
+    "version": "9"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_9",
+    "event_message": "OPTIONS | 204 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 2221,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "cd97b4b2-928a-4662-96af-306da5961a92",
+    "method": "OPTIONS",
+    "status_code": 204,
+    "timestamp": 1772787245134000,
+    "version": "9"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_7",
+    "event_message": "POST | 401 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 2696,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "d2527e99-26d4-414d-bdc4-1d0e8ea4dbe0",
+    "method": "POST",
+    "status_code": 401,
+    "timestamp": 1772786157096000,
+    "version": "7"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_6",
+    "event_message": "POST | 401 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 314,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "cdb78857-420d-445d-9372-7e54904c8e61",
+    "method": "POST",
+    "status_code": 401,
+    "timestamp": 1772785738864000,
+    "version": "6"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_6",
+    "event_message": "OPTIONS | 204 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 2404,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "f07e4365-4f06-4c6c-933c-543ffa7140e2",
+    "method": "OPTIONS",
+    "status_code": 204,
+    "timestamp": 1772785738442000,
+    "version": "6"
+  }
+]

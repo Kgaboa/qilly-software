@@ -1,0 +1,21 @@
+# Qilly Selenium Test Suite — Dependencies
+# Install all: pip install -r requirements.txt
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Core Selenium ─────────────────────────────────────────────────────────────
+selenium>=4.16.0
+webdriver-manager>=4.0.1
+
+# ── Test runners ──────────────────────────────────────────────────────────────
+pytest>=7.4.3
+pytest-html>=3.2.0           # --html=report.html --self-contained-html
+                              # (3.2+ is stable; 4.x also works)
+
+# ── HTML report for 'python script.py' direct mode ────────────────────────────
+# html-testRunner writes ONE combined .html file per run.
+# IMPORTANT: >=1.2.1 is required for combine_reports=True support.
+# The run scripts auto-install this if missing.
+html-testRunner>=1.2.1
+
+# ── Extras ────────────────────────────────────────────────────────────────────
+python-dotenv>=1.0.0

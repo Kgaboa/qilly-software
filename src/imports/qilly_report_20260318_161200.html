@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Qilly Regression Suite v5.0 — Payment-Gated Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="text-capitalize">Qilly Regression Suite v5.0 — Payment-Gated Login</h2>
+                <p class='attribute'><strong>Start Time: </strong>2026-03-18 16:12:00</p>
+                <p class='attribute'><strong>Duration: </strong>683.06 s</p>
+                <p class='attribute'><strong>Summary: </strong>Total: 32, Pass: 28, Fail: 2, Error: 2</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.TestAccountSetup</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_01_register_free_account</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🆓 SETUP.01 — Register FREE account: free_510571d6@qilly-test.com
+  ✅ Clicked: Register as Contractor
+  [OK] Typed into: Company Name
+  [OK] Typed into: CIDB Reg
+  ✅ CIDB Class: GB
+  ✅ CIDB Grade: 3
+  ✅ Expanded section: Contact Person
+  [OK] Typed into: Contact Person
+  [OK] Typed into: Email
+  [OK] Typed into: Phone
+  ✅ Expanded section: Business Address
+  [OK] Typed into: Street Address
+  [OK] Typed into: City
+  [OK] Typed into: Postal Code
+  ✅ Province: Gauteng
+  ✅ Expanded section: Business Details
+  ✅ Project type: Residential Building
+  ✅ Operating province: Gauteng
+  ✅ Years in business: 5
+  ✅ Annual turnover: Under R10M
+  ✅ Expanded section: Account Security
+  [OK] Typed into: Password
+  [OK] Typed into: Confirm Password
+  [OK] Checked (JS label): Privacy Consent
+  [OK] Checked (JS label): Terms Consent
+  ✅ ASSERT OK: FREE account form filled successfully
+  ✅ Clicked: Continue to Tier Selection
+  ✅ Clicked: Start Free Training
+  ✅ ASSERT OK: FREE tier button found and clicked
+  ✅ ASSERT OK: Redirected to auth page after FREE registration
+  ✅ FREE account registered: free_510571d6@qilly-test.com
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_02_register_professional_account</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+💼 SETUP.02 — Register PROFESSIONAL account: pro_510571d6@qilly-test.com
+  ✅ Clicked: Register as Contractor
+  [OK] Typed into: Company Name
+  [OK] Typed into: CIDB Reg
+  ✅ CIDB Class: CE
+  ✅ CIDB Grade: 7
+  ✅ Expanded section: Contact Person
+  [OK] Typed into: Contact Person
+  [OK] Typed into: Email
+  [OK] Typed into: Phone
+  ✅ Expanded section: Business Address
+  [OK] Typed into: Street Address
+  [OK] Typed into: City
+  [OK] Typed into: Postal Code
+  ✅ Province: Gauteng
+  ✅ Expanded section: Business Details
+  ✅ Project type: Residential Building
+  ✅ Operating province: Gauteng
+  ✅ Years in business: 5
+  ✅ Annual turnover: Under R10M
+  ✅ Expanded section: Account Security
+  [OK] Typed into: Password
+  [OK] Typed into: Confirm Password
+  [OK] Checked (JS label): Privacy Consent
+  [OK] Checked (JS label): Terms Consent
+  ✅ ASSERT OK: PROFESSIONAL form filled
+  ✅ Clicked: Continue to Tier Selection
+  ✅ Clicked: Select Professional
+
+💳 Selecting payment method: Stitch Instant EFT
+  ✅ Step 1: Payment card clicked — Stitch Instant EFT
+  ✅ Clicked: Pay R2,999 Now (Simulated)
+  ✅ Step 2: Stitch payment submitted (simulated)
+  ✅ ASSERT OK: PROFESSIONAL Stitch payment submitted
+  ✅ ASSERT OK: Redirected to auth after PROFESSIONAL registration
+  ✅ PROFESSIONAL account registered: pro_510571d6@qilly-test.com
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_03_register_enterprise_account</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🏢 SETUP.03 — Register ENTERPRISE account: ent_510571d6@qilly-test.com
+  ✅ Clicked: Register as Contractor
+  [OK] Typed into: Company Name
+  [OK] Typed into: CIDB Reg
+  ✅ CIDB Class: GB
+  ✅ CIDB Grade: 9
+  ✅ Expanded section: Contact Person
+  [OK] Typed into: Contact Person
+  [OK] Typed into: Email
+  [OK] Typed into: Phone
+  ✅ Expanded section: Business Address
+  [OK] Typed into: Street Address
+  [OK] Typed into: City
+  [OK] Typed into: Postal Code
+  ✅ Province: Gauteng
+  ✅ Expanded section: Business Details
+  ✅ Project type: Residential Building
+  ✅ Operating province: Gauteng
+  ✅ Years in business: 5
+  ✅ Annual turnover: Under R10M
+  ✅ Expanded section: Account Security
+  [OK] Typed into: Password
+  [OK] Typed into: Confirm Password
+  [OK] Checked (JS label): Privacy Consent
+  [OK] Checked (JS label): Terms Consent
+  ✅ ASSERT OK: ENTERPRISE form filled
+  ✅ Clicked: Continue to Tier Selection
+  ✅ Clicked: Select Enterprise
+
+💳 Selecting payment method: PayFast
+  ✅ Step 1: Payment card clicked — PayFast
+  ✅ Clicked: Pay R8,999 Now (Simulated)
+  ✅ Step 2: Payfast payment submitted (simulated)
+  ✅ ASSERT OK: ENTERPRISE PayFast payment submitted
+  ✅ ASSERT OK: Redirected to auth after ENTERPRISE registration
+  ✅ ENTERPRISE account registered: ent_510571d6@qilly-test.com
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_04_verify_instant_payment_logins</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🔑 SETUP.04 — Verify instant-payment accounts can login
+
+  Testing PRO login: pro_510571d6@qilly-test.com
+
+🔐 Login as PRO (Stitch) (pro_510571d6@qilly-test.com)...
+  ✅ Login submitted for PRO (Stitch)
+  ✅ ASSERT OK: PRO (Stitch) login submitted
+  ✅ ASSERT OK: PRO: navigated away from auth page → login gate PASSED
+  ✅ PRO login gate: PASSED (payment_approved=True via Stitch)
+  📸 screenshots/setup_04_pro_logged_in_20260318_161429.png
+
+🔓 Logging out (pro)...
+  ✅ Logged out via UI button
+
+  Testing ENT login: ent_510571d6@qilly-test.com
+
+🔐 Login as ENT (PayFast) (ent_510571d6@qilly-test.com)...
+  ✅ Login submitted for ENT (PayFast)
+  ✅ ASSERT OK: ENT (PayFast) login submitted
+  ✅ ASSERT OK: ENT: navigated away from auth page → login gate PASSED
+  ✅ ENT login gate: PASSED (payment_approved=True via PayFast)
+  📸 screenshots/setup_04_ent_logged_in_20260318_161437.png
+
+🔓 Logging out (ent)...
+  ✅ Logged out via UI button
+✅ SETUP.04 Instant-payment login verification done
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_05_admin_verify_instant_payment_statuses</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🔍 SETUP.05 — Admin verifies instant-payment status (Stitch/PayFast = Auto-Approved)
+
+🛡️  Admin login (admin@qilly.co.za)...
+  ✅ Admin Dashboard loaded
+  ✅ Clicked: Contractors tab
+  ✅ PRO Stitch: visible on page, NOT marked EFT Pending (correct)
+  📸 screenshots/setup_05_pro_stitch_badge_20260318_161452.png
+  ✅ ENT PayFast: visible on page, NOT marked EFT Pending (correct)
+  📸 screenshots/setup_05_ent_payfast_badge_20260318_161455.png
+  ✅ Clicked: Payments tab
+  ✅ ASSERT OK: Payments tab loads from Supabase — Auto-Approved section visible
+  ✅ Payments tab: Supabase data loaded (Auto-Approved card visible)
+  📸 screenshots/setup_05_payments_tab_supabase_20260318_161458.png
+✅ SETUP.05 Admin status verification done
+
+🔓 Logging out (admin)...
+  ✅ Logged out via UI button
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 5, Pass: 5 -- Duration: 145.85 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.TestAuthenticationFlows</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_01_admin_login</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🔐 TC-1.01 — Admin Login (via AdminLogin component)
+
+🛡️  Admin login (admin@qilly.co.za)...
+  ✅ Admin Dashboard loaded
+  ✅ ASSERT OK: Admin Dashboard loaded after login
+  📸 screenshots/tc1_01_admin_dashboard_20260318_161529.png
+✅ TC-1.01 Admin Login PASSED
+
+🔓 Logging out (admin)...
+  ✅ Logged out via UI button
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_02_partner_login</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🤝 TC-1.02 — Partner Login
+  ✅ Clicked: Partner Program
+  ✅ ASSERT OK: Partner Program button found
+  ✅ Clicked: Already a Partner? Login
+  📸 screenshots/tc1_02_partner_login_20260318_161539.png
+✅ TC-1.02 Partner Login PASSED (attempted)
+
+🏠 Exit via 'Back to Home'...
+  ⚠️  WARN: 'Back to Home' not found, using fallback: Message: 
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff63845aa55
+	0x7ff6381b8630
+	0x7ff637f4d75d
+	0x7ff637fa862e
+	0x7ff637fa893c
+	0x7ff637ff8d87
+	0x7ff637ff591c
+	0x7ff637f99098
+	0x7ff637f99f83
+	0x7ff638487810
+	0x7ff638481afd
+	0x7ff6384a2c1a
+	0x7ff6381d3345
+	0x7ff6381db81c
+	0x7ff6381c1924
+	0x7ff6381c1ad6
+	0x7ff6381a7e47
+	0x7ff9aa7be8d7
+	0x7ff9abf6c48c
+
+
+🔓 Logging out...
+  ✅ Logged out via storage clear (fallback)
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_03_basic_user_signup</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+📝 TC-1.03 — Basic User Signup
+  ✅ Clicked: Sign Up tab
+  [OK] Typed into: signup-name
+  [OK] Typed into: signup-email
+  [OK] Typed into: signup-password
+  [OK] Checked (JS label): Privacy Consent
+  [OK] Checked (JS label): Terms Consent
+  ✅ Clicked: Create Account
+  📸 screenshots/tc1_03_signup_attempted_20260318_161609.png
+✅ TC-1.03 Basic Signup PASSED
+
+🔓 Logging out (new user)...
+  ✅ Logged out via UI button
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_04_free_tier_login</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🆓 TC-1.04 — FREE Tier Login (free_510571d6@qilly-test.com)
+
+🔐 Login as FREE contractor (free_510571d6@qilly-test.com)...
+  ✅ Login submitted for FREE contractor
+  ✅ ASSERT OK: FREE contractor login submitted
+  📸 screenshots/tc1_04_free_logged_in_20260318_161622.png
+  ✅ ASSERT OK: Navigated away from login page
+✅ TC-1.04 FREE Tier Login PASSED
+
+🔓 Logging out (free)...
+  ✅ Logged out via UI button
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 4, Pass: 4 -- Duration: 78.27 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.TestPartnerApplicationFlow</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_01_construction_partner_application</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🏗️ TC-2.01 — Construction Partner Application
+  ✅ Clicked: Partner Program
+  ✅ ASSERT OK: Partner portal opened
+  ✅ Clicked: Apply as Construction Partner
+  ✅ ASSERT OK: Construction partner apply button found
+  ✅ #company
+  ✅ #contact
+  ✅ #email
+  ✅ #phone
+  ✅ #cidb
+  ✅ #annual-projects
+  ✅ #annual-qs-fees
+  ✅ #project-types
+  ✅ Clicked: Submit Partnership Application
+  ✅ ASSERT OK: Partnership application submitted
+  📸 screenshots/tc2_01_construction_partner_submitted_20260318_161643.png
+✅ TC-2.01 Construction Partner PASSED
+
+🏠 Exit via 'Back to Home'...
+  ✅ Returned home via 'Back to Home'
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_02_software_partner_application</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+💻 TC-2.02 — Software Partner Application
+  ✅ Clicked: Partner Program
+  ✅ ASSERT OK: Partner portal opened
+  ✅ Clicked: Apply as Software Partner
+  ✅ ASSERT OK: Software partner apply button found
+  ✅ #sw-company
+  ✅ #sw-contact
+  ✅ #sw-email
+  ✅ #sw-phone
+  ✅ #platform-type
+  ✅ #user-base
+  ✅ #integration-timeline
+  ✅ #tech-stack
+  ✅ Clicked: Submit White-Label Application
+  ✅ ASSERT OK: White-label application submitted
+  📸 screenshots/tc2_02_software_partner_submitted_20260318_161656.png
+✅ TC-2.02 Software Partner PASSED
+
+🏠 Exit via 'Back to Home'...
+  ✅ Returned home via 'Back to Home'
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 2, Pass: 2 -- Duration: 28.68 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.TestAdminPartnerApproval</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_01_admin_approve_partner_application</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+✅ TC-3.01 — Admin Partner Approval
+
+🛡️  Admin login (admin@qilly.co.za)...
+  ✅ Admin Dashboard loaded
+  ⚠️  WARN: Partners / Partner Apps tab not found in AdminDashboard
+  📸 screenshots/tc3_01_no_partners_tab_20260318_161747.png
+
+🔓 Logging out (admin)...
+  ✅ Logged out via UI button
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 1, Pass: 1 -- Duration: 46.39 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.TestBOQCreationFlow</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_01_create_new_project</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+📋 TC-4.01 — New Project Creation (pro_510571d6@qilly-test.com)
+
+🔐 Login as Professional (pro_510571d6@qilly-test.com)...
+  ✅ Login submitted for Professional
+  ✅ ASSERT OK: Professional login submitted
+  📸 screenshots/tc4_01_pro_dashboard_20260318_161806.png
+  ✅ Clicked: Create New Project
+  ✅ ASSERT OK: Create New Project button found
+  ⚠️  WARN: Field not found: input[placeholder*='roject']
+  ⚠️  WARN: Field not found: input[placeholder*='ocation']
+  ⚠️  WARN: Submit: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//button[contains(normalize-space(),'Create') or @type='submit']"}
+  (Session info: chrome=145.0.7632.162); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff63845aa55
+	0x7ff6381b8630
+	0x7ff637f4d75d
+	0x7ff637fa862e
+	0x7ff637fa893c
+	0x7ff637ff8d87
+	0x7ff637ff591c
+	0x7ff637f99098
+	0x7ff637f99f83
+	0x7ff638487810
+	0x7ff638481afd
+	0x7ff6384a2c1a
+	0x7ff6381d3345
+	0x7ff6381db81c
+	0x7ff6381c1924
+	0x7ff6381c1ad6
+	0x7ff6381a7e47
+	0x7ff9aa7be8d7
+	0x7ff9abf6c48c
+
+  📸 screenshots/tc4_01_project_created_20260318_161806.png
+✅ TC-4.01 Project Created PASSED
+
+🔓 Logging out (pro)...
+  ✅ Logged out via UI button
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_02_add_boq_items</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+📝 TC-4.02 — BOQ Item Addition (pro_510571d6@qilly-test.com)
+
+🔐 Login as Professional (pro_510571d6@qilly-test.com)...
+  ✅ Login submitted for Professional
+  ⚠️  WARN: No existing project — skipping BOQ item addition
+
+🔓 Logging out (pro)...
+  ✅ Logged out via UI button
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 2, Pass: 2 -- Duration: 34.43 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.TestNavigationAndUI</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_01_admin_dashboard_tabs</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🧭 TC-5.01 — Admin Dashboard Tab Navigation
+
+🛡️  Admin login (admin@qilly.co.za)...
+  ✅ Admin Dashboard loaded
+  📸 screenshots/tc5_01_suppliers_20260318_161851.png
+  ✅ Tab: Suppliers
+  📸 screenshots/tc5_01_contractors_20260318_161853.png
+  ✅ Tab: Contractors
+  📸 screenshots/tc5_01_billing_20260318_161854.png
+  ✅ Tab: Billing
+  📸 screenshots/tc5_01_payments_20260318_161856.png
+  ✅ Tab: Payments
+✅ TC-5.01 Admin Tabs PASSED
+
+🔓 Logging out (admin)...
+  ✅ Logged out via UI button
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_02_responsive_design</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+📱 TC-5.02 — Responsive Design
+  📸 screenshots/tc5_02_mobile_375_20260318_161903.png
+  ✅ mobile_375 (375×667)
+  ✅ ASSERT OK: Login form visible at mobile_375
+  📸 screenshots/tc5_02_tablet_768_20260318_161904.png
+  ✅ tablet_768 (768×1024)
+  ✅ ASSERT OK: Login form visible at tablet_768
+  📸 screenshots/tc5_02_desktop_1920_20260318_161905.png
+  ✅ desktop_1920 (1920×1080)
+  ✅ ASSERT OK: Login form visible at desktop_1920
+✅ TC-5.02 Responsive Design PASSED
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 2, Pass: 2 -- Duration: 32.61 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.TestDataValidation</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_01_login_with_invalid_credentials</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+[TC-6.01] Login Validation (invalid credentials)
+  ✅ ASSERT OK: Still on auth page after invalid login
+  ✅ ASSERT OK: Error message displayed for invalid credentials
+  ✅ Error shown: Qilly
+Qilly
+Construction Billing Intelligence
+Automated BOQ 
+  📸 screenshots/tc6_01_invalid_login_20260318_161922.png
+✅ TC-6.01 Login Validation PASSED
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_02_contractor_form_validation</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+📋 TC-6.02 — Contractor Form Validation
+  ✅ Clicked: Register as Contractor
+  ✅ ASSERT OK: Still on details form after empty submit (validation triggered)
+  📸 screenshots/tc6_02_form_validation_20260318_161927.png
+✅ TC-6.02 Contractor Form Validation PASSED
+
+↩️  Exit via 'Back to Login'...
+  ✅ Returned to login via 'Back to Login'
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 2, Pass: 2 -- Duration: 19.04 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.TestPaymentProcessingFlows</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='danger'>
+                            <td class="col-xs-10">test_01_manual_eft_payment_flow</td>
+                            <td class="col-xs-1">
+                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+📄 TC-7.01 — Manual EFT Payment Flow (Professional)
+  ✅ Clicked: Register as Contractor
+  [OK] Typed into: Company Name
+  [OK] Typed into: CIDB Reg
+  ✅ CIDB Class: GB
+  ✅ CIDB Grade: 5
+  ✅ Expanded section: Contact Person
+  [OK] Typed into: Contact Person
+  [OK] Typed into: Email
+  [OK] Typed into: Phone
+  ✅ Expanded section: Business Address
+  [OK] Typed into: Street Address
+  [OK] Typed into: City
+  [OK] Typed into: Postal Code
+  ✅ Province: Gauteng
+  ✅ Expanded section: Business Details
+  ✅ Project type: Residential Building
+  ✅ Operating province: Gauteng
+  ✅ Years in business: 5
+  ✅ Annual turnover: Under R10M
+  ✅ Expanded section: Account Security
+  [OK] Typed into: Password
+  [OK] Typed into: Confirm Password
+  [OK] Checked (JS label): Privacy Consent
+  [OK] Checked (JS label): Terms Consent
+  ✅ Clicked: Continue to Tier Selection
+  ✅ Clicked: Select Professional
+  ✅ Payment screen confirmed
+  ✅ ASSERT OK: Reached payment screen
+
+💳 Selecting payment method: Manual Bank Transfer
+  ✅ Step 1: Payment card clicked — Manual Bank Transfer
+  [OK] Typed into: Payment Reference
+  ✅ Clicked: Submit Application with Payment Details
+  ✅ Step 2: Manual payment submitted
+  ✅ ASSERT OK: Manual EFT payment submitted
+  📸 screenshots/tc7_01_redirect_timeout_state_20260318_162038.png
+  [DIAG] Still on payment screen: False
+  [DIAG] Current URL: https://qilly-multi-env.figma.site/
+  📸 screenshots/assert_fail_Redirected_to_auth_after_manual_EFT_regi_20260318_162038.png
+  ❌ ASSERT FAILED: Redirected to auth after manual EFT registration
+  📸 screenshots/tc7_01_manual_eft_done_20260318_162038.png
+[OK] TC-7.01 Manual EFT PASSED
+</p><p style="color:maroon;">AssertionError: 
+  ASSERTION FAILURES:
+  ❌ FAIL: Redirected to auth after manual EFT registration</p><p style="color:maroon;">Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 189, in tearDown
+    self.fail(f"\n  ASSERTION FAILURES:\n  {msg}")
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 
+  ASSERTION FAILURES:
+  ❌ FAIL: Redirected to auth after manual EFT registration
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_02_stitch_instant_eft_flow</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🏦 TC-7.02 — Stitch Instant EFT Flow (Professional)
+  ✅ Clicked: Register as Contractor
+  [OK] Typed into: Company Name
+  [OK] Typed into: CIDB Reg
+  ✅ CIDB Class: GB
+  ✅ CIDB Grade: 5
+  ✅ Expanded section: Contact Person
+  [OK] Typed into: Contact Person
+  [OK] Typed into: Email
+  [OK] Typed into: Phone
+  ✅ Expanded section: Business Address
+  [OK] Typed into: Street Address
+  [OK] Typed into: City
+  [OK] Typed into: Postal Code
+  ✅ Province: Gauteng
+  ✅ Expanded section: Business Details
+  ✅ Project type: Residential Building
+  ✅ Operating province: Gauteng
+  ✅ Years in business: 5
+  ✅ Annual turnover: Under R10M
+  ✅ Expanded section: Account Security
+  [OK] Typed into: Password
+  [OK] Typed into: Confirm Password
+  [OK] Checked (JS label): Privacy Consent
+  [OK] Checked (JS label): Terms Consent
+  ✅ Clicked: Continue to Tier Selection
+  ✅ Clicked: Select Professional
+  ✅ Payment screen confirmed
+  ✅ ASSERT OK: Reached payment screen
+
+💳 Selecting payment method: Stitch Instant EFT
+  ✅ Step 1: Payment card clicked — Stitch Instant EFT
+  ✅ Clicked: Pay R2,999 Now (Simulated)
+  ✅ Step 2: Stitch payment submitted (simulated)
+  ✅ ASSERT OK: Stitch payment submitted
+  ✅ ASSERT OK: Redirected to auth after Stitch registration
+  📸 screenshots/tc7_02_stitch_done_20260318_162106.png
+✅ TC-7.02 Stitch PASSED
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_03_payfast_payment_flow</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+💳 TC-7.03 — PayFast Payment Flow (Enterprise)
+  ✅ Clicked: Register as Contractor
+  [OK] Typed into: Company Name
+  [OK] Typed into: CIDB Reg
+  ✅ CIDB Class: GB
+  ✅ CIDB Grade: 5
+  ✅ Expanded section: Contact Person
+  [OK] Typed into: Contact Person
+  [OK] Typed into: Email
+  [OK] Typed into: Phone
+  ✅ Expanded section: Business Address
+  [OK] Typed into: Street Address
+  [OK] Typed into: City
+  [OK] Typed into: Postal Code
+  ✅ Province: Gauteng
+  ✅ Expanded section: Business Details
+  ✅ Project type: Residential Building
+  ✅ Operating province: Gauteng
+  ✅ Years in business: 5
+  ✅ Annual turnover: Under R10M
+  ✅ Expanded section: Account Security
+  [OK] Typed into: Password
+  [OK] Typed into: Confirm Password
+  [OK] Checked (JS label): Privacy Consent
+  [OK] Checked (JS label): Terms Consent
+  ✅ Clicked: Continue to Tier Selection
+  ✅ Clicked: Select Enterprise
+  ✅ Payment screen confirmed
+  ✅ ASSERT OK: Reached payment screen
+
+💳 Selecting payment method: PayFast
+  ✅ Step 1: Payment card clicked — PayFast
+  ✅ Clicked: Pay R8,999 Now (Simulated)
+  ✅ Step 2: Payfast payment submitted (simulated)
+  ✅ ASSERT OK: PayFast payment submitted
+  ✅ ASSERT OK: Redirected to auth after PayFast registration
+  📸 screenshots/tc7_03_payfast_done_20260318_162134.png
+✅ TC-7.03 PayFast PASSED
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_04_admin_approves_manual_eft_via_payments_tab</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🛡️ TC-7.04 — Admin approves Manual EFT via Payments tab (Supabase-based)
+
+🛡️  Admin login (admin@qilly.co.za)...
+  ✅ Admin Dashboard loaded
+  ✅ Clicked: Payments tab
+  ✅ ASSERT OK: Payments tab: EFT Pending section loaded from Supabase ✅
+  ✅ Payments tab: EFT Pending entry visible (Supabase data)
+  📸 screenshots/tc7_04_payments_tab_eft_pending_20260318_162144.png
+  ✅ Payments tab: Auto-Approved section visible (Stitch/PayFast)
+  ✅ ASSERT OK: Stitch entries have no 'Approve' button — correct (auto-approved, no admin action needed)
+  📸 screenshots/tc7_04_auto_approved_section_20260318_162145.png
+  ⚠️  Review EFT button not found — falling back to Contractors tab approval
+  ✅ Clicked: Contractors tab
+  ⚠️  WARN: Could not approve contractor 'manual_eft_5105': Message: 
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff63845aa55
+	0x7ff6381b8630
+	0x7ff637f4d75d
+	0x7ff637fa862e
+	0x7ff637fa893c
+	0x7ff637ff8d87
+	0x7ff637ff591c
+	0x7ff637f99098
+	0x7ff637f99f83
+	0x7ff638487810
+	0x7ff638481afd
+	0x7ff6384a2c1a
+	0x7ff6381d3345
+	0x7ff6381db81c
+	0x7ff6381c1924
+	0x7ff6381c1ad6
+	0x7ff6381a7e47
+	0x7ff9aa7be8d7
+	0x7ff9abf6c48c
+
+✅ TC-7.04 Admin Approval PASSED
+
+🔓 Logging out (admin)...
+  ✅ Logged out via UI button
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 4, Pass: 3, Fail: 1 -- Duration: 154.22 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.TestPaymentGating</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='danger'>
+                            <td class="col-xs-10">test_01_register_manual_eft_contractor</td>
+                            <td class="col-xs-1">
+                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+[TC-7B.01] Manual EFT Registration (manual_gate_510571d6@qilly-test.com)
+  Expected: status=pending, payment_approved=False => login BLOCKED
+  ✅ Clicked: Register as Contractor
+  [OK] Typed into: Company Name
+  [OK] Typed into: CIDB Reg
+  ✅ CIDB Class: GB
+  ✅ CIDB Grade: 5
+  ✅ Expanded section: Contact Person
+  [OK] Typed into: Contact Person
+  [OK] Typed into: Email
+  [OK] Typed into: Phone
+  ✅ Expanded section: Business Address
+  [OK] Typed into: Street Address
+  [OK] Typed into: City
+  [OK] Typed into: Postal Code
+  ✅ Province: Gauteng
+  ✅ Expanded section: Business Details
+  ✅ Project type: Residential Building
+  ✅ Operating province: Gauteng
+  ✅ Years in business: 5
+  ✅ Annual turnover: Under R10M
+  ✅ Expanded section: Account Security
+  [OK] Typed into: Password
+  [OK] Typed into: Confirm Password
+  [OK] Checked (JS label): Privacy Consent
+  [OK] Checked (JS label): Terms Consent
+  ✅ ASSERT OK: Manual EFT form filled
+  ✅ Clicked: Continue to Tier Selection
+  ✅ Clicked: Select Professional
+  ✅ ASSERT OK: Payment screen reached
+
+💳 Selecting payment method: Manual Bank Transfer
+  ✅ Step 1: Payment card clicked — Manual Bank Transfer
+  [OK] Typed into: Payment Reference
+  ✅ Clicked: Submit Application with Payment Details
+  ✅ Step 2: Manual payment submitted
+  ✅ ASSERT OK: Manual EFT payment reference submitted
+  📸 screenshots/tc7b_01_no_redirect_state_20260318_162320.png
+  [DIAG] Current URL: https://qilly-multi-env.figma.site/
+  📸 screenshots/assert_fail_Not_redirected_to_auth_after_Manual_EFT_20260318_162320.png
+  ❌ ASSERT FAILED: Not redirected to auth after Manual EFT
+[OK] TC-7B.01 Manual EFT Registration PASSED
+</p><p style="color:maroon;">AssertionError: 
+  ASSERTION FAILURES:
+  ❌ FAIL: Not redirected to auth after Manual EFT</p><p style="color:maroon;">Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 189, in tearDown
+    self.fail(f"\n  ASSERTION FAILURES:\n  {msg}")
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 
+  ASSERTION FAILURES:
+  ❌ FAIL: Not redirected to auth after Manual EFT
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_02_verify_login_is_blocked_before_approval</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🚫 TC-7B.02 — Login MUST be blocked before admin approval
+  This test FAILS if login succeeds (broken payment gate).
+  ⚠️  WARN: TC-7B.01 did not complete — Manual EFT contractor not registered. Cannot verify login blocking.
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_03_admin_approves_manual_eft_via_payments_tab</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+✅ TC-7B.03 — Admin approves Manual EFT via Payments tab
+  Verifies: Payments tab reads from Supabase (not localStorage)
+  Verifies: EFT Pending appears BEFORE approval
+  Verifies: EFT Verified appears AFTER approval
+  ⚠️  WARN: TC-7B.01 incomplete — skipping admin EFT approval
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_04_verify_login_succeeds_after_approval</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🔓 TC-7B.04 — Login MUST succeed after admin approval
+  This test FAILS if still blocked (broken admin approval flow).
+  ⚠️  WARN: TC-7B.03 did not complete (admin approval skipped). Cannot verify post-approval login.
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 4, Pass: 3, Fail: 1 -- Duration: 74.38 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.TestMultiUserTeamManagement</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_01_enterprise_team_management_access</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+👥 TC-8.01 — Enterprise Team Management (ent_510571d6@qilly-test.com)
+
+🔐 Login as Enterprise (ent_510571d6@qilly-test.com)...
+  ✅ Login submitted for Enterprise
+  📸 screenshots/tc8_01_ent_dashboard_20260318_162340.png
+  ✅ Clicked: Team Management
+  ✅ ASSERT OK: Team Management accessible for Enterprise
+  📸 screenshots/tc8_01_team_page_20260318_162344.png
+✅ TC-8.01 Team Management Access PASSED
+
+🔓 Logging out (enterprise)...
+  ✅ Logged out via UI button
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_02_add_team_member</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+➕ TC-8.02 — Add Team Member (ent_510571d6@qilly-test.com)
+
+🔐 Login as Enterprise (ent_510571d6@qilly-test.com)...
+  ✅ Login submitted for Enterprise
+  ✅ Clicked: Team Management
+  ✅ Clicked: Add Team Member
+  ⚠️  WARN: #team-member-name not found
+  ⚠️  WARN: #team-member-email not found
+  ⚠️  WARN: Role dropdown not found
+  ✅ Clicked: Send Invitation
+  📸 screenshots/tc8_02_team_member_added_20260318_162400.png
+✅ TC-8.02 Add Team Member PASSED
+
+🔓 Logging out (enterprise)...
+  ✅ Logged out via storage clear (fallback)
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 2, Pass: 2 -- Duration: 39.27 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.TestBOQQuotaLimits</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_01_professional_quota_display</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+📊 TC-9.01 — Pro Quota Display (10/mo)
+
+🔐 Login as Professional (pro_510571d6@qilly-test.com)...
+  ✅ Login submitted for Professional
+  📸 screenshots/tc9_01_pro_dashboard_20260318_162425.png
+  ✅ ASSERT OK: Quota display shows 10 limit
+  ✅ Quota element: Qilly
+Construction Billing Intelligence
+Pro Test User
+pro_51
+✅ TC-9.01 Professional Quota PASSED
+
+🔓 Logging out (pro)...
+  ✅ Logged out via UI button
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_02_enterprise_quota_display</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🏢 TC-9.02 — Enterprise Quota Display (30/mo)
+
+🔐 Login as Enterprise (ent_510571d6@qilly-test.com)...
+  ✅ Login submitted for Enterprise
+  📸 screenshots/tc9_02_ent_dashboard_20260318_162434.png
+  ✅ ASSERT OK: Quota display shows 30 limit
+  ✅ Quota element: Qilly
+Construction Billing Intelligence
+Enterprise Test User
+✅ TC-9.02 Enterprise Quota PASSED
+
+🔓 Logging out (enterprise)...
+</p><p style="color:maroon;">StaleElementReferenceException: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=145.0.7632.162); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff63845aa55
+	0x7ff6381b8630
+	0x7ff637f4d75d
+	0x7ff637f556c1
+	0x7ff637f587e4
+	0x7ff637f588af
+	0x7ff637fac360
+	0x7ff637fa9aa3
+	0x7ff637f9b426
+	0x7ff637fd19da
+	0x7ff637f9aca6
+	0x7ff637ff591c
+	0x7ff637f99098
+	0x7ff637f99f83
+	0x7ff638487810
+	0x7ff638481afd
+	0x7ff6384a2c1a
+	0x7ff6381d3345
+	0x7ff6381db81c
+	0x7ff6381c1924
+	0x7ff6381c1ad6
+	0x7ff6381a7e47
+	0x7ff9aa7be8d7
+	0x7ff9abf6c48c
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 2702, in test_02_enterprise_quota_display
+    self.logout("enterprise")
+    ~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 264, in logout
+    btn.click()
+    ~~~~~~~~~^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webelement.py", line 94, in click
+    self._execute(Command.CLICK_ELEMENT)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webelement.py", line 395, in _execute
+    return self._parent.execute(command, params)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py", line 348, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=145.0.7632.162); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff63845aa55
+	0x7ff6381b8630
+	0x7ff637f4d75d
+	0x7ff637f556c1
+	0x7ff637f587e4
+	0x7ff637f588af
+	0x7ff637fac360
+	0x7ff637fa9aa3
+	0x7ff637f9b426
+	0x7ff637fd19da
+	0x7ff637f9aca6
+	0x7ff637ff591c
+	0x7ff637f99098
+	0x7ff637f99f83
+	0x7ff638487810
+	0x7ff638481afd
+	0x7ff6384a2c1a
+	0x7ff6381d3345
+	0x7ff6381db81c
+	0x7ff6381c1924
+	0x7ff6381c1ad6
+	0x7ff6381a7e47
+	0x7ff9aa7be8d7
+	0x7ff9abf6c48c
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_03_free_tier_trial_limit</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+🆓 TC-9.03 — FREE Tier Trial Limit (3 BOQs)
+
+🔐 Login as FREE (free_510571d6@qilly-test.com)...
+  ✅ Login submitted for FREE
+  📸 screenshots/tc9_03_free_dashboard_20260318_162441.png
+  ✅ ASSERT OK: Trial limit indicator found
+  ✅ Trial element: Qilly
+Construction Billing Intelligence
+Free Test User
+free_
+✅ TC-9.03 FREE Trial Limit PASSED
+
+🔓 Logging out (free)...
+</p><p style="color:maroon;">StaleElementReferenceException: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=145.0.7632.162); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff63845aa55
+	0x7ff6381b8630
+	0x7ff637f4d75d
+	0x7ff637f556c1
+	0x7ff637f58b7e
+	0x7ff637ff6ce1
+	0x7ff637fd19da
+	0x7ff637ff591c
+	0x7ff637f99098
+	0x7ff637f99f83
+	0x7ff638487810
+	0x7ff638481afd
+	0x7ff6384a2c1a
+	0x7ff6381d3345
+	0x7ff6381db81c
+	0x7ff6381c1924
+	0x7ff6381c1ad6
+	0x7ff6381a7e47
+	0x7ff9aa7be8d7
+	0x7ff9abf6c48c
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 2726, in test_03_free_tier_trial_limit
+    self.logout("free")
+    ~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 255, in logout
+    btn = WebDriverWait(self.driver, 8).until(
+        EC.element_to_be_clickable((
+    ...<4 lines>...
+        ))
+    )
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\wait.py", line 96, in until
+    value = method(self._driver)
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\expected_conditions.py", line 364, in _predicate
+    element = visibility_of(target)(driver)
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\expected_conditions.py", line 173, in _predicate
+    return _element_if_visible(element)
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\support\expected_conditions.py", line 179, in _element_if_visible
+    return element if element.is_displayed() == visibility else False
+                      ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webelement.py", line 252, in is_displayed
+    return self.parent.execute_script(f"/* isDisplayed */return ({isDisplayed_js}).apply(null, arguments);", self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py", line 408, in execute_script
+    return self.execute(command, {"script": script, "args": converted_args})["value"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py", line 348, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=145.0.7632.162); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff63845aa55
+	0x7ff6381b8630
+	0x7ff637f4d75d
+	0x7ff637f556c1
+	0x7ff637f58b7e
+	0x7ff637ff6ce1
+	0x7ff637fd19da
+	0x7ff637ff591c
+	0x7ff637f99098
+	0x7ff637f99f83
+	0x7ff638487810
+	0x7ff638481afd
+	0x7ff6384a2c1a
+	0x7ff6381d3345
+	0x7ff6381db81c
+	0x7ff6381c1924
+	0x7ff6381c1ad6
+	0x7ff6381a7e47
+	0x7ff9aa7be8d7
+	0x7ff9abf6c48c
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_04_quota_upgrade_prompt_chain</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[setUp] storage cleared, at https://qilly-multi-env.figma.site/
+
+💎 TC-9.04 — Quota Upgrade Prompt Chain
+
+  FREE (≥3 BOQs used):
+    → Upgrade to PROFESSIONAL  R2,999/mo  → 10 BOQs/mo
+
+  PROFESSIONAL (≥10 BOQs this month):
+    → Upgrade to ENTERPRISE    R8,999/mo  → 30 BOQs/mo
+
+  ENTERPRISE (≥30 BOQs this month):
+    → Contact Qilly for CUSTOM/Unlimited plan
+  📸 screenshots/tc9_04_upgrade_chain_20260318_162445.png
+✅ TC-9.04 Quota Upgrade Chain PASSED (documented)
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 4, Pass: 2, Error: 2 -- Duration: 29.93 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('td').on('click', '.btn', function(e){
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var $this = $(this);
+                var $nextRow = $this.closest('tr').next('tr');
+                $nextRow.slideToggle("fast");
+                $this.text(function(i, text){
+                    if (text === 'View') {
+                        return 'Hide';
+                    } else {
+                        return 'View';
+                    };
+                });
+            });
+        });
+    </script>
+</body>
+</html

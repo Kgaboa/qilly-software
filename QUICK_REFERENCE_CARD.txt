@@ -1,0 +1,102 @@
+# ⚡ QILLY ERROR FIX - QUICK CARD
+
+```
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                      🔧 CONTRACTOR LOGIN FIX                      ┃
+┃                     ONE SCRIPT FIXES EVERYTHING                   ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+🚨 ERRORS:
+   ❌ HTTP 406 (Not Acceptable)
+   ❌ "User not found in users table"
+   ❌ Shows demo@operator.com instead of contractor dashboard
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚡ 5-MINUTE FIX:
+
+1️⃣  Open: https://supabase.com/dashboard/project/zzdzrlglivtpawtitvgu/sql/new
+
+2️⃣  Copy: /COMPLETE_RLS_FIX_ALL_TABLES.sql
+
+3️⃣  Paste & Run ▶️
+
+4️⃣  Wait for: ✅ SUCCESS message
+
+5️⃣  Clear browser cache (Ctrl+Shift+Delete)
+
+6️⃣  Login: contractor@gmail.com
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ WHAT GETS FIXED:
+
+   ✓ Creates RLS policies for:
+     • users table
+     • contractors table  
+     • bills table
+     • bill_items table
+     • suppliers table
+
+   ✓ Approves contractor@gmail.com
+   ✓ Fixes user_id mismatches
+   ✓ Creates missing user records
+   ✓ Installs auto-trigger for future signups
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 VERIFY SUCCESS:
+
+Run in SQL Editor:
+```sql
+SELECT 
+  c.email, 
+  c.status,
+  CASE WHEN c.user_id = au.id THEN '✅' ELSE '❌' END
+FROM contractors c
+JOIN auth.users au ON c.email = au.email
+WHERE c.email = 'contractor@gmail.com';
+```
+
+Expected: contractor@gmail.com | approved | ✅
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 ALL FIX FILES:
+
+Main Fix (USE THIS):
+   /COMPLETE_RLS_FIX_ALL_TABLES.sql    ← Fixes everything
+
+Alternative Fixes:
+   /SUPABASE_FIX_CONTRACTOR_RLS.sql    ← Contractors table only
+   /FIX_USERS_TABLE_RLS.sql            ← Users table only
+
+Documentation:
+   /ERROR_FIX_SUMMARY.md               ← This summary
+   /QUICK_FIX_GUIDE.md                 ← Quick reference
+   /CONTRACTOR_LOGIN_FIX.md            ← Detailed guide
+
+Previous Docs (Still Valid):
+   /IMPLEMENTATION_3_REQUESTS.md       ← CIDB grades + testing
+   /QILLY_4_CRITICAL_QUESTIONS_ANSWERED.md
+   /TUESDAY_PITCH_QUICK_ANSWERS.md
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 EXPECTED AFTER FIX:
+
+BEFORE:                          AFTER:
+❌ HTTP 406 errors           →   ✅ No errors
+❌ demo@operator.com card    →   ✅ Contractor dashboard
+❌ Can't price BOQs          →   ✅ Can price BOQs
+❌ User not found warning    →   ✅ Clean console
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⏱️  ESTIMATED TIME: 5 minutes
+💾  DATABASE: Supabase (zzdzrlglivtpawtitvgu)
+👤  TEST USER: contractor@gmail.com
+📅  DATE: March 9, 2026
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```

@@ -1,0 +1,90 @@
+    at C (1535-b5b5bbc16f7fd25b.min.js.br:1131:13965)
+    at async Object.k [as get] (1535-b5b5bbc16f7fd25b.min.js.br:1131:14348)
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:3:24678
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:34:30563
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:3:25109
+    at async k (3058-0a0b28f4f2c1fffa.min.js.br:34:30071)
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:33:104785
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:54Understand this warning
+vendor-core-ade2edecaf4781c7.min.js.br:54 [Livegraph] Connection closed. Code: 4010, reason: server_idle
+vendor-core-ade2edecaf4781c7.min.js.br:54 [MultiplayerSession] connecting to wss://www.figma.com/api/multiplayer/WxKSbAwJsYt0g6aP1mmCfu?role=editor&tracking_session_id=YD7SqsHFY0GoJbXT&version=151&recentReload=0&file-load-streaming-compression=&user-id=1395110072994207006&client_release=b76162e144d1cea981c7927daa8501b7f3f696f6&reconnect-key=ee401c3190c905879fd9fdd510ba9a9368e888f4&reconnect-sequence-number=5246&initialFileVersion=106&previousLoadMode=full&incremental-loading-validation=0
+vendor-core-ade2edecaf4781c7.min.js.br:54 Too many elapsed hits of react since last report
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:54Understand this warning
+vendor-core-ade2edecaf4781c7.min.js.br:54 [MultiplayerSession] Joining file version 106 (skip_reload reconnect)
+/api/rev/WxKSbAwJsYt0g6aP1mmCfu/code_snapshot/e18a8cf39276c44d9f7c333406b78b37b57bb1216bf1b5838d087d7934f36c7e:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+vendor-core-ade2edecaf4781c7.min.js.br:54 Failed to fetch snapshot files: E: XHR for "/api/rev/WxKSbAwJsYt0g6aP1mmCfu/code_snapshot/e18a8cf39276c44d9f7c333406b78b37b57bb1216bf1b5838d087d7934f36c7e" failed with status 404
+    at C (1535-b5b5bbc16f7fd25b.min.js.br:1131:13965)
+    at async Object.k [as get] (1535-b5b5bbc16f7fd25b.min.js.br:1131:14348)
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:3:24678
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:34:30563
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:3:25109
+    at async k (3058-0a0b28f4f2c1fffa.min.js.br:34:30071)
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:33:104785
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:54Understand this warning
+devtools_worker-28bcb023fe1485d0.min.js.br:1190 [esbuild-wasm] Initializing from URL: /webpack-artifacts/assets/2b68f2d3d5e8b3d6.wasm
+devtools_worker-28bcb023fe1485d0.min.js.br:1190 [esbuild-wasm] Initialized
+devtools_worker-28bcb023fe1485d0.min.js.br:1973 [esbuild] Build error: Error: Build failed with 1 error:
+virtual-fs:file:///src/app/components/AdminDashboard.tsx:33:9: ERROR: No matching export in "virtual-fs:file:///utils/supabase/info.ts" for import "getSupabaseConfig"
+    at Z (devtools_worker-28bcb023fe1485d0.min.js.br:8:5768)
+    at devtools_worker-28bcb023fe1485d0.min.js.br:676:23008
+    at y (devtools_worker-28bcb023fe1485d0.min.js.br:676:17720)
+    at G (devtools_worker-28bcb023fe1485d0.min.js.br:676:22961)
+    at devtools_worker-28bcb023fe1485d0.min.js.br:676:23116
+    at new Promise (<anonymous>)
+    at c.on-end (devtools_worker-28bcb023fe1485d0.min.js.br:676:23100)
+    at devtools_worker-28bcb023fe1485d0.min.js.br:676:10232
+    at Generator.next (<anonymous>)
+    at devtools_worker-28bcb023fe1485d0.min.js.br:3:376
+(anonymous) @ devtools_worker-28bcb023fe1485d0.min.js.br:1973Understand this error
+devtools_worker-28bcb023fe1485d0.min.js.br:3209 Error: Build failed with 1 error:
+virtual-fs:file:///src/app/components/AdminDashboard.tsx:33:9: ERROR: No matching export in "virtual-fs:file:///utils/supabase/info.ts" for import "getSupabaseConfig"
+    at Z (devtools_worker-28bcb023fe1485d0.min.js.br:8:5768)
+    at devtools_worker-28bcb023fe1485d0.min.js.br:676:23008
+    at y (devtools_worker-28bcb023fe1485d0.min.js.br:676:17720)
+    at G (devtools_worker-28bcb023fe1485d0.min.js.br:676:22961)
+    at devtools_worker-28bcb023fe1485d0.min.js.br:676:23116
+    at new Promise (<anonymous>)
+    at c.on-end (devtools_worker-28bcb023fe1485d0.min.js.br:676:23100)
+    at devtools_worker-28bcb023fe1485d0.min.js.br:676:10232
+    at Generator.next (<anonymous>)
+    at devtools_worker-28bcb023fe1485d0.min.js.br:3:376
+m5 @ devtools_worker-28bcb023fe1485d0.min.js.br:3209Understand this error
+vendor-core-ade2edecaf4781c7.min.js.br:54 [Livegraph] Connection closed. Code: 1006, reason: 
+vendor-core-ade2edecaf4781c7.min.js.br:54 [MultiplayerSession] connecting to wss://www.figma.com/api/multiplayer/WxKSbAwJsYt0g6aP1mmCfu?role=editor&tracking_session_id=YD7SqsHFY0GoJbXT&version=151&recentReload=0&file-load-streaming-compression=&user-id=1395110072994207006&client_release=b76162e144d1cea981c7927daa8501b7f3f696f6&reconnect-key=ee401c3190c905879fd9fdd510ba9a9368e888f4&reconnect-sequence-number=5250&initialFileVersion=106&previousLoadMode=full&incremental-loading-validation=0
+vendor-core-ade2edecaf4781c7.min.js.br:54 [MultiplayerSession] Joining file version 106 (skip_reload reconnect)
+/api/rev/WxKSbAwJsYt0g6aP1mmCfu/code_snapshot/3cc195335265c7277cde38c0ff678d870b433500c077f81c29e015b24a419565:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+vendor-core-ade2edecaf4781c7.min.js.br:54 Failed to fetch snapshot files: E: XHR for "/api/rev/WxKSbAwJsYt0g6aP1mmCfu/code_snapshot/3cc195335265c7277cde38c0ff678d870b433500c077f81c29e015b24a419565" failed with status 404
+    at C (1535-b5b5bbc16f7fd25b.min.js.br:1131:13965)
+    at async Object.k [as get] (1535-b5b5bbc16f7fd25b.min.js.br:1131:14348)
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:3:24678
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:34:30563
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:3:25109
+    at async k (3058-0a0b28f4f2c1fffa.min.js.br:34:30071)
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:33:104785
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:54Understand this warning
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 🔍 QILLY ENVIRONMENT DETECTION
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90   VITE_ENVIRONMENT: undefined
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90   MODE: development
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90   DEV: true
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90   PROD: false
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90   📌 Using hardcoded Supabase configs from info.ts (not env vars)
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 🔧 Using DEVELOPMENT environment (local dev mode)
+/api/rev/WxKSbAwJsYt0g6aP1mmCfu/code_snapshot/ce8a4e5a587aae4337a1916048c62620ff3d193cf3657376d96fb6719ed7cc75:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+vendor-core-ade2edecaf4781c7.min.js.br:54 Failed to fetch snapshot files: E: XHR for "/api/rev/WxKSbAwJsYt0g6aP1mmCfu/code_snapshot/ce8a4e5a587aae4337a1916048c62620ff3d193cf3657376d96fb6719ed7cc75" failed with status 404
+    at C (1535-b5b5bbc16f7fd25b.min.js.br:1131:13965)
+    at async Object.k [as get] (1535-b5b5bbc16f7fd25b.min.js.br:1131:14348)
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:3:24678
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:34:30563
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:3:25109
+    at async k (3058-0a0b28f4f2c1fffa.min.js.br:34:30071)
+    at async 3058-0a0b28f4f2c1fffa.min.js.br:33:104785
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:54Understand this warning
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 10:18:46 AM [vite] (client) hmr update /src/app/components/ContractorSignup.tsx, /src/styles/index.css
+(index):1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was receivedUnderstand this error
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 ✅ User account created: 0ae905d5-0869-4cea-ae21-5738537d1e1c
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 ✅ POPIA consent saved for contractor
+zzdzrlglivtpawtitvgu.supabase.co/rest/v1/contractors?columns=%22user_id%22%2C%22company_name%22%2C%22cidb_registration_number%22%2C%22cidb_grade%22%2C%22contact_person%22%2C%22email%22%2C%22phone%22%2C%22street_address%22%2C%22city%22%2C%22province%22%2C%22postal_code%22%2C%22project_types%22%2C%22operating_provinces%22%2C%22years_in_business%22%2C%22annual_turnover%22%2C%22bbbee_level%22%2C%22has_certification%22%2C%22status%22%2C%22subscription_tier%22%2C%22billing_cycle%22%2C%22subscription_status%22%2C%22subscription_start_date%22%2C%22next_billing_date%22%2C%22payment_method%22%2C%22payment_reference%22%2C%22payment_amount%22%2C%22payment_approved%22%2C%22popia_consent_given%22%2C%22popia_consent_date%22%2C%22popia_consent_version%22%2C%22terms_consent_given%22%2C%22terms_consent_date%22%2C%22terms_consent_version%22&select=*:1  Failed to load resource: the server responded with a status of 400 ()Understand this error
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 ❌ Contractor insert error: Object

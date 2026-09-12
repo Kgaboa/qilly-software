@@ -1,0 +1,139 @@
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 ✅ User account created: 64d74c0d-484e-40d5-b941-f0a04f243957
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 ✅ POPIA consent saved for contractor
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90  POST https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/contractors?columns=%22user_id%22%2C%22company_name%22%2C%22cidb_registration_number%22%2C%22cidb_grade%22%2C%22contact_person%22%2C%22email%22%2C%22phone%22%2C%22street_address%22%2C%22city%22%2C%22province%22%2C%22postal_code%22%2C%22project_types%22%2C%22operating_provinces%22%2C%22years_in_business%22%2C%22annual_turnover%22%2C%22bbbee_level%22%2C%22has_certification%22%2C%22status%22%2C%22subscription_tier%22%2C%22billing_cycle%22%2C%22subscription_status%22%2C%22subscription_start_date%22%2C%22next_billing_date%22%2C%22payment_method%22%2C%22payment_reference%22%2C%22payment_amount%22%2C%22payment_approved%22%2C%22popia_consent_given%22%2C%22popia_consent_date%22%2C%22popia_consent_version%22%2C%22terms_consent_given%22%2C%22terms_consent_date%22%2C%22terms_consent_version%22&select=* 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+(anonymous) @ @supabase_supabase-js.js?v=5b1a8f98:12780
+(anonymous) @ @supabase_supabase-js.js?v=5b1a8f98:12794
+await in (anonymous)
+then @ @supabase_supabase-js.js?v=5b1a8f98:274Understand this error
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 ❌ Contractor insert error: {code: 'PGRST204', details: null, hint: null, message: "Could not find the 'payment_amount' column of 'contractors' in the schema cache"}
+(anonymous) @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+r @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:17
+error @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+handleFinalSubmit @ ContractorSignup.tsx:331
+await in handleFinalSubmit
+handleDetailsComplete @ ContractorSignup.tsx:205
+onSubmit @ ContractorSignup.tsx:409
+y @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+i @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+ik @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+ij @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+iz @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+dP @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dM @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dG @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dk @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+(anonymous) @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+SR @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+iR @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+d$ @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+lO @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+lN @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+lv @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+i @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90Understand this error
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 ❌ Full error details: {
+  "code": "PGRST204",
+  "details": null,
+  "hint": null,
+  "message": "Could not find the 'payment_amount' column of 'contractors' in the schema cache"
+}
+(anonymous) @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+r @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:17
+error @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+handleFinalSubmit @ ContractorSignup.tsx:332
+await in handleFinalSubmit
+handleDetailsComplete @ ContractorSignup.tsx:205
+onSubmit @ ContractorSignup.tsx:409
+y @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+i @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+ik @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+ij @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+iz @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+dP @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dM @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dG @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dk @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+(anonymous) @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+SR @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+iR @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+d$ @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+lO @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+lN @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+lv @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+i @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90Understand this error
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 ❌ Error code: PGRST204
+(anonymous) @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+r @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:17
+error @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+handleFinalSubmit @ ContractorSignup.tsx:333
+await in handleFinalSubmit
+handleDetailsComplete @ ContractorSignup.tsx:205
+onSubmit @ ContractorSignup.tsx:409
+y @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+i @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+ik @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+ij @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+iz @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+dP @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dM @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dG @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dk @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+(anonymous) @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+SR @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+iR @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+d$ @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+lO @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+lN @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+lv @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+i @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90Understand this error
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 ❌ Error message: Could not find the 'payment_amount' column of 'contractors' in the schema cache
+(anonymous) @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+r @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:17
+error @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+handleFinalSubmit @ ContractorSignup.tsx:334
+await in handleFinalSubmit
+handleDetailsComplete @ ContractorSignup.tsx:205
+onSubmit @ ContractorSignup.tsx:409
+y @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+i @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+ik @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+ij @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+iz @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+dP @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dM @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dG @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dk @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+(anonymous) @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+SR @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+iR @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+d$ @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+lO @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+lN @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+lv @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+i @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90Understand this error
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 ❌ Error details: null
+(anonymous) @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+r @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:17
+error @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+handleFinalSubmit @ ContractorSignup.tsx:335
+await in handleFinalSubmit
+handleDetailsComplete @ ContractorSignup.tsx:205
+onSubmit @ ContractorSignup.tsx:409
+y @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+i @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90
+ik @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+ij @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+iz @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+dP @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dM @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dG @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+dk @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+(anonymous) @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+SR @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+iR @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+d$ @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:37
+lO @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+lN @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+lv @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:25
+i @ code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90Understand this error
+code_components_preview_iframe-94f0c6d3bc79708f.min.js.br:90 ❌ Error hint: null

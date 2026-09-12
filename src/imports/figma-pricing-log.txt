@@ -1,0 +1,963 @@
+Online-Pricing-System--Copy-?p=f&t=K6Mbs3wQxHeATGyo-0:531 Running frontend commit 43c1b3f3f6656c516bec82d03d20612950373562
+Navigated to https://www.figma.com/make/WxKSbAwJsYt0g6aP1mmCfu/Online-Pricing-System--Copy-?p=f&t=K6Mbs3wQxHeATGyo-0
+vendor-core-ade2edecaf4781c7.min.js.br:54 Loaded 32 scripts (5968019b), 17 from cache (312435b)
+vendor-core-ade2edecaf4781c7.min.js.br:54 Autosave Changes not available or already claimed by another tab undefined
+vendor-core-ade2edecaf4781c7.min.js.br:54 [import] git: c8e6c45695ccb395f2b769e2855fd4887dfbe427, stamp: 9DB4DCBB85B872DD
+vendor-core-ade2edecaf4781c7.min.js.br:54 [Fullscreen] Booting... (emscripten version 4.0.21)
+vendor-core-ade2edecaf4781c7.min.js.br:54 [GPU] graphicsAPI:"WebGPU", vendor:"Google Inc. (Intel)" renderer:"ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A1) Direct3D11 vs_5_0 ps_5_0, D3D11)" deviceArchitecture:"gen-12lp" deviceDescription:"" webGPUDevice:"" webGPUVendor:"intel" bindings:"emdawnwebgpu"
+vendor-core-ade2edecaf4781c7.min.js.br:54 [Fullscreen] Ready in 1178.2ms
+vendor-core-ade2edecaf4781c7.min.js.br:54 [FullscreenApp] calling setEditorTheme and setting preference light
+vendor-core-ade2edecaf4781c7.min.js.br:54 [MultiplayerSession] connecting to wss://www.figma.com/api/multiplayer/WxKSbAwJsYt0g6aP1mmCfu?role=editor&tracking_session_id=Tn9Sin1DvdbiPnuj&version=151&recentReload=0&file-load-streaming-compression&user-id=1395110072994207006&client_release=43c1b3f3f6656c516bec82d03d20612950373562
+vendor-core-ade2edecaf4781c7.min.js.br:54 [FullscreenApp] calling setEditorTheme and setting preference light
+vendor-core-ade2edecaf4781c7.min.js.br:54 [MultiplayerSession] Joining file version 106 (initial load)
+vendor-core-ade2edecaf4781c7.min.js.br:54 Migration succeeded: context: fullscreen_migrate_SceneGraphManager, version: 106, duration: 0ms.
+2vendor-core-ade2edecaf4781c7.min.js.br:54 [devtools] Initialized LS
+vendor-core-ade2edecaf4781c7.min.js.br:63   POST https://www.figma.com/api/make/fetch_ds_code_gen_status 400 (Bad Request)
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:63
+h @ vendor-dbdbf1041f2f9da9.min.js.br:3
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:1140
+T @ 4016-48895b43bcb5d5a8.min.js.br:1140
+C @ 4016-48895b43bcb5d5a8.min.js.br:1140
+r @ 4016-48895b43bcb5d5a8.min.js.br:1140
+o @ figma_app-1d6ad1ca44adbcaa.min.js.br:411
+(anonymous) @ figma_app-1d6ad1ca44adbcaa.min.js.br:416
+(anonymous) @ figma_app-1d6ad1ca44adbcaa.min.js.br:416
+aB @ vendor-core-ade2edecaf4781c7.min.js.br:11
+oD @ vendor-core-ade2edecaf4781c7.min.js.br:11
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:11
+oB @ vendor-core-ade2edecaf4781c7.min.js.br:11
+oL @ vendor-core-ade2edecaf4781c7.min.js.br:11
+f5 @ vendor-core-ade2edecaf4781c7.min.js.br:11
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:11
+requestAnimationFrame
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:63
+gX @ 4016-48895b43bcb5d5a8.min.js.br:196
+a @ 4016-48895b43bcb5d5a8.min.js.br:398
+requestAnimationFrame @ 4016-48895b43bcb5d5a8.min.js.br:199
+_Async_requestAnimationFrame @ compiled_wasm.js.br:2
+$wasm-function[3202] @ compiled_wasm.wasm.br:0x111e92
+$wasm-function[37921] @ compiled_wasm.wasm.br:0x1f813b6
+(anonymous) @ compiled_wasm.js.br:2
+(anonymous) @ compiled_wasm.js.br:2
+_wrapCppCall @ compiled_wasm.js.br:2
+(anonymous) @ compiled_wasm.js.br:2
+vV @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:46
+d @ vendor-dbdbf1041f2f9da9.min.js.br:123
+(anonymous) @ vendor-dbdbf1041f2f9da9.min.js.br:123
+g @ vendor-core-ade2edecaf4781c7.min.js.br:46
+dispatch @ 4016-48895b43bcb5d5a8.min.js.br:1100
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:807
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ figma_app-1d6ad1ca44adbcaa.min.js.br:230
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:175
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:46
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+dispatch @ vendor-core-ade2edecaf4781c7.min.js.br:46
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:175
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:1727
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:46
+(anonymous) @ 4016-48895b43bcb5d5a8.min.js.br:196
+dispatch @ 4016-48895b43bcb5d5a8.min.js.br:196
+_documentIsLoaded @ 4016-48895b43bcb5d5a8.min.js.br:196
+await in _documentIsLoaded
+documentIsLoaded @ 4016-48895b43bcb5d5a8.min.js.br:196
+_FigmaApp_documentIsLoaded @ compiled_wasm.js.br:2
+$wasm-function[27728] @ compiled_wasm.wasm.br:0x1a13a16
+$wasm-function[26272] @ compiled_wasm.wasm.br:0x190117a
+$wasm-function[23354] @ compiled_wasm.wasm.br:0x15fb07b
+$wasm-function[40131] @ compiled_wasm.wasm.br:0x21c875a
+$wasm-function[17064] @ compiled_wasm.wasm.br:0xf2c041
+$wasm-function[37903] @ compiled_wasm.wasm.br:0x1f7d4c8
+(anonymous) @ compiled_wasm.js.br:2
+(anonymous) @ compiled_wasm.js.br:2
+_wrapCppCall @ compiled_wasm.js.br:2
+(anonymous) @ compiled_wasm.js.br:2
+S @ 9679-9c8c0cbc47b34654.min.js.br:3
+p.onmessage @ 9679-9c8c0cbc47b34654.min.js.br:3
+vendor-core-ade2edecaf4781c7.min.js.br:54 [Fullscreen] loadtime=19.12s maxmem=214931616
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 🔍 Environment Detection Debug:
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   - VITE_ENVIRONMENT: undefined
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   - MODE: production
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   - DEV: false
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   - PROD: true
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 🔧 Defaulting to DEVELOPMENT environment (Figma Make default)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 💡 Use Environment Switcher or ?env=sit to switch to SIT
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ✅ Contractor data loaded from Supabase: {id: '768a8fb5-dd33-431a-81f8-c958d7a3d4a7', user_id: '82be7fe1-ed4c-4e72-9e46-26f6e61b1d60', company_name: 'Kgabo Contractor', cidb_registration_number: 'CIDB/cr2020/2092', cidb_grade: 'Grade 4 CE', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 🔍 Environment Detection Debug:
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   - VITE_ENVIRONMENT: undefined
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   - MODE: development
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   - DEV: true
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   - PROD: false
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 🔧 Using DEVELOPMENT environment (local dev mode)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 🛠️ Debug helpers loaded! Available commands:
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    diagnoseSupabase() - Full diagnostic report
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    switchToDevEnvironment() - Fix environment issues
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    checkAllEnvironments() - View all env configs
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    testSupabaseConnection() - Test database connection
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ✅ Contractor data loaded from Supabase: {id: '768a8fb5-dd33-431a-81f8-c958d7a3d4a7', user_id: '82be7fe1-ed4c-4e72-9e46-26f6e61b1d60', company_name: 'Kgabo Contractor', cidb_registration_number: 'CIDB/cr2020/2092', cidb_grade: 'Grade 4 CE', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 🔍 Loading contractor data for user: thabo@gmail.com
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ✅ Contractor data loaded from Supabase: {id: '768a8fb5-dd33-431a-81f8-c958d7a3d4a7', user_id: '82be7fe1-ed4c-4e72-9e46-26f6e61b1d60', company_name: 'Kgabo Contractor', cidb_registration_number: 'CIDB/cr2020/2092', cidb_grade: 'Grade 4 CE', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Province (single): Western Cape
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Operating provinces (array): (3) ['Gauteng', 'Western Cape', 'Limpopo']
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏗️ CIDB grade: Grade 4 CE
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Using operating_provinces[0]: "Gauteng" → "GP"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📋 Available municipalities for "GP": 11 found
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏗️ CIDB grade: "Grade 4 CE" → "GB4"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🎯 Setting defaults:
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28     - Province: GP
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28     - Municipality: JHB
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28     - CIDB: GB4
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Project settings state updated
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Province changed to: WC
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📋 Project Settings Updated: {province: 'WC', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   Province changed, updating municipality to: CPT
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📋 Project Settings Updated: {province: 'WC', municipality: 'CPT', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📋 Project Settings Updated: {province: 'WC', municipality: 'CPT', profitMargin: '12', cidbGrading: 'GB4', duration: '6', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ✅ Excel Header detected at row 0. Found columns: ItemNo=true, Description=true, Unit=true, Quantity=true
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ✅ Found Excel header row at index 0: {itemNo: 0, description: 1, unit: 2, quantity: 3, rate: 4, …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 2: Raw qty="500" → Cleaned qty="500"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 3: Raw qty="300" → Cleaned qty="300"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 4: Raw qty="2000" → Cleaned qty="2000"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 7: Raw qty="50" → Cleaned qty="50"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 8: Raw qty="200" → Cleaned qty="200"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 9: Raw qty="300" → Cleaned qty="300"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 12: Raw qty="150000" → Cleaned qty="150000"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 13: Raw qty="80000" → Cleaned qty="80000"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 14: Raw qty="100" → Cleaned qty="100"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 17: Raw qty="15000" → Cleaned qty="15000"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 18: Raw qty="8000" → Cleaned qty="8000"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 21: Raw qty="5000" → Cleaned qty="5000"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 22: Raw qty="100" → Cleaned qty="100"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 25: Raw qty="200" → Cleaned qty="200"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 26: Raw qty="300" → Cleaned qty="300"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 29: Raw qty="1500" → Cleaned qty="1500"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 30: Raw qty="100" → Cleaned qty="100"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 33: Raw qty="100" → Cleaned qty="100"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Excel Row 34: Raw qty="100" → Cleaned qty="100"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Sheet "Sheet1" - Column Map: {itemNo: 0, description: 1, unit: 2, quantity: 3, rate: 4, …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Parsed Excel BOQ items: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📊 Excel Parsing Summary: 19 total items, 0 summary rows
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Submitting bill with items: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 Project settings: {province: 'WC', municipality: 'CPT', profitMargin: '12', cidbGrading: 'GB4', duration: '6', …}
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 🔧 Merging contractor profile data with project settings
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📋 Final project settings: {province: 'WC', municipality: 'CPT', profitMargin: '12', cidbGrading: 'GB4', duration: '6', …}
+(index):1  Access to fetch at 'https://zzdzrlglivtpawtitvgu.supabase.co/functions/v1/server/make-server-9db710f3/process-bill' from origin 'https://036aa655-5238-4be4-9186-443a9fb60ff9-v2-figmaiframepreview.figma.site' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: It does not have HTTP ok status.
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   POST https://zzdzrlglivtpawtitvgu.supabase.co/functions/v1/server/make-server-9db710f3/process-bill net::ERR_FAILED
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+Yu @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:122588
+processBill @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:122784
+P @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:137180
+await in P
+P @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:119245
+y @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+i @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+iG @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+ij @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+iz @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+dP @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:89
+dM @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:89
+dk @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:89
+dG @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:89
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:89
+SR @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:89
+iR @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+d$ @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:89
+lO @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+lN @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+lv @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+i @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🌍 Regional Pricing Engine Started
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📍 Project Location: City of Cape Town (CPT), WC
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📌 Coordinates: -33.9249, 18.4241
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 📦 Processing 19 items...
+
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Excavation in soft soil" (500 m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: EARTHWORKS
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Earthworks keywords detected - Labor + Equipment pricing only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Excavation in soft soil" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+setTimeout
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+Yu.method @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:122664
+processBill @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:122663
+P @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:137238
+await in P
+P @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:119245
+y @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+i @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+iG @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+ij @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+iz @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+dP @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:89
+dM @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:89
+dk @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:89
+dG @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:89
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:89
+SR @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:89
+iR @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+d$ @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:89
+lO @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+lN @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+lv @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:77
+i @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "excavation in soft soil" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Excavation soft soil machine" (earthworks)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 75/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: MEDIUM
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R45.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R85.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Labor rate: R45.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Equipment rate: R85.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Total rate: R130.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Total cost: R65000.00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📋 Matched: "Excavation soft soil machine" (earthworks)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Backfilling with selected material" (300 m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: EARTHWORKS
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Earthworks keywords detected - Labor + Equipment pricing only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Backfilling with selected material" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "backfilling with selected material" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Backfill selected material" (earthworks)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 65/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: MEDIUM
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R74.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R18.50/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Labor rate: R74.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Equipment rate: R18.50/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Total rate: R92.50/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Total cost: R27750.00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📋 Matched: "Backfill selected material" (earthworks)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Compaction of subgrade" (2000 m²)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: EARTHWORKS
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Earthworks keywords detected - Labor + Equipment pricing only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Compaction of subgrade" (m²)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "compaction of subgrade" (m²)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Compact subgrade" (earthworks)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 45/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: LOW
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R16.00/m²
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R12.80/m²
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  No labor rate found - using default
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Blinding concrete 10MPa" (50 m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section B default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Blinding concrete 10MPa"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 39 matches (top: 70)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Ready Mix Concrete" from Buco
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Buco (Buco Cape Town)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R1312.50/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R450.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R1321.50/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R279.21/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R80035.33 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Blinding concrete 10MPa" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "blinding concrete 10mpa" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Concrete 15MPa blinding" (concrete)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 73/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: MEDIUM
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R171.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R114.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔧 Labor Rate: R171.00/m³ (MEDIUM confidence)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚜 Equipment Rate: R114.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    👷 Total Labor: R8550.00 | Total Equipment: R5700.00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📋 Matched: "Concrete 15MPa blinding" (concrete)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Ready-mix concrete 25MPa (foundations)" (200 m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section B default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Ready-mix concrete 25MPa (foundations)"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 40 matches (top: 90)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Concrete 25MPa" from Raumix
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 90 | Confidence: VERY HIGH | Item name found in search term
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Lafarge (Lafarge Cape Town)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R1239.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R450.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R1241.25/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R262.25/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R300700.26 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Ready-mix concrete 25MPa (foundations)" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "ready mix concrete 25mpa foundations " (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Concrete 25MPa foundations" (concrete)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 93/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: HIGH
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R216.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R144.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔧 Labor Rate: R216.00/m³ (HIGH confidence)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚜 Equipment Rate: R144.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    👷 Total Labor: R43200.00 | Total Equipment: R28800.00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📋 Matched: "Concrete 25MPa foundations" (concrete)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Ready-mix concrete 30MPa (slabs)" (300 m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section B default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Ready-mix concrete 30MPa (slabs)"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 40 matches (top: 90)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Concrete 30MPa" from Lafarge
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 90 | Confidence: VERY HIGH | Item name found in search term
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Raumix (Raumix Cape Town)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R1260.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R450.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R1261.50/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R266.53/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R458408.92 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Ready-mix concrete 30MPa (slabs)" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "ready mix concrete 30mpa slabs " (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Concrete 30MPa slabs" (concrete)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 93/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: HIGH
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R243.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R162.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔧 Labor Rate: R243.00/m³ (HIGH confidence)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚜 Equipment Rate: R162.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    👷 Total Labor: R72900.00 | Total Equipment: R48600.00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📋 Matched: "Concrete 30MPa slabs" (concrete)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Face bricks" (150000 nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section C default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Face bricks"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 8 matches (top: 75)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Stock Brick" from Buco
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 75 | Confidence: HIGH | 1/2 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Raumix (Raumix Cape Town)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R2.89/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R300.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R2.89/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R0.61/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R524999.03 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Face bricks" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "face bricks" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Face brickwork 220mm face brick" (brickwork)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 35/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: LOW
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R346.50/m²
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R66.00/m²
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Common bricks (internal)" (80000 nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section C default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Common bricks (internal)"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 9 matches (top: 70)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Door Internal Hollow Core" from TALISMAN
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Raumix (Raumix Cape Town)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R2.89/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R300.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R2.89/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R0.61/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R280169.06 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Common bricks (internal)" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "common bricks internal " (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Window aluminum sliding 1200x1200" (windows)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 30/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: LOW
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R740.00/nr
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R185.00/nr
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Mortar for brickwork" (100 m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section C default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Mortar for brickwork"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 50 matches (top: 70)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Face brickwork (220mm thick)" from Buco
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Buco (Buco Cape Town)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R714.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R450.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R718.50/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R151.80/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R87030.47 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Mortar for brickwork" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "mortar for brickwork" (m³)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Excavation soft soil manual" (earthworks)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 30/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: LOW
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R196.00/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R24.50/m³
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Steel reinforcement Y12" (15000 kg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: EARTHWORKS
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section D (Earthworks) - Labor + Equipment pricing only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Steel reinforcement Y12" (kg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "steel reinforcement y12" (kg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Reinforcement Y12 bars" (reinforcement)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 73/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: MEDIUM
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R9.63/kg
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R0.88/kg
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Labor rate: R9.63/kg
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Equipment rate: R0.88/kg
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Total rate: R10.51/kg
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Total cost: R157650.00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📋 Matched: "Reinforcement Y12 bars" (reinforcement)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Steel reinforcement Y16" (8000 kg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: EARTHWORKS
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section D (Earthworks) - Labor + Equipment pricing only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Steel reinforcement Y16" (kg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "steel reinforcement y16" (kg)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Reinforcement Y16 bars" (reinforcement)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 73/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: MEDIUM
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R10.18/kg
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R0.93/kg
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Labor rate: R10.18/kg
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Equipment rate: R0.93/kg
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Total rate: R11.11/kg
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Total cost: R88880.00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📋 Matched: "Reinforcement Y16 bars" (reinforcement)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Roof tiles concrete" (5000 m²)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section E default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Roof tiles concrete"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 48 matches (top: 70)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Ready Mix Concrete" from Buco
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📐 SQUARE METER DETECTED: Adjusted unit price from R1312.59 to R0.26
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Buco (Buco Cape Town)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R1312.50/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R450.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R1312.59/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R0.06/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R1589.91 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Roof tiles concrete" (m²)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "roof tiles concrete" (m²)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Roof tiles concrete" (roofing)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 100/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: HIGH
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R118.00/m²
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R29.50/m²
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔧 Labor Rate: R118.00/m² (HIGH confidence)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚜 Equipment Rate: R29.50/m²
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    👷 Total Labor: R590000.00 | Total Equipment: R147500.00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📋 Matched: "Roof tiles concrete" (roofing)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Roof trusses (timber)" (100 lump sum)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: SPECIAL
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Special unit type (lump sum) - Handled separately
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Roof trusses (timber)" (lump sum)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "roof trusses timber " (sum)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Roof trusses timber" (roofing)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 54/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: LOW
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R126.00/m²
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R42.00/m²
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Labor rate: R126.00/lump sum
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Equipment rate: R42.00/lump sum
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Total rate: R168.00/lump sum
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Total cost: R16800.00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📋 Matched: "Roof trusses timber" (roofing)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Aluminum windows 1200x1200" (200 nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section F default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Aluminum windows 1200x1200"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 10 matches (top: 57)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Barrier kerbing (SABS 927 fg 1)" from Buco
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 57 | Confidence: LOW | 1/3 partial keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Buco (Buco Cape Town)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R204.75/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R300.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R206.25/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R43.58/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R49965.30 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Aluminum windows 1200x1200" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "aluminum windows 1200x1200" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Window aluminum sliding 1200x1200" (windows)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 78/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: MEDIUM
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R740.00/nr
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R185.00/nr
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔧 Labor Rate: R740.00/nr (MEDIUM confidence)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚜 Equipment Rate: R185.00/nr
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    👷 Total Labor: R148000.00 | Total Equipment: R37000.00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📋 Matched: "Window aluminum sliding 1200x1200" (windows)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Wooden doors 813x2032" (300 nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section F default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Wooden doors 813x2032"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 11 matches (top: 57)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Pine Timber 38x114mm" from Buco
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 57 | Confidence: LOW | 1/3 partial keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Buco (Buco Cape Town)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R61.43/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R300.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R62.43/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R13.19/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R22684.25 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Wooden doors 813x2032" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "wooden doors 813x2032" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Door solid core 813x2032" (doors)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 58/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: LOW
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R500.00/nr
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R125.00/nr
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔧 Labor Rate: R500.00/nr (LOW confidence)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚜 Equipment Rate: R125.00/nr
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    👷 Total Labor: R150000.00 | Total Equipment: R37500.00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📋 Matched: "Door solid core 813x2032" (doors)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "110mm PVC sewer pipes" (1500 m)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section G default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "110mm PVC sewer pipes"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 28 matches (top: 83)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "PVC Sewer Pipe 110mm" from MARLEY
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 83 | Confidence: HIGH | 3/4 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: MARLEY (Marley Cape Town)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R141.75/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R300.00 (0.4km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R141.95/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R29.99/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R257911.79 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "110mm PVC sewer pipes" (m)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "110mm pvc sewer pipes" (m)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Gutters and downpipes" (roofing)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 35/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: LOW
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R42.00/m
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R10.50/m
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Hot water cylinders 150L" (100 nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: MIXED
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Section G default - Material + Labor
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Hot water cylinders 150L"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 39 matches (top: 68)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Precast concrete channel units" from Buco
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 68 | Confidence: MEDIUM | 1/4 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Buco (Buco Cape Town)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R294.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R300.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R297.00/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R62.75/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R35975.02 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Hot water cylinders 150L" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "hot water cylinders 150l" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Window aluminum sliding 1200x1200" (windows)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 30/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: LOW
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R740.00/nr
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R185.00/nr
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Distribution boards 8-way" (100 nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: UNKNOWN
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Unknown section - Defaulting to mixed pricing
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: YES
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🔍 Searching for suppliers (material item)...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 ENHANCED SEARCH: "Distribution boards 8-way"
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 1: Trying exact/fuzzy match...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📍 Level 2: Trying scored match with brands...
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Level 2 SUCCESS: Found 17 matches (top: 80)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🏆 TOP MATCH: "Distribution Board 12-Way" from VOLTEX
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    Score: 80 | Confidence: HIGH | 2/3 exact keyword matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✅ Found 6 supplier matches
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🏆 Best Supplier: Buco (Buco Cape Town)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📦 Base Price: R461.64/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚚 Transport: R300.00 (0km)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💰 Landed Cost: R464.64/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Additional Fees: R98.17/unit
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    💵 Final Price: R56281.28 (incl. all fees)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Distribution boards 8-way" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "distribution boards 8 way" (nr)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Door solid core 813x2032" (doors)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 35/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: LOW
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R500.00/nr
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R125.00/nr
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  Labor/Equipment: No match found (using R0)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔍 Pricing: "Electrical wiring complete" (100 lump sum)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    📊 Category: SPECIAL
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ℹ️  Special unit type (lump sum) - Handled separately
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Supplier: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Transport: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Labor: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ✓ Equipment: NO
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+🔧 LABOR RATE LOOKUP: "Electrical wiring complete" (lump sum)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/labor_rates?select=*&order=trade_category.asc 400 (Bad Request)
+(anonymous) @ code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13415
+(anonymous) @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:13421
+await in (anonymous)
+then @ index.js?Expires=1773619200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HZ3wJSogChwhDFujtmi27MkxoFsYDE3OT1ccrUVJ7HRbgguEFiQDkcooaN0b6HNl1L0otIk774K2VD7SE5WSpRpuFTP4HbeYBcmrDsQe853L8FoxTYFcEcRrn2PJ4sViWVf4sPhgkLRZu4uJH~rhyIHypluByJ0En8IZ2EcTCIw~qCxJGU9s9pQ-31jKgqqD3RzkDpH0iS4SaKvl3lLb9fFJphCvl~xMoX2TG010SobzzWQD4~RfpPX43D3R0OyoPIvDEEIkpFc9Usp55NAYqDmTWhDRTg5cgtGW~aVlrmPXvBB8pS1OwdZp62O1k1AsRlWrZ2p5EItTgaBUAaa73w__:4558
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 ℹ️  Error fetching labor rates (42703) - using mock data
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Loaded 39 labor rates from mock database
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ 39 valid labor rates to match against
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🔍 Normalized search: "electrical wiring complete" (sum)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🏆 Best match: "Health and safety file" (professional)
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   📊 Score: 30/100
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   ✅ Confidence: LOW
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   💰 Labor rate: R5000.00/sum
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   🚜 Equipment rate: R0.00/sum
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28    ⚠️  No labor rate found - using default
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 
+✅ Regional Pricing Complete: 19 items priced
+
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 💰 BOQ Totals Calculation:
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   Total on Delivery (Grand Total): R 3 095 800,80
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   Delivery Fees (Transport): R 4 350,00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   Total on Collection (No Transport): R 3 091 450,80
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   Verification (Collection + Delivery = Total): ✅
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28   Difference: 0.00
+code_components_preview_iframe-7e022e10d2e5050f.min.js.br:28 🕐 RegionalPricedBillView received processingTime: 8663.199999988079

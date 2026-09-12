@@ -1,0 +1,218 @@
+1200x1200" (200 nr)
+index-qrqHhaMT.js:1095    📊 Category: MIXED
+index-qrqHhaMT.js:1095    ℹ️  Section F default - Material + Labor
+index-qrqHhaMT.js:1095    ✓ Supplier: YES
+index-qrqHhaMT.js:1095    ✓ Transport: YES
+index-qrqHhaMT.js:1095    ✓ Labor: YES
+index-qrqHhaMT.js:1095    ✓ Equipment: NO
+index-qrqHhaMT.js:1095    🔍 Searching for suppliers (material item)...
+index-qrqHhaMT.js:1088 
+🔍 ENHANCED SEARCH: "Aluminum windows 1200x1200"
+index-qrqHhaMT.js:1089   📍 Level 1: Trying exact/fuzzy match...
+index-qrqHhaMT.js:1089   📍 Level 2: Trying scored match with brands...
+index-qrqHhaMT.js:1089   ✅ Level 2 SUCCESS: Found 10 matches (top: 57)
+index-qrqHhaMT.js:1089 
+🏆 TOP MATCH: "Barrier kerbing (SABS 927 fg 1)" from Buco
+index-qrqHhaMT.js:1090    Score: 57 | Confidence: LOW | 1/3 partial keyword matches
+index-qrqHhaMT.js:1095    ✅ Found 6 supplier matches
+index-qrqHhaMT.js:1095    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-qrqHhaMT.js:1095    📦 Base Price: R195.00/unit
+index-qrqHhaMT.js:1095    🚚 Transport: R300.00 (0km)
+index-qrqHhaMT.js:1095    💰 Landed Cost: R196.50/unit
+index-qrqHhaMT.js:1095    💵 Additional Fees: R47.89/unit
+index-qrqHhaMT.js:1095    💵 Final Price: R48878.39 (incl. all fees)
+index-qrqHhaMT.js:1091 
+🔧 LABOR RATE LOOKUP: "Aluminum windows 1200x1200" (nr)
+index-qrqHhaMT.js:1092   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-qrqHhaMT.js:1092   ✅ 39 valid labor rates to match against
+index-qrqHhaMT.js:1092   🔍 Normalized search: "aluminum windows 1200x1200" (nr)
+index-qrqHhaMT.js:1092   🏆 Best match: "Window aluminum sliding 1200x1200" (windows)
+index-qrqHhaMT.js:1092   📊 Score: 78/100
+index-qrqHhaMT.js:1092   ✅ Confidence: MEDIUM
+index-qrqHhaMT.js:1092   💰 Labor rate: R740.00/nr
+index-qrqHhaMT.js:1092   🚜 Equipment rate: R185.00/nr
+index-qrqHhaMT.js:1095    🔧 Labor Rate: R740.00/nr (MEDIUM confidence)
+index-qrqHhaMT.js:1095    🚜 Equipment Rate: R185.00/nr
+index-qrqHhaMT.js:1095    👷 Total Labor: R148000.00 | Total Equipment: R37000.00
+index-qrqHhaMT.js:1095    📋 Matched: "Window aluminum sliding 1200x1200" (windows)
+index-qrqHhaMT.js:1094 
+🔍 Pricing: "Wooden doors 813x2032" (300 nr)
+index-qrqHhaMT.js:1095    📊 Category: MIXED
+index-qrqHhaMT.js:1095    ℹ️  Section F default - Material + Labor
+index-qrqHhaMT.js:1095    ✓ Supplier: YES
+index-qrqHhaMT.js:1095    ✓ Transport: YES
+index-qrqHhaMT.js:1095    ✓ Labor: YES
+index-qrqHhaMT.js:1095    ✓ Equipment: NO
+index-qrqHhaMT.js:1095    🔍 Searching for suppliers (material item)...
+index-qrqHhaMT.js:1088 
+🔍 ENHANCED SEARCH: "Wooden doors 813x2032"
+index-qrqHhaMT.js:1089   📍 Level 1: Trying exact/fuzzy match...
+index-qrqHhaMT.js:1089   📍 Level 2: Trying scored match with brands...
+index-qrqHhaMT.js:1089   ✅ Level 2 SUCCESS: Found 11 matches (top: 57)
+index-qrqHhaMT.js:1089 
+🏆 TOP MATCH: "Pine Timber 38x114mm" from Buco
+index-qrqHhaMT.js:1090    Score: 57 | Confidence: LOW | 1/3 partial keyword matches
+index-qrqHhaMT.js:1095    ✅ Found 6 supplier matches
+index-qrqHhaMT.js:1095    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-qrqHhaMT.js:1095    📦 Base Price: R58.50/unit
+index-qrqHhaMT.js:1095    🚚 Transport: R300.00 (0km)
+index-qrqHhaMT.js:1095    💰 Landed Cost: R59.50/unit
+index-qrqHhaMT.js:1095    💵 Additional Fees: R14.50/unit
+index-qrqHhaMT.js:1095    💵 Final Price: R22200.49 (incl. all fees)
+index-qrqHhaMT.js:1091 
+🔧 LABOR RATE LOOKUP: "Wooden doors 813x2032" (nr)
+index-qrqHhaMT.js:1092   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-qrqHhaMT.js:1092   ✅ 39 valid labor rates to match against
+index-qrqHhaMT.js:1092   🔍 Normalized search: "wooden doors 813x2032" (nr)
+index-qrqHhaMT.js:1092   🏆 Best match: "Door solid core 813x2032" (doors)
+index-qrqHhaMT.js:1092   📊 Score: 58/100
+index-qrqHhaMT.js:1092   ✅ Confidence: LOW
+index-qrqHhaMT.js:1092   💰 Labor rate: R500.00/nr
+index-qrqHhaMT.js:1092   🚜 Equipment rate: R125.00/nr
+index-qrqHhaMT.js:1095    🔧 Labor Rate: R500.00/nr (LOW confidence)
+index-qrqHhaMT.js:1095    🚜 Equipment Rate: R125.00/nr
+index-qrqHhaMT.js:1095    👷 Total Labor: R150000.00 | Total Equipment: R37500.00
+index-qrqHhaMT.js:1095    📋 Matched: "Door solid core 813x2032" (doors)
+index-qrqHhaMT.js:1094 
+🔍 Pricing: "110mm PVC sewer pipes" (1500 m)
+index-qrqHhaMT.js:1095    📊 Category: MIXED
+index-qrqHhaMT.js:1095    ℹ️  Section G default - Material + Labor
+index-qrqHhaMT.js:1095    ✓ Supplier: YES
+index-qrqHhaMT.js:1095    ✓ Transport: YES
+index-qrqHhaMT.js:1095    ✓ Labor: YES
+index-qrqHhaMT.js:1095    ✓ Equipment: NO
+index-qrqHhaMT.js:1095    🔍 Searching for suppliers (material item)...
+index-qrqHhaMT.js:1088 
+🔍 ENHANCED SEARCH: "110mm PVC sewer pipes"
+index-qrqHhaMT.js:1089   📍 Level 1: Trying exact/fuzzy match...
+index-qrqHhaMT.js:1089   📍 Level 2: Trying scored match with brands...
+index-qrqHhaMT.js:1089   ✅ Level 2 SUCCESS: Found 28 matches (top: 83)
+index-qrqHhaMT.js:1089 
+🏆 TOP MATCH: "PVC Sewer Pipe 110mm" from MARLEY
+index-qrqHhaMT.js:1090    Score: 83 | Confidence: HIGH | 3/4 exact keyword matches
+index-qrqHhaMT.js:1095    ✅ Found 6 supplier matches
+index-qrqHhaMT.js:1095    🏆 Best Supplier: MARLEY (Marley Johannesburg)
+index-qrqHhaMT.js:1095    📦 Base Price: R135.00/unit
+index-qrqHhaMT.js:1095    🚚 Transport: R300.00 (2.8km)
+index-qrqHhaMT.js:1095    💰 Landed Cost: R135.20/unit
+index-qrqHhaMT.js:1095    💵 Additional Fees: R32.95/unit
+index-qrqHhaMT.js:1095    💵 Final Price: R252227.43 (incl. all fees)
+index-qrqHhaMT.js:1091 
+🔧 LABOR RATE LOOKUP: "110mm PVC sewer pipes" (m)
+index-qrqHhaMT.js:1092   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-qrqHhaMT.js:1092   ✅ 39 valid labor rates to match against
+index-qrqHhaMT.js:1092   🔍 Normalized search: "110mm pvc sewer pipes" (m)
+index-qrqHhaMT.js:1092   🏆 Best match: "Gutters and downpipes" (roofing)
+index-qrqHhaMT.js:1092   📊 Score: 35/100
+index-qrqHhaMT.js:1092   ✅ Confidence: LOW
+index-qrqHhaMT.js:1092   💰 Labor rate: R42.00/m
+index-qrqHhaMT.js:1092   🚜 Equipment rate: R10.50/m
+index-qrqHhaMT.js:1095    ⚠️  Labor/Equipment: No match found (using R0)
+index-qrqHhaMT.js:1094 
+🔍 Pricing: "Hot water cylinders 150L" (100 nr)
+index-qrqHhaMT.js:1095    📊 Category: MIXED
+index-qrqHhaMT.js:1095    ℹ️  Section G default - Material + Labor
+index-qrqHhaMT.js:1095    ✓ Supplier: YES
+index-qrqHhaMT.js:1095    ✓ Transport: YES
+index-qrqHhaMT.js:1095    ✓ Labor: YES
+index-qrqHhaMT.js:1095    ✓ Equipment: NO
+index-qrqHhaMT.js:1095    🔍 Searching for suppliers (material item)...
+index-qrqHhaMT.js:1088 
+🔍 ENHANCED SEARCH: "Hot water cylinders 150L"
+index-qrqHhaMT.js:1089   📍 Level 1: Trying exact/fuzzy match...
+index-qrqHhaMT.js:1089   📍 Level 2: Trying scored match with brands...
+index-qrqHhaMT.js:1089   ✅ Level 2 SUCCESS: Found 39 matches (top: 68)
+index-qrqHhaMT.js:1089 
+🏆 TOP MATCH: "Precast concrete channel units" from Buco
+index-qrqHhaMT.js:1090    Score: 68 | Confidence: MEDIUM | 1/4 exact keyword matches
+index-qrqHhaMT.js:1095    ✅ Found 6 supplier matches
+index-qrqHhaMT.js:1095    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-qrqHhaMT.js:1095    📦 Base Price: R280.00/unit
+index-qrqHhaMT.js:1095    🚚 Transport: R300.00 (0km)
+index-qrqHhaMT.js:1095    💰 Landed Cost: R283.00/unit
+index-qrqHhaMT.js:1095    💵 Additional Fees: R68.97/unit
+index-qrqHhaMT.js:1095    💵 Final Price: R35197.42 (incl. all fees)
+index-qrqHhaMT.js:1091 
+🔧 LABOR RATE LOOKUP: "Hot water cylinders 150L" (nr)
+index-qrqHhaMT.js:1092   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-qrqHhaMT.js:1092   ✅ 39 valid labor rates to match against
+index-qrqHhaMT.js:1092   🔍 Normalized search: "hot water cylinders 150l" (nr)
+index-qrqHhaMT.js:1092   🏆 Best match: "Door solid core 813x2032" (doors)
+index-qrqHhaMT.js:1092   📊 Score: 30/100
+index-qrqHhaMT.js:1092   ✅ Confidence: LOW
+index-qrqHhaMT.js:1092   💰 Labor rate: R500.00/nr
+index-qrqHhaMT.js:1092   🚜 Equipment rate: R125.00/nr
+index-qrqHhaMT.js:1095    ⚠️  Labor/Equipment: No match found (using R0)
+index-qrqHhaMT.js:1094 
+🔍 Pricing: "Distribution boards 8-way" (100 nr)
+index-qrqHhaMT.js:1095    📊 Category: UNKNOWN
+index-qrqHhaMT.js:1095    ℹ️  Unknown section - Defaulting to mixed pricing
+index-qrqHhaMT.js:1095    ✓ Supplier: YES
+index-qrqHhaMT.js:1095    ✓ Transport: YES
+index-qrqHhaMT.js:1095    ✓ Labor: YES
+index-qrqHhaMT.js:1095    ✓ Equipment: NO
+index-qrqHhaMT.js:1095    🔍 Searching for suppliers (material item)...
+index-qrqHhaMT.js:1088 
+🔍 ENHANCED SEARCH: "Distribution boards 8-way"
+index-qrqHhaMT.js:1089   📍 Level 1: Trying exact/fuzzy match...
+index-qrqHhaMT.js:1089   📍 Level 2: Trying scored match with brands...
+index-qrqHhaMT.js:1089   ✅ Level 2 SUCCESS: Found 17 matches (top: 80)
+index-qrqHhaMT.js:1089 
+🏆 TOP MATCH: "Distribution Board 12-Way" from VOLTEX
+index-qrqHhaMT.js:1090    Score: 80 | Confidence: HIGH | 2/3 exact keyword matches
+index-qrqHhaMT.js:1095    ✅ Found 6 supplier matches
+index-qrqHhaMT.js:1095    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-qrqHhaMT.js:1095    📦 Base Price: R439.66/unit
+index-qrqHhaMT.js:1095    🚚 Transport: R300.00 (0km)
+index-qrqHhaMT.js:1095    💰 Landed Cost: R442.66/unit
+index-qrqHhaMT.js:1095    💵 Additional Fees: R107.89/unit
+index-qrqHhaMT.js:1095    💵 Final Price: R55054.73 (incl. all fees)
+index-qrqHhaMT.js:1091 
+🔧 LABOR RATE LOOKUP: "Distribution boards 8-way" (nr)
+index-qrqHhaMT.js:1092   ✅ Loaded 39 rates from boq_rates table (BuildAid 2025/2026)
+index-qrqHhaMT.js:1092   ✅ 39 valid labor rates to match against
+index-qrqHhaMT.js:1092   🔍 Normalized search: "distribution boards 8 way" (nr)
+index-qrqHhaMT.js:1092   🏆 Best match: "Door solid core 813x2032" (doors)
+index-qrqHhaMT.js:1092   📊 Score: 35/100
+index-qrqHhaMT.js:1092   ✅ Confidence: LOW
+index-qrqHhaMT.js:1092   💰 Labor rate: R500.00/nr
+index-qrqHhaMT.js:1092   🚜 Equipment rate: R125.00/nr
+index-qrqHhaMT.js:1095    ⚠️  Labor/Equipment: No match found (using R0)
+index-qrqHhaMT.js:1094 
+🔍 Pricing: "Electrical wiring complete" (100 lump sum)
+index-qrqHhaMT.js:1095    📊 Category: SPECIAL
+index-qrqHhaMT.js:1095    ℹ️  Special unit type (lump sum) - Handled separately
+index-qrqHhaMT.js:1095    ✓ Supplier: YES
+index-qrqHhaMT.js:1095    ✓ Transport: NO
+index-qrqHhaMT.js:1095    ✓ Labor: NO
+index-qrqHhaMT.js:1095    ✓ Equipment: NO
+index-qrqHhaMT.js:1095    💎 SPECIAL ITEM DETECTED - Using special pricing logic
+index-qrqHhaMT.js:1088 
+🔍 ENHANCED SEARCH: "Electrical wiring complete"
+index-qrqHhaMT.js:1089   📍 Level 1: Trying exact/fuzzy match...
+index-qrqHhaMT.js:1089   📍 Level 2: Trying scored match with brands...
+index-qrqHhaMT.js:1089   ✅ Level 2 SUCCESS: Found 5 matches (top: 70)
+index-qrqHhaMT.js:1089 
+🏆 TOP MATCH: "The provision of a complete 220/250 volt single phase electrical power installation" from Buco
+index-qrqHhaMT.js:1090    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-qrqHhaMT.js:1095    📋 Lump Sum: Base=R35000.00, Overhead=5%, Final=R36750.00
+index-qrqHhaMT.js:1095 
+✅ Regional Pricing Complete: 19 items priced
+
+index-qrqHhaMT.js:1297 💾 Saving bill to Supabase with project settings...
+zzdzrlglivtpawtitvgu.supabase.co/rest/v1/bills?select=*:1   Failed to load resource: the server responded with a status of 403 ()
+index-qrqHhaMT.js:1297  ❌ Error saving bill to Supabase: Object
+q @ index-qrqHhaMT.js:1297
+index-qrqHhaMT.js:1106 💰 BOQ Totals Calculation:
+index-qrqHhaMT.js:1106   Total on Delivery (Grand Total): R 3 064 592,92
+index-qrqHhaMT.js:1106   Delivery Fees (Transport): R 4 350,00
+index-qrqHhaMT.js:1106   Total on Collection (No Transport): R 3 060 242,92
+index-qrqHhaMT.js:1106   Verification (Collection + Delivery = Total): ✅
+index-qrqHhaMT.js:1106   Difference: 0.00
+index-qrqHhaMT.js:1106 🕐 RegionalPricedBillView received processingTime: 8608.599999964237
+index-qrqHhaMT.js:1106 💰 BOQ Totals Calculation:
+index-qrqHhaMT.js:1106   Total on Delivery (Grand Total): R 3 064 592,92
+index-qrqHhaMT.js:1106   Delivery Fees (Transport): R 4 350,00
+index-qrqHhaMT.js:1106   Total on Collection (No Transport): R 3 060 242,92
+index-qrqHhaMT.js:1106   Verification (Collection + Delivery = Total): ✅
+index-qrqHhaMT.js:1106   Difference: 0.00

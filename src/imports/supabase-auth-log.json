@@ -1,0 +1,1002 @@
+[
+  {
+    "event_message": "GET | 200 | 196.40.186.154 | 9d7ffd5eda8e739f | https://kcptusoevqapcvptlgkd.supabase.co/auth/v1/user | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0",
+    "metadata": [
+      {
+        "load_balancer_experimental_routing": null,
+        "load_balancer_geo_aware_info": [],
+        "load_balancer_redirect_identifier": null,
+        "logflare_worker": [
+          {
+            "worker_id": "68HJAW"
+          }
+        ],
+        "request": [
+          {
+            "cf": [
+              {
+                "asOrganization": "JHB Clients",
+                "asn": 37150,
+                "botManagement": [
+                  {
+                    "corporateProxy": false,
+                    "detectionIds": [],
+                    "ja3Hash": "6058d05ed6509a21d3635c2a003bf97b",
+                    "ja4": "q13d0312h3_55b375c5d22e_5a06198afb93",
+                    "ja4Signals": [
+                      {
+                        "browser_ratio_1h": 0.87319755554199,
+                        "cache_ratio_1h": 0.36639210581779,
+                        "h2h3_ratio_1h": 0.99998962879181,
+                        "heuristic_ratio_1h": 0.0011411459418014,
+                        "ips_quantile_1h": 0.99997389316559,
+                        "ips_rank_1h": 9,
+                        "paths_rank_1h": 6,
+                        "reqs_quantile_1h": 0.99997389316559,
+                        "reqs_rank_1h": 9,
+                        "uas_rank_1h": 22
+                      }
+                    ],
+                    "jsDetection": [
+                      {
+                        "passed": false
+                      }
+                    ],
+                    "score": 97,
+                    "staticResource": false,
+                    "verifiedBot": false
+                  }
+                ],
+                "city": "Johannesburg",
+                "clientAcceptEncoding": "gzip, deflate, br",
+                "clientTcpRtt": null,
+                "clientTrustScore": 97,
+                "colo": "JNB",
+                "continent": "AF",
+                "country": "ZA",
+                "edgeRequestKeepAliveStatus": 1,
+                "httpProtocol": "HTTP/3",
+                "isEUCountry": null,
+                "latitude": "-26.20227",
+                "longitude": "28.04363",
+                "metroCode": null,
+                "postalCode": "2041",
+                "region": "Gauteng",
+                "regionCode": "GP",
+                "requestPriority": null,
+                "timezone": "Africa/Johannesburg",
+                "tlsCipher": "AEAD-AES128-GCM-SHA256",
+                "tlsClientAuth": [
+                  {
+                    "certPresented": "0",
+                    "certRevoked": "0",
+                    "certVerified": "NONE"
+                  }
+                ],
+                "tlsClientCiphersSha1": "3HTt3+R/6BL3zeALJDSq0pR1yOQ=",
+                "tlsClientExtensionsSha1": "tJDeTlpgiZGmcNoEuP6CWa7MCbc=",
+                "tlsClientExtensionsSha1Le": "5LIl0QellN5IR7lC6TBuSBF05Po=",
+                "tlsClientHelloLength": "1992",
+                "tlsClientRandom": "Ho3B78HHmdLE0xMRuuOUrcpRtAEvCFcKm7Kl0Yo9xCE=",
+                "tlsExportedAuthenticator": [
+                  {
+                    "clientFinished": "caed115f4a8e9caabbdc3aa4da9b3add53fdec5fae029dd47a5ca68616814c44",
+                    "clientHandshake": "9c528808a14af1a0f1ceb219794449def9b8028a228eefcc547e353cafe7c0e2",
+                    "serverFinished": "66613c05fc5462da571fd74668c0cb5b19ca93de3c2a84fbc6475c359c00385c",
+                    "serverHandshake": "470e64bd7f3dfe88d2a18bc554c0880b3e7bde8e7ea7c6150cb7ad24052ea1b5"
+                  }
+                ],
+                "tlsVersion": "TLSv1.3",
+                "verifiedBotCategory": null
+              }
+            ],
+            "headers": [
+              {
+                "accept": "*/*",
+                "cf_cache_status": null,
+                "cf_connecting_ip": "196.40.186.154",
+                "cf_ipcountry": "ZA",
+                "cf_ray": "9d7ffd5eda8e739f",
+                "content_length": null,
+                "content_location": null,
+                "content_range": null,
+                "content_type": null,
+                "date": null,
+                "host": "kcptusoevqapcvptlgkd.supabase.co",
+                "prefer": null,
+                "range": null,
+                "referer": "https://qilly-sit.vercel.app/",
+                "sb_gateway_mode": null,
+                "sb_gateway_version": null,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0",
+                "x_client_info": "supabase-js-web/2.98.0",
+                "x_forwarded_for": null,
+                "x_forwarded_host": null,
+                "x_forwarded_proto": "https",
+                "x_forwarded_user_agent": null,
+                "x_kong_proxy_latency": null,
+                "x_kong_upstream_latency": null,
+                "x_real_ip": "196.40.186.154"
+              }
+            ],
+            "host": "kcptusoevqapcvptlgkd.supabase.co",
+            "method": "GET",
+            "path": "/auth/v1/user",
+            "port": null,
+            "protocol": "https:",
+            "sb": [
+              {
+                "apikey": [],
+                "auth_user": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9",
+                "jwt": [
+                  {
+                    "apikey": [
+                      {
+                        "invalid": null,
+                        "payload": [
+                          {
+                            "algorithm": "HS256",
+                            "expires_at": 2087586850,
+                            "issuer": "supabase",
+                            "role": "anon",
+                            "signature_prefix": "VCSkMR",
+                            "subject": null
+                          }
+                        ]
+                      }
+                    ],
+                    "authorization": [
+                      {
+                        "invalid": null,
+                        "payload": [
+                          {
+                            "algorithm": "ES256",
+                            "expires_at": 1772789313,
+                            "issuer": "https://kcptusoevqapcvptlgkd.supabase.co/auth/v1",
+                            "key_id": "c1c7a113-cb31-4665-b520-0927dbec23cc",
+                            "role": "authenticated",
+                            "session_id": "41699da5-8c9a-4394-a361-90a3a2107f37",
+                            "signature_prefix": "fTqTl-",
+                            "subject": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "search": null,
+            "url": "https://kcptusoevqapcvptlgkd.supabase.co/auth/v1/user"
+          }
+        ],
+        "response": [
+          {
+            "headers": [
+              {
+                "cf_cache_status": "DYNAMIC",
+                "cf_ray": "9d7ffd5ef080739f-JNB",
+                "content_length": null,
+                "content_location": null,
+                "content_range": null,
+                "content_type": "application/json",
+                "date": "Fri, 06 Mar 2026 08:28:55 GMT",
+                "proxy_status": null,
+                "sb_gateway_mode": null,
+                "sb_gateway_version": "1",
+                "sb_request_id": "019cc243-9756-7485-b874-a2604c9799f1",
+                "transfer_encoding": "chunked",
+                "x_kong_proxy_latency": null,
+                "x_kong_upstream_latency": null,
+                "x_sb_error_code": null
+              }
+            ],
+            "origin_time": 326,
+            "status_code": 200
+          }
+        ]
+      }
+    ],
+    "timestamp": "2026-03-06T08:28:55.510000"
+  },
+  {
+    "event_message": "GET | 200 | 196.40.186.154 | 9d7ffcf92e9a739f | https://kcptusoevqapcvptlgkd.supabase.co/rest/v1/contractors?select=*&email=eq.kgabo123%40gmail.com | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0",
+    "metadata": [
+      {
+        "load_balancer_experimental_routing": null,
+        "load_balancer_geo_aware_info": [],
+        "load_balancer_redirect_identifier": null,
+        "logflare_worker": [
+          {
+            "worker_id": "68HJAW"
+          }
+        ],
+        "request": [
+          {
+            "cf": [
+              {
+                "asOrganization": "JHB Clients",
+                "asn": 37150,
+                "botManagement": [
+                  {
+                    "corporateProxy": false,
+                    "detectionIds": [],
+                    "ja3Hash": "6058d05ed6509a21d3635c2a003bf97b",
+                    "ja4": "q13d0312h3_55b375c5d22e_5a06198afb93",
+                    "ja4Signals": [
+                      {
+                        "browser_ratio_1h": 0.87319755554199,
+                        "cache_ratio_1h": 0.36639210581779,
+                        "h2h3_ratio_1h": 0.99998962879181,
+                        "heuristic_ratio_1h": 0.0011411459418014,
+                        "ips_quantile_1h": 0.99997389316559,
+                        "ips_rank_1h": 9,
+                        "paths_rank_1h": 6,
+                        "reqs_quantile_1h": 0.99997389316559,
+                        "reqs_rank_1h": 9,
+                        "uas_rank_1h": 22
+                      }
+                    ],
+                    "jsDetection": [
+                      {
+                        "passed": false
+                      }
+                    ],
+                    "score": 99,
+                    "staticResource": false,
+                    "verifiedBot": false
+                  }
+                ],
+                "city": "Johannesburg",
+                "clientAcceptEncoding": "gzip, deflate, br",
+                "clientTcpRtt": null,
+                "clientTrustScore": 99,
+                "colo": "JNB",
+                "continent": "AF",
+                "country": "ZA",
+                "edgeRequestKeepAliveStatus": 1,
+                "httpProtocol": "HTTP/3",
+                "isEUCountry": null,
+                "latitude": "-26.20227",
+                "longitude": "28.04363",
+                "metroCode": null,
+                "postalCode": "2041",
+                "region": "Gauteng",
+                "regionCode": "GP",
+                "requestPriority": null,
+                "timezone": "Africa/Johannesburg",
+                "tlsCipher": "AEAD-AES128-GCM-SHA256",
+                "tlsClientAuth": [
+                  {
+                    "certPresented": "0",
+                    "certRevoked": "0",
+                    "certVerified": "NONE"
+                  }
+                ],
+                "tlsClientCiphersSha1": "3HTt3+R/6BL3zeALJDSq0pR1yOQ=",
+                "tlsClientExtensionsSha1": "tJDeTlpgiZGmcNoEuP6CWa7MCbc=",
+                "tlsClientExtensionsSha1Le": "5LIl0QellN5IR7lC6TBuSBF05Po=",
+                "tlsClientHelloLength": "1992",
+                "tlsClientRandom": "Ho3B78HHmdLE0xMRuuOUrcpRtAEvCFcKm7Kl0Yo9xCE=",
+                "tlsExportedAuthenticator": [
+                  {
+                    "clientFinished": "caed115f4a8e9caabbdc3aa4da9b3add53fdec5fae029dd47a5ca68616814c44",
+                    "clientHandshake": "9c528808a14af1a0f1ceb219794449def9b8028a228eefcc547e353cafe7c0e2",
+                    "serverFinished": "66613c05fc5462da571fd74668c0cb5b19ca93de3c2a84fbc6475c359c00385c",
+                    "serverHandshake": "470e64bd7f3dfe88d2a18bc554c0880b3e7bde8e7ea7c6150cb7ad24052ea1b5"
+                  }
+                ],
+                "tlsVersion": "TLSv1.3",
+                "verifiedBotCategory": null
+              }
+            ],
+            "headers": [
+              {
+                "accept": "application/vnd.pgrst.object+json",
+                "cf_cache_status": null,
+                "cf_connecting_ip": "196.40.186.154",
+                "cf_ipcountry": "ZA",
+                "cf_ray": "9d7ffcf92e9a739f",
+                "content_length": null,
+                "content_location": null,
+                "content_range": null,
+                "content_type": null,
+                "date": null,
+                "host": "kcptusoevqapcvptlgkd.supabase.co",
+                "prefer": null,
+                "range": null,
+                "referer": "https://qilly-sit.vercel.app/",
+                "sb_gateway_mode": null,
+                "sb_gateway_version": null,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0",
+                "x_client_info": "supabase-js-web/2.98.0",
+                "x_forwarded_for": null,
+                "x_forwarded_host": null,
+                "x_forwarded_proto": "https",
+                "x_forwarded_user_agent": null,
+                "x_kong_proxy_latency": null,
+                "x_kong_upstream_latency": null,
+                "x_real_ip": "196.40.186.154"
+              }
+            ],
+            "host": "kcptusoevqapcvptlgkd.supabase.co",
+            "method": "GET",
+            "path": "/rest/v1/contractors",
+            "port": null,
+            "protocol": "https:",
+            "sb": [
+              {
+                "apikey": [],
+                "auth_user": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9",
+                "jwt": [
+                  {
+                    "apikey": [
+                      {
+                        "invalid": null,
+                        "payload": [
+                          {
+                            "algorithm": "HS256",
+                            "expires_at": 2087586850,
+                            "issuer": "supabase",
+                            "role": "anon",
+                            "signature_prefix": "VCSkMR",
+                            "subject": null
+                          }
+                        ]
+                      }
+                    ],
+                    "authorization": [
+                      {
+                        "invalid": null,
+                        "payload": [
+                          {
+                            "algorithm": "ES256",
+                            "expires_at": 1772789313,
+                            "issuer": "https://kcptusoevqapcvptlgkd.supabase.co/auth/v1",
+                            "key_id": "c1c7a113-cb31-4665-b520-0927dbec23cc",
+                            "role": "authenticated",
+                            "session_id": "41699da5-8c9a-4394-a361-90a3a2107f37",
+                            "signature_prefix": "fTqTl-",
+                            "subject": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "search": "?select=*&email=eq.kgabo123%40gmail.com",
+            "url": "https://kcptusoevqapcvptlgkd.supabase.co/rest/v1/contractors?select=*&email=eq.kgabo123%40gmail.com"
+          }
+        ],
+        "response": [
+          {
+            "headers": [
+              {
+                "cf_cache_status": "DYNAMIC",
+                "cf_ray": "9d7ffcf95367739f-JNB",
+                "content_length": null,
+                "content_location": "/contractors?email=eq.kgabo123%40gmail.com&select=%2A",
+                "content_range": "0-0/*",
+                "content_type": "application/vnd.pgrst.object+json; charset=utf-8",
+                "date": "Fri, 06 Mar 2026 08:28:39 GMT",
+                "proxy_status": null,
+                "sb_gateway_mode": null,
+                "sb_gateway_version": "1",
+                "sb_request_id": "019cc243-57ca-7dcb-ad26-9959571c2b15",
+                "transfer_encoding": "chunked",
+                "x_kong_proxy_latency": null,
+                "x_kong_upstream_latency": null,
+                "x_sb_error_code": null
+              }
+            ],
+            "origin_time": 333,
+            "status_code": 200
+          }
+        ]
+      }
+    ],
+    "timestamp": "2026-03-06T08:28:39.242000"
+  },
+  {
+    "event_message": "GET | 200 | 196.40.186.154 | 9d7ffcf6bbc0739f | https://kcptusoevqapcvptlgkd.supabase.co/auth/v1/user | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0",
+    "metadata": [
+      {
+        "load_balancer_experimental_routing": null,
+        "load_balancer_geo_aware_info": [],
+        "load_balancer_redirect_identifier": null,
+        "logflare_worker": [
+          {
+            "worker_id": "68HJAW"
+          }
+        ],
+        "request": [
+          {
+            "cf": [
+              {
+                "asOrganization": "JHB Clients",
+                "asn": 37150,
+                "botManagement": [
+                  {
+                    "corporateProxy": false,
+                    "detectionIds": [],
+                    "ja3Hash": "6058d05ed6509a21d3635c2a003bf97b",
+                    "ja4": "q13d0312h3_55b375c5d22e_5a06198afb93",
+                    "ja4Signals": [
+                      {
+                        "browser_ratio_1h": 0.87319755554199,
+                        "cache_ratio_1h": 0.36639210581779,
+                        "h2h3_ratio_1h": 0.99998962879181,
+                        "heuristic_ratio_1h": 0.0011411459418014,
+                        "ips_quantile_1h": 0.99997389316559,
+                        "ips_rank_1h": 9,
+                        "paths_rank_1h": 6,
+                        "reqs_quantile_1h": 0.99997389316559,
+                        "reqs_rank_1h": 9,
+                        "uas_rank_1h": 22
+                      }
+                    ],
+                    "jsDetection": [
+                      {
+                        "passed": false
+                      }
+                    ],
+                    "score": 97,
+                    "staticResource": false,
+                    "verifiedBot": false
+                  }
+                ],
+                "city": "Johannesburg",
+                "clientAcceptEncoding": "gzip, deflate, br",
+                "clientTcpRtt": null,
+                "clientTrustScore": 97,
+                "colo": "JNB",
+                "continent": "AF",
+                "country": "ZA",
+                "edgeRequestKeepAliveStatus": 1,
+                "httpProtocol": "HTTP/3",
+                "isEUCountry": null,
+                "latitude": "-26.20227",
+                "longitude": "28.04363",
+                "metroCode": null,
+                "postalCode": "2041",
+                "region": "Gauteng",
+                "regionCode": "GP",
+                "requestPriority": null,
+                "timezone": "Africa/Johannesburg",
+                "tlsCipher": "AEAD-AES128-GCM-SHA256",
+                "tlsClientAuth": [
+                  {
+                    "certPresented": "0",
+                    "certRevoked": "0",
+                    "certVerified": "NONE"
+                  }
+                ],
+                "tlsClientCiphersSha1": "3HTt3+R/6BL3zeALJDSq0pR1yOQ=",
+                "tlsClientExtensionsSha1": "tJDeTlpgiZGmcNoEuP6CWa7MCbc=",
+                "tlsClientExtensionsSha1Le": "5LIl0QellN5IR7lC6TBuSBF05Po=",
+                "tlsClientHelloLength": "1992",
+                "tlsClientRandom": "Ho3B78HHmdLE0xMRuuOUrcpRtAEvCFcKm7Kl0Yo9xCE=",
+                "tlsExportedAuthenticator": [
+                  {
+                    "clientFinished": "caed115f4a8e9caabbdc3aa4da9b3add53fdec5fae029dd47a5ca68616814c44",
+                    "clientHandshake": "9c528808a14af1a0f1ceb219794449def9b8028a228eefcc547e353cafe7c0e2",
+                    "serverFinished": "66613c05fc5462da571fd74668c0cb5b19ca93de3c2a84fbc6475c359c00385c",
+                    "serverHandshake": "470e64bd7f3dfe88d2a18bc554c0880b3e7bde8e7ea7c6150cb7ad24052ea1b5"
+                  }
+                ],
+                "tlsVersion": "TLSv1.3",
+                "verifiedBotCategory": null
+              }
+            ],
+            "headers": [
+              {
+                "accept": "*/*",
+                "cf_cache_status": null,
+                "cf_connecting_ip": "196.40.186.154",
+                "cf_ipcountry": "ZA",
+                "cf_ray": "9d7ffcf6bbc0739f",
+                "content_length": null,
+                "content_location": null,
+                "content_range": null,
+                "content_type": null,
+                "date": null,
+                "host": "kcptusoevqapcvptlgkd.supabase.co",
+                "prefer": null,
+                "range": null,
+                "referer": "https://qilly-sit.vercel.app/",
+                "sb_gateway_mode": null,
+                "sb_gateway_version": null,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0",
+                "x_client_info": "supabase-js-web/2.98.0",
+                "x_forwarded_for": null,
+                "x_forwarded_host": null,
+                "x_forwarded_proto": "https",
+                "x_forwarded_user_agent": null,
+                "x_kong_proxy_latency": null,
+                "x_kong_upstream_latency": null,
+                "x_real_ip": "196.40.186.154"
+              }
+            ],
+            "host": "kcptusoevqapcvptlgkd.supabase.co",
+            "method": "GET",
+            "path": "/auth/v1/user",
+            "port": null,
+            "protocol": "https:",
+            "sb": [
+              {
+                "apikey": [],
+                "auth_user": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9",
+                "jwt": [
+                  {
+                    "apikey": [
+                      {
+                        "invalid": null,
+                        "payload": [
+                          {
+                            "algorithm": "HS256",
+                            "expires_at": 2087586850,
+                            "issuer": "supabase",
+                            "role": "anon",
+                            "signature_prefix": "VCSkMR",
+                            "subject": null
+                          }
+                        ]
+                      }
+                    ],
+                    "authorization": [
+                      {
+                        "invalid": null,
+                        "payload": [
+                          {
+                            "algorithm": "ES256",
+                            "expires_at": 1772789313,
+                            "issuer": "https://kcptusoevqapcvptlgkd.supabase.co/auth/v1",
+                            "key_id": "c1c7a113-cb31-4665-b520-0927dbec23cc",
+                            "role": "authenticated",
+                            "session_id": "41699da5-8c9a-4394-a361-90a3a2107f37",
+                            "signature_prefix": "fTqTl-",
+                            "subject": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "search": null,
+            "url": "https://kcptusoevqapcvptlgkd.supabase.co/auth/v1/user"
+          }
+        ],
+        "response": [
+          {
+            "headers": [
+              {
+                "cf_cache_status": "DYNAMIC",
+                "cf_ray": "9d7ffcf6e314739f-JNB",
+                "content_length": null,
+                "content_location": null,
+                "content_range": null,
+                "content_type": "application/json",
+                "date": "Fri, 06 Mar 2026 08:28:39 GMT",
+                "proxy_status": null,
+                "sb_gateway_mode": null,
+                "sb_gateway_version": "1",
+                "sb_request_id": "019cc243-564d-7c2c-95d4-5eb1b17b3226",
+                "transfer_encoding": "chunked",
+                "x_kong_proxy_latency": null,
+                "x_kong_upstream_latency": null,
+                "x_sb_error_code": null
+              }
+            ],
+            "origin_time": 319,
+            "status_code": 200
+          }
+        ]
+      }
+    ],
+    "timestamp": "2026-03-06T08:28:38.861000"
+  },
+  {
+    "event_message": "GET | 200 | 196.40.186.154 | 9d7ffce57f87739f | https://kcptusoevqapcvptlgkd.supabase.co/rest/v1/contractors?select=*&email=eq.kgabo123%40gmail.com | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0",
+    "metadata": [
+      {
+        "load_balancer_experimental_routing": null,
+        "load_balancer_geo_aware_info": [],
+        "load_balancer_redirect_identifier": null,
+        "logflare_worker": [
+          {
+            "worker_id": "68HJAW"
+          }
+        ],
+        "request": [
+          {
+            "cf": [
+              {
+                "asOrganization": "JHB Clients",
+                "asn": 37150,
+                "botManagement": [
+                  {
+                    "corporateProxy": false,
+                    "detectionIds": [],
+                    "ja3Hash": "6058d05ed6509a21d3635c2a003bf97b",
+                    "ja4": "q13d0312h3_55b375c5d22e_5a06198afb93",
+                    "ja4Signals": [
+                      {
+                        "browser_ratio_1h": 0.87319755554199,
+                        "cache_ratio_1h": 0.36639210581779,
+                        "h2h3_ratio_1h": 0.99998962879181,
+                        "heuristic_ratio_1h": 0.0011411459418014,
+                        "ips_quantile_1h": 0.99997389316559,
+                        "ips_rank_1h": 9,
+                        "paths_rank_1h": 6,
+                        "reqs_quantile_1h": 0.99997389316559,
+                        "reqs_rank_1h": 9,
+                        "uas_rank_1h": 22
+                      }
+                    ],
+                    "jsDetection": [
+                      {
+                        "passed": false
+                      }
+                    ],
+                    "score": 99,
+                    "staticResource": false,
+                    "verifiedBot": false
+                  }
+                ],
+                "city": "Johannesburg",
+                "clientAcceptEncoding": "gzip, deflate, br",
+                "clientTcpRtt": null,
+                "clientTrustScore": 99,
+                "colo": "JNB",
+                "continent": "AF",
+                "country": "ZA",
+                "edgeRequestKeepAliveStatus": 1,
+                "httpProtocol": "HTTP/3",
+                "isEUCountry": null,
+                "latitude": "-26.20227",
+                "longitude": "28.04363",
+                "metroCode": null,
+                "postalCode": "2041",
+                "region": "Gauteng",
+                "regionCode": "GP",
+                "requestPriority": null,
+                "timezone": "Africa/Johannesburg",
+                "tlsCipher": "AEAD-AES128-GCM-SHA256",
+                "tlsClientAuth": [
+                  {
+                    "certPresented": "0",
+                    "certRevoked": "0",
+                    "certVerified": "NONE"
+                  }
+                ],
+                "tlsClientCiphersSha1": "3HTt3+R/6BL3zeALJDSq0pR1yOQ=",
+                "tlsClientExtensionsSha1": "tJDeTlpgiZGmcNoEuP6CWa7MCbc=",
+                "tlsClientExtensionsSha1Le": "5LIl0QellN5IR7lC6TBuSBF05Po=",
+                "tlsClientHelloLength": "1992",
+                "tlsClientRandom": "Ho3B78HHmdLE0xMRuuOUrcpRtAEvCFcKm7Kl0Yo9xCE=",
+                "tlsExportedAuthenticator": [
+                  {
+                    "clientFinished": "caed115f4a8e9caabbdc3aa4da9b3add53fdec5fae029dd47a5ca68616814c44",
+                    "clientHandshake": "9c528808a14af1a0f1ceb219794449def9b8028a228eefcc547e353cafe7c0e2",
+                    "serverFinished": "66613c05fc5462da571fd74668c0cb5b19ca93de3c2a84fbc6475c359c00385c",
+                    "serverHandshake": "470e64bd7f3dfe88d2a18bc554c0880b3e7bde8e7ea7c6150cb7ad24052ea1b5"
+                  }
+                ],
+                "tlsVersion": "TLSv1.3",
+                "verifiedBotCategory": null
+              }
+            ],
+            "headers": [
+              {
+                "accept": "application/vnd.pgrst.object+json",
+                "cf_cache_status": null,
+                "cf_connecting_ip": "196.40.186.154",
+                "cf_ipcountry": "ZA",
+                "cf_ray": "9d7ffce57f87739f",
+                "content_length": null,
+                "content_location": null,
+                "content_range": null,
+                "content_type": null,
+                "date": null,
+                "host": "kcptusoevqapcvptlgkd.supabase.co",
+                "prefer": null,
+                "range": null,
+                "referer": "https://qilly-sit.vercel.app/",
+                "sb_gateway_mode": null,
+                "sb_gateway_version": null,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0",
+                "x_client_info": "supabase-js-web/2.98.0",
+                "x_forwarded_for": null,
+                "x_forwarded_host": null,
+                "x_forwarded_proto": "https",
+                "x_forwarded_user_agent": null,
+                "x_kong_proxy_latency": null,
+                "x_kong_upstream_latency": null,
+                "x_real_ip": "196.40.186.154"
+              }
+            ],
+            "host": "kcptusoevqapcvptlgkd.supabase.co",
+            "method": "GET",
+            "path": "/rest/v1/contractors",
+            "port": null,
+            "protocol": "https:",
+            "sb": [
+              {
+                "apikey": [],
+                "auth_user": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9",
+                "jwt": [
+                  {
+                    "apikey": [
+                      {
+                        "invalid": null,
+                        "payload": [
+                          {
+                            "algorithm": "HS256",
+                            "expires_at": 2087586850,
+                            "issuer": "supabase",
+                            "role": "anon",
+                            "signature_prefix": "VCSkMR",
+                            "subject": null
+                          }
+                        ]
+                      }
+                    ],
+                    "authorization": [
+                      {
+                        "invalid": null,
+                        "payload": [
+                          {
+                            "algorithm": "ES256",
+                            "expires_at": 1772789313,
+                            "issuer": "https://kcptusoevqapcvptlgkd.supabase.co/auth/v1",
+                            "key_id": "c1c7a113-cb31-4665-b520-0927dbec23cc",
+                            "role": "authenticated",
+                            "session_id": "41699da5-8c9a-4394-a361-90a3a2107f37",
+                            "signature_prefix": "fTqTl-",
+                            "subject": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "search": "?select=*&email=eq.kgabo123%40gmail.com",
+            "url": "https://kcptusoevqapcvptlgkd.supabase.co/rest/v1/contractors?select=*&email=eq.kgabo123%40gmail.com"
+          }
+        ],
+        "response": [
+          {
+            "headers": [
+              {
+                "cf_cache_status": "DYNAMIC",
+                "cf_ray": "9d7ffce5a746739f-JNB",
+                "content_length": null,
+                "content_location": "/contractors?email=eq.kgabo123%40gmail.com&select=%2A",
+                "content_range": "0-0/*",
+                "content_type": "application/vnd.pgrst.object+json; charset=utf-8",
+                "date": "Fri, 06 Mar 2026 08:28:36 GMT",
+                "proxy_status": null,
+                "sb_gateway_mode": null,
+                "sb_gateway_version": "1",
+                "sb_request_id": "019cc243-4b81-74f8-8e05-cb35dbfc42ef",
+                "transfer_encoding": "chunked",
+                "x_kong_proxy_latency": null,
+                "x_kong_upstream_latency": null,
+                "x_sb_error_code": null
+              }
+            ],
+            "origin_time": 375,
+            "status_code": 200
+          }
+        ]
+      }
+    ],
+    "timestamp": "2026-03-06T08:28:36.097000"
+  },
+  {
+    "event_message": "GET | 200 | 196.40.186.154 | 9d7ffce2ec98739f | https://kcptusoevqapcvptlgkd.supabase.co/auth/v1/user | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0",
+    "metadata": [
+      {
+        "load_balancer_experimental_routing": null,
+        "load_balancer_geo_aware_info": [],
+        "load_balancer_redirect_identifier": null,
+        "logflare_worker": [
+          {
+            "worker_id": "68HJAW"
+          }
+        ],
+        "request": [
+          {
+            "cf": [
+              {
+                "asOrganization": "JHB Clients",
+                "asn": 37150,
+                "botManagement": [
+                  {
+                    "corporateProxy": false,
+                    "detectionIds": [],
+                    "ja3Hash": "6058d05ed6509a21d3635c2a003bf97b",
+                    "ja4": "q13d0312h3_55b375c5d22e_5a06198afb93",
+                    "ja4Signals": [
+                      {
+                        "browser_ratio_1h": 0.87319755554199,
+                        "cache_ratio_1h": 0.36639210581779,
+                        "h2h3_ratio_1h": 0.99998962879181,
+                        "heuristic_ratio_1h": 0.0011411459418014,
+                        "ips_quantile_1h": 0.99997389316559,
+                        "ips_rank_1h": 9,
+                        "paths_rank_1h": 6,
+                        "reqs_quantile_1h": 0.99997389316559,
+                        "reqs_rank_1h": 9,
+                        "uas_rank_1h": 22
+                      }
+                    ],
+                    "jsDetection": [
+                      {
+                        "passed": false
+                      }
+                    ],
+                    "score": 98,
+                    "staticResource": false,
+                    "verifiedBot": false
+                  }
+                ],
+                "city": "Johannesburg",
+                "clientAcceptEncoding": "gzip, deflate, br",
+                "clientTcpRtt": null,
+                "clientTrustScore": 98,
+                "colo": "JNB",
+                "continent": "AF",
+                "country": "ZA",
+                "edgeRequestKeepAliveStatus": 1,
+                "httpProtocol": "HTTP/3",
+                "isEUCountry": null,
+                "latitude": "-26.20227",
+                "longitude": "28.04363",
+                "metroCode": null,
+                "postalCode": "2041",
+                "region": "Gauteng",
+                "regionCode": "GP",
+                "requestPriority": null,
+                "timezone": "Africa/Johannesburg",
+                "tlsCipher": "AEAD-AES128-GCM-SHA256",
+                "tlsClientAuth": [
+                  {
+                    "certPresented": "0",
+                    "certRevoked": "0",
+                    "certVerified": "NONE"
+                  }
+                ],
+                "tlsClientCiphersSha1": "3HTt3+R/6BL3zeALJDSq0pR1yOQ=",
+                "tlsClientExtensionsSha1": "tJDeTlpgiZGmcNoEuP6CWa7MCbc=",
+                "tlsClientExtensionsSha1Le": "5LIl0QellN5IR7lC6TBuSBF05Po=",
+                "tlsClientHelloLength": "1992",
+                "tlsClientRandom": "Ho3B78HHmdLE0xMRuuOUrcpRtAEvCFcKm7Kl0Yo9xCE=",
+                "tlsExportedAuthenticator": [
+                  {
+                    "clientFinished": "caed115f4a8e9caabbdc3aa4da9b3add53fdec5fae029dd47a5ca68616814c44",
+                    "clientHandshake": "9c528808a14af1a0f1ceb219794449def9b8028a228eefcc547e353cafe7c0e2",
+                    "serverFinished": "66613c05fc5462da571fd74668c0cb5b19ca93de3c2a84fbc6475c359c00385c",
+                    "serverHandshake": "470e64bd7f3dfe88d2a18bc554c0880b3e7bde8e7ea7c6150cb7ad24052ea1b5"
+                  }
+                ],
+                "tlsVersion": "TLSv1.3",
+                "verifiedBotCategory": null
+              }
+            ],
+            "headers": [
+              {
+                "accept": "*/*",
+                "cf_cache_status": null,
+                "cf_connecting_ip": "196.40.186.154",
+                "cf_ipcountry": "ZA",
+                "cf_ray": "9d7ffce2ec98739f",
+                "content_length": null,
+                "content_location": null,
+                "content_range": null,
+                "content_type": null,
+                "date": null,
+                "host": "kcptusoevqapcvptlgkd.supabase.co",
+                "prefer": null,
+                "range": null,
+                "referer": "https://qilly-sit.vercel.app/",
+                "sb_gateway_mode": null,
+                "sb_gateway_version": null,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0",
+                "x_client_info": "supabase-js-web/2.98.0",
+                "x_forwarded_for": null,
+                "x_forwarded_host": null,
+                "x_forwarded_proto": "https",
+                "x_forwarded_user_agent": null,
+                "x_kong_proxy_latency": null,
+                "x_kong_upstream_latency": null,
+                "x_real_ip": "196.40.186.154"
+              }
+            ],
+            "host": "kcptusoevqapcvptlgkd.supabase.co",
+            "method": "GET",
+            "path": "/auth/v1/user",
+            "port": null,
+            "protocol": "https:",
+            "sb": [
+              {
+                "apikey": [],
+                "auth_user": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9",
+                "jwt": [
+                  {
+                    "apikey": [
+                      {
+                        "invalid": null,
+                        "payload": [
+                          {
+                            "algorithm": "HS256",
+                            "expires_at": 2087586850,
+                            "issuer": "supabase",
+                            "role": "anon",
+                            "signature_prefix": "VCSkMR",
+                            "subject": null
+                          }
+                        ]
+                      }
+                    ],
+                    "authorization": [
+                      {
+                        "invalid": null,
+                        "payload": [
+                          {
+                            "algorithm": "ES256",
+                            "expires_at": 1772789313,
+                            "issuer": "https://kcptusoevqapcvptlgkd.supabase.co/auth/v1",
+                            "key_id": "c1c7a113-cb31-4665-b520-0927dbec23cc",
+                            "role": "authenticated",
+                            "session_id": "41699da5-8c9a-4394-a361-90a3a2107f37",
+                            "signature_prefix": "fTqTl-",
+                            "subject": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "search": null,
+            "url": "https://kcptusoevqapcvptlgkd.supabase.co/auth/v1/user"
+          }
+        ],
+        "response": [
+          {
+            "headers": [
+              {
+                "cf_cache_status": "DYNAMIC",
+                "cf_ray": "9d7ffce306b1739f-JNB",
+                "content_length": null,
+                "content_location": null,
+                "content_range": null,
+                "content_type": "application/json",
+                "date": "Fri, 06 Mar 2026 08:28:36 GMT",
+                "proxy_status": null,
+                "sb_gateway_mode": null,
+                "sb_gateway_version": "1",
+                "sb_request_id": "019cc243-49db-76b2-a1d5-1acd2c06b2b1",
+                "transfer_encoding": "chunked",
+                "x_kong_proxy_latency": null,
+                "x_kong_upstream_latency": null,
+                "x_sb_error_code": null
+              }
+            ],
+            "origin_time": 327,
+            "status_code": 200
+          }
+        ]
+      }
+    ],
+    "timestamp": "2026-03-06T08:28:35.675000"
+  }
+]

@@ -1,0 +1,195 @@
+[CWD] C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests
+[URL] https://qilly-multi-env.figma.site
+[PYTHON VERSION] 3.14.3
+
+[MODE] HTML Report (auto-named, opens in browser)
+
+[COMPAT] ✅ Patched unittest._count_relevant_tb_levels (Python 3.12+ / html-testRunner fix — reports will now be written even when tests fail)
+[CWD] C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests
+[REPORTS DIR] C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\reports
+
+📊 Report target  : C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\reports\qilly_report_20260318_141225.html
+   Output dir     : C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\reports
+   Tests to run   : 32
+
+▶  Running tests ...
+──────────────────────────────────────────────────────────────────────
+
+Running tests...
+----------------------------------------------------------------------
+ test_01_register_free_account (__main__.TestAccountSetup.test_01_register_free_account) ... OK (40.945954)s
+ test_02_register_professional_account (__main__.TestAccountSetup.test_02_register_professional_account) ... OK (25.830884)s
+ test_03_register_enterprise_account (__main__.TestAccountSetup.test_03_register_enterprise_account) ... OK (29.034629)s
+ test_04_verify_instant_payment_logins (__main__.TestAccountSetup.test_04_verify_instant_payment_logins) ... OK (15.746077)s
+ test_05_admin_verify_instant_payment_statuses (__main__.TestAccountSetup.test_05_admin_verify_instant_payment_statuses) ... OK (28.669680)s
+ test_01_admin_login (__main__.TestAuthenticationFlows.test_01_admin_login) ... OK (16.978973)s
+ test_02_partner_login (__main__.TestAuthenticationFlows.test_02_partner_login) ... OK (29.160743)s
+ test_03_basic_user_signup (__main__.TestAuthenticationFlows.test_03_basic_user_signup) ... FAIL (40.019004)s
+ test_04_free_tier_login (__main__.TestAuthenticationFlows.test_04_free_tier_login) ... OK (9.840789)s
+ test_01_construction_partner_application (__main__.TestPartnerApplicationFlow.test_01_construction_partner_application) ... OK (18.606746)s
+ test_02_software_partner_application (__main__.TestPartnerApplicationFlow.test_02_software_partner_application) ... OK (10.529507)s
+ test_01_admin_approve_partner_application (__main__.TestAdminPartnerApproval.test_01_admin_approve_partner_application) ... OK (26.302109)s
+ test_01_create_new_project (__main__.TestBOQCreationFlow.test_01_create_new_project) ... FAIL (41.036006)s
+ test_02_add_boq_items (__main__.TestBOQCreationFlow.test_02_add_boq_items) ... OK (18.525340)s
+ test_01_admin_dashboard_tabs (__main__.TestNavigationAndUI.test_01_admin_dashboard_tabs) ... OK (20.909844)s
+ test_02_responsive_design (__main__.TestNavigationAndUI.test_02_responsive_design) ... OK (5.673997)s
+ test_01_login_with_invalid_credentials (__main__.TestDataValidation.test_01_login_with_invalid_credentials) ... ERROR (3.618221)s
+ test_02_contractor_form_validation (__main__.TestDataValidation.test_02_contractor_form_validation) ... FAIL (30.151758)s
+ test_01_manual_eft_payment_flow (__main__.TestPaymentProcessingFlows.test_01_manual_eft_payment_flow) ... FAIL (49.176062)s
+ test_02_stitch_instant_eft_flow (__main__.TestPaymentProcessingFlows.test_02_stitch_instant_eft_flow) ... OK (25.209615)s
+ test_03_payfast_payment_flow (__main__.TestPaymentProcessingFlows.test_03_payfast_payment_flow) ... OK (25.051124)s
+ test_04_admin_approves_manual_eft_via_payments_tab (__main__.TestPaymentProcessingFlows.test_04_admin_approves_manual_eft_via_payments_tab) ... OK (47.269136)s
+ test_01_register_manual_eft_contractor (__main__.TestPaymentGating.test_01_register_manual_eft_contractor) ... FAIL (33.167182)s
+ test_02_verify_login_is_blocked_before_approval (__main__.TestPaymentGating.test_02_verify_login_is_blocked_before_approval) ... OK (2.703712)s
+ test_03_admin_approves_manual_eft_via_payments_tab (__main__.TestPaymentGating.test_03_admin_approves_manual_eft_via_payments_tab) ... OK (1.599555)s
+ test_04_verify_login_succeeds_after_approval (__main__.TestPaymentGating.test_04_verify_login_succeeds_after_approval) ... OK (1.566429)s
+ test_01_enterprise_team_management_access (__main__.TestMultiUserTeamManagement.test_01_enterprise_team_management_access) ... FAIL (34.110003)s
+ test_02_add_team_member (__main__.TestMultiUserTeamManagement.test_02_add_team_member) ... FAIL (50.999222)s
+ test_01_professional_quota_display (__main__.TestBOQQuotaLimits.test_01_professional_quota_display) ... OK (21.215800)s
+ test_02_enterprise_quota_display (__main__.TestBOQQuotaLimits.test_02_enterprise_quota_display) ... OK (15.934583)s
+ test_03_free_tier_trial_limit (__main__.TestBOQQuotaLimits.test_03_free_tier_trial_limit) ... OK (14.242828)s
+ test_04_quota_upgrade_prompt_chain (__main__.TestBOQQuotaLimits.test_04_quota_upgrade_prompt_chain) ... OK (2.747581)s
+
+======================================================================
+ERROR [3.618221s]: __main__.TestDataValidation.test_01_login_with_invalid_credentials
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 1716, in test_01_login_with_invalid_credentials
+    email = self.driver.find_element(By.ID, "login-email")
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py", line 742, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py", line 348, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"css selector","selector":"[id="login-email"]"}
+  (Session info: chrome=145.0.7632.162); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff6df01aa55
+        0x7ff6ded78630
+        0x7ff6deb0d75d
+        0x7ff6deb6862e
+        0x7ff6deb6893c
+        0x7ff6debb8d87
+        0x7ff6debb591c
+        0x7ff6deb59098
+        0x7ff6deb59f83
+        0x7ff6df047810
+        0x7ff6df041afd
+        0x7ff6df062c1a
+        0x7ff6ded93345
+        0x7ff6ded9b81c
+        0x7ff6ded81924
+        0x7ff6ded81ad6
+        0x7ff6ded67e47
+        0x7ff9aa7be8d7
+        0x7ff9abf6c48c
+
+
+======================================================================
+FAIL [40.019004s]: __main__.TestAuthenticationFlows.test_03_basic_user_signup
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 182, in tearDown
+    self.fail(f"\n  ASSERTION FAILURES:\n  {msg}")
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError:
+  ASSERTION FAILURES:
+  ❌ FAIL: Element not clickable: Create Account  [xpath='//button[contains(normalize-space(),'Create Account')]']
+
+======================================================================
+FAIL [41.036006s]: __main__.TestBOQCreationFlow.test_01_create_new_project
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 182, in tearDown
+    self.fail(f"\n  ASSERTION FAILURES:\n  {msg}")
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError:
+  ASSERTION FAILURES:
+  ❌ FAIL: Element not clickable: Create New Project  [xpath='//button[contains(normalize-space(),'Create New Project') or contains(normalize-space(),'New Project')]']
+  ❌ FAIL: Create New Project button found
+
+======================================================================
+FAIL [30.151758s]: __main__.TestDataValidation.test_02_contractor_form_validation
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 182, in tearDown
+    self.fail(f"\n  ASSERTION FAILURES:\n  {msg}")
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError:
+  ASSERTION FAILURES:
+  ❌ FAIL: Element not clickable: Continue (empty form)  [xpath='//button[contains(normalize-space(),'Continue to Tier Selection')]']
+
+======================================================================
+FAIL [49.176062s]: __main__.TestPaymentProcessingFlows.test_01_manual_eft_payment_flow
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 182, in tearDown
+    self.fail(f"\n  ASSERTION FAILURES:\n  {msg}")
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError:
+  ASSERTION FAILURES:
+  ❌ FAIL: Redirected to auth after manual EFT registration
+
+======================================================================
+FAIL [33.167182s]: __main__.TestPaymentGating.test_01_register_manual_eft_contractor
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 182, in tearDown
+    self.fail(f"\n  ASSERTION FAILURES:\n  {msg}")
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError:
+  ASSERTION FAILURES:
+  ❌ FAIL: Element not clickable: Register as Contractor  [xpath='//button[contains(normalize-space(),'Register as Contractor')]']
+
+======================================================================
+FAIL [34.110003s]: __main__.TestMultiUserTeamManagement.test_01_enterprise_team_management_access
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 182, in tearDown
+    self.fail(f"\n  ASSERTION FAILURES:\n  {msg}")
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError:
+  ASSERTION FAILURES:
+  ❌ FAIL: Element not clickable: Team Management  [xpath='//button[contains(normalize-space(),'Team Management') or contains(normalize-space(),'Manage Team') or contains(normalize-space(),'Team')]']
+  ❌ FAIL: Team Management accessible for Enterprise
+
+======================================================================
+FAIL [50.999222s]: __main__.TestMultiUserTeamManagement.test_02_add_team_member
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 182, in tearDown
+    self.fail(f"\n  ASSERTION FAILURES:\n  {msg}")
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError:
+  ASSERTION FAILURES:
+  ❌ FAIL: Element not clickable: Team Management  [xpath='//button[contains(normalize-space(),'Team Management') or contains(normalize-space(),'Team')]']
+  ❌ FAIL: Element not clickable: Add Team Member  [xpath='//button[contains(normalize-space(),'Add Team Member') or contains(normalize-space(),'Invite Member') or contains(normalize-space(),'+ Add')]']
+
+----------------------------------------------------------------------
+Ran 32 tests in 0:14:34
+
+FAILED
+ (Failures=7, Errors=1)
+
+Generating HTML reports...
+reports\qilly_report_20260318_141225.html
+Traceback (most recent call last):
+  File "C:\Users\Kgabo Sekhula\Onlinepricingsystem-main\selenium_tests\qilly_regression_suite_FIXED.py", line 2845, in <module>
+    result = runner.run(suite)
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\HtmlTestRunner\runner.py", line 112, in run
+    result.generate_reports(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\HtmlTestRunner\result.py", line 388, in generate_reports
+    self.generate_file(testRunner, report_name_body, html_file)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kgabo Sekhula\AppData\Roaming\Python\Python314\site-packages\HtmlTestRunner\result.py", line 404, in generate_file
+    report_file.write(report)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Python314\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f504' in position 2044: character maps to <undefined>

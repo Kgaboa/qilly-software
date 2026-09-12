@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "name": "qilly-sit",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "staging"
+  },
+  "buildCommand": "npm run build:sit",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "regions": ["sin1"],
+  "cleanUrls": true,
+  "trailingSlash": false
+}

@@ -1,0 +1,161 @@
+index-B8qqwLfQ.js:1349 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+index-B8qqwLfQ.js:1349 🔍 Loading contractor data for user: sit-test@gmail.com
+index-B8qqwLfQ.js:1349 ✅ Contractor data loaded from Supabase: {id: 'b4b746b6-25b8-4146-922b-6626c5a1c400', user_id: 'c36eb0dd-0fab-4f44-b38e-92d893723a5c', company_name: 'Test SIT Construction CC', cidb_registration_number: '2024/123456/07', cidb_grade: 'Grade 2 CE', …}
+index-B8qqwLfQ.js:1349   📍 Province (single): Limpopo
+index-B8qqwLfQ.js:1349   📍 Operating provinces (array): (2) ['Gauteng', 'Free State']
+index-B8qqwLfQ.js:1349   🏗️ CIDB grade: Grade 2 CE
+index-B8qqwLfQ.js:1349   ✅ Using operating_provinces[0]: "Gauteng" → "GP"
+index-B8qqwLfQ.js:1349   📋 Available municipalities for "GP": 11 found
+index-B8qqwLfQ.js:1349   🏗️ CIDB grade: "Grade 2 CE" → "GB2"
+index-B8qqwLfQ.js:1349   🎯 Setting defaults:
+index-B8qqwLfQ.js:1349     - Province: GP
+index-B8qqwLfQ.js:1349     - Municipality: JHB
+index-B8qqwLfQ.js:1349     - CIDB: GB2
+index-B8qqwLfQ.js:1349   ✅ Project settings state updated
+index-B8qqwLfQ.js:1349 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB2', duration: '6', …}
+index-B8qqwLfQ.js:1349 Municipality changed to: MOG
+index-B8qqwLfQ.js:1349 📋 Project Settings Updated: {province: 'GP', municipality: 'MOG', profitMargin: '15', cidbGrading: 'GB2', duration: '6', …}
+index-B8qqwLfQ.js:1349 ✅ Excel Header detected at row 0. Found columns: ItemNo=true, Description=true, Unit=true, Quantity=true
+index-B8qqwLfQ.js:1349 ✅ Found Excel header row at index 0: {itemNo: 0, description: 1, unit: 2, quantity: 3, rate: 4, …}
+index-B8qqwLfQ.js:1349 Excel Row 2: Raw qty="500" → Cleaned qty="500"
+index-B8qqwLfQ.js:1349 Excel Row 3: Raw qty="300" → Cleaned qty="300"
+index-B8qqwLfQ.js:1349 Excel Row 4: Raw qty="2000" → Cleaned qty="2000"
+index-B8qqwLfQ.js:1349 Excel Row 7: Raw qty="50" → Cleaned qty="50"
+index-B8qqwLfQ.js:1349 Excel Row 8: Raw qty="200" → Cleaned qty="200"
+index-B8qqwLfQ.js:1349 Excel Row 9: Raw qty="300" → Cleaned qty="300"
+index-B8qqwLfQ.js:1349 Excel Row 12: Raw qty="150000" → Cleaned qty="150000"
+index-B8qqwLfQ.js:1349 Excel Row 13: Raw qty="80000" → Cleaned qty="80000"
+index-B8qqwLfQ.js:1349 Excel Row 14: Raw qty="100" → Cleaned qty="100"
+index-B8qqwLfQ.js:1349 Excel Row 17: Raw qty="15000" → Cleaned qty="15000"
+index-B8qqwLfQ.js:1349 Excel Row 18: Raw qty="8000" → Cleaned qty="8000"
+index-B8qqwLfQ.js:1349 Excel Row 21: Raw qty="5000" → Cleaned qty="5000"
+index-B8qqwLfQ.js:1349 Excel Row 22: Raw qty="100" → Cleaned qty="100"
+index-B8qqwLfQ.js:1349 Excel Row 25: Raw qty="200" → Cleaned qty="200"
+index-B8qqwLfQ.js:1349 Excel Row 26: Raw qty="300" → Cleaned qty="300"
+index-B8qqwLfQ.js:1349 Excel Row 29: Raw qty="1500" → Cleaned qty="1500"
+index-B8qqwLfQ.js:1349 Excel Row 30: Raw qty="100" → Cleaned qty="100"
+index-B8qqwLfQ.js:1349 Excel Row 33: Raw qty="100" → Cleaned qty="100"
+index-B8qqwLfQ.js:1349 Excel Row 34: Raw qty="100" → Cleaned qty="100"
+index-B8qqwLfQ.js:1349 Sheet "Sheet1" - Column Map: {itemNo: 0, description: 1, unit: 2, quantity: 3, rate: 4, …}
+index-B8qqwLfQ.js:1349 Parsed Excel BOQ items: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+index-B8qqwLfQ.js:1349 📊 Excel Parsing Summary: 19 total items, 0 summary rows
+index-B8qqwLfQ.js:1349 Submitting bill with items: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+index-B8qqwLfQ.js:1349 Project settings: {province: 'GP', municipality: 'MOG', profitMargin: '15', cidbGrading: 'GB2', duration: '6', …}
+index-B8qqwLfQ.js:1391 🔧 Merging contractor profile data with project settings
+index-B8qqwLfQ.js:1391 📋 Final project settings: {province: 'GP', municipality: 'MOG', profitMargin: '15', cidbGrading: 'GB2', duration: '6', …}
+index-B8qqwLfQ.js:1353 
+🌍 Regional Pricing Engine Started
+index-B8qqwLfQ.js:1354 📍 Project Location: Mogale City (MOG), GP
+index-B8qqwLfQ.js:1354 📌 Coordinates: -26.0359, 27.765
+index-B8qqwLfQ.js:1354 📦 Processing 19 items...
+
+index-B8qqwLfQ.js:1355 
+🔍 Pricing: "Excavation in soft soil" (500 m³)
+index-B8qqwLfQ.js:1356    📊 Category: PG_OVERHEAD
+index-B8qqwLfQ.js:1356    ℹ️  Section A default - P&G overhead
+index-B8qqwLfQ.js:1356    ✓ Supplier: NO
+index-B8qqwLfQ.js:1356    ✓ Transport: NO
+index-B8qqwLfQ.js:1356    ✓ Labor: NO
+index-B8qqwLfQ.js:1356    ✓ Equipment: NO
+index-B8qqwLfQ.js:1356    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+index-B8qqwLfQ.js:1352 
+🔧 LABOR RATE LOOKUP: "Excavation in soft soil" (m³)
+index-B8qqwLfQ.js:1353   📊 Loaded 143 labor rates from database
+index-B8qqwLfQ.js:1353   ✅ 143 valid labor rates to match against
+index-B8qqwLfQ.js:1353   🔍 Normalized search: "excavation in soft soil" (m³)
+index-B8qqwLfQ.js:1353   🏆 Best match: "Excavation soft soil manual" (earthworks)
+index-B8qqwLfQ.js:1353   📊 Score: 70/100
+index-B8qqwLfQ.js:1353   ✅ Confidence: MEDIUM
+index-B8qqwLfQ.js:1353   💰 Labor rate: R196.00/m³
+index-B8qqwLfQ.js:1353   🚜 Equipment rate: R24.50/m³
+index-B8qqwLfQ.js:1356    ✅ Labor rate: R196.00/m³
+index-B8qqwLfQ.js:1356    ✅ Equipment rate: R24.50/m³
+index-B8qqwLfQ.js:1356    ✅ Total rate: R245.00/m³
+index-B8qqwLfQ.js:1356    ✅ Total cost: R122500.00
+index-B8qqwLfQ.js:1356    📋 Matched: "Excavation soft soil manual" (earthworks)
+index-B8qqwLfQ.js:1355 
+🔍 Pricing: "Backfilling with selected material" (300 m³)
+index-B8qqwLfQ.js:1356    📊 Category: PG_OVERHEAD
+index-B8qqwLfQ.js:1356    ℹ️  Section A default - P&G overhead
+index-B8qqwLfQ.js:1356    ✓ Supplier: NO
+index-B8qqwLfQ.js:1356    ✓ Transport: NO
+index-B8qqwLfQ.js:1356    ✓ Labor: NO
+index-B8qqwLfQ.js:1356    ✓ Equipment: NO
+index-B8qqwLfQ.js:1356    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+index-B8qqwLfQ.js:1352 
+🔧 LABOR RATE LOOKUP: "Backfilling with selected material" (m³)
+index-B8qqwLfQ.js:1353   📊 Loaded 143 labor rates from database
+index-B8qqwLfQ.js:1353   ✅ 143 valid labor rates to match against
+index-B8qqwLfQ.js:1353   🔍 Normalized search: "backfilling with selected material" (m³)
+index-B8qqwLfQ.js:1353   🏆 Best match: "Backfill selected material" (earthworks)
+index-B8qqwLfQ.js:1353   📊 Score: 65/100
+index-B8qqwLfQ.js:1353   ✅ Confidence: MEDIUM
+index-B8qqwLfQ.js:1353   💰 Labor rate: R74.00/m³
+index-B8qqwLfQ.js:1353   🚜 Equipment rate: R18.50/m³
+index-B8qqwLfQ.js:1356    ✅ Labor rate: R74.00/m³
+index-B8qqwLfQ.js:1356    ✅ Equipment rate: R18.50/m³
+index-B8qqwLfQ.js:1356    ✅ Total rate: R185.00/m³
+index-B8qqwLfQ.js:1356    ✅ Total cost: R55500.00
+index-B8qqwLfQ.js:1356    📋 Matched: "Backfill selected material" (earthworks)
+index-B8qqwLfQ.js:1355 
+🔍 Pricing: "Compaction of subgrade" (2000 m²)
+index-B8qqwLfQ.js:1356    📊 Category: PG_OVERHEAD
+index-B8qqwLfQ.js:1356    ℹ️  Section A default - P&G overhead
+index-B8qqwLfQ.js:1356    ✓ Supplier: NO
+index-B8qqwLfQ.js:1356    ✓ Transport: NO
+index-B8qqwLfQ.js:1356    ✓ Labor: NO
+index-B8qqwLfQ.js:1356    ✓ Equipment: NO
+index-B8qqwLfQ.js:1356    🚫 NO SUPPLIER SEARCH - Using labor/equipment rates only
+index-B8qqwLfQ.js:1352 
+🔧 LABOR RATE LOOKUP: "Compaction of subgrade" (m²)
+index-B8qqwLfQ.js:1353   📊 Loaded 143 labor rates from database
+index-B8qqwLfQ.js:1353   ✅ 143 valid labor rates to match against
+index-B8qqwLfQ.js:1353   🔍 Normalized search: "compaction of subgrade" (m²)
+index-B8qqwLfQ.js:1353   🏆 Best match: "Compact subgrade" (earthworks)
+index-B8qqwLfQ.js:1353   📊 Score: 45/100
+index-B8qqwLfQ.js:1353   ✅ Confidence: LOW
+index-B8qqwLfQ.js:1353   💰 Labor rate: R16.00/m²
+index-B8qqwLfQ.js:1353   🚜 Equipment rate: R12.80/m²
+index-B8qqwLfQ.js:1356    ⚠️  No labor rate found - using default
+index-B8qqwLfQ.js:1355 
+🔍 Pricing: "Blinding concrete 10MPa" (50 m³)
+index-B8qqwLfQ.js:1356    📊 Category: MIXED
+index-B8qqwLfQ.js:1356    ℹ️  Section B default - Material + Labor
+index-B8qqwLfQ.js:1356    ✓ Supplier: YES
+index-B8qqwLfQ.js:1356    ✓ Transport: YES
+index-B8qqwLfQ.js:1356    ✓ Labor: YES
+index-B8qqwLfQ.js:1356    ✓ Equipment: NO
+index-B8qqwLfQ.js:1356    🔍 Searching for suppliers (material item)...
+index-B8qqwLfQ.js:1349 
+🔍 ENHANCED SEARCH: "Blinding concrete 10MPa"
+index-B8qqwLfQ.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-B8qqwLfQ.js:1350   📍 Level 2: Trying scored match with brands...
+index-B8qqwLfQ.js:1350   ✅ Level 2 SUCCESS: Found 39 matches (top: 70)
+index-B8qqwLfQ.js:1350 
+🏆 TOP MATCH: "Ready Mix Concrete" from Buco
+index-B8qqwLfQ.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-B8qqwLfQ.js:1356    ✅ Found 6 supplier matches
+index-B8qqwLfQ.js:1356    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-B8qqwLfQ.js:1356    📦 Base Price: R1250.00/unit
+index-B8qqwLfQ.js:1356    🚚 Transport: R450.00 (33.8km)
+index-B8qqwLfQ.js:1356    💰 Landed Cost: R1259.00/unit
+index-B8qqwLfQ.js:1356    💵 Additional Fees: R277.02/unit
+index-B8qqwLfQ.js:1356    💵 Final Price: R76801.20 (incl. all fees)
+index-B8qqwLfQ.js:1352 
+🔧 LABOR RATE LOOKUP: "Blinding concrete 10MPa" (m³)
+index-B8qqwLfQ.js:1353   📊 Loaded 143 labor rates from database
+index-B8qqwLfQ.js:1353   ✅ 143 valid labor rates to match against
+index-B8qqwLfQ.js:1353   🔍 Normalized search: "blinding concrete 10mpa" (m³)
+index-B8qqwLfQ.js:1353   🏆 Best match: "Concrete 15MPa blinding" (concrete)
+index-B8qqwLfQ.js:1353   📊 Score: 73/100
+index-B8qqwLfQ.js:1353   ✅ Confidence: MEDIUM
+index-B8qqwLfQ.js:1353   💰 Labor rate: R171.00/m³
+index-B8qqwLfQ.js:1353   🚜 Equipment rate: R114.00/m³
+index-B8qqwLfQ.js:1356    🔧 Labor Rate: R171.00/m³ (MEDIUM confidence)
+index-B8qqwLfQ.js:1356    🚜 Equipment Rate: R114.00/m³
+index-B8qqwLfQ.js:1356    👷 Total Labor: R8550.00 | Total Equipment: R5700.00
+index-B8qqwLfQ.js:1356    📋 Matched: "Concrete 15MPa blinding" (concrete)
+index-B8qqwLfQ.js:1353  Uncaught (in promise) TypeError: r.toLowerCase is not a function
+    at xi (index-B8qqwLfQ.js:1353:2968)
+    at ou (index-B8qqwLfQ.js:1356:5797)
+    at async index-B8qqwLfQ.js:1358:3160

@@ -1,0 +1,106 @@
+
+Kgabo Sekhula@DESKTOP-85VH3KR MINGW64 ~/Onlinepricingsystem-main/selenium_tests (dev-branch)
+$ python diagnose_setup.py
+
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                                                                      ║
+║       🔍 QILLY SELENIUM SETUP DIAGNOSTIC TOOL                        ║
+║                                                                      ║
+║       This will check if your environment is ready for testing      ║
+║                                                                      ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+======================================================================
+  1. Checking Environment Variables
+======================================================================
+✓ QILLY_BASE_URL: https://qilly-test.figma.site/
+
+======================================================================
+  2. Checking Chrome Browser & Driver
+======================================================================
+
+DevTools listening on ws://127.0.0.1:61572/devtools/browser/da4b816a-eadb-471d-b2e1-0d27b6f8d7c2
+✅ Chrome and ChromeDriver are working!
+   Chrome Version: 145.0.7632.162
+   ChromeDriver Version: 145.0.7632.117
+
+======================================================================
+  3. Checking Connection to Qilly App
+======================================================================
+Connecting to: https://qilly-test.figma.site/
+
+DevTools listening on ws://127.0.0.1:63780/devtools/browser/8af3aa37-f1bd-4d6a-ada4-92f2080a8332
+✅ Successfully connected!
+   Page Title: Qilly Construction Bill Pricing System
+   Current URL: https://qilly-test.figma.site/
+   📸 Screenshot saved: diagnostic_screenshot.png
+
+======================================================================
+  4. Checking Login Form Elements
+======================================================================
+
+DevTools listening on ws://127.0.0.1:63032/devtools/browser/db3754f8-885b-47d3-a45b-8e611be502ef
+❌ Email field not found
+   Looking for: <input name='email' />
+❌ Password field not found
+   Looking for: <input name='password' />
+✅ Found login button
+📸 Screenshot saved: diagnostic_login_form.png
+
+======================================================================
+  5. Testing Admin Login Flow
+======================================================================
+
+DevTools listening on ws://127.0.0.1:55049/devtools/browser/ad37ce91-d2b4-4895-b851-834777b04adf
+Attempting login with admin@test.com / Admin123!
+❌ Error during login test: Message:
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+        0x7ff69142aa55
+        0x7ff691188630
+        0x7ff690f1d75d
+        0x7ff690f7862e
+        0x7ff690f7893c
+        0x7ff690fc8d87
+        0x7ff690fc591c
+        0x7ff690f69098
+        0x7ff690f69f83
+        0x7ff691457810
+        0x7ff691451afd
+        0x7ff691472c1a
+        0x7ff6911a3345
+        0x7ff6911ab81c
+        0x7ff691191924
+        0x7ff691191ad6
+        0x7ff691177e47
+        0x7ff95ac6e8d7
+        0x7ff95c86c48c
+
+📸 Screenshot saved: diagnostic_login_error.png
+
+
+======================================================================
+  📊 DIAGNOSTIC SUMMARY
+======================================================================
+
+✅ Chrome/ChromeDriver: Working
+✅ Connection to https://qilly-test.figma.site/: Working
+
+📸 Screenshots generated:
+   - diagnostic_screenshot.png
+   - diagnostic_login_form.png
+   - diagnostic_before_login.png
+   - diagnostic_after_login.png
+
+💡 Next steps:
+   1. Review screenshots to verify everything looks correct
+   2. If login worked, run full test suite:
+      python qilly_regression_suite.py
+   3. Or run with pytest for better output:
+      pytest qilly_regression_suite.py -v
+
+======================================================================
+
+🎉 Diagnostic complete! Review the results above.
+

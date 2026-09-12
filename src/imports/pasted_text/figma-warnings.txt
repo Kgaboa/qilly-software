@@ -1,0 +1,177 @@
+Running frontend commit b76162e144d1cea981c7927daa8501b7f3f696f6
+vendor-core-ade2edecaf4781c7.min.js.br:54 Statsig is not ready to log exposures, will retry in 1 seconds
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:54
+A.logExposureCallback @ 1535-b5b5bbc16f7fd25b.min.js.br:1092
+u @ vendor-core-ade2edecaf4781c7.min.js.br:54
+setTimeout
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:63
+logExposureForFeatureGateCheck @ 1535-b5b5bbc16f7fd25b.min.js.br:1092
+getFeatureGateFromInitialOptions @ 1535-b5b5bbc16f7fd25b.min.js.br:1092
+getFeatureGate @ 1535-b5b5bbc16f7fd25b.min.js.br:1092
+getFeatureGate @ 1535-b5b5bbc16f7fd25b.min.js.br:1431
+230842 @ figma_app-c1c13c137ebf8460.min.js.br:420
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+687977 @ figma_app-c1c13c137ebf8460.min.js.br:41
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+980300 @ figma_app-c1c13c137ebf8460.min.js.br:418
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+124903 @ figma_app-c1c13c137ebf8460.min.js.br:4
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+68570 @ 1535-b5b5bbc16f7fd25b.min.js.br:80
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+385436 @ figma_app-c1c13c137ebf8460.min.js.br:472
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+570084 @ 7192-2055907c48db8984.min.js.br:3
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+666932 @ 1727-8317c845fe1fd5d1.min.js.br:3
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+21390 @ 1727-8317c845fe1fd5d1.min.js.br:3
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+485416 @ figma_app-c1c13c137ebf8460.min.js.br:4
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+756587 @ 7887-e3ffcf7d80131c17.min.js.br:3
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+409566 @ 64-949d98bcaf22e546.min.js.br:3
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+722024 @ figma_app-c1c13c137ebf8460.min.js.br:4
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+(anonymous) @ figma_app-c1c13c137ebf8460.min.js.br:666
+i.O @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+(anonymous) @ figma_app-c1c13c137ebf8460.min.js.br:666
+b @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+(anonymous) @ figma_app-c1c13c137ebf8460.min.js.br:3Understand this warning
+1535-b5b5bbc16f7fd25b.min.js.br:191 [Intervention] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: https://static.figma.com/webfont/1/SourceCodePro-Medium.woff2
+8245-21bbfc6c0a8d8c61.min.js.br:7 The powerPreference option is currently ignored when calling requestAdapter() on Windows. See https://crbug.com/369219127
+initialize @ 8245-21bbfc6c0a8d8c61.min.js.br:7
+m @ 8245-21bbfc6c0a8d8c61.min.js.br:7
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+await in (anonymous)
+n @ 1535-b5b5bbc16f7fd25b.min.js.br:1437
+gs @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+await in (anonymous)
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:1731
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:46
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+dispatch @ vendor-core-ade2edecaf4781c7.min.js.br:46
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:1731
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:46
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+dispatch @ vendor-core-ade2edecaf4781c7.min.js.br:46
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:1731
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:46
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+dispatch @ vendor-core-ade2edecaf4781c7.min.js.br:46
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:170
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:46
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+dispatch @ vendor-core-ade2edecaf4781c7.min.js.br:46
+(anonymous) @ figma_app-c1c13c137ebf8460.min.js.br:232
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:170
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:46
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+d @ 1535-b5b5bbc16f7fd25b.min.js.br:1094
+K @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+time @ 1535-b5b5bbc16f7fd25b.min.js.br:389
+(anonymous) @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+await in (anonymous)
+tM @ 1535-b5b5bbc16f7fd25b.min.js.br:170
+SK @ 1535-b5b5bbc16f7fd25b.min.js.br:191
+(anonymous) @ figma_app-c1c13c137ebf8460.min.js.br:6
+i @ 1535-b5b5bbc16f7fd25b.min.js.br:1061
+722024 @ figma_app-c1c13c137ebf8460.min.js.br:6
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+(anonymous) @ figma_app-c1c13c137ebf8460.min.js.br:666
+i.O @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+(anonymous) @ figma_app-c1c13c137ebf8460.min.js.br:666
+b @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+(anonymous) @ figma_app-c1c13c137ebf8460.min.js.br:3Understand this warning
+vendor-core-ade2edecaf4781c7.min.js.br:54 Statsig is not ready to log exposures, will retry in 1 seconds
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:54
+A.logExposureCallback @ 1535-b5b5bbc16f7fd25b.min.js.br:1092
+u @ vendor-core-ade2edecaf4781c7.min.js.br:54
+setTimeout
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:63
+A.logExposureCallback @ 1535-b5b5bbc16f7fd25b.min.js.br:1092
+u @ vendor-core-ade2edecaf4781c7.min.js.br:54
+setTimeout
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:63
+logExposureForFeatureGateCheck @ 1535-b5b5bbc16f7fd25b.min.js.br:1092
+getFeatureGateFromInitialOptions @ 1535-b5b5bbc16f7fd25b.min.js.br:1092
+getFeatureGate @ 1535-b5b5bbc16f7fd25b.min.js.br:1092
+getFeatureGate @ 1535-b5b5bbc16f7fd25b.min.js.br:1431
+230842 @ figma_app-c1c13c137ebf8460.min.js.br:420
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+687977 @ figma_app-c1c13c137ebf8460.min.js.br:41
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+980300 @ figma_app-c1c13c137ebf8460.min.js.br:418
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+124903 @ figma_app-c1c13c137ebf8460.min.js.br:4
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+68570 @ 1535-b5b5bbc16f7fd25b.min.js.br:80
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+385436 @ figma_app-c1c13c137ebf8460.min.js.br:472
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+570084 @ 7192-2055907c48db8984.min.js.br:3
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+666932 @ 1727-8317c845fe1fd5d1.min.js.br:3
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+21390 @ 1727-8317c845fe1fd5d1.min.js.br:3
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+485416 @ figma_app-c1c13c137ebf8460.min.js.br:4
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+756587 @ 7887-e3ffcf7d80131c17.min.js.br:3
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+409566 @ 64-949d98bcaf22e546.min.js.br:3
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+722024 @ figma_app-c1c13c137ebf8460.min.js.br:4
+i @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+(anonymous) @ figma_app-c1c13c137ebf8460.min.js.br:666
+i.O @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+(anonymous) @ figma_app-c1c13c137ebf8460.min.js.br:666
+b @ runtime~figma_app-55a15adaac5a020f.min.js.br:3
+(anonymous) @ figma_app-c1c13c137ebf8460.min.js.br:3Understand this warning
+vendor-core-ade2edecaf4781c7.min.js.br:54 [import] git: bc0597a172c808f697b360fcd17ab5b385262d77, stamp: 624908676FF21C89
+vendor-core-ade2edecaf4781c7.min.js.br:54 Autosave Changes not available or already claimed by another tab undefined
+chrome-extension://invalid/:1  GET chrome-extension://invalid/ net::ERR_FAILED
+Image
+(anonymous) @ figma_app-c1c13c137ebf8460.min.js.br:6
+aB @ vendor-core-ade2edecaf4781c7.min.js.br:11
+oD @ vendor-core-ade2edecaf4781c7.min.js.br:11
+oL @ vendor-core-ade2edecaf4781c7.min.js.br:11
+f5 @ vendor-core-ade2edecaf4781c7.min.js.br:11
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:11
+oB @ vendor-core-ade2edecaf4781c7.min.js.br:11
+oE @ vendor-core-ade2edecaf4781c7.min.js.br:11
+(anonymous) @ vendor-core-ade2edecaf4781c7.min.js.br:54
+S @ vendor-core-ade2edecaf4781c7.min.js.br:54
+O @ vendor-core-ade2edecaf4781c7.min.js.br:54Understand this error
+vendor-core-ade2edecaf4781c7.min.js.br:54 [Fullscreen] Booting... (emscripten version 4.0.21)
+vendor-core-ade2edecaf4781c7.min.js.br:54 [GPU] graphicsAPI:"WebGPU", vendor:"Google Inc. (Intel)" renderer:"ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A1) Direct3D11 vs_5_0 ps_5_0, D3D11)" deviceArchitecture:"gen-12lp" deviceDescription:"" webGPUDevice:"" webGPUVendor:"intel" bindings:"emdawnwebgpu"
+vendor-core-ade2edecaf4781c7.min.js.br:54 [Fullscreen] Ready in 954.6ms
+vendor-core-ade2edecaf4781c7.min.js.br:54 [FullscreenApp] calling setEditorTheme and setting preference light
+vendor-core-ade2edecaf4781c7.min.js.br:54 [MultiplayerSession] connecting to wss://www.figma.com/api/multiplayer/WxKSbAwJsYt0g6aP1mmCfu?role=editor&tracking_session_id=YD7SqsHFY0GoJbXT&version=151&recentReload=0&file-load-streaming-compression&user-id=1395110072994207006&client_release=b76162e144d1cea981c7927daa8501b7f3f696f6
+vendor-core-ade2edecaf4781c7.min.js.br:54 [FullscreenApp] calling setEditorTheme and setting preference light

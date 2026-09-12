@@ -1,0 +1,395 @@
+index-DyE31JFC.js:1 🔍 Environment Detection Debug:
+index-DyE31JFC.js:1   - VITE_ENVIRONMENT: sit
+index-DyE31JFC.js:1   - MODE: production
+index-DyE31JFC.js:1   - DEV: false
+index-DyE31JFC.js:1   - PROD: true
+index-DyE31JFC.js:1 🌍 Using environment from VITE_ENVIRONMENT: SIT
+index-DyE31JFC.js:1349 📋 Project Settings Updated: Object
+index-DyE31JFC.js:1393 ✅ Contractor data loaded from Supabase: Object
+index-DyE31JFC.js:1349 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+index-DyE31JFC.js:1349 🔍 Loading contractor data for user: sit-test@gmail.com
+index-DyE31JFC.js:1349 ✅ Contractor data loaded from Supabase: {id: 'b4b746b6-25b8-4146-922b-6626c5a1c400', user_id: 'c36eb0dd-0fab-4f44-b38e-92d893723a5c', company_name: 'Test SIT Construction CC', cidb_registration_number: '2024/123456/07', cidb_grade: 'Grade 2 CE', …}
+index-DyE31JFC.js:1349   📍 Province (single): Limpopo
+index-DyE31JFC.js:1349   📍 Operating provinces (array): (2) ['Gauteng', 'Free State']
+index-DyE31JFC.js:1349   🏗️ CIDB grade: Grade 2 CE
+index-DyE31JFC.js:1349   ✅ Using operating_provinces[0]: "Gauteng" → "GP"
+index-DyE31JFC.js:1349   📋 Available municipalities for "GP": 11 found
+index-DyE31JFC.js:1349   🏗️ CIDB grade: "Grade 2 CE" → "GB2"
+index-DyE31JFC.js:1349   🎯 Setting defaults:
+index-DyE31JFC.js:1349     - Province: GP
+index-DyE31JFC.js:1349     - Municipality: JHB
+index-DyE31JFC.js:1349     - CIDB: GB2
+index-DyE31JFC.js:1349   ✅ Project settings state updated
+index-DyE31JFC.js:1349 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB2', duration: '6', …}
+index-DyE31JFC.js:1349 ✅ Excel Header detected at row 0. Found columns: ItemNo=true, Description=true, Unit=true, Quantity=true
+index-DyE31JFC.js:1349 ✅ Found Excel header row at index 0: {itemNo: 0, description: 1, unit: 2, quantity: 3, rate: 4, …}
+index-DyE31JFC.js:1349 Excel Row 2: Raw qty="500" → Cleaned qty="500"
+index-DyE31JFC.js:1349 Excel Row 3: Raw qty="300" → Cleaned qty="300"
+index-DyE31JFC.js:1349 Excel Row 4: Raw qty="2000" → Cleaned qty="2000"
+index-DyE31JFC.js:1349 Excel Row 7: Raw qty="50" → Cleaned qty="50"
+index-DyE31JFC.js:1349 Excel Row 8: Raw qty="200" → Cleaned qty="200"
+index-DyE31JFC.js:1349 Excel Row 9: Raw qty="300" → Cleaned qty="300"
+index-DyE31JFC.js:1349 Excel Row 12: Raw qty="150000" → Cleaned qty="150000"
+index-DyE31JFC.js:1349 Excel Row 13: Raw qty="80000" → Cleaned qty="80000"
+index-DyE31JFC.js:1349 Excel Row 14: Raw qty="100" → Cleaned qty="100"
+index-DyE31JFC.js:1349 Excel Row 17: Raw qty="15000" → Cleaned qty="15000"
+index-DyE31JFC.js:1349 Excel Row 18: Raw qty="8000" → Cleaned qty="8000"
+index-DyE31JFC.js:1349 Excel Row 21: Raw qty="5000" → Cleaned qty="5000"
+index-DyE31JFC.js:1349 Excel Row 22: Raw qty="100" → Cleaned qty="100"
+index-DyE31JFC.js:1349 Excel Row 25: Raw qty="200" → Cleaned qty="200"
+index-DyE31JFC.js:1349 Excel Row 26: Raw qty="300" → Cleaned qty="300"
+index-DyE31JFC.js:1349 Excel Row 29: Raw qty="1500" → Cleaned qty="1500"
+index-DyE31JFC.js:1349 Excel Row 30: Raw qty="100" → Cleaned qty="100"
+index-DyE31JFC.js:1349 Excel Row 33: Raw qty="100" → Cleaned qty="100"
+index-DyE31JFC.js:1349 Excel Row 34: Raw qty="100" → Cleaned qty="100"
+index-DyE31JFC.js:1349 Sheet "Sheet1" - Column Map: {itemNo: 0, description: 1, unit: 2, quantity: 3, rate: 4, …}
+index-DyE31JFC.js:1349 Parsed Excel BOQ items: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+index-DyE31JFC.js:1349 📊 Excel Parsing Summary: 19 total items, 0 summary rows
+index-DyE31JFC.js:1349 Submitting bill with items: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+index-DyE31JFC.js:1349 Project settings: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB2', duration: '6', …}
+index-DyE31JFC.js:1393 🔧 Merging contractor profile data with project settings
+index-DyE31JFC.js:1393 📋 Final project settings: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB2', duration: '6', …}
+index-DyE31JFC.js:1352 
+🌍 Regional Pricing Engine Started
+index-DyE31JFC.js:1353 📍 Project Location: City of Johannesburg (JHB), GP
+index-DyE31JFC.js:1353 📌 Coordinates: -26.2041, 28.0473
+index-DyE31JFC.js:1353 📦 Processing 19 items...
+
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Excavation in soft soil" (500 m³)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Excavation in soft soil"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 6 matches (top: 70)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Excavation for trenches (hand)" from Buco
+index-DyE31JFC.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R280.00/unit
+index-DyE31JFC.js:1355    🚚 Transport: R300.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R280.60/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R61.74/unit
+index-DyE31JFC.js:1355    💵 Final Price: R171170.91 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Backfilling with selected material" (300 m³)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Backfilling with selected material"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 11 matches (top: 75)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Bedding for pipes (selected material)" from Buco
+index-DyE31JFC.js:1351    Score: 75 | Confidence: HIGH | 2/4 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R180.00/unit
+index-DyE31JFC.js:1355    🚚 Transport: R300.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R181.00/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R39.83/unit
+index-DyE31JFC.js:1355    💵 Final Price: R66247.90 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Compaction of subgrade" (2000 m²)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Compaction of subgrade"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 3 matches (top: 75)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Backfilling and compaction" from Buco
+index-DyE31JFC.js:1351    Score: 75 | Confidence: HIGH | 1/2 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 3 supplier matches
+index-DyE31JFC.js:1355    📐 SQUARE METER DETECTED: Adjusted unit price from R120.15 to R0.06
+index-DyE31JFC.js:1355    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R120.00/unit
+index-DyE31JFC.js:1355    🚚 Transport: R300.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R120.15/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R0.01/unit
+index-DyE31JFC.js:1355    💵 Final Price: R146.59 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Blinding concrete 10MPa" (50 m³)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Blinding concrete 10MPa"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 39 matches (top: 70)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Ready Mix Concrete" from Buco
+index-DyE31JFC.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R1250.00/unit
+index-DyE31JFC.js:1355    🚚 Transport: R450.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R1259.00/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R277.02/unit
+index-DyE31JFC.js:1355    💵 Final Price: R76801.20 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Ready-mix concrete 25MPa (foundations)" (200 m³)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Ready-mix concrete 25MPa (foundations)"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 40 matches (top: 90)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Concrete 25MPa" from Raumix
+index-DyE31JFC.js:1351    Score: 90 | Confidence: VERY HIGH | Item name found in search term
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: Lafarge (Lafarge Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R1180.00/unit
+index-DyE31JFC.js:1355    🚚 Transport: R450.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R1182.25/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R260.14/unit
+index-DyE31JFC.js:1355    💵 Final Price: R288477.28 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Ready-mix concrete 30MPa (slabs)" (300 m³)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Ready-mix concrete 30MPa (slabs)"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 40 matches (top: 90)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Concrete 30MPa" from Lafarge
+index-DyE31JFC.js:1351    Score: 90 | Confidence: VERY HIGH | Item name found in search term
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: Raumix (Raumix Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R1200.00/unit
+index-DyE31JFC.js:1355    🚚 Transport: R450.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R1201.50/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R264.37/unit
+index-DyE31JFC.js:1355    💵 Final Price: R439761.62 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Face bricks" (150000 nr)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Face bricks"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 8 matches (top: 75)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Stock Brick" from Buco
+index-DyE31JFC.js:1351    Score: 75 | Confidence: HIGH | 1/2 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: Raumix (Raumix Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R2.75/unit
+index-DyE31JFC.js:1355    🚚 Transport: R300.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R2.75/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R0.61/unit
+index-DyE31JFC.js:1355    💵 Final Price: R503630.45 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Common bricks (internal)" (80000 nr)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Common bricks (internal)"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 9 matches (top: 70)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Door Internal Hollow Core" from TALISMAN
+index-DyE31JFC.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: Raumix (Raumix Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R2.75/unit
+index-DyE31JFC.js:1355    🚚 Transport: R300.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R2.75/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R0.61/unit
+index-DyE31JFC.js:1355    💵 Final Price: R268773.71 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Mortar for brickwork" (100 m³)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Mortar for brickwork"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 50 matches (top: 70)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Face brickwork (220mm thick)" from Buco
+index-DyE31JFC.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R680.00/unit
+index-DyE31JFC.js:1355    🚚 Transport: R450.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R684.50/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R150.61/unit
+index-DyE31JFC.js:1355    💵 Final Price: R83511.40 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Steel reinforcement Y12" (15000 kg)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Steel reinforcement Y12"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 46 matches (top: 90)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Steel reinforcing bars Y12" from Buco
+index-DyE31JFC.js:1351    Score: 90 | Confidence: VERY HIGH | 3/3 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R13.50/unit
+index-DyE31JFC.js:1355    🚚 Transport: R450.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R13.53/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R2.98/unit
+index-DyE31JFC.js:1355    💵 Final Price: R247606.10 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Steel reinforcement Y16" (8000 kg)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Steel reinforcement Y16"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 41 matches (top: 80)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Steel Rod 8mm" from Buco
+index-DyE31JFC.js:1351    Score: 80 | Confidence: HIGH | 2/3 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R45.00/unit
+index-DyE31JFC.js:1355    🚚 Transport: R450.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R45.06/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R9.91/unit
+index-DyE31JFC.js:1355    💵 Final Price: R439761.62 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Roof tiles concrete" (5000 m²)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Roof tiles concrete"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 48 matches (top: 70)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Ready Mix Concrete" from Buco
+index-DyE31JFC.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    📐 SQUARE METER DETECTED: Adjusted unit price from R1250.09 to R0.25
+index-DyE31JFC.js:1355    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R1250.00/unit
+index-DyE31JFC.js:1355    🚚 Transport: R450.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R1250.09/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R0.06/unit
+index-DyE31JFC.js:1355    💵 Final Price: R1525.15 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Roof trusses (timber)" (100 lump sum)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Roof trusses (timber)"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 13 matches (top: 70)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Pine Timber 38x114mm" from Buco
+index-DyE31JFC.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: TIMBER CITY (Timber City Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R55.00/unit
+index-DyE31JFC.js:1355    🚚 Transport: R300.00 (1.3km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R58.00/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R12.76/unit
+index-DyE31JFC.js:1355    💵 Final Price: R7076.20 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Aluminum windows 1200x1200" (200 nr)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Aluminum windows 1200x1200"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 10 matches (top: 57)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Barrier kerbing (SABS 927 fg 1)" from Buco
+index-DyE31JFC.js:1351    Score: 57 | Confidence: LOW | 1/3 partial keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R195.00/unit
+index-DyE31JFC.js:1355    🚚 Transport: R300.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R196.50/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R43.24/unit
+index-DyE31JFC.js:1355    💵 Final Price: R47947.38 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Wooden doors 813x2032" (300 nr)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Wooden doors 813x2032"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 11 matches (top: 57)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Pine Timber 38x114mm" from Buco
+index-DyE31JFC.js:1351    Score: 57 | Confidence: LOW | 1/3 partial keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R58.50/unit
+index-DyE31JFC.js:1355    🚚 Transport: R300.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R59.50/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R13.09/unit
+index-DyE31JFC.js:1355    💵 Final Price: R21777.62 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "110mm PVC sewer pipes" (1500 m)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "110mm PVC sewer pipes"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 28 matches (top: 83)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "PVC Sewer Pipe 110mm" from MARLEY
+index-DyE31JFC.js:1351    Score: 83 | Confidence: HIGH | 3/4 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: MARLEY (Marley Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R135.00/unit
+index-DyE31JFC.js:1355    🚚 Transport: R300.00 (2.8km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R135.20/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R29.75/unit
+index-DyE31JFC.js:1355    💵 Final Price: R247423.10 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Hot water cylinders 150L" (100 nr)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Hot water cylinders 150L"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 39 matches (top: 68)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Precast concrete channel units" from Buco
+index-DyE31JFC.js:1351    Score: 68 | Confidence: MEDIUM | 1/4 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R280.00/unit
+index-DyE31JFC.js:1355    🚚 Transport: R300.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R283.00/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R62.27/unit
+index-DyE31JFC.js:1355    💵 Final Price: R34526.99 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Distribution boards 8-way" (100 nr)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Distribution boards 8-way"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 17 matches (top: 80)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "Distribution Board 12-Way" from VOLTEX
+index-DyE31JFC.js:1351    Score: 80 | Confidence: HIGH | 2/3 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 6 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R439.66/unit
+index-DyE31JFC.js:1355    🚚 Transport: R300.00 (0km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R442.66/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R97.40/unit
+index-DyE31JFC.js:1355    💵 Final Price: R54006.07 (incl. all fees)
+index-DyE31JFC.js:1354 
+🔍 Pricing: "Electrical wiring complete" (100 lump sum)
+index-DyE31JFC.js:1349 
+🔍 ENHANCED SEARCH: "Electrical wiring complete"
+index-DyE31JFC.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-DyE31JFC.js:1350   📍 Level 2: Trying scored match with brands...
+index-DyE31JFC.js:1350   ✅ Level 2 SUCCESS: Found 5 matches (top: 70)
+index-DyE31JFC.js:1350 
+🏆 TOP MATCH: "The provision of a complete 220/250 volt single phase electrical power installation" from Buco
+index-DyE31JFC.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-DyE31JFC.js:1355    ✅ Found 5 supplier matches
+index-DyE31JFC.js:1355    🏆 Best Supplier: ARB (ARB Johannesburg)
+index-DyE31JFC.js:1355    📦 Base Price: R95.00/unit
+index-DyE31JFC.js:1355    🚚 Transport: R300.00 (3km)
+index-DyE31JFC.js:1355    💰 Landed Cost: R98.00/unit
+index-DyE31JFC.js:1355    💵 Additional Fees: R21.56/unit
+index-DyE31JFC.js:1355    💵 Final Price: R11956.34 (incl. all fees)
+index-DyE31JFC.js:1355 
+✅ Regional Pricing Complete: 19 items priced
+
+index-DyE31JFC.js:1393 💾 Saving bill to Supabase with project settings...
+index-DyE31JFC.js:1393 ✅ Bill saved to Supabase: {id: 'a5bfd33e-f224-4e92-a8de-4f5d8d3b6fd5', user_id: 'c36eb0dd-0fab-4f44-b38e-92d893723a5c', project_name: 'BOQ 2/28/2026', bill_number: 'demo_bill_1772306306986', bill_data: null, …}
+index-DyE31JFC.js:1393 ✅ 19 bill items saved to Supabase
+index-DyE31JFC.js:1349 💰 BOQ Totals Calculation:
+index-DyE31JFC.js:1349   Total on Delivery (Grand Total): R 3 012 127,63
+index-DyE31JFC.js:1349   Delivery Fees (Transport): R 6 750,00
+index-DyE31JFC.js:1349   Total on Collection (No Transport): R 3 005 377,63
+index-DyE31JFC.js:1349   Verification (Collection + Delivery = Total): ✅
+index-DyE31JFC.js:1349   Difference: 0.00
+index-DyE31JFC.js:1349 🕐 RegionalPricedBillView received processingTime: 1518.3999999761581

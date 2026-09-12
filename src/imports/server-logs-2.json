@@ -1,0 +1,226 @@
+[
+  {
+    "event_message": "--> OPTIONS /server/make-server-9db710f3/process-bill 204 1ms\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "8bd8156f-50fd-4f7b-895d-c142f3cc781f",
+    "level": "info",
+    "timestamp": 1772789183238000
+  },
+  {
+    "event_message": "🟢 Response status: 204\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "affece61-c9f4-435c-8170-d3e16ff2d72a",
+    "level": "info",
+    "timestamp": 1772789183238000
+  },
+  {
+    "event_message": "🟢 INCOMING REQUEST: OPTIONS http://kcptusoevqapcvptlgkd.supabase.co/server/make-server-9db710f3/process-bill\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "97fa61ae-d871-412a-bc4a-310527aeebf1",
+    "level": "info",
+    "timestamp": 1772789183235000
+  },
+  {
+    "event_message": "🟢 Headers: [[\"accept\",\"*/*\"],[\"accept-encoding\",\"gzip\"],[\"accept-language\",\"en-US,en;q=0.9,en-ZA;q=0.8\"],[\"access-control-request-headers\",\"authorization,content-type\"],[\"access-control-request-method\",\"POST\"],[\"baggage\",\"sb-request-id=019cc278-26a4-7235-b75b-de3fbf5c6823\"],[\"cdn-loop\",\"cloudflare; loops=1; subreqs=1\"],[\"cf-connecting-ip\",\"196.40.186.154\"],[\"cf-ew-via\",\"15\"],[\"cf-ray\",\"9d805177d66c7394-JNB\"],[\"cf-visitor\",\"{\\\"scheme\\\":\\\"https\\\"}\"],[\"cf-worker\",\"supabase.co\"],[\"content-length\",\"0\"],[\"host\",\"edge-runtime.supabase.com\"],[\"origin\",\"https://qilly-sit.vercel.app\"],[\"priority\",\"u=1, i\"],[\"referer\",\"https://qilly-sit.vercel.app/\"],[\"sb-request-id\",\"019cc278-26a4-7235-b75b-de3fbf5c6823\"],[\"sec-fetch-dest\",\"empty\"],[\"sec-fetch-mode\",\"cors\"],[\"sec-fetch-site\",\"cross-site\"],[\"user-agent\",\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0\"],[\"x-amzn-trace-id\",\"Root=1-69aa9dbc-5cc62b0657fc85a83e728436\"],[\"x-forwarded-for\",\"196.40.186.154,196.40.186.154, 13.248.101.179\"],[\"x-forwarded-port\",\"443\"],[\"x-forwarded-proto\",\"https\"]]\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "eaae3771-5f70-4d19-8cc9-5872bd4be7e0",
+    "level": "info",
+    "timestamp": 1772789183235000
+  },
+  {
+    "event_message": "<-- OPTIONS /server/make-server-9db710f3/process-bill\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "0191c5be-7e7f-46d5-9587-bea20cfc38de",
+    "level": "info",
+    "timestamp": 1772789183235000
+  },
+  {
+    "event_message": "booted (time: 32ms)",
+    "event_type": "Boot",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "ef0876d1-21bc-4884-889a-a0823c51e19a",
+    "level": "log",
+    "timestamp": 1772789183159000
+  },
+  {
+    "event_message": "shutdown",
+    "event_type": "Shutdown",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "f1482c79-e51e-4007-90e1-aec3cacb8a8d",
+    "level": "log",
+    "timestamp": 1772788878772000
+  },
+  {
+    "event_message": "🔴 GLOBAL ERROR HANDLER: TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))\n    at Function.fromEntries (<anonymous>)\n    at file:///var/tmp/sb-compile-edge-runtime/server/index.ts:10:37\n    at dispatch (file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/compose.js:22:23)\n    at file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/compose.js:5:12\n    at file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/hono-base.js:301:31\n    at Hono.#dispatch (file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/hono-base.js:311:7)\n    at Object.fetch [as handler] (file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/hono-base.js:325:26)\n    at mapped (ext:runtime/http.js:246:44)\n    at respond (ext:runtime/http.js:342:9)\n    at handleHttp (ext:runtime/http.js:162:9)\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "1402d4fb-a125-47b8-81f5-1af3fed4d096",
+    "level": "error",
+    "timestamp": 1772788803864000
+  },
+  {
+    "event_message": "🔴 Error stack: TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))\n    at Function.fromEntries (<anonymous>)\n    at file:///var/tmp/sb-compile-edge-runtime/server/index.ts:10:37\n    at dispatch (file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/compose.js:22:23)\n    at file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/compose.js:5:12\n    at file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/hono-base.js:301:31\n    at Hono.#dispatch (file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/hono-base.js:311:7)\n    at Object.fetch [as handler] (file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/hono-base.js:325:26)\n    at mapped (ext:runtime/http.js:246:44)\n    at respond (ext:runtime/http.js:342:9)\n    at handleHttp (ext:runtime/http.js:162:9)\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "d3c6d27d-16e9-4f72-a254-b6140316a0f7",
+    "level": "error",
+    "timestamp": 1772788803864000
+  },
+  {
+    "event_message": "🟢 INCOMING REQUEST: OPTIONS http://kcptusoevqapcvptlgkd.supabase.co/server/make-server-9db710f3/process-bill\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "d306367b-7e6b-4ae0-bc43-6b682f22e3ee",
+    "level": "info",
+    "timestamp": 1772788803862000
+  },
+  {
+    "event_message": "booted (time: 49ms)",
+    "event_type": "Boot",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "695b1a11-d10c-47c8-bb8a-a71ece9cad01",
+    "level": "log",
+    "timestamp": 1772788803743000
+  },
+  {
+    "event_message": "shutdown",
+    "event_type": "Shutdown",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "299dfe19-c441-4ffe-b932-b7a0264ec17e",
+    "level": "log",
+    "timestamp": 1772788531508000
+  },
+  {
+    "event_message": "🔴 Error stack: TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))\n    at Function.fromEntries (<anonymous>)\n    at file:///var/tmp/sb-compile-edge-runtime/server/index.ts:10:37\n    at dispatch (file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/compose.js:22:23)\n    at file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/compose.js:5:12\n    at file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/hono-base.js:301:31\n    at Hono.#dispatch (file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/hono-base.js:311:7)\n    at Object.fetch [as handler] (file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/hono-base.js:325:26)\n    at mapped (ext:runtime/http.js:246:44)\n    at respond (ext:runtime/http.js:342:9)\n    at handleHttp (ext:runtime/http.js:162:9)\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "d7feba86-ec79-4414-87cc-af67370154bb",
+    "level": "error",
+    "timestamp": 1772788456579000
+  },
+  {
+    "event_message": "🔴 GLOBAL ERROR HANDLER: TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))\n    at Function.fromEntries (<anonymous>)\n    at file:///var/tmp/sb-compile-edge-runtime/server/index.ts:10:37\n    at dispatch (file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/compose.js:22:23)\n    at file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/compose.js:5:12\n    at file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/hono-base.js:301:31\n    at Hono.#dispatch (file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/hono-base.js:311:7)\n    at Object.fetch [as handler] (file:///var/tmp/sb-compile-edge-runtime/node_modules/localhost/hono/4.12.5/dist/hono-base.js:325:26)\n    at mapped (ext:runtime/http.js:246:44)\n    at respond (ext:runtime/http.js:342:9)\n    at handleHttp (ext:runtime/http.js:162:9)\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "2f43f88e-2670-474d-ab59-437820225989",
+    "level": "error",
+    "timestamp": 1772788456579000
+  },
+  {
+    "event_message": "🟢 INCOMING REQUEST: OPTIONS http://kcptusoevqapcvptlgkd.supabase.co/server/make-server-9db710f3/process-bill\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "9c5da600-b01a-477a-9376-4f65fe444fc8",
+    "level": "info",
+    "timestamp": 1772788456576000
+  },
+  {
+    "event_message": "booted (time: 52ms)",
+    "event_type": "Boot",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "a67b01ad-7091-412f-8126-cc1c2e7d165e",
+    "level": "log",
+    "timestamp": 1772788456461000
+  },
+  {
+    "event_message": "shutdown",
+    "event_type": "Shutdown",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "2bcc1331-3162-47bc-8587-98b1dc218990",
+    "level": "log",
+    "timestamp": 1772787922817000
+  },
+  {
+    "event_message": "--> OPTIONS /server/make-server-9db710f3/process-bill 204 1ms\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "58eb3658-2fef-48ea-a49a-e8932e4e2e97",
+    "level": "info",
+    "timestamp": 1772787847940000
+  },
+  {
+    "event_message": "<-- OPTIONS /server/make-server-9db710f3/process-bill\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "f92dbf14-cd38-4d9f-bcf1-2fe81b624d2c",
+    "level": "info",
+    "timestamp": 1772787847938000
+  },
+  {
+    "event_message": "booted (time: 68ms)",
+    "event_type": "Boot",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "708cf0de-e90e-4ba1-a72b-e7891d39ee66",
+    "level": "log",
+    "timestamp": 1772787847787000
+  },
+  {
+    "event_message": "shutdown",
+    "event_type": "Shutdown",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "63685ad0-75cb-4a79-90b8-18f62a348c49",
+    "level": "log",
+    "timestamp": 1772787320009000
+  },
+  {
+    "event_message": "--> OPTIONS /server/make-server-9db710f3/process-bill 204 1ms\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "6964b6ab-2186-4bfb-8de8-5365bb53a573",
+    "level": "info",
+    "timestamp": 1772787245048000
+  },
+  {
+    "event_message": "<-- OPTIONS /server/make-server-9db710f3/process-bill\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "0a38e2d5-781f-4484-be43-f3067c2e98c0",
+    "level": "info",
+    "timestamp": 1772787245047000
+  },
+  {
+    "event_message": "booted (time: 37ms)",
+    "event_type": "Boot",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "50082baf-cf62-452f-b198-4e15c5351e7f",
+    "level": "log",
+    "timestamp": 1772787244975000
+  },
+  {
+    "event_message": "shutdown",
+    "event_type": "Shutdown",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "c1dd9dd9-8ee9-4e4b-8d2e-dad005e2ff05",
+    "level": "log",
+    "timestamp": 1772785813309000
+  },
+  {
+    "event_message": "--> OPTIONS /server/make-server-9db710f3/process-bill 204 1ms\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "ae255c60-e1dc-4d0d-83ca-69d0c15dc722",
+    "level": "info",
+    "timestamp": 1772785738360000
+  },
+  {
+    "event_message": "<-- OPTIONS /server/make-server-9db710f3/process-bill\n",
+    "event_type": "Log",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "568a0909-4507-499a-a261-347176d42347",
+    "level": "info",
+    "timestamp": 1772785738358000
+  },
+  {
+    "event_message": "booted (time: 37ms)",
+    "event_type": "Boot",
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "083080d5-4ec6-4995-9ce6-dbdb33285019",
+    "level": "log",
+    "timestamp": 1772785738280000
+  }
+]

@@ -1,0 +1,101 @@
+[
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_9",
+    "event_message": "POST | 401 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 345,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "7d22ceba-9c65-43dd-b928-134ba083c7d2",
+    "method": "POST",
+    "status_code": 401,
+    "timestamp": 1772787245617000,
+    "version": "9"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_9",
+    "event_message": "OPTIONS | 204 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 2221,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "cd97b4b2-928a-4662-96af-306da5961a92",
+    "method": "OPTIONS",
+    "status_code": 204,
+    "timestamp": 1772787245134000,
+    "version": "9"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_7",
+    "event_message": "POST | 401 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 2696,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "d2527e99-26d4-414d-bdc4-1d0e8ea4dbe0",
+    "method": "POST",
+    "status_code": 401,
+    "timestamp": 1772786157096000,
+    "version": "7"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_6",
+    "event_message": "POST | 401 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 314,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "cdb78857-420d-445d-9372-7e54904c8e61",
+    "method": "POST",
+    "status_code": 401,
+    "timestamp": 1772785738864000,
+    "version": "6"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_6",
+    "event_message": "OPTIONS | 204 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 2404,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "f07e4365-4f06-4c6c-933c-543ffa7140e2",
+    "method": "OPTIONS",
+    "status_code": 204,
+    "timestamp": 1772785738442000,
+    "version": "6"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_5",
+    "event_message": "POST | 401 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 2465,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "e73512b3-cab0-4ae6-abe4-71c116e14e54",
+    "method": "POST",
+    "status_code": 401,
+    "timestamp": 1772784985493000,
+    "version": "5"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_4",
+    "event_message": "POST | 401 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 386,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "a03e58b7-6632-4b72-b1f6-c9b81fee3627",
+    "method": "POST",
+    "status_code": 401,
+    "timestamp": 1772784843458000,
+    "version": "4"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_4",
+    "event_message": "POST | 401 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 333,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "638880d9-f911-4290-8aed-37d6318517c3",
+    "method": "POST",
+    "status_code": 401,
+    "timestamp": 1772784810253000,
+    "version": "4"
+  },
+  {
+    "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_4",
+    "event_message": "OPTIONS | 204 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+    "execution_time_ms": 2767,
+    "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+    "id": "c31e91ef-c102-4cda-a4f1-10a2a75c9da6",
+    "method": "OPTIONS",
+    "status_code": 204,
+    "timestamp": 1772784809807000,
+    "version": "4"
+  }
+]

@@ -1,0 +1,41 @@
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/contractors?select=*&email=eq.contractor%40gmail.com 406 (Not Acceptable)
+(anonymous) @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28
+(anonymous) @ @supabase_supabase-js.js?v=6fc539bf:11340
+(anonymous) @ @supabase_supabase-js.js?v=6fc539bf:11354
+await in (anonymous)
+then @ @supabase_supabase-js.js?v=6fc539bf:274
+(index):1  Access to fetch at 'https://zzdzrlglivtpawtitvgu.supabase.co/functions/v1/server/make-server-9db710f3/profile' from origin 'https://c5aeebe0-cf17-49ab-b8d1-3b7e41fff832-v2-figmaiframepreview.figma.site' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: It does not have HTTP ok status.
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/functions/v1/server/make-server-9db710f3/profile net::ERR_FAILED
+(anonymous) @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28
+apiRequest @ api.ts:60
+getProfile @ api.ts:178
+fetchUserProfile @ MainDashboard.tsx:145
+await in fetchUserProfile
+initializeData @ MainDashboard.tsx:51
+(anonymous) @ MainDashboard.tsx:58
+TN @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:89
+T7 @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:89
+T8 @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:89
+T6 @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:89
+T4 @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:89
+S1 @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:89
+SQ @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:89
+SO @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:89
+pC @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:89
+SJ @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:89
+SZ @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:89
+Sv @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:89
+SS @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:89
+(anonymous) @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:3
+V @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:113
+B @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:113
+eo @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:113
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28 🔍 Loading contractor data for email: contractor@gmail.com
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28   GET https://zzdzrlglivtpawtitvgu.supabase.co/rest/v1/contractors?select=*&email=eq.contractor%40gmail.com 406 (Not Acceptable)
+(anonymous) @ code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28
+(anonymous) @ @supabase_supabase-js.js?v=6fc539bf:11340
+(anonymous) @ @supabase_supabase-js.js?v=6fc539bf:11354
+await in (anonymous)
+then @ @supabase_supabase-js.js?v=6fc539bf:274
+code_components_preview_iframe-ab9bdbe29389ccb5.min.js.br:28 ℹ️  No contractor record found for this user (not a contractor account)

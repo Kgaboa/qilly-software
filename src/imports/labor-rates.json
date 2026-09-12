@@ -1,0 +1,579 @@
+[
+  {
+    "id": 1,
+    "code": "LAB_EXCAVATOR_OPS",
+    "description": "Excavator Operator - Earthworks",
+    "category": "EARTHWORKS",
+    "base_rate": "450.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "certification": "required",
+      "equipment_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 2,
+    "code": "LAB_EARTHWORKS_GEN",
+    "description": "General Earthworks Laborer",
+    "category": "EARTHWORKS",
+    "base_rate": "180.00",
+    "unit": "hour",
+    "skill_level": "unskilled",
+    "metadata": {
+      "supervision_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 3,
+    "code": "LAB_DOZER_OPS",
+    "description": "Bulldozer Operator",
+    "category": "EARTHWORKS",
+    "base_rate": "420.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "certification": "required",
+      "equipment_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 4,
+    "code": "LAB_GRADER_OPS",
+    "description": "Grader Operator",
+    "category": "EARTHWORKS",
+    "base_rate": "400.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "equipment_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 5,
+    "code": "LAB_COMPACTION_OPS",
+    "description": "Compaction Equipment Operator",
+    "category": "EARTHWORKS",
+    "base_rate": "350.00",
+    "unit": "hour",
+    "skill_level": "semi_skilled",
+    "metadata": {
+      "equipment_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 6,
+    "code": "LAB_CONCRETE_FINISHER",
+    "description": "Concrete Finisher",
+    "category": "CONCRETE",
+    "base_rate": "320.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "trade": "concrete",
+      "years_experience": 3
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 7,
+    "code": "LAB_CONCRETE_PLACER",
+    "description": "Concrete Placer",
+    "category": "CONCRETE",
+    "base_rate": "280.00",
+    "unit": "hour",
+    "skill_level": "semi_skilled",
+    "metadata": {
+      "trade": "concrete"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 8,
+    "code": "LAB_FORMWORK_CARP",
+    "description": "Formwork Carpenter",
+    "category": "CONCRETE",
+    "base_rate": "350.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "trade": "carpentry",
+      "specialization": "formwork"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 9,
+    "code": "LAB_STEEL_FIXER",
+    "description": "Steel Fixer/Reinforcement",
+    "category": "CONCRETE",
+    "base_rate": "340.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "trade": "steel_fixing",
+      "certification": "preferred"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 10,
+    "code": "LAB_CONCRETE_PUMP_OPS",
+    "description": "Concrete Pump Operator",
+    "category": "CONCRETE",
+    "base_rate": "380.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "certification": "required",
+      "equipment_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 11,
+    "code": "LAB_CONCRETE_GEN",
+    "description": "General Concrete Laborer",
+    "category": "CONCRETE",
+    "base_rate": "200.00",
+    "unit": "hour",
+    "skill_level": "unskilled",
+    "metadata": {
+      "supervision_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 12,
+    "code": "LAB_BRICKLAYER",
+    "description": "Bricklayer",
+    "category": "MASONRY",
+    "base_rate": "330.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "trade": "masonry",
+      "years_experience": 2
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 13,
+    "code": "LAB_BLOCKLAYER",
+    "description": "Blocklayer",
+    "category": "MASONRY",
+    "base_rate": "310.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "trade": "masonry"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 14,
+    "code": "LAB_MASONRY_HELPER",
+    "description": "Masonry Helper/Laborer",
+    "category": "MASONRY",
+    "base_rate": "190.00",
+    "unit": "hour",
+    "skill_level": "unskilled",
+    "metadata": {
+      "supervision_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 15,
+    "code": "LAB_STONEMASON",
+    "description": "Stonemason",
+    "category": "MASONRY",
+    "base_rate": "380.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "trade": "stonemasonry",
+      "specialization": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 16,
+    "code": "LAB_PLASTERER",
+    "description": "Plasterer",
+    "category": "MASONRY",
+    "base_rate": "320.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "trade": "plastering"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 17,
+    "code": "LAB_PLUMBER_MASTER",
+    "description": "Master Plumber",
+    "category": "PLUMBING",
+    "base_rate": "450.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "license": "required",
+      "certification": "required"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 18,
+    "code": "LAB_PLUMBER_JOURNEY",
+    "description": "Journeyman Plumber",
+    "category": "PLUMBING",
+    "base_rate": "360.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "certification": "preferred"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 19,
+    "code": "LAB_PLUMBER_HELPER",
+    "description": "Plumber Helper",
+    "category": "PLUMBING",
+    "base_rate": "220.00",
+    "unit": "hour",
+    "skill_level": "semi_skilled",
+    "metadata": {
+      "supervision_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 20,
+    "code": "LAB_PIPEFITTER",
+    "description": "Pipefitter",
+    "category": "PLUMBING",
+    "base_rate": "370.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "trade": "pipefitting"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 21,
+    "code": "LAB_ELECTRICIAN_MASTER",
+    "description": "Master Electrician",
+    "category": "ELECTRICAL",
+    "base_rate": "480.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "license": "required",
+      "certification": "required"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 22,
+    "code": "LAB_ELECTRICIAN_JOURNEY",
+    "description": "Journeyman Electrician",
+    "category": "ELECTRICAL",
+    "base_rate": "380.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "certification": "required"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 23,
+    "code": "LAB_ELECTRICIAN_HELPER",
+    "description": "Electrician Helper",
+    "category": "ELECTRICAL",
+    "base_rate": "230.00",
+    "unit": "hour",
+    "skill_level": "semi_skilled",
+    "metadata": {
+      "supervision_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 24,
+    "code": "LAB_CABLE_INSTALLER",
+    "description": "Cable Installer/Technician",
+    "category": "ELECTRICAL",
+    "base_rate": "290.00",
+    "unit": "hour",
+    "skill_level": "semi_skilled",
+    "metadata": {
+      "specialization": "low_voltage"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 25,
+    "code": "LAB_CARPENTER_FINISH",
+    "description": "Finish Carpenter",
+    "category": "CARPENTRY",
+    "base_rate": "360.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "trade": "carpentry",
+      "specialization": "finishing"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 26,
+    "code": "LAB_CARPENTER_ROUGH",
+    "description": "Rough Carpenter",
+    "category": "CARPENTRY",
+    "base_rate": "330.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "trade": "carpentry"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 27,
+    "code": "LAB_CARPENTER_HELPER",
+    "description": "Carpenter Helper",
+    "category": "CARPENTRY",
+    "base_rate": "210.00",
+    "unit": "hour",
+    "skill_level": "semi_skilled",
+    "metadata": {
+      "supervision_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 28,
+    "code": "LAB_JOINER",
+    "description": "Joiner",
+    "category": "CARPENTRY",
+    "base_rate": "350.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "trade": "joinery"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 29,
+    "code": "LAB_ROOFER_SKILLED",
+    "description": "Skilled Roofer",
+    "category": "ROOFING",
+    "base_rate": "340.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "trade": "roofing",
+      "safety_training": "required"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 30,
+    "code": "LAB_ROOFER_HELPER",
+    "description": "Roofer Helper",
+    "category": "ROOFING",
+    "base_rate": "200.00",
+    "unit": "hour",
+    "skill_level": "semi_skilled",
+    "metadata": {
+      "safety_training": "required"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 31,
+    "code": "LAB_WATERPROOFER",
+    "description": "Waterproofing Specialist",
+    "category": "ROOFING",
+    "base_rate": "360.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "specialization": "waterproofing"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 32,
+    "code": "LAB_PAINTER_SKILLED",
+    "description": "Skilled Painter",
+    "category": "PAINTING",
+    "base_rate": "300.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "trade": "painting"
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 33,
+    "code": "LAB_PAINTER_HELPER",
+    "description": "Painter Helper",
+    "category": "PAINTING",
+    "base_rate": "180.00",
+    "unit": "hour",
+    "skill_level": "unskilled",
+    "metadata": {
+      "supervision_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 34,
+    "code": "LAB_SITE_SUPERVISOR",
+    "description": "Site Supervisor",
+    "category": "MANAGEMENT",
+    "base_rate": "550.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "management": true,
+      "years_experience": 5
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 35,
+    "code": "LAB_FOREMAN",
+    "description": "Foreman",
+    "category": "MANAGEMENT",
+    "base_rate": "480.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "management": true,
+      "years_experience": 3
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 36,
+    "code": "LAB_GENERAL_LABORER",
+    "description": "General Laborer",
+    "category": "GENERAL",
+    "base_rate": "165.00",
+    "unit": "hour",
+    "skill_level": "unskilled",
+    "metadata": {
+      "supervision_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 37,
+    "code": "LAB_SITE_CLEANER",
+    "description": "Site Cleaner",
+    "category": "GENERAL",
+    "base_rate": "150.00",
+    "unit": "hour",
+    "skill_level": "unskilled",
+    "metadata": {
+      "supervision_required": false
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 38,
+    "code": "LAB_CRANE_OPS",
+    "description": "Crane Operator",
+    "category": "EQUIPMENT",
+    "base_rate": "520.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "license": "required",
+      "certification": "required",
+      "equipment_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 39,
+    "code": "LAB_TLB_OPS",
+    "description": "TLB Operator",
+    "category": "EQUIPMENT",
+    "base_rate": "400.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "certification": "required",
+      "equipment_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  },
+  {
+    "id": 40,
+    "code": "LAB_ROLLER_OPS",
+    "description": "Roller Operator",
+    "category": "EQUIPMENT",
+    "base_rate": "360.00",
+    "unit": "hour",
+    "skill_level": "skilled",
+    "metadata": {
+      "equipment_required": true
+    },
+    "created_at": "2026-03-04 12:21:37.869767+00",
+    "updated_at": "2026-03-04 12:21:37.869767+00"
+  }
+]

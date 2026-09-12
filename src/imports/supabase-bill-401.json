@@ -1,0 +1,86 @@
+{
+  "event_message": "POST | 401 | https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill",
+  "id": "7d22ceba-9c65-43dd-b928-134ba083c7d2",
+  "metadata": [
+    {
+      "deployment_id": "kcptusoevqapcvptlgkd_c1a8cd2a-3408-4fab-80f3-7de535dc9770_9",
+      "execution_id": null,
+      "execution_time_ms": 345,
+      "function_id": "c1a8cd2a-3408-4fab-80f3-7de535dc9770",
+      "project_ref": "kcptusoevqapcvptlgkd",
+      "request": [
+        {
+          "headers": [
+            {
+              "accept": "*/*",
+              "accept_encoding": "gzip, br",
+              "connection": "Keep-Alive",
+              "content_length": "2548",
+              "cookie": null,
+              "host": "kcptusoevqapcvptlgkd.supabase.co",
+              "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0",
+              "x_client_info": null
+            }
+          ],
+          "host": "kcptusoevqapcvptlgkd.supabase.co",
+          "method": "POST",
+          "pathname": "/functions/v1/server/make-server-9db710f3/process-bill",
+          "port": null,
+          "protocol": "https:",
+          "sb": [
+            {
+              "apikey": [],
+              "auth_user": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9",
+              "jwt": [
+                {
+                  "apikey": [],
+                  "authorization": [
+                    {
+                      "invalid": null,
+                      "payload": [
+                        {
+                          "algorithm": "ES256",
+                          "expires_at": 1772790819,
+                          "issuer": "https://kcptusoevqapcvptlgkd.supabase.co/auth/v1",
+                          "key_id": "c1c7a113-cb31-4665-b520-0927dbec23cc",
+                          "role": "authenticated",
+                          "session_id": "f93adcb1-1b32-446a-9ebb-b05e19e2205f",
+                          "signature_prefix": "gvWspb",
+                          "subject": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "search": null,
+          "url": "https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill"
+        }
+      ],
+      "response": [
+        {
+          "headers": [
+            {
+              "content_length": "56",
+              "content_type": "application/json",
+              "date": "Fri, 06 Mar 2026 08:54:05 GMT",
+              "sb_request_id": "019cc25a-a0d8-7f50-b9fc-d0e5a2c367b1",
+              "server": "cloudflare",
+              "vary": "Accept-Encoding",
+              "x_envoy_upstream_service_time": null,
+              "x_sb_compute_multiplier": null,
+              "x_sb_edge_region": "eu-west-3",
+              "x_sb_resource_multiplier": null,
+              "x_served_by": "supabase-edge-runtime"
+            }
+          ],
+          "status_code": 401
+        }
+      ],
+      "version": "9"
+    }
+  ],
+  "timestamp": 1772787245617000
+}

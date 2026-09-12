@@ -1,0 +1,101 @@
+index-Cwhe3oUQ.js:1 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB4', duration: '6', …}
+index-Cwhe3oUQ.js:1 🔍 Loading contractor data for user: kgabo123@gmail.com
+index-Cwhe3oUQ.js:1 ✅ Contractor data loaded from Supabase: {id: '64ecd5b8-69bf-43e5-a675-4b3c44de7f4d', user_id: 'e71f8fa4-defd-44c9-af49-0ee5f6430ea9', company_name: 'Contractor', cidb_registration_number: 'contrac', cidb_grade: 'Grade 3 CE', …}
+index-Cwhe3oUQ.js:1   📍 Province (single): Eastern Cape
+index-Cwhe3oUQ.js:1   📍 Operating provinces (array): (2) ['Gauteng', 'Free State']
+index-Cwhe3oUQ.js:1   🏗️ CIDB grade: Grade 3 CE
+index-Cwhe3oUQ.js:1   ✅ Using operating_provinces[0]: "Gauteng" → "GP"
+index-Cwhe3oUQ.js:1   📋 Available municipalities for "GP": 11 found
+index-Cwhe3oUQ.js:1   🏗️ CIDB grade: "Grade 3 CE" → "GB3"
+index-Cwhe3oUQ.js:1   🎯 Setting defaults:
+index-Cwhe3oUQ.js:1     - Province: GP
+index-Cwhe3oUQ.js:1     - Municipality: JHB
+index-Cwhe3oUQ.js:1     - CIDB: GB3
+index-Cwhe3oUQ.js:1   ✅ Project settings state updated
+index-Cwhe3oUQ.js:1 📋 Project Settings Updated: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB3', duration: '6', …}
+index-Cwhe3oUQ.js:1 ✅ Excel Header detected at row 0. Found columns: ItemNo=true, Description=true, Unit=true, Quantity=true
+index-Cwhe3oUQ.js:1 ✅ Found Excel header row at index 0: {itemNo: 0, description: 1, unit: 2, quantity: 3, rate: 4, …}
+index-Cwhe3oUQ.js:1 Excel Row 2: Raw qty="500" → Cleaned qty="500"
+index-Cwhe3oUQ.js:1 Excel Row 3: Raw qty="300" → Cleaned qty="300"
+index-Cwhe3oUQ.js:1 Excel Row 4: Raw qty="2000" → Cleaned qty="2000"
+index-Cwhe3oUQ.js:1 Excel Row 7: Raw qty="50" → Cleaned qty="50"
+index-Cwhe3oUQ.js:1 Excel Row 8: Raw qty="200" → Cleaned qty="200"
+index-Cwhe3oUQ.js:1 Excel Row 9: Raw qty="300" → Cleaned qty="300"
+index-Cwhe3oUQ.js:1 Excel Row 12: Raw qty="150000" → Cleaned qty="150000"
+index-Cwhe3oUQ.js:1 Excel Row 13: Raw qty="80000" → Cleaned qty="80000"
+index-Cwhe3oUQ.js:1 Excel Row 14: Raw qty="100" → Cleaned qty="100"
+index-Cwhe3oUQ.js:1 Excel Row 17: Raw qty="15000" → Cleaned qty="15000"
+index-Cwhe3oUQ.js:1 Excel Row 18: Raw qty="8000" → Cleaned qty="8000"
+index-Cwhe3oUQ.js:1 Excel Row 21: Raw qty="5000" → Cleaned qty="5000"
+index-Cwhe3oUQ.js:1 Excel Row 22: Raw qty="100" → Cleaned qty="100"
+index-Cwhe3oUQ.js:1 Excel Row 25: Raw qty="200" → Cleaned qty="200"
+index-Cwhe3oUQ.js:1 Excel Row 26: Raw qty="300" → Cleaned qty="300"
+index-Cwhe3oUQ.js:1 Excel Row 29: Raw qty="1500" → Cleaned qty="1500"
+index-Cwhe3oUQ.js:1 Excel Row 30: Raw qty="100" → Cleaned qty="100"
+index-Cwhe3oUQ.js:1 Excel Row 33: Raw qty="100" → Cleaned qty="100"
+index-Cwhe3oUQ.js:1 Excel Row 34: Raw qty="100" → Cleaned qty="100"
+index-Cwhe3oUQ.js:1 Sheet "Sheet1" - Column Map: {itemNo: 0, description: 1, unit: 2, quantity: 3, rate: 4, …}
+index-Cwhe3oUQ.js:1 Parsed Excel BOQ items: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+index-Cwhe3oUQ.js:1 📊 Excel Parsing Summary: 19 total items, 0 summary rows
+index-Cwhe3oUQ.js:1 Submitting bill with items: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+index-Cwhe3oUQ.js:1 Project settings: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB3', duration: '6', …}
+index-Cwhe3oUQ.js:48 🔑 Token Debug: {hasSession: true, hasAccessToken: true, tokenPreview: 'eyJhbGciOiJFUzI1NiIsImtpZCI6Im...', expiresAt: 1772791427, expiresIn: 2972, …}
+index-Cwhe3oUQ.js:48 🔧 Merging contractor profile data with project settings
+index-Cwhe3oUQ.js:48 📋 Final project settings: {province: 'GP', municipality: 'JHB', profitMargin: '15', cidbGrading: 'GB3', duration: '6', …}
+(index):1  Access to fetch at 'https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill' from origin 'https://qilly-sit.vercel.app' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+index-Cwhe3oUQ.js:15   POST https://kcptusoevqapcvptlgkd.supabase.co/functions/v1/server/make-server-9db710f3/process-bill net::ERR_FAILED
+is @ index-Cwhe3oUQ.js:15
+processBill @ index-Cwhe3oUQ.js:15
+R @ index-Cwhe3oUQ.js:48
+await in R
+R @ index-Cwhe3oUQ.js:1
+ih @ radix-vendor-35yt3xcj.js:37
+uh @ radix-vendor-35yt3xcj.js:37
+ah @ radix-vendor-35yt3xcj.js:37
+gc @ radix-vendor-35yt3xcj.js:37
+yc @ radix-vendor-35yt3xcj.js:37
+(anonymous) @ radix-vendor-35yt3xcj.js:37
+eu @ radix-vendor-35yt3xcj.js:40
+_a @ radix-vendor-35yt3xcj.js:37
+es @ radix-vendor-35yt3xcj.js:37
+Fi @ radix-vendor-35yt3xcj.js:37
+Ph @ radix-vendor-35yt3xcj.js:37
+index-Cwhe3oUQ.js:15  ❌ [sit] Supabase edge function unreachable: Failed to fetch
+is @ index-Cwhe3oUQ.js:15
+await in is
+processBill @ index-Cwhe3oUQ.js:15
+R @ index-Cwhe3oUQ.js:48
+await in R
+R @ index-Cwhe3oUQ.js:1
+ih @ radix-vendor-35yt3xcj.js:37
+uh @ radix-vendor-35yt3xcj.js:37
+ah @ radix-vendor-35yt3xcj.js:37
+gc @ radix-vendor-35yt3xcj.js:37
+yc @ radix-vendor-35yt3xcj.js:37
+(anonymous) @ radix-vendor-35yt3xcj.js:37
+eu @ radix-vendor-35yt3xcj.js:40
+_a @ radix-vendor-35yt3xcj.js:37
+es @ radix-vendor-35yt3xcj.js:37
+Fi @ radix-vendor-35yt3xcj.js:37
+Ph @ radix-vendor-35yt3xcj.js:37
+index-Cwhe3oUQ.js:15  ❌ [SIT] Supabase edge function failed - NOT falling back to demo mode
+processBill @ index-Cwhe3oUQ.js:15
+await in processBill
+R @ index-Cwhe3oUQ.js:48
+await in R
+R @ index-Cwhe3oUQ.js:1
+ih @ radix-vendor-35yt3xcj.js:37
+uh @ radix-vendor-35yt3xcj.js:37
+ah @ radix-vendor-35yt3xcj.js:37
+gc @ radix-vendor-35yt3xcj.js:37
+yc @ radix-vendor-35yt3xcj.js:37
+(anonymous) @ radix-vendor-35yt3xcj.js:37
+eu @ radix-vendor-35yt3xcj.js:40
+_a @ radix-vendor-35yt3xcj.js:37
+es @ radix-vendor-35yt3xcj.js:37
+Fi @ radix-vendor-35yt3xcj.js:37
+Ph @ radix-vendor-35yt3xcj.js:37
+index-Cwhe3oUQ.js:15  Error details: Error: Supabase edge function is unreachable in sit environment. Please check your Supabase configuration and CORS settings.
+    at is (index-Cwhe3oUQ.js:15:1166)
+    at async Object.processBill (index-Cwhe3oUQ.js:15:6410)
+    at async R (index-Cwhe3oUQ.js:48:15855)

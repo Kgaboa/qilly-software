@@ -1,0 +1,636 @@
+index-mpPWl-D1.js:1349   📍 Province (single): Limpopo
+index-mpPWl-D1.js:1349   📍 Operating provinces (array): Array(2)
+index-mpPWl-D1.js:1349   🏗️ CIDB grade: Grade 2 CE
+index-mpPWl-D1.js:1349   ✅ Using operating_provinces[0]: "Gauteng" → "GP"
+index-mpPWl-D1.js:1349   📋 Available municipalities for "GP": 11 found
+index-mpPWl-D1.js:1349   🏗️ CIDB grade: "Grade 2 CE" → "GB2"
+index-mpPWl-D1.js:1349   🎯 Setting defaults:
+index-mpPWl-D1.js:1349     - Province: GP
+index-mpPWl-D1.js:1349     - Municipality: JHB
+index-mpPWl-D1.js:1349     - CIDB: GB2
+index-mpPWl-D1.js:1349   ✅ Project settings state updated
+index-mpPWl-D1.js:1349 📋 Project Settings Updated: Object
+index-mpPWl-D1.js:1349 Province changed to: FS
+index-mpPWl-D1.js:1349 📋 Project Settings Updated: Object
+index-mpPWl-D1.js:1349   Province changed, updating municipality to: BFN
+index-mpPWl-D1.js:1349 📋 Project Settings Updated: Object
+index-mpPWl-D1.js:1349 ✅ Excel Header detected at row 0. Found columns: ItemNo=true, Description=true, Unit=true, Quantity=true
+index-mpPWl-D1.js:1349 ✅ Found Excel header row at index 0: Object
+index-mpPWl-D1.js:1349 Excel Row 2: Raw qty="500" → Cleaned qty="500"
+index-mpPWl-D1.js:1349 Excel Row 3: Raw qty="300" → Cleaned qty="300"
+index-mpPWl-D1.js:1349 Excel Row 4: Raw qty="2000" → Cleaned qty="2000"
+index-mpPWl-D1.js:1349 Excel Row 7: Raw qty="50" → Cleaned qty="50"
+index-mpPWl-D1.js:1349 Excel Row 8: Raw qty="200" → Cleaned qty="200"
+index-mpPWl-D1.js:1349 Excel Row 9: Raw qty="300" → Cleaned qty="300"
+index-mpPWl-D1.js:1349 Excel Row 12: Raw qty="150000" → Cleaned qty="150000"
+index-mpPWl-D1.js:1349 Excel Row 13: Raw qty="80000" → Cleaned qty="80000"
+index-mpPWl-D1.js:1349 Excel Row 14: Raw qty="100" → Cleaned qty="100"
+index-mpPWl-D1.js:1349 Excel Row 17: Raw qty="15000" → Cleaned qty="15000"
+index-mpPWl-D1.js:1349 Excel Row 18: Raw qty="8000" → Cleaned qty="8000"
+index-mpPWl-D1.js:1349 Excel Row 21: Raw qty="5000" → Cleaned qty="5000"
+index-mpPWl-D1.js:1349 Excel Row 22: Raw qty="100" → Cleaned qty="100"
+index-mpPWl-D1.js:1349 Excel Row 25: Raw qty="200" → Cleaned qty="200"
+index-mpPWl-D1.js:1349 Excel Row 26: Raw qty="300" → Cleaned qty="300"
+index-mpPWl-D1.js:1349 Excel Row 29: Raw qty="1500" → Cleaned qty="1500"
+index-mpPWl-D1.js:1349 Excel Row 30: Raw qty="100" → Cleaned qty="100"
+index-mpPWl-D1.js:1349 Excel Row 33: Raw qty="100" → Cleaned qty="100"
+index-mpPWl-D1.js:1349 Excel Row 34: Raw qty="100" → Cleaned qty="100"
+index-mpPWl-D1.js:1349 Sheet "Sheet1" - Column Map: Object
+index-mpPWl-D1.js:1349 Parsed Excel BOQ items: Array(19)
+index-mpPWl-D1.js:1349 📊 Excel Parsing Summary: 19 total items, 0 summary rows
+index-mpPWl-D1.js:1349 Submitting bill with items: Array(19)
+index-mpPWl-D1.js:1349 Project settings: Object
+index-mpPWl-D1.js:1391 🔧 Merging contractor profile data with project settings
+index-mpPWl-D1.js:1391 📋 Final project settings: Object
+index-mpPWl-D1.js:1353 
+🌍 Regional Pricing Engine Started
+index-mpPWl-D1.js:1354 📍 Project Location: Mangaung (Bloemfontein) (BFN), FS
+index-mpPWl-D1.js:1354 📌 Coordinates: -29.0852, 26.1596
+index-mpPWl-D1.js:1354 📦 Processing 19 items...
+
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Excavation in soft soil" (500 m³)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Excavation in soft soil"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 6 matches (top: 70)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Excavation for trenches (hand)" from Buco
+index-mpPWl-D1.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R294.00/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R2222.40 (370.4km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R298.44/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R65.67/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R182056.55 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Excavation in soft soil" (m³)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "excavation in soft soil" (m³)
+index-mpPWl-D1.js:1353   🏆 Best match: "Excavation soft soil manual" (earthworks)
+index-mpPWl-D1.js:1353   📊 Score: 70/100
+index-mpPWl-D1.js:1353   ✅ Confidence: MEDIUM
+index-mpPWl-D1.js:1353   💰 Labor rate: R196.00/m³
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R24.50/m³
+index-mpPWl-D1.js:1356    🔧 Labor Rate: R196.00/m³ (MEDIUM confidence)
+index-mpPWl-D1.js:1356    🚜 Equipment Rate: R24.50/m³
+index-mpPWl-D1.js:1356    👷 Total Labor: R98000.00 | Total Equipment: R12250.00
+index-mpPWl-D1.js:1356    📋 Matched: "Excavation soft soil manual" (earthworks)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Backfilling with selected material" (300 m³)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Backfilling with selected material"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 11 matches (top: 75)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Bedding for pipes (selected material)" from Buco
+index-mpPWl-D1.js:1351    Score: 75 | Confidence: HIGH | 2/4 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R189.00/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R2222.40 (370.4km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R196.41/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R43.22/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R71887.39 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Backfilling with selected material" (m³)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "backfilling with selected material" (m³)
+index-mpPWl-D1.js:1353   🏆 Best match: "Backfill selected material" (earthworks)
+index-mpPWl-D1.js:1353   📊 Score: 65/100
+index-mpPWl-D1.js:1353   ✅ Confidence: MEDIUM
+index-mpPWl-D1.js:1353   💰 Labor rate: R74.00/m³
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R18.50/m³
+index-mpPWl-D1.js:1356    🔧 Labor Rate: R74.00/m³ (MEDIUM confidence)
+index-mpPWl-D1.js:1356    🚜 Equipment Rate: R18.50/m³
+index-mpPWl-D1.js:1356    👷 Total Labor: R22200.00 | Total Equipment: R5550.00
+index-mpPWl-D1.js:1356    📋 Matched: "Backfill selected material" (earthworks)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Compaction of subgrade" (2000 m²)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Compaction of subgrade"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 3 matches (top: 75)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Backfilling and compaction" from Buco
+index-mpPWl-D1.js:1351    Score: 75 | Confidence: HIGH | 1/2 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 3 supplier matches
+index-mpPWl-D1.js:1356    📐 SQUARE METER DETECTED: Adjusted unit price from R127.11 to R0.06
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R126.00/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R2222.40 (370.4km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R127.11/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R0.01/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R155.08 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Compaction of subgrade" (m²)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "compaction of subgrade" (m²)
+index-mpPWl-D1.js:1353   🏆 Best match: "Compact subgrade" (earthworks)
+index-mpPWl-D1.js:1353   📊 Score: 45/100
+index-mpPWl-D1.js:1353   ✅ Confidence: LOW
+index-mpPWl-D1.js:1353   💰 Labor rate: R16.00/m²
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R12.80/m²
+index-mpPWl-D1.js:1356    ⚠️  Labor/Equipment: No match found (using R0)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Blinding concrete 10MPa" (50 m³)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Blinding concrete 10MPa"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 39 matches (top: 70)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Ready Mix Concrete" from Buco
+index-mpPWl-D1.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R1312.50/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R3148.40 (370.4km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R1375.47/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R302.65/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R83905.96 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Blinding concrete 10MPa" (m³)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "blinding concrete 10mpa" (m³)
+index-mpPWl-D1.js:1353   🏆 Best match: "Concrete 15MPa blinding" (concrete)
+index-mpPWl-D1.js:1353   📊 Score: 73/100
+index-mpPWl-D1.js:1353   ✅ Confidence: MEDIUM
+index-mpPWl-D1.js:1353   💰 Labor rate: R171.00/m³
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R114.00/m³
+index-mpPWl-D1.js:1356    🔧 Labor Rate: R171.00/m³ (MEDIUM confidence)
+index-mpPWl-D1.js:1356    🚜 Equipment Rate: R114.00/m³
+index-mpPWl-D1.js:1356    👷 Total Labor: R8550.00 | Total Equipment: R5700.00
+index-mpPWl-D1.js:1356    📋 Matched: "Concrete 15MPa blinding" (concrete)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Ready-mix concrete 25MPa (foundations)" (200 m³)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Ready-mix concrete 25MPa (foundations)"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 40 matches (top: 90)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Concrete 25MPa" from Raumix
+index-mpPWl-D1.js:1351    Score: 90 | Confidence: VERY HIGH | Item name found in search term
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Lafarge (Lafarge Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R1239.00/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R3148.40 (370.4km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R1254.74/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R276.09/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R306165.83 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Ready-mix concrete 25MPa (foundations)" (m³)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "ready mix concrete 25mpa foundations " (m³)
+index-mpPWl-D1.js:1353   🏆 Best match: "Concrete 25MPa foundations" (concrete)
+index-mpPWl-D1.js:1353   📊 Score: 93/100
+index-mpPWl-D1.js:1353   ✅ Confidence: HIGH
+index-mpPWl-D1.js:1353   💰 Labor rate: R216.00/m³
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R144.00/m³
+index-mpPWl-D1.js:1356    🔧 Labor Rate: R216.00/m³ (HIGH confidence)
+index-mpPWl-D1.js:1356    🚜 Equipment Rate: R144.00/m³
+index-mpPWl-D1.js:1356    👷 Total Labor: R43200.00 | Total Equipment: R28800.00
+index-mpPWl-D1.js:1356    📋 Matched: "Concrete 25MPa foundations" (concrete)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Ready-mix concrete 30MPa (slabs)" (300 m³)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Ready-mix concrete 30MPa (slabs)"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 40 matches (top: 90)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Concrete 30MPa" from Lafarge
+index-mpPWl-D1.js:1351    Score: 90 | Confidence: VERY HIGH | Item name found in search term
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Raumix (Raumix Bloemfontein)
+index-mpPWl-D1.js:1356    📦 Base Price: R1260.00/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R450.00 (0km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R1261.50/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R277.57/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R461722.25 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Ready-mix concrete 30MPa (slabs)" (m³)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "ready mix concrete 30mpa slabs " (m³)
+index-mpPWl-D1.js:1353   🏆 Best match: "Concrete 30MPa slabs" (concrete)
+index-mpPWl-D1.js:1353   📊 Score: 93/100
+index-mpPWl-D1.js:1353   ✅ Confidence: HIGH
+index-mpPWl-D1.js:1353   💰 Labor rate: R243.00/m³
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R162.00/m³
+index-mpPWl-D1.js:1356    🔧 Labor Rate: R243.00/m³ (HIGH confidence)
+index-mpPWl-D1.js:1356    🚜 Equipment Rate: R162.00/m³
+index-mpPWl-D1.js:1356    👷 Total Labor: R72900.00 | Total Equipment: R48600.00
+index-mpPWl-D1.js:1356    📋 Matched: "Concrete 30MPa slabs" (concrete)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Face bricks" (150000 nr)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Face bricks"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 8 matches (top: 75)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Stock Brick" from Buco
+index-mpPWl-D1.js:1351    Score: 75 | Confidence: HIGH | 1/2 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Raumix (Raumix Bloemfontein)
+index-mpPWl-D1.js:1356    📦 Base Price: R2.89/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R300.00 (0km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R2.89/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R0.64/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R528793.67 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Face bricks" (nr)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "face bricks" (nr)
+index-mpPWl-D1.js:1353   🏆 Best match: "Face brickwork 220mm face brick" (brickwork)
+index-mpPWl-D1.js:1353   📊 Score: 35/100
+index-mpPWl-D1.js:1353   ✅ Confidence: LOW
+index-mpPWl-D1.js:1353   💰 Labor rate: R346.50/m²
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R66.00/m²
+index-mpPWl-D1.js:1356    ⚠️  Labor/Equipment: No match found (using R0)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Common bricks (internal)" (80000 nr)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Common bricks (internal)"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 9 matches (top: 70)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Door Internal Hollow Core" from TALISMAN
+index-mpPWl-D1.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Raumix (Raumix Bloemfontein)
+index-mpPWl-D1.js:1356    📦 Base Price: R2.89/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R300.00 (0km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R2.89/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R0.64/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R282194.10 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Common bricks (internal)" (nr)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "common bricks internal " (nr)
+index-mpPWl-D1.js:1353   🏆 Best match: "Door solid core 813x2032" (doors)
+index-mpPWl-D1.js:1353   📊 Score: 30/100
+index-mpPWl-D1.js:1353   ✅ Confidence: LOW
+index-mpPWl-D1.js:1353   💰 Labor rate: R500.00/nr
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R125.00/nr
+index-mpPWl-D1.js:1356    ⚠️  Labor/Equipment: No match found (using R0)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Mortar for brickwork" (100 m³)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Mortar for brickwork"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 50 matches (top: 70)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Face brickwork (220mm thick)" from Buco
+index-mpPWl-D1.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R714.00/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R3148.40 (370.4km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R745.48/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R164.03/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R90951.66 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Mortar for brickwork" (m³)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "mortar for brickwork" (m³)
+index-mpPWl-D1.js:1353   🏆 Best match: "Concrete 15MPa blinding" (concrete)
+index-mpPWl-D1.js:1353   📊 Score: 30/100
+index-mpPWl-D1.js:1353   ✅ Confidence: LOW
+index-mpPWl-D1.js:1353   💰 Labor rate: R171.00/m³
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R114.00/m³
+index-mpPWl-D1.js:1356    ⚠️  Labor/Equipment: No match found (using R0)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Steel reinforcement Y12" (15000 kg)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Steel reinforcement Y12"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 46 matches (top: 90)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Steel reinforcing bars Y12" from Buco
+index-mpPWl-D1.js:1351    Score: 90 | Confidence: VERY HIGH | 3/3 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R14.18/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R3148.40 (370.4km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R14.38/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R3.17/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R263251.10 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Steel reinforcement Y12" (kg)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "steel reinforcement y12" (kg)
+index-mpPWl-D1.js:1353   🏆 Best match: "Reinforcement Y12 bars" (reinforcement)
+index-mpPWl-D1.js:1353   📊 Score: 73/100
+index-mpPWl-D1.js:1353   ✅ Confidence: MEDIUM
+index-mpPWl-D1.js:1353   💰 Labor rate: R9.63/kg
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R0.88/kg
+index-mpPWl-D1.js:1356    🔧 Labor Rate: R9.63/kg (MEDIUM confidence)
+index-mpPWl-D1.js:1356    🚜 Equipment Rate: R0.88/kg
+index-mpPWl-D1.js:1356    👷 Total Labor: R144450.00 | Total Equipment: R13200.00
+index-mpPWl-D1.js:1356    📋 Matched: "Reinforcement Y12 bars" (reinforcement)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Steel reinforcement Y16" (8000 kg)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Steel reinforcement Y16"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 41 matches (top: 80)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Steel Rod 8mm" from Buco
+index-mpPWl-D1.js:1351    Score: 80 | Confidence: HIGH | 2/3 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R47.25/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R3148.40 (370.4km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R47.64/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R10.48/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R465014.39 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Steel reinforcement Y16" (kg)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "steel reinforcement y16" (kg)
+index-mpPWl-D1.js:1353   🏆 Best match: "Reinforcement Y16 bars" (reinforcement)
+index-mpPWl-D1.js:1353   📊 Score: 73/100
+index-mpPWl-D1.js:1353   ✅ Confidence: MEDIUM
+index-mpPWl-D1.js:1353   💰 Labor rate: R10.18/kg
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R0.93/kg
+index-mpPWl-D1.js:1356    🔧 Labor Rate: R10.18/kg (MEDIUM confidence)
+index-mpPWl-D1.js:1356    🚜 Equipment Rate: R0.93/kg
+index-mpPWl-D1.js:1356    👷 Total Labor: R81440.00 | Total Equipment: R7440.00
+index-mpPWl-D1.js:1356    📋 Matched: "Reinforcement Y16 bars" (reinforcement)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Roof tiles concrete" (5000 m²)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Roof tiles concrete"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 48 matches (top: 70)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Ready Mix Concrete" from Buco
+index-mpPWl-D1.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    📐 SQUARE METER DETECTED: Adjusted unit price from R1313.13 to R0.26
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R1312.50/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R3148.40 (370.4km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R1313.13/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R0.06/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R1602.06 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Roof tiles concrete" (m²)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "roof tiles concrete" (m²)
+index-mpPWl-D1.js:1353   🏆 Best match: "Roof tiles concrete" (roofing)
+index-mpPWl-D1.js:1353   📊 Score: 100/100
+index-mpPWl-D1.js:1353   ✅ Confidence: HIGH
+index-mpPWl-D1.js:1353   💰 Labor rate: R118.00/m²
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R29.50/m²
+index-mpPWl-D1.js:1356    🔧 Labor Rate: R118.00/m² (HIGH confidence)
+index-mpPWl-D1.js:1356    🚜 Equipment Rate: R29.50/m²
+index-mpPWl-D1.js:1356    👷 Total Labor: R590000.00 | Total Equipment: R147500.00
+index-mpPWl-D1.js:1356    📋 Matched: "Roof tiles concrete" (roofing)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Roof trusses (timber)" (100 lump sum)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Roof trusses (timber)"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 13 matches (top: 70)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Pine Timber 38x114mm" from Buco
+index-mpPWl-D1.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: TIMBER CITY (Timber City Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R57.75/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R2229.60 (371.6km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R80.05/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R17.61/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R9765.89 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Roof trusses (timber)" (lump sum)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "roof trusses timber " (sum)
+index-mpPWl-D1.js:1353   🏆 Best match: "Roof trusses timber" (roofing)
+index-mpPWl-D1.js:1353   📊 Score: 54/100
+index-mpPWl-D1.js:1353   ✅ Confidence: LOW
+index-mpPWl-D1.js:1353   💰 Labor rate: R126.00/m²
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R42.00/m²
+index-mpPWl-D1.js:1356    🔧 Labor Rate: R126.00/lump sum (LOW confidence)
+index-mpPWl-D1.js:1356    🚜 Equipment Rate: R42.00/lump sum
+index-mpPWl-D1.js:1356    👷 Total Labor: R12600.00 | Total Equipment: R4200.00
+index-mpPWl-D1.js:1356    📋 Matched: "Roof trusses timber" (roofing)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Aluminum windows 1200x1200" (200 nr)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Aluminum windows 1200x1200"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 10 matches (top: 57)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Barrier kerbing (SABS 927 fg 1)" from Buco
+index-mpPWl-D1.js:1351    Score: 57 | Confidence: LOW | 1/3 partial keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R204.75/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R2222.40 (370.4km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R215.86/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R47.50/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R52671.84 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Aluminum windows 1200x1200" (nr)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "aluminum windows 1200x1200" (nr)
+index-mpPWl-D1.js:1353   🏆 Best match: "Window aluminum sliding 1200x1200" (windows)
+index-mpPWl-D1.js:1353   📊 Score: 78/100
+index-mpPWl-D1.js:1353   ✅ Confidence: MEDIUM
+index-mpPWl-D1.js:1353   💰 Labor rate: R740.00/nr
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R185.00/nr
+index-mpPWl-D1.js:1356    🔧 Labor Rate: R740.00/nr (MEDIUM confidence)
+index-mpPWl-D1.js:1356    🚜 Equipment Rate: R185.00/nr
+index-mpPWl-D1.js:1356    👷 Total Labor: R148000.00 | Total Equipment: R37000.00
+index-mpPWl-D1.js:1356    📋 Matched: "Window aluminum sliding 1200x1200" (windows)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Wooden doors 813x2032" (300 nr)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Wooden doors 813x2032"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 11 matches (top: 57)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Pine Timber 38x114mm" from Buco
+index-mpPWl-D1.js:1351    Score: 57 | Confidence: LOW | 1/3 partial keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R61.43/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R2222.40 (370.4km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R68.83/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R15.15/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R25193.60 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Wooden doors 813x2032" (nr)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "wooden doors 813x2032" (nr)
+index-mpPWl-D1.js:1353   🏆 Best match: "Door solid core 813x2032" (doors)
+index-mpPWl-D1.js:1353   📊 Score: 58/100
+index-mpPWl-D1.js:1353   ✅ Confidence: LOW
+index-mpPWl-D1.js:1353   💰 Labor rate: R500.00/nr
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R125.00/nr
+index-mpPWl-D1.js:1356    🔧 Labor Rate: R500.00/nr (LOW confidence)
+index-mpPWl-D1.js:1356    🚜 Equipment Rate: R125.00/nr
+index-mpPWl-D1.js:1356    👷 Total Labor: R150000.00 | Total Equipment: R37500.00
+index-mpPWl-D1.js:1356    📋 Matched: "Door solid core 813x2032" (doors)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "110mm PVC sewer pipes" (1500 m)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "110mm PVC sewer pipes"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 28 matches (top: 83)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "PVC Sewer Pipe 110mm" from MARLEY
+index-mpPWl-D1.js:1351    Score: 83 | Confidence: HIGH | 3/4 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: MARLEY (Marley Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R141.75/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R2235.00 (372.5km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R143.24/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R31.52/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R262136.72 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "110mm PVC sewer pipes" (m)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "110mm pvc sewer pipes" (m)
+index-mpPWl-D1.js:1353   🏆 Best match: "UPVC drain pipes 110mm" (plumbing)
+index-mpPWl-D1.js:1353   📊 Score: 65/100
+index-mpPWl-D1.js:1353   ✅ Confidence: MEDIUM
+index-mpPWl-D1.js:1353   💰 Labor rate: R42.50/m
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R8.50/m
+index-mpPWl-D1.js:1356    🔧 Labor Rate: R42.50/m (MEDIUM confidence)
+index-mpPWl-D1.js:1356    🚜 Equipment Rate: R8.50/m
+index-mpPWl-D1.js:1356    👷 Total Labor: R63750.00 | Total Equipment: R12750.00
+index-mpPWl-D1.js:1356    📋 Matched: "UPVC drain pipes 110mm" (plumbing)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Hot water cylinders 150L" (100 nr)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Hot water cylinders 150L"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 39 matches (top: 68)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Precast concrete channel units" from Buco
+index-mpPWl-D1.js:1351    Score: 68 | Confidence: MEDIUM | 1/4 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R294.00/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R2222.40 (370.4km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R316.22/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R69.58/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R38580.43 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Hot water cylinders 150L" (nr)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "hot water cylinders 150l" (nr)
+index-mpPWl-D1.js:1353   🏆 Best match: "Door solid core 813x2032" (doors)
+index-mpPWl-D1.js:1353   📊 Score: 30/100
+index-mpPWl-D1.js:1353   ✅ Confidence: LOW
+index-mpPWl-D1.js:1353   💰 Labor rate: R500.00/nr
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R125.00/nr
+index-mpPWl-D1.js:1356    ⚠️  Labor/Equipment: No match found (using R0)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Distribution boards 8-way" (100 nr)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Distribution boards 8-way"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 17 matches (top: 80)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "Distribution Board 12-Way" from VOLTEX
+index-mpPWl-D1.js:1351    Score: 80 | Confidence: HIGH | 2/3 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 6 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: Buco (Buco Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R461.64/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R2222.40 (370.4km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R483.87/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R106.47/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R59033.47 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Distribution boards 8-way" (nr)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "distribution boards 8 way" (nr)
+index-mpPWl-D1.js:1353   🏆 Best match: "Distribution board 8-way" (electrical)
+index-mpPWl-D1.js:1353   📊 Score: 75/100
+index-mpPWl-D1.js:1353   ✅ Confidence: MEDIUM
+index-mpPWl-D1.js:1353   💰 Labor rate: R925.00/nr
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R185.00/nr
+index-mpPWl-D1.js:1356    🔧 Labor Rate: R925.00/nr (MEDIUM confidence)
+index-mpPWl-D1.js:1356    🚜 Equipment Rate: R185.00/nr
+index-mpPWl-D1.js:1356    👷 Total Labor: R92500.00 | Total Equipment: R18500.00
+index-mpPWl-D1.js:1356    📋 Matched: "Distribution board 8-way" (electrical)
+index-mpPWl-D1.js:1355 
+🔍 Pricing: "Electrical wiring complete" (100 lump sum)
+index-mpPWl-D1.js:1349 
+🔍 ENHANCED SEARCH: "Electrical wiring complete"
+index-mpPWl-D1.js:1350   📍 Level 1: Trying exact/fuzzy match...
+index-mpPWl-D1.js:1350   📍 Level 2: Trying scored match with brands...
+index-mpPWl-D1.js:1350   ✅ Level 2 SUCCESS: Found 5 matches (top: 70)
+index-mpPWl-D1.js:1350 
+🏆 TOP MATCH: "The provision of a complete 220/250 volt single phase electrical power installation" from Buco
+index-mpPWl-D1.js:1351    Score: 70 | Confidence: MEDIUM | 1/3 exact keyword matches
+index-mpPWl-D1.js:1356    ✅ Found 5 supplier matches
+index-mpPWl-D1.js:1356    🏆 Best Supplier: ARB (ARB Johannesburg)
+index-mpPWl-D1.js:1356    📦 Base Price: R99.75/unit
+index-mpPWl-D1.js:1356    🚚 Transport: R2236.80 (372.8km)
+index-mpPWl-D1.js:1356    💰 Landed Cost: R122.12/unit
+index-mpPWl-D1.js:1356    💵 Additional Fees: R26.87/unit
+index-mpPWl-D1.js:1356    💵 Final Price: R14898.82 (incl. all fees)
+index-mpPWl-D1.js:1352 
+🔧 LABOR RATE LOOKUP: "Electrical wiring complete" (lump sum)
+index-mpPWl-D1.js:1353   📊 Loaded 143 labor rates from database
+index-mpPWl-D1.js:1353   ✅ 143 valid labor rates to match against
+index-mpPWl-D1.js:1353   🔍 Normalized search: "electrical wiring complete" (sum)
+index-mpPWl-D1.js:1353   🏆 Best match: "Conduit PVC 20mm surface" (electrical)
+index-mpPWl-D1.js:1353   📊 Score: 13/100
+index-mpPWl-D1.js:1353   ✅ Confidence: LOW
+index-mpPWl-D1.js:1353   💰 Labor rate: R13.75/m
+index-mpPWl-D1.js:1353   🚜 Equipment rate: R1.25/m
+index-mpPWl-D1.js:1356    ⚠️  Labor/Equipment: No match found (using R0)
+index-mpPWl-D1.js:1356 
+✅ Regional Pricing Complete: 19 items priced
+
+index-mpPWl-D1.js:1391 💾 Saving bill to Supabase with project settings...
+index-mpPWl-D1.js:1391 ✅ Bill saved to Supabase: Object
+index-mpPWl-D1.js:1391 ✅ 19 bill items saved to Supabase
+index-mpPWl-D1.js:1361 💰 BOQ Totals Calculation:
+index-mpPWl-D1.js:1361   Total on Delivery (Grand Total): R 3 199 980,81
+index-mpPWl-D1.js:1361   Delivery Fees (Transport): R 42 198,60
+index-mpPWl-D1.js:1361   Total on Collection (No Transport): R 3 157 782,21
+index-mpPWl-D1.js:1361   Verification (Collection + Delivery = Total): ✅
+index-mpPWl-D1.js:1361   Difference: 0.00
+index-mpPWl-D1.js:1361 🕐 RegionalPricedBillView received processingTime: 9818.800000011921

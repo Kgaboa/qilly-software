@@ -1,0 +1,187 @@
+index-B4lzUHCA.js:1396 ✅ User account created: e71f8fa4-defd-44c9-af49-0ee5f6430ea9
+index-B4lzUHCA.js:1396 ✅ POPIA consent saved for contractor
+index-B4lzUHCA.js:1396 ✅ Contractor record created successfully!
+index-B4lzUHCA.js:1396 ✅ Contractor ID: 64ecd5b8-69bf-43e5-a675-4b3c44de7f4d
+index-B4lzUHCA.js:1396 ✅ Contractor Email: kgabo123@gmail.com
+index-B4lzUHCA.js:1396 ✅ Contractor Status: pending
+index-B4lzUHCA.js:1396 ✅ Full contractor data: {
+  "id": "64ecd5b8-69bf-43e5-a675-4b3c44de7f4d",
+  "user_id": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9",
+  "company_name": "Contractor",
+  "cidb_registration_number": "contrac",
+  "cidb_grade": "Grade 3 CE",
+  "contact_person": "Kgabo Sekhula",
+  "email": "kgabo123@gmail.com",
+  "phone": "+27766252054",
+  "street_address": "150 brynston drive",
+  "city": "Brynston",
+  "province": "Eastern Cape",
+  "postal_code": "2019",
+  "project_types": [
+    "Road Construction",
+    "Infrastructure (Water/Sewer)"
+  ],
+  "operating_provinces": [
+    "Gauteng",
+    "Free State"
+  ],
+  "years_in_business": 2,
+  "annual_turnover": 15000000,
+  "bbbee_level": "Level 7",
+  "has_certification": true,
+  "status": "pending",
+  "subscription_tier": "enterprise",
+  "billing_cycle": "monthly",
+  "subscription_status": "active",
+  "subscription_start_date": "2026-03-06T06:02:08.155+00:00",
+  "next_billing_date": "2026-04-06T06:02:08.155+00:00",
+  "payment_method": null,
+  "popia_consent_given": true,
+  "popia_consent_date": "2026-03-06T06:02:09.72+00:00",
+  "popia_consent_version": "1.0",
+  "terms_consent_given": true,
+  "terms_consent_date": "2026-03-06T06:02:09.72+00:00",
+  "terms_consent_version": "1.0",
+  "created_at": "2026-03-06T06:02:09.865854+00:00",
+  "updated_at": "2026-03-06T06:02:09.865854+00:00",
+  "approved_at": null,
+  "rejected_at": null,
+  "approved_by": null,
+  "rejected_by": null,
+  "rejection_reason": null,
+  "contact_email": null,
+  "contact_phone": null,
+  "website": null,
+  "logo_url": null,
+  "is_active": true,
+  "notes": null
+}
+index-B4lzUHCA.js:1396 🔐 Admin Login: Authenticating with Supabase...
+index-B4lzUHCA.js:1396 ✅ Supabase authentication successful
+index-B4lzUHCA.js:1396 👤 User ID: 7342cede-cf49-4b0f-a62e-ff18464ef75b
+index-B4lzUHCA.js:1396 📧 Email: admin@qilly.co.za
+index-B4lzUHCA.js:1396 ✅ User has admin role
+index-B4lzUHCA.js:1396 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-B4lzUHCA.js:1396 🔧 ADMIN DASHBOARD - ENVIRONMENT DETECTION
+index-B4lzUHCA.js:1396 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-B4lzUHCA.js:1396 Current Environment: SIT 🔍
+index-B4lzUHCA.js:1396 Environment Type: sit
+index-B4lzUHCA.js:1396 Database Mode: Real (Supabase)
+index-B4lzUHCA.js:1396 API URL: https://sit.qilly.co.za/api
+index-B4lzUHCA.js:1396 Dev Tools Visible: false
+index-B4lzUHCA.js:1396 Testing Tabs Visible: true
+index-B4lzUHCA.js:1396 Supabase URL: https://kcptusoevqapcvptlgkd.supabase.co
+index-B4lzUHCA.js:1396 📊 Connected to: SIT database (kcptusoevqapcvptlgkd)
+index-B4lzUHCA.js:1396 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+index-B4lzUHCA.js:1396 🔍 AdminDashboard: Loading contractors from Supabase...
+index-B4lzUHCA.js:1396 ✅ Loaded suppliers from Supabase: 0
+index-B4lzUHCA.js:1396 ✅ Loaded contractors from Supabase: 1
+index-B4lzUHCA.js:1396 ✅ First contractor: {
+  "id": "64ecd5b8-69bf-43e5-a675-4b3c44de7f4d",
+  "user_id": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9",
+  "company_name": "Contractor",
+  "cidb_registration_number": "contrac",
+  "cidb_grade": "Grade 3 CE",
+  "contact_person": "Kgabo Sekhula",
+  "email": "kgabo123@gmail.com",
+  "phone": "+27766252054",
+  "street_address": "150 brynston drive",
+  "city": "Brynston",
+  "province": "Eastern Cape",
+  "postal_code": "2019",
+  "project_types": [
+    "Road Construction",
+    "Infrastructure (Water/Sewer)"
+  ],
+  "operating_provinces": [
+    "Gauteng",
+    "Free State"
+  ],
+  "years_in_business": 2,
+  "annual_turnover": 15000000,
+  "bbbee_level": "Level 7",
+  "has_certification": true,
+  "status": "pending",
+  "subscription_tier": "enterprise",
+  "billing_cycle": "monthly",
+  "subscription_status": "active",
+  "subscription_start_date": "2026-03-06T06:02:08.155+00:00",
+  "next_billing_date": "2026-04-06T06:02:08.155+00:00",
+  "payment_method": null,
+  "popia_consent_given": true,
+  "popia_consent_date": "2026-03-06T06:02:09.72+00:00",
+  "popia_consent_version": "1.0",
+  "terms_consent_given": true,
+  "terms_consent_date": "2026-03-06T06:02:09.72+00:00",
+  "terms_consent_version": "1.0",
+  "created_at": "2026-03-06T06:02:09.865854+00:00",
+  "updated_at": "2026-03-06T06:02:09.865854+00:00",
+  "approved_at": null,
+  "rejected_at": null,
+  "approved_by": null,
+  "rejected_by": null,
+  "rejection_reason": null,
+  "contact_email": null,
+  "contact_phone": null,
+  "website": null,
+  "logo_url": null,
+  "is_active": true,
+  "notes": null
+}
+index-B4lzUHCA.js:1396 ✅ All contractor emails: ['kgabo123@gmail.com']
+index-B4lzUHCA.js:1396 ✅ Contractor approved in Supabase
+index-B4lzUHCA.js:1396 🔍 AdminDashboard: Loading contractors from Supabase...
+index-B4lzUHCA.js:1396 ✅ Loaded contractors from Supabase: 1
+index-B4lzUHCA.js:1396 ✅ First contractor: {
+  "id": "64ecd5b8-69bf-43e5-a675-4b3c44de7f4d",
+  "user_id": "e71f8fa4-defd-44c9-af49-0ee5f6430ea9",
+  "company_name": "Contractor",
+  "cidb_registration_number": "contrac",
+  "cidb_grade": "Grade 3 CE",
+  "contact_person": "Kgabo Sekhula",
+  "email": "kgabo123@gmail.com",
+  "phone": "+27766252054",
+  "street_address": "150 brynston drive",
+  "city": "Brynston",
+  "province": "Eastern Cape",
+  "postal_code": "2019",
+  "project_types": [
+    "Road Construction",
+    "Infrastructure (Water/Sewer)"
+  ],
+  "operating_provinces": [
+    "Gauteng",
+    "Free State"
+  ],
+  "years_in_business": 2,
+  "annual_turnover": 15000000,
+  "bbbee_level": "Level 7",
+  "has_certification": true,
+  "status": "approved",
+  "subscription_tier": "enterprise",
+  "billing_cycle": "monthly",
+  "subscription_status": "active",
+  "subscription_start_date": "2026-03-06T06:02:08.155+00:00",
+  "next_billing_date": "2026-04-06T06:02:08.155+00:00",
+  "payment_method": null,
+  "popia_consent_given": true,
+  "popia_consent_date": "2026-03-06T06:02:09.72+00:00",
+  "popia_consent_version": "1.0",
+  "terms_consent_given": true,
+  "terms_consent_date": "2026-03-06T06:02:09.72+00:00",
+  "terms_consent_version": "1.0",
+  "created_at": "2026-03-06T06:02:09.865854+00:00",
+  "updated_at": "2026-03-06T06:02:09.865854+00:00",
+  "approved_at": "2026-03-06T06:02:56.358+00:00",
+  "rejected_at": null,
+  "approved_by": null,
+  "rejected_by": null,
+  "rejection_reason": null,
+  "contact_email": null,
+  "contact_phone": null,
+  "website": null,
+  "logo_url": null,
+  "is_active": true,
+  "notes": null
+}
+index-B4lzUHCA.js:1396 ✅ All contractor emails: ['kgabo123@gmail.com']
