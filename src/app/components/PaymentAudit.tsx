@@ -64,7 +64,8 @@ export function PaymentAudit() {
       const { data, error } = await supabase
         .from('contractors')
         .select('id, user_id, company_name, email, subscription_tier, payment_method, payment_reference, payment_amount, payment_approved, subscription_start_date, created_at, status')
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .limit(500);
 
       if (error) {
         console.error('Error loading payments:', error);

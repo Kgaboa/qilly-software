@@ -3,8 +3,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Alert, AlertDescription } from './ui/alert';
-import { Handshake, ArrowLeft, AlertCircle } from 'lucide-react';
+import { Handshake, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface PartnerLoginProps {
@@ -35,7 +34,7 @@ export function PartnerLogin({ onSuccess, onBack }: PartnerLoginProps) {
       toast.success('Welcome to Qilly Partner Portal!');
       onSuccess();
     } else {
-      toast.error('Invalid credentials. Use demo: partner@procore.com / Demo1234!');
+      toast.error('Invalid credentials. Please contact partners@qilly.co.za for access.');
       setIsLoading(false);
     }
   };
@@ -55,15 +54,6 @@ export function PartnerLogin({ onSuccess, onBack }: PartnerLoginProps) {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <Alert className="bg-blue-50 border-blue-200">
-            <AlertCircle className="h-4 w-4 text-blue-600" />
-            <AlertDescription className="text-blue-800 text-sm">
-              <strong>Demo Credentials:</strong><br />
-              Email: partner@procore.com<br />
-              Password: Demo1234!
-            </AlertDescription>
-          </Alert>
-
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email Address</Label>

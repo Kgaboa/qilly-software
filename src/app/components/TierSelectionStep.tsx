@@ -1,23 +1,7 @@
 import React from 'react';
-import { Check, Zap, Building2, Crown, GraduationCap, Sparkles, Phone, Mail, ArrowLeft } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
+import { Zap, Building2, Crown, GraduationCap, ArrowLeft, CheckCircle, Clock } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-
-// ✅ Updated 2026-03-13: 4-tier comparison with accurate features (FREE, PROFESSIONAL R2,999, ENTERPRISE R8,999, CUSTOM)
-interface Tier {
-  id: string;
-  name: string;
-  price: string;
-  priceMonthly: number;
-  description: string;
-  icon: React.ReactNode;
-  popular?: boolean;
-  features: string[];
-  cta: string;
-  badge?: string;
-  highlighted?: boolean;
-}
 
 interface TierSelectionStepProps {
   onSelectTier?: (tierId: string, tierName: string, price: number) => void;
@@ -26,270 +10,191 @@ interface TierSelectionStepProps {
 }
 
 export function TierSelectionStep({ onSelectTier, onTierSelect, onBack }: TierSelectionStepProps) {
-  // Support both prop names for backwards compatibility
   const handleTierSelect = onSelectTier || onTierSelect || (() => {});
-  
-  const tiers: Tier[] = [
+
+  const tiers = [
     {
       id: 'FREE',
       name: 'Free',
       price: 'R0',
       priceMonthly: 0,
-      description: 'Training & Evaluation Platform',
-      icon: <GraduationCap className="h-6 w-6" />,
-      badge: '🎓 Unlimited Training BOQs',
-      features: [
-        '✅ Template library (5 templates, 1 per project type)',
-        '✅ Unlimited training BOQs',
-        '✅ View BOQ structure (pricing encrypted)',
-        '✅ Email support',
-        '❌ All pricing: R ●●●●●●',
-        '❌ All percentages: ●●●%',
-        '❌ Custom BOQ upload (templates only)',
-        '❌ Item Matching (completely blocked)',
-        '❌ Excel export',
-        '❌ Project history',
-        '❌ Basic compliance calculator',
-        '❌ Green building features',
-        '❌ Tender response generation',
-        '❌ Future price projections',
-        '❌ Collusion detection'
+      icon: <GraduationCap className="h-4 w-4" />,
+      live: [
+        '5 templates (training only)',
+        'Unlimited training BOQs',
+        'BOQ structure view',
+        'Email support',
       ],
-      cta: 'Start Free Training'
+      locked: ['Live pricing', 'Excel/PDF export', 'Compliance docs'],
+      cta: 'Start Free',
+      active: false,
     },
     {
       id: 'PROFESSIONAL',
       name: 'Professional',
       price: 'R2,999',
       priceMonthly: 2999,
-      description: 'Essential features for individual contractors',
-      icon: <Building2 className="h-6 w-6" />,
-      badge: '💼 10 BOQs/month',
-      features: [
-        '✅ 10 BOQs per month',
-        '✅ Custom BOQ upload (Excel/CSV)',
-        '✅ Live pricing (all amounts visible)',
-        '✅ 10 templates',
-        '✅ PDF export (no watermark)',
-        '✅ Excel export',
-        '✅ Real-time pricing',
-        '✅ Multi-supplier comparison',
-        '✅ Regional pricing',
-        '✅ Full compliance calculator',
-        '✅ Compliance documents',
-        '✅ P&G costs',
-        '✅ Tender response generator (PDF)',
-        '✅ 6 months project history',
-        '✅ Email + Chat support',
-        '❌ Green building features',
-        '❌ Carbon tracking',
-        '❌ Collusion detection',
-        '❌ eTender integration'
+      icon: <Building2 className="h-4 w-4" />,
+      live: [
+        '10 BOQs/month',
+        'Live pricing & supplier comparison',
+        '10 templates · PDF & Excel export',
+        'Regional pricing · P&G costs',
+        'Compliance docs · 6mo history',
+        'Email + Chat support',
       ],
-      cta: 'Select Professional'
+      locked: [],
+      cta: 'Coming Soon',
+      active: false,
     },
     {
       id: 'ENTERPRISE',
       name: 'Enterprise',
       price: 'R8,999',
       priceMonthly: 8999,
-      description: 'Government contracts with carbon tracking',
-      icon: <Zap className="h-6 w-6" />,
-      badge: '🏛️ For DHS Contracts',
-      popular: true,
-      highlighted: true,
-      features: [
-        '✅ Everything in Professional',
-        '✅ 30 BOQs per month',
-        '✅ 15 templates',
-        '✅ 🌿 Green building features',
-        '✅ 🌿 Carbon tracking per BOQ item',
-        '✅ 🌿 Green materials database',
-        '✅ 🌿 Environmental dashboard',
-        '✅ 📈 Future price projections',
-        '✅ 📋 Advanced compliance documents',
-        '✅ 🛡️ Collusion detection',
-        '✅ 🔗 eTender integration',
-        '✅ 🔌 API access',
-        '✅ Unlimited project history',
-        '✅ 5 concurrent users',
-        '✅ Priority support'
+      icon: <Zap className="h-4 w-4" />,
+      live: [
+        '30 BOQs/month',
+        'Everything in Professional',
+        '15 templates',
+        'Advanced compliance documents',
+        'Unlimited project history',
+        '5 concurrent users',
+        'Priority support',
       ],
-      cta: 'Select Enterprise'
+      soon: [
+        'Green building & carbon tracking',
+        'Collusion detection',
+        'eTender integration',
+        'API access',
+      ],
+      cta: 'Select Enterprise',
+      active: true,
     },
     {
       id: 'CUSTOM',
       name: 'Custom',
       price: 'Contact Sales',
       priceMonthly: 0,
-      description: 'White-label + unlimited everything',
-      icon: <Crown className="h-6 w-6" />,
-      badge: '👑 White Glove Service',
-      features: [
-        '✅ Everything in Enterprise',
-        '✅ Unlimited BOQs',
-        '✅ Unlimited templates',
-        '✅ Custom templates',
-        '✅ White-label solution',
-        '✅ Custom integrations',
-        '✅ On-premise deployment',
-        '✅ Multi-company support',
-        '✅ SLA guarantees',
-        '✅ Unlimited users',
-        '✅ 24/7 support',
-        '✅ Dedicated account manager',
-        '✅ Custom training'
+      icon: <Crown className="h-4 w-4" />,
+      live: [
+        'Unlimited BOQs & templates',
+        'White-label solution',
+        'Custom integrations',
+        'Multi-company & unlimited users',
+        'SLA guarantees · 24/7 support',
+        'Dedicated account manager',
       ],
-      cta: 'Contact Sales'
-    }
+      locked: [],
+      cta: 'Coming Soon',
+      active: false,
+    },
   ];
 
   return (
-    <div className="w-full">
-      {/* Back Button */}
-      {onBack && (
-        <div className="mb-6 max-w-7xl mx-auto">
-          <Button
-            variant="ghost"
-            onClick={onBack}
-            className="flex items-center gap-2 text-slate-600 hover:text-slate-900"
-          >
+    <div className="w-full max-w-5xl mx-auto">
+      {/* Back + Header row */}
+      <div className="flex items-center gap-4 mb-4">
+        {onBack && (
+          <Button variant="ghost" size="sm" onClick={onBack} className="flex items-center gap-1 text-slate-500 shrink-0">
             <ArrowLeft className="h-4 w-4" />
-            Back to Sign-up
+            Back
           </Button>
-        </div>
-      )}
-
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-slate-900 mb-2">Choose Your Tier</h2>
-        <p className="text-slate-600 max-w-2xl mx-auto">
-          Select the tier that best fits your needs. Start with FREE (training mode) or choose a paid tier for live pricing.
-        </p>
-        <div className="mt-4 inline-flex items-center gap-2 bg-purple-50 border border-purple-200 rounded-lg px-4 py-2">
-          <Sparkles className="h-4 w-4 text-purple-600" />
-          <span className="text-sm text-purple-800 font-medium">
-            Green Building & Carbon Tracking available in ENTERPRISE tier only
-          </span>
+        )}
+        <div>
+          <h2 className="text-xl font-bold text-slate-900 leading-tight">Choose Your Tier</h2>
+          <p className="text-xs text-slate-500">Enterprise is the only tier currently available for new registrations.</p>
         </div>
       </div>
 
-      {/* Tiers Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+      {/* Tier grid — 4 columns, compact cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {tiers.map((tier) => (
-          <Card
+          <div
             key={tier.id}
-            className={`relative flex flex-col transition-all duration-300 ${
-              tier.id === 'ENTERPRISE'
-                ? 'border-2 border-blue-500 shadow-lg scale-105 hover:shadow-xl'
-                : 'border border-gray-200 opacity-50 grayscale cursor-not-allowed'
+            className={`relative rounded-xl border flex flex-col transition-all duration-200 ${
+              tier.active
+                ? 'border-2 border-blue-500 bg-blue-50 shadow-md'
+                : 'border border-slate-200 bg-white opacity-60'
             }`}
           >
-            {tier.popular && (
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <Badge className="bg-blue-600 text-white px-3 py-1 text-xs font-semibold">
-                  MOST POPULAR
+            {/* Active badge */}
+            {tier.active && (
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+                <Badge className="bg-blue-600 text-white text-[10px] px-2 py-0.5 shadow">
+                  ⭐ ACTIVE
                 </Badge>
               </div>
             )}
 
-            <CardHeader className="pb-4">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2 text-blue-600">
-                  {tier.icon}
-                  <CardTitle className="text-xl">{tier.name}</CardTitle>
-                </div>
+            {/* Card header */}
+            <div className={`px-3 pt-5 pb-2 rounded-t-xl ${tier.active ? 'bg-blue-600' : 'bg-slate-100'}`}>
+              <div className="flex items-center gap-1.5 mb-1">
+                <span className={tier.active ? 'text-white' : 'text-slate-500'}>{tier.icon}</span>
+                <span className={`font-bold text-sm ${tier.active ? 'text-white' : 'text-slate-700'}`}>{tier.name}</span>
               </div>
-              
-              {tier.badge && (
-                <Badge variant="outline" className="mb-2 w-fit text-xs bg-emerald-50 border-emerald-200 text-emerald-700">
-                  {tier.badge}
-                </Badge>
+              <div className={`text-lg font-extrabold leading-none ${tier.active ? 'text-white' : 'text-slate-800'}`}>
+                {tier.price}
+              </div>
+              {tier.priceMonthly > 0 && (
+                <div className={`text-[10px] ${tier.active ? 'text-blue-100' : 'text-slate-400'}`}>/month</div>
               )}
+            </div>
 
-              <div className="mb-2">
-                <span className="text-3xl font-bold text-slate-900">{tier.price}</span>
-                {tier.priceMonthly > 0 && (
-                  <span className="text-sm text-slate-600">/month</span>
-                )}
-              </div>
+            {/* Features */}
+            <div className="px-3 py-2 flex-1 space-y-1">
+              {tier.live.map((f, i) => (
+                <div key={i} className="flex items-start gap-1.5">
+                  <CheckCircle className={`h-3 w-3 mt-0.5 shrink-0 ${tier.active ? 'text-blue-500' : 'text-slate-400'}`} />
+                  <span className="text-[11px] leading-snug text-slate-700">{f}</span>
+                </div>
+              ))}
+              {tier.soon && tier.soon.length > 0 && (
+                <>
+                  <div className="border-t border-dashed border-blue-200 my-1" />
+                  {tier.soon.map((f, i) => (
+                    <div key={i} className="flex items-start gap-1.5">
+                      <Clock className="h-3 w-3 mt-0.5 shrink-0 text-amber-400" />
+                      <span className="text-[11px] leading-snug text-slate-400 italic">{f}</span>
+                    </div>
+                  ))}
+                </>
+              )}
+              {tier.locked && tier.locked.length > 0 && (
+                <>
+                  <div className="border-t border-dashed border-slate-200 my-1" />
+                  {tier.locked.map((f, i) => (
+                    <div key={i} className="flex items-start gap-1.5">
+                      <span className="text-[10px] mt-0.5 shrink-0 text-slate-300">✗</span>
+                      <span className="text-[11px] leading-snug text-slate-300 line-through">{f}</span>
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
 
-              <CardDescription className="text-sm">
-                {tier.description}
-              </CardDescription>
-            </CardHeader>
-
-            <CardContent className="flex-1 flex flex-col">
-              {/* Features List */}
-              <ul className="space-y-2 mb-6 flex-1">
-                {tier.features.map((feature, index) => (
-                  <li key={index} className="flex items-start gap-2 text-sm">
-                    <span className="mt-0.5">{feature.startsWith('✅') || feature.startsWith('❌') ? '' : '•'}</span>
-                    <span className={feature.startsWith('❌') ? 'text-slate-400' : 'text-slate-700'}>
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* CTA Button */}
+            {/* CTA */}
+            <div className="px-3 pb-3 pt-1">
               <Button
-                onClick={() => tier.id === 'ENTERPRISE' && handleTierSelect(tier.id, tier.name, tier.priceMonthly)}
-                disabled={tier.id !== 'ENTERPRISE'}
-                className={`w-full ${
-                  tier.id === 'ENTERPRISE'
-                    ? 'bg-blue-600 hover:bg-blue-700'
-                    : 'bg-gray-300 cursor-not-allowed opacity-60'
+                size="sm"
+                onClick={() => tier.active && handleTierSelect(tier.id, tier.name, tier.priceMonthly)}
+                disabled={!tier.active}
+                className={`w-full text-xs h-8 ${
+                  tier.active
+                    ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                    : 'bg-slate-200 text-slate-400 cursor-not-allowed'
                 }`}
               >
-                {tier.id === 'ENTERPRISE' ? tier.cta : 'Coming Soon'}
+                {tier.cta}
               </Button>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         ))}
       </div>
 
-      {/* Support Information */}
-      <div className="mt-8 grid md:grid-cols-4 gap-4 max-w-7xl mx-auto">
-        <Card className="bg-slate-50">
-          <CardContent className="pt-4 text-center">
-            <Mail className="h-6 w-6 mx-auto mb-2 text-slate-600" />
-            <p className="text-xs font-semibold text-slate-900">Email Support</p>
-            <p className="text-xs text-slate-600">All tiers</p>
-          </CardContent>
-        </Card>
-        
-        <Card className="bg-slate-50">
-          <CardContent className="pt-4 text-center">
-            <GraduationCap className="h-6 w-6 mx-auto mb-2 text-emerald-600" />
-            <p className="text-xs font-semibold text-slate-900">Free Training</p>
-            <p className="text-xs text-slate-600">FREE & Enterprise+</p>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-slate-50">
-          <CardContent className="pt-4 text-center">
-            <Zap className="h-6 w-6 mx-auto mb-2 text-blue-600" />
-            <p className="text-xs font-semibold text-slate-900">eTender Integration</p>
-            <p className="text-xs text-slate-600">Enterprise & Custom only</p>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-slate-50">
-          <CardContent className="pt-4 text-center">
-            <Phone className="h-6 w-6 mx-auto mb-2 text-amber-600" />
-            <p className="text-xs font-semibold text-slate-900">24h Call Support</p>
-            <p className="text-xs text-slate-600">Custom tier only</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Footer Note */}
-      <div className="mt-6 text-center">
-        <p className="text-xs text-slate-500">
-          All paid tiers require admin approval after payment verification.
-        </p>
-      </div>
+      <p className="text-center text-xs text-slate-400 mt-3">
+        All paid tiers require admin approval after EFT payment verification.
+      </p>
     </div>
   );
 }

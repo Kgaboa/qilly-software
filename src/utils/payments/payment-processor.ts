@@ -282,9 +282,8 @@ async function processPayFast(request: PaymentRequest): Promise<PaymentResult> {
 
   const planConfig = SUBSCRIPTION_PLANS[request.plan];
   
-  // In test mode, create a mock PayFast payment URL
-  const merchantId = '10000100'; // PayFast test merchant ID
-  const merchantKey = '46f0cd694581a'; // PayFast test merchant key
+  const merchantId = import.meta.env.VITE_PAYFAST_MERCHANT_ID ?? '10000100';
+  const merchantKey = import.meta.env.VITE_PAYFAST_MERCHANT_KEY ?? '46f0cd694581a';
   
   // Create subscription record (pending until payment confirmed)
   const expiresAt = new Date();

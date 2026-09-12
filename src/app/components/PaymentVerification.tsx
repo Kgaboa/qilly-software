@@ -522,7 +522,7 @@ export function PaymentVerification({ contractors, onRefresh }: PaymentVerificat
                     <AlertDescription className="text-amber-800 text-sm">
                       <strong>Verification Checklist:</strong>
                       <ol className="list-decimal list-inside mt-1 space-y-0.5">
-                        <li>Log into FNB Online Banking</li>
+                        <li>Log into Standard Bank Online Banking</li>
                         <li>Check for incoming payment of <strong>R{selectedPayment.payment_amount?.toLocaleString()}</strong></li>
                         <li>Confirm reference: <strong className="font-mono">{selectedPayment.payment_reference}</strong></li>
                         <li>If confirmed ✅ click <strong>Verify &amp; Approve</strong> below</li>

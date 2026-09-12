@@ -22,7 +22,11 @@
     "preview:sit": "vite preview --mode sit",
     "preview:uat": "vite preview --mode uat",
     "preview:preprod": "vite preview --mode preprod",
-    "vercel-build": "vite build"
+    "vercel-build": "vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "pre-deploy": "vitest run && vite build"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -95,9 +99,14 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.1.12",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.5.2",
     "@vitejs/plugin-react": "4.7.0",
+    "jsdom": "^25.0.1",
     "tailwindcss": "4.1.12",
-    "vite": "6.3.5"
+    "vite": "6.3.5",
+    "vitest": "^2.1.9"
   },
   "pnpm": {
     "overrides": {

@@ -6,27 +6,31 @@ import * as kv from "./kv_store.ts";
 
 const app = new Hono();
 
-// CRITICAL: Log ALL requests at the very top
+// Request logger — logs method + path only, never headers (avoids token exposure)
 app.use('*', async (c, next) => {
-  console.log(`🟢 INCOMING REQUEST: ${c.req.method} ${c.req.url}`);
-  console.log(`🟢 Headers:`, JSON.stringify([...c.req.raw.headers.entries()]));
+  console.log(`${c.req.method} ${new URL(c.req.url).pathname}`);
   try {
     await next();
-    console.log(`🟢 Response status: ${c.res.status}`);
   } catch (error) {
-    console.error(`🔴 ERROR in middleware:`, error);
+    console.error(`ERROR in middleware:`, error);
     throw error;
   }
 });
 
-// Enable logger
-app.use('*', logger(console.log));
+const ALLOWED_ORIGINS = [
+  'https://autobill.figma.site',
+  'https://www.qilly-software.co.za',
+  'https://qilly-software.co.za',
+  'https://qilly.co.za',
+  'http://localhost:5173',
+  'http://localhost:4173',
+];
 
-// Enable CORS for all routes and methods
+// CORS: restrict to known origins; never credentials with wildcard
 app.use(
   "/*",
   cors({
-    origin: "*",
+    origin: (origin) => ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
     allowHeaders: ["Content-Type", "Authorization", "apikey", "x-client-info"],
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     exposeHeaders: ["Content-Length", "Content-Type"],
@@ -218,31 +222,9 @@ app.options("/make-server-9db710f3/process-bill", (c) => {
 
 app.post("/make-server-9db710f3/process-bill", async (c) => {
   try {
-    console.log('🔵🔵🔵 PROCESS BILL ENDPOINT HIT 🔵🔵🔵');
-    console.log('🔵 Request method:', c.req.method);
-    console.log('🔵 Request URL:', c.req.url);
-    
-    // Log raw request headers
-    const allHeaders = Object.fromEntries(c.req.raw.headers.entries());
-    console.log('🔵 All request headers:', JSON.stringify(allHeaders));
-    
-    // Try to get Authorization header multiple ways
-    const authFromHono = c.req.header('Authorization');
-    const authFromHonoLower = c.req.header('authorization');
-    const authFromRaw = c.req.raw.headers.get('Authorization');
-    const authFromRawLower = c.req.raw.headers.get('authorization');
-    
-    console.log('🔵 Auth from Hono (Authorization):', authFromHono);
-    console.log('🔵 Auth from Hono (authorization):', authFromHonoLower);
-    console.log('🔵 Auth from raw (Authorization):', authFromRaw);
-    console.log('🔵 Auth from raw (authorization):', authFromRawLower);
-    
-    const authHeader = authFromHono || authFromHonoLower || authFromRaw || authFromRawLower;
-    
-    console.log('🔵 Final auth header chosen:', authHeader ? 'FOUND' : 'NULL');
-    
+    const authHeader = c.req.header('Authorization') || c.req.header('authorization');
+
     if (!authHeader) {
-      console.log('❌❌❌ NO AUTH HEADER FOUND - RETURNING 401 ❌❌❌');
       return c.json({ error: "Authorization header missing" }, 401);
     }
     
@@ -261,15 +243,9 @@ app.post("/make-server-9db710f3/process-bill", async (c) => {
     // Get authenticated user from the request context
     const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
     
-    console.log('🔵 User from context:', user ? `${user.email} (${user.id})` : 'null');
-    console.log('🔵 Auth error:', authError ? authError.message : 'null');
-    
     if (authError || !user) {
-      console.log(`❌ Auth validation failed: ${authError?.message || 'No user found'}`);
       return c.json({ error: "Unauthorized - Invalid or expired token" }, 401);
     }
-
-    console.log(`✅ User authenticated: ${user.email} (${user.id})`);
 
     // Get user data from KV store (use service role client for database operations)
     const supabase = getSupabaseClient();

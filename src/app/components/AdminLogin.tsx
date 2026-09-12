@@ -20,9 +20,6 @@ export function AdminLogin({ onSuccess, onBack }: AdminLoginProps) {
     password: '',
   });
 
-  // Admin credentials (kept for reference/demo)
-  const ADMIN_EMAIL = 'admin@qilly.co.za';
-  const ADMIN_PASSWORD = 'QillyAdmin2026!';
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,7 +44,7 @@ export function AdminLogin({ onSuccess, onBack }: AdminLoginProps) {
         } else if (signInError.message.includes('Email not confirmed')) {
           setError('Please confirm your email address before logging in.');
         } else {
-          setError(signInError.message);
+          setError('Authentication failed. Please check your credentials and try again.');
         }
         setIsLoading(false);
         return;
@@ -136,13 +133,6 @@ export function AdminLogin({ onSuccess, onBack }: AdminLoginProps) {
       setError(err.message || 'An unexpected error occurred. Please try again.');
       setIsLoading(false);
     }
-  };
-
-  const fillAdminCredentials = () => {
-    setLoginData({
-      email: ADMIN_EMAIL,
-      password: ADMIN_PASSWORD,
-    });
   };
 
   return (

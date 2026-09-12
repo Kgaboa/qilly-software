@@ -129,10 +129,10 @@ export function EFTPayment({
     // Payment instructions
     doc.setFontSize(10);
     doc.text('Payment Instructions:', 20, 155);
-    doc.text('Bank: FNB', 20, 165);
-    doc.text('Account Name: Qilly (Pty) Ltd', 20, 172);
-    doc.text('Account Number: 62XXXXXXXXX', 20, 179);
-    doc.text('Branch Code: 250655', 20, 186);
+    doc.text('Bank: Standard Bank', 20, 165);
+    doc.text('Account Name: Assure Tech Solution', 20, 172);
+    doc.text('Account Number: 1026 1862 306', 20, 179);
+    doc.text('Branch Code: 00051001', 20, 186);
     doc.text('Reference: ' + referenceNumber, 20, 193);
     
     doc.setFontSize(8);
@@ -145,11 +145,11 @@ export function EFTPayment({
   };
 
   const bankDetails = {
-    bank: 'FNB',
-    accountName: 'Qilly (Pty) Ltd',
-    accountNumber: '62XXXXXXXXX',
-    branchCode: '250655',
-    swiftCode: 'FIRNZAJJ'
+    bank: 'Standard Bank',
+    accountName: 'Assure Tech Solution',
+    accountNumber: '1026 1862 306',
+    branchCode: '00051001',
+    swiftCode: 'SBZAZAJJ'
   };
 
   return (

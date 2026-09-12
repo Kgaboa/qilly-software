@@ -197,22 +197,21 @@ export function SubscriptionUpgradeModal({
         '✅ Everything in Professional',
         '✅ 30 BOQs per month',
         '✅ 15 templates',
-        '✅ Green building features',
-        '✅ Carbon tracking per BOQ item',
-        '✅ Green materials database',
-        '✅ Environmental dashboard',
-        '✅ Future price projections',
         '✅ Advanced compliance documents',
-        '✅ Collusion detection',
-        '✅ eTender integration',
-        '✅ API access',
         '✅ Unlimited project history',
-        ' 5 concurrent users',
-        '✅ Priority support'
+        '✅ 5 concurrent users',
+        '✅ Priority support',
+        '🔜 Green building features (coming soon)',
+        '🔜 Carbon tracking per BOQ item (coming soon)',
+        '🔜 Environmental dashboard (coming soon)',
+        '🔜 Future price projections (coming soon)',
+        '🔜 Collusion detection (coming soon)',
+        '🔜 eTender integration (coming soon)',
+        '🔜 API access (coming soon)'
       ],
       icon: Building2,
       color: 'purple',
-      badge: 'FOR DHS CONTRACTS'
+      badge: 'BEST VALUE'
     },
     custom: {
       name: 'Custom',

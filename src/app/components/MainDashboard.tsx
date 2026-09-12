@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { BillUpload } from '@/app/components/BillUpload';
 import { DrawingUpload } from '@/app/components/DrawingUpload';
 import { BillHistory } from '@/app/components/BillHistory';
@@ -44,7 +44,7 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
   const [preloadedItems, setPreloadedItems] = useState<any[]>([]);
   const [contractorData, setContractorData] = useState<any>(null);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollY = useRef(0);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [professionalContractors, setProfessionalContractors] = useState<any[]>([]);
   const [selectedContractorId, setSelectedContractorId] = useState<string>('');
@@ -99,12 +99,12 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
-          if (currentScrollY < lastScrollY || currentScrollY < 10) {
+          if (currentScrollY < lastScrollY.current || currentScrollY < 10) {
             setIsHeaderVisible(true);
-          } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          } else if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
             setIsHeaderVisible(false);
           }
-          setLastScrollY(currentScrollY);
+          lastScrollY.current = currentScrollY;
           ticking = false;
         });
         ticking = true;
@@ -112,7 +112,7 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   const loadContractorData = async () => {
     try {

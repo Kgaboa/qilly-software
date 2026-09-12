@@ -94,6 +94,7 @@ export interface RegionalPricedBillItem extends BillItem {
   laborTradeCategory?: string;
   buildAidRef?: string; // BuildAid 2025/2026 reference (from user or supplier)
   sansCode?: string; // SANS 1200 standard code (from user or supplier)
+  pricingType?: string; // Special item pricing label (Lump Sum, Provisional Sum, etc.) — separate from branch
 }
 
 /**
@@ -554,7 +555,8 @@ export async function priceRegionalBill(
         selectedSupplier: searchResult.topMatch.item.supplier,
         selectedProvince: province,
         selectedMunicipality: undefined,
-        selectedBranchName: specialHandling,
+        selectedBranchName: undefined,
+        pricingType: specialHandling,
         baseUnitPrice: catalogPrice.toFixed(2),
         transportCost: '0', // No transport for special items
         transportCostPerUnit: '0',

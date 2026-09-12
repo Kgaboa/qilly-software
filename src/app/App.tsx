@@ -151,7 +151,7 @@ export default function App() {
       {currentView === 'main' && accessToken && (
         <MainDashboard accessToken={accessToken} onLogout={handleLogout} />
       )}
-      {currentView === 'admin' && (
+      {currentView === 'admin' && accessToken && (
         <AdminDashboard onLogout={handleLogout} onCapitalRaising={() => setCurrentView('capital-raising')} />
       )}
       {currentView === 'green-building' && (

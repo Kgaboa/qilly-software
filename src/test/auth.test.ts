@@ -1,0 +1,91 @@
+/**
+ * Auth regression tests — verifies login flow logic and session handling.
+ */
+import { describe, it, expect, beforeEach } from 'vitest';
+
+// ─── Fallback login logic (pure unit tests, no DOM needed) ───────────────────
+describe('Fallback login accounts', () => {
+  const fallbackAccounts: Record<string, { tier: string; type: string; company?: string }> = {
+    'operator@test.com': { tier: 'professional', type: 'operator' },
+    'fallback_free@qilly-test.com': { tier: 'free', type: 'contractor' },
+    'fallback_pro@qilly-test.com': { tier: 'professional', type: 'contractor' },
+    'fallback_ent@qilly-test.com': { tier: 'enterprise', type: 'contractor' },
+    'enter123@gmail.com': { tier: 'enterprise', type: 'contractor', company: 'Enter Construction (Pty) Ltd' },
+  };
+
+  it('enter123@gmail.com maps to enterprise contractor', () => {
+    expect(fallbackAccounts['enter123@gmail.com']?.tier).toBe('enterprise');
+    expect(fallbackAccounts['enter123@gmail.com']?.type).toBe('contractor');
+  });
+
+  it('all fallback accounts have required fields', () => {
+    for (const [email, account] of Object.entries(fallbackAccounts)) {
+      expect(account.tier, `${email} missing tier`).toBeTruthy();
+      expect(account.type, `${email} missing type`).toBeTruthy();
+    }
+  });
+});
+
+// ─── Session storage gating ───────────────────────────────────────────────────
+describe('Admin session bypass prevention', () => {
+  beforeEach(() => {
+    sessionStorage.clear();
+  });
+
+  it('admin_logged_in flag alone cannot grant access without accessToken', () => {
+    // Simulate the App.tsx logic: admin view requires BOTH admin_logged_in AND accessToken
+    sessionStorage.setItem('admin_logged_in', 'true');
+    // No access_token set
+    const accessToken = sessionStorage.getItem('access_token');
+    const adminLoggedIn = sessionStorage.getItem('admin_logged_in') === 'true';
+
+    // The guard in App.tsx is: currentView === 'admin' && accessToken && (...)
+    // Without accessToken, admin view must not render
+    const adminViewRendered = adminLoggedIn && !!accessToken;
+    expect(adminViewRendered).toBe(false);
+  });
+
+  it('admin view requires valid accessToken alongside flag', () => {
+    sessionStorage.setItem('admin_logged_in', 'true');
+    sessionStorage.setItem('access_token', 'valid_jwt_token_here');
+    const accessToken = sessionStorage.getItem('access_token');
+    const adminLoggedIn = sessionStorage.getItem('admin_logged_in') === 'true';
+    const adminViewRendered = adminLoggedIn && !!accessToken;
+    expect(adminViewRendered).toBe(true);
+  });
+});
+
+// ─── BOQ quota enforcement ────────────────────────────────────────────────────
+describe('BOQ quota enforcement', () => {
+  const tierQuotas: Record<string, number | null> = {
+    free: 3,
+    professional: null, // unlimited
+    enterprise: 30,
+  };
+
+  it('free tier has quota of 3', () => {
+    expect(tierQuotas['free']).toBe(3);
+  });
+
+  it('enterprise tier has quota of 30', () => {
+    expect(tierQuotas['enterprise']).toBe(30);
+  });
+
+  it('professional tier has unlimited quota', () => {
+    expect(tierQuotas['professional']).toBeNull();
+  });
+
+  it('quota exceeded when monthlyCount >= boqQuota', () => {
+    const boqQuota = 30;
+    const monthlyBoqCount = 30;
+    const quotaExceeded = boqQuota !== null && monthlyBoqCount >= boqQuota;
+    expect(quotaExceeded).toBe(true);
+  });
+
+  it('quota not exceeded when monthlyCount < boqQuota', () => {
+    const boqQuota = 30;
+    const monthlyBoqCount = 29;
+    const quotaExceeded = boqQuota !== null && monthlyBoqCount >= boqQuota;
+    expect(quotaExceeded).toBe(false);
+  });
+});

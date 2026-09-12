@@ -1276,7 +1276,7 @@ export function AdminDashboard({ onLogout, onCapitalRaising }: AdminDashboardPro
                         {(selectedContractor.payment_method === 'bank_transfer' || selectedContractor.payment_method === 'manual') && (
                           <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800">
                             <p className="font-semibold mb-1">⚠️ EFT Payment Verification Required</p>
-                            <p>Check your FNB bank statement for reference: <strong className="font-mono">{selectedContractor.payment_reference || 'N/A'}</strong></p>
+                            <p>Check your Standard Bank statement for reference: <strong className="font-mono">{selectedContractor.payment_reference || 'N/A'}</strong></p>
                             <p className="mt-1">Amount: <strong>R{selectedContractor.payment_amount ? Number(selectedContractor.payment_amount).toLocaleString() : '—'}</strong></p>
                             <p className="mt-1">Once the payment is confirmed in your bank, click <strong>Verify & Approve EFT</strong> below. This will unlock the contractor's login access.</p>
                           </div>
