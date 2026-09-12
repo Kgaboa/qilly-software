@@ -1176,7 +1176,7 @@ export function ContractorSignup({ onSuccess, onBack }: ContractorSignupProps) {
           {/* Contact + CTA */}
           <div className="text-center space-y-3">
             <p className="text-xs text-slate-500">
-              Questions? Email <a href="mailto:billing@qilly.co.za" className="text-blue-600 font-medium hover:underline">billing@qilly.co.za</a> or call <a href="tel:+27837582645" className="text-blue-600 font-medium hover:underline">+27 83 758 2645</a>
+              Questions? Email <a href="mailto:billing@qilly.co.za" className="text-blue-600 font-medium hover:underline">billing@qilly.co.za</a> or call <a href="tel:+27837582645" className="text-blue-600 font-medium hover:underline">+27 83 758 2645</a> / <a href="tel:+27768765069" className="text-blue-600 font-medium hover:underline">+27 76 876 5069</a>
             </p>
             <button
               onClick={onSuccess}
