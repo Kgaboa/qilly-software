@@ -38,6 +38,11 @@ export function Footer({ onNavigate }: FooterProps) {
               <p>South Africa</p>
               <p className="mt-3">General enquiries</p>
               <p>
+                <a href="tel:+27839412655" className="text-[#00b4d8] hover:text-[#0096c7] transition-colors">
+                  +27 83 941 2655
+                </a>
+              </p>
+              <p>
                 <a href="tel:+27768765069" className="text-[#00b4d8] hover:text-[#0096c7] transition-colors">
                   +27 76 876 5069
                 </a>
