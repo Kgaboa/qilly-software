@@ -174,10 +174,19 @@ describe('REGRESSION: BOQ top-ups and coming-soon features', () => {
     expect(dashboard).not.toContain("setCurrentView('steel-boq')");
   });
 
-  it('greys out AI drawing upload and labels it Coming soon', () => {
-    expect(dashboard).toMatch(/Upload Drawing \(AI\)[\s\S]*Coming soon/);
-    expect(dashboard).toMatch(/aria-label="Upload Drawing AI — Coming soon"/);
+  it('keeps AI drawing upload disabled and labels it Coming soon', () => {
+    expect(dashboard).toMatch(/AI Drawing Takeoff[\s\S]*Coming soon/);
+    expect(dashboard).toMatch(/aria-label="AI Drawing Takeoff — Coming soon"/);
     expect(dashboard).not.toContain("setCurrentView('drawing')");
     expect(dashboard).not.toContain('<DrawingUpload');
+  });
+
+  it('locks template BOQ rows, Add Row, imports and project settings', () => {
+    const upload = readSrc('app/components/BillUpload.tsx');
+    expect(upload).toContain('disabled={isFromTemplate}');
+    expect(upload).toContain('disabled={!canUploadBOQ || isFromTemplate}');
+    expect(upload).toContain('<fieldset');
+    expect(upload).toContain('These settings are fixed for this training template.');
+    expect(upload).toContain('Rows are locked for training templates');
   });
 });
