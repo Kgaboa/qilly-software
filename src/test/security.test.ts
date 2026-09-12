@@ -173,4 +173,11 @@ describe('REGRESSION: BOQ top-ups and coming-soon features', () => {
     expect(dashboard).toMatch(/aria-label="Steel BOQ — Coming soon"/);
     expect(dashboard).not.toContain("setCurrentView('steel-boq')");
   });
+
+  it('greys out AI drawing upload and labels it Coming soon', () => {
+    expect(dashboard).toMatch(/Upload Drawing \(AI\)[\s\S]*Coming soon/);
+    expect(dashboard).toMatch(/aria-label="Upload Drawing AI — Coming soon"/);
+    expect(dashboard).not.toContain("setCurrentView('drawing')");
+    expect(dashboard).not.toContain('<DrawingUpload');
+  });
 });
