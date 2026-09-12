@@ -147,3 +147,30 @@ describe('REGRESSION: Monthly BOQ count is database-backed', () => {
     expect(dashboard).toMatch(/contractor_id\.eq\.\$\{contractorId\},user_id\.eq\.\$\{authUser\.id\}/);
   });
 });
+
+
+// ─── REGRESSION: BOQ add-ons and Steel BOQ release gating ────────────────────
+describe('REGRESSION: BOQ top-ups and coming-soon features', () => {
+  const dashboard = readSrc('app/components/MainDashboard.tsx');
+  const adminDashboard = readSrc('app/components/AdminDashboard.tsx');
+
+  it('adds the active current-month top-up to the plan quota', () => {
+    expect(dashboard).toMatch(/baseBoqQuota \+ activeTopUpAllowance/);
+  });
+
+  it('offers additional BOQ packs when the quota is exhausted', () => {
+    expect(dashboard).toContain('Buy additional:');
+    expect(dashboard).toContain('[10, 25, 50]');
+  });
+
+  it('requires an admin action to grant paid top-ups', () => {
+    expect(adminDashboard).toContain('handleGrantBoqTopUp');
+    expect(adminDashboard).toContain('Verify the contractor');
+  });
+
+  it('greys out Steel BOQ and labels it Coming soon', () => {
+    expect(dashboard).toMatch(/Steel BOQ[\s\S]*Coming soon/);
+    expect(dashboard).toMatch(/aria-label="Steel BOQ — Coming soon"/);
+    expect(dashboard).not.toContain("setCurrentView('steel-boq')");
+  });
+});
