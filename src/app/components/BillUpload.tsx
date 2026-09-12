@@ -910,7 +910,7 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* FREE Tier Training Mode Banner */}
-          {!canUploadBOQ && isFromTemplate && (
+          {isFromTemplate && (
             <div className="w-full p-4 bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-400 rounded-lg shadow-sm">
               <div className="flex items-start gap-3">
                 <div className="text-2xl">🎓</div>
@@ -919,15 +919,14 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                     Training Mode: Template Items Loaded (Read-Only)
                   </p>
                   <p className="text-xs text-amber-800 mb-2">
-                    You're viewing a <strong>pre-loaded BuildAid template</strong>. Template items are <strong>locked and cannot be edited</strong>. 
-                    Configure your project settings below, then click "Generate Priced BOQ" to see how Qilly prices BOQs with real South African supplier data.
+                    You're viewing a <strong>pre-loaded BuildAid training template</strong>. The template BOQ and project settings are <strong>locked and cannot be edited</strong>. Click "Generate Priced BOQ" to explore Qilly's catalogue-based pricing workflow.
                   </p>
                   <div className="flex items-center gap-4 text-xs">
                     <span className="text-amber-700">
                       🔒 Template items locked (read-only)
                     </span>
                     <span className="text-amber-700">
-                      ✅ Can adjust project settings
+                      🔒 Project settings locked
                     </span>
                     <span className="text-amber-700">
                       ✅ Can generate pricing
@@ -970,11 +969,20 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
           <Card className="border-2 border-[#00b4d8]/20 bg-gradient-to-r from-[#00b4d8]/5 to-blue-50/30">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm text-[#00b4d8]">
-                Project Settings {isContractor && '(Auto-filled from your profile)'}
+                Project Settings {isFromTemplate ? '(Locked for training template)' : isContractor && '(Auto-filled from your profile)'}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+              {isFromTemplate && (
+                <div className="flex items-center gap-2 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-xs font-medium text-amber-800">
+                  <Lock className="h-4 w-4 shrink-0" />
+                  These settings are fixed for this training template.
+                </div>
+              )}
+              <fieldset
+                disabled={isFromTemplate}
+                className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 ${isFromTemplate ? 'opacity-70' : ''}`}
+              >
                 {/* Province Selection */}
                 <div className="space-y-1.5">
                   <Label htmlFor="province" className="text-xs font-medium">
@@ -1147,7 +1155,7 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                     <option value="owned">Owned</option>
                   </select>
                 </div>
-              </div>
+              </fieldset>
             </CardContent>
           </Card>
 
@@ -1159,15 +1167,15 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                 variant="outline" 
                 size="sm"
                 onClick={() => document.getElementById('excel-file-upload')?.click()}
-                disabled={!canUploadBOQ}
-                className={!canUploadBOQ ? 'opacity-50 cursor-not-allowed' : ''}
+                disabled={!canUploadBOQ || isFromTemplate}
+                className={!canUploadBOQ || isFromTemplate ? 'opacity-50 cursor-not-allowed' : ''}
               >
                 <Upload className="h-4 w-4 mr-2" />
                 Import BOQ excel file
               </Button>
-              {!canUploadBOQ && (
+              {(!canUploadBOQ || isFromTemplate) && (
                 <span className="absolute -top-8 left-0 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                  Upgrade to PROFESSIONAL to upload BOQs
+                  {isFromTemplate ? 'File import is locked for training templates' : 'Upgrade to PROFESSIONAL to upload BOQs'}
                 </span>
               )}
             </div>
@@ -1185,7 +1193,7 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
             <div className="flex items-center gap-2 p-3 bg-amber-50 border border-amber-300 rounded-md text-sm text-amber-800 mb-3">
               <Lock className="w-4 h-4 flex-shrink-0" />
               <span>
-                <strong>Template items are locked.</strong> All fields below are read-only. Configure project settings above and generate pricing.
+                <strong>Training template locked.</strong> BOQ rows and project settings are read-only. Generate pricing to explore the workflow.
               </span>
             </div>
           )}
@@ -1338,15 +1346,15 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                 variant="outline" 
                 size="sm"
                 onClick={addItem}
-                className={!canUploadBOQ ? 'gap-2 opacity-50 cursor-not-allowed' : 'gap-2'}
-                disabled={!canUploadBOQ}
+                className={!canUploadBOQ || isFromTemplate ? 'gap-2 opacity-50 cursor-not-allowed' : 'gap-2'}
+                disabled={!canUploadBOQ || isFromTemplate}
               >
                 <Plus className="h-4 w-4" />
                 Add Row
               </Button>
-              {!canUploadBOQ && (
+              {(!canUploadBOQ || isFromTemplate) && (
                 <span className="absolute -top-8 left-0 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                  Upgrade to PROFESSIONAL to add items
+                  {isFromTemplate ? 'Rows are locked for training templates' : 'Upgrade to PROFESSIONAL to add items'}
                 </span>
               )}
             </div>
