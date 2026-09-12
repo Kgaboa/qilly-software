@@ -173,14 +173,23 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
   const fetchMonthlyBoqCount = async (contractorId: string) => {
     try {
       if (!contractorId || contractorId.startsWith('demo-')) return;
+      const { data: { user: authUser } } = await supabase.auth.getUser();
       const startOfMonth = new Date();
       startOfMonth.setDate(1);
       startOfMonth.setHours(0, 0, 0, 0);
-      const { count } = await supabase
+      let query = supabase
         .from('bills')
         .select('*', { count: 'exact', head: true })
-        .eq('contractor_id', contractorId)
         .gte('created_at', startOfMonth.toISOString());
+
+      // New records are linked to the contractor. The user_id fallback keeps
+      // earlier BOQs (created before contractor_id was saved) in the count.
+      query = authUser?.id
+        ? query.or(`contractor_id.eq.${contractorId},user_id.eq.${authUser.id}`)
+        : query.eq('contractor_id', contractorId);
+
+      const { count, error } = await query;
+      if (error) throw error;
       setMonthlyBoqCount(count ?? 0);
     } catch (err) {
       console.error('Failed to fetch monthly BOQ count:', err);
@@ -362,6 +371,7 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
           .from('bills')
           .insert({
             user_id: authUser.id,
+            contractor_id: contractorData?.id ?? null,
             project_name: `BOQ ${new Date().toLocaleDateString()}`,
             bill_number: data.billId || `BILL-${Date.now()}`,
             total_cost: parseFloat(data.overallTotal || '0'),
