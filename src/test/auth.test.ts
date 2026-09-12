@@ -10,12 +10,10 @@ describe('Fallback login accounts', () => {
     'fallback_free@qilly-test.com': { tier: 'free', type: 'contractor' },
     'fallback_pro@qilly-test.com': { tier: 'professional', type: 'contractor' },
     'fallback_ent@qilly-test.com': { tier: 'enterprise', type: 'contractor' },
-    'enter123@gmail.com': { tier: 'enterprise', type: 'contractor', company: 'Enter Construction (Pty) Ltd' },
   };
 
-  it('enter123@gmail.com maps to enterprise contractor', () => {
-    expect(fallbackAccounts['enter123@gmail.com']?.tier).toBe('enterprise');
-    expect(fallbackAccounts['enter123@gmail.com']?.type).toBe('contractor');
+  it('does not treat a real contractor as a fallback demo account', () => {
+    expect(fallbackAccounts['enter123@gmail.com']).toBeUndefined();
   });
 
   it('all fallback accounts have required fields', () => {
