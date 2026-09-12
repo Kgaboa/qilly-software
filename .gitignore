@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.vercel/
+.env
+.env.*
+!.env.example
+
+# Local exports and diagnostic logs may contain PII or authentication metadata
+src/imports/user-data*.json
+src/imports/server-logs*.json
+src/imports/supabase-auth-log*.json
