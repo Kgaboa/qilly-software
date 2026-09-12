@@ -73,7 +73,7 @@ export function BoqTemplateLibrary({
   }, [contractorProjectTypes, searchQuery, contractorTier]);
 
   const handleUseTemplate = (template: BoqTemplate) => {
-    toast.success(`Template "${template.name}" loaded. Configure the project settings, then generate pricing.`);
+    toast.success(`Training template "${template.name}" loaded in read-only mode. Generate pricing to explore the workflow.`);
     onTemplateSelect(template.items);
   };
 
@@ -324,8 +324,8 @@ export function BoqTemplateLibrary({
         <h1 className="text-3xl font-bold text-gray-900">Welcome to Qilly</h1>
         <p className="text-gray-600 mt-1">
           {canUploadBOQ 
-            ? 'Choose a pre-built template or create your own from scratch'
-            : 'Select a BuildAid 2025/2026 template to start training'
+            ? 'Upload or enter your own BOQ, or explore a locked training template'
+            : 'Choose a locked BuildAid 2025/2026 template for training'
           }
         </p>
       </div>
