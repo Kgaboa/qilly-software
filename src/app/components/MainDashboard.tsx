@@ -191,7 +191,8 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
       let query = supabase
         .from('bills')
         .select('*', { count: 'exact', head: true })
-        .gte('created_at', startOfMonth.toISOString());
+        .gte('created_at', startOfMonth.toISOString())
+        .neq('uploaded_via', 'training_template');
 
       // New records are linked to the contractor. The user_id fallback keeps
       // earlier BOQs (created before contractor_id was saved) in the count.
@@ -348,8 +349,16 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
         };
         console.log('📋 Final project settings:', projectSettings);
       }
+      const isTrainingTemplate = projectSettings?.isTrainingTemplate === true;
       const data = await api.processBill(billData, freshAccessToken, projectSettings);
-      if (authUser && data) {
+
+      // Training templates generate a preview only. They are intentionally not
+      // persisted and never consume the contractor's monthly BOQ allowance.
+      if (isTrainingTemplate) {
+        toast.info('Training preview generated — your monthly BOQ allowance was not used.');
+      }
+
+      if (authUser && data && !isTrainingTemplate) {
         console.log('💾 Saving bill to Supabase with project settings...');
         
         // ✅ FIX: Use UPSERT to avoid duplicate key errors
