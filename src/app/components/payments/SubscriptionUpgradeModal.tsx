@@ -302,13 +302,22 @@ export function SubscriptionUpgradeModal({
                 <CreditCard className="w-4 h-4" />
                 Email billing@qilly.co.za
               </a>
-              <a
-                href="tel:+27837582645"
-                className="flex items-center gap-2 w-full bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 text-sm font-semibold px-4 py-2.5 rounded-md transition-colors"
-              >
-                <Shield className="w-4 h-4 text-gray-500" />
-                Call +27 83 758 2645
-              </a>
+              <div className="grid gap-2 sm:grid-cols-2">
+                <a
+                  href="tel:+27837582645"
+                  className="flex items-center justify-center gap-2 w-full bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 text-sm font-semibold px-3 py-2.5 rounded-md transition-colors"
+                >
+                  <Shield className="w-4 h-4 text-gray-500" />
+                  +27 83 758 2645
+                </a>
+                <a
+                  href="tel:+27768765069"
+                  className="flex items-center justify-center gap-2 w-full bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 text-sm font-semibold px-3 py-2.5 rounded-md transition-colors"
+                >
+                  <Shield className="w-4 h-4 text-gray-500" />
+                  +27 76 876 5069
+                </a>
+              </div>
             </div>
           </div>
 
