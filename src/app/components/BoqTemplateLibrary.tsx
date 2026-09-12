@@ -60,6 +60,12 @@ export function BoqTemplateLibrary({
       });
     }
 
+    // A contractor can select multiple profile categories that resolve to the
+    // same template category. Keep each template visible only once.
+    templates = Array.from(
+      new Map(templates.map(template => [template.id, template])).values()
+    );
+
     // Apply search filter
     if (searchQuery.trim()) {
       templates = templates.filter(t => 
