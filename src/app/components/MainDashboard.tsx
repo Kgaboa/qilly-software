@@ -26,7 +26,6 @@ import { api } from '@/utils/api';
 import { getMunicipalitiesByProvince } from '@/utils/regionalOptimization';
 import { getTierFeatures, type SubscriptionTier } from '@/utils/tierAccess';
 import { ArrowUpCircle, ChevronDown } from 'lucide-react';
-import { SteelBoqUpload } from '@/app/components/SteelBoqUpload';
 import { getProfessionalContractors } from '@/utils/database/contractors';
 
 interface MainDashboardProps {
@@ -58,8 +57,26 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
   const contractorTier = (contractorData?.subscription_tier?.toLowerCase() || 'free') as SubscriptionTier;
   const tierFeatures = contractorData ? getTierFeatures(contractorTier) : null;
   const canUploadBOQ = tierFeatures?.canUploadBOQ ?? true; // Non-contractors can upload
-  const boqQuota = tierFeatures?.boqQuota ?? null; // null = unlimited
+  const baseBoqQuota = tierFeatures?.boqQuota ?? null; // null = unlimited
+  const currentMonth = new Date().toISOString().slice(0, 7);
+  const topUpMonth = contractorData?.boq_topup_month?.slice(0, 7);
+  const activeTopUpAllowance = topUpMonth === currentMonth
+    ? Number(contractorData?.boq_topup_allowance || 0)
+    : 0;
+  const boqQuota = baseBoqQuota === null ? null : baseBoqQuota + activeTopUpAllowance;
   const quotaExceeded = boqQuota !== null && monthlyBoqCount >= boqQuota;
+
+  const getTopUpRequestUrl = (quantity: number) => {
+    const subject = encodeURIComponent(`Qilly BOQ top-up request: +${quantity} BOQs`);
+    const body = encodeURIComponent(
+      `Please send me payment instructions for ${quantity} additional BOQs this month.\n\n` +
+      `Company: ${contractorData?.company_name || ''}\n` +
+      `Account email: ${contractorData?.email || ''}\n` +
+      `Current usage: ${monthlyBoqCount} of ${boqQuota ?? 'unlimited'} BOQs\n\n` +
+      'The additional allowance must be activated after payment verification.'
+    );
+    return `mailto:billing@qilly.co.za?subject=${subject}&body=${body}`;
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -760,14 +777,15 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                 )}
                 {canUploadBOQ && (
                   <Button
-                    variant={currentView === 'steel-boq' ? 'default' : 'outline'}
-                    onClick={() => setCurrentView('steel-boq')}
-                    className={currentView === 'steel-boq' ? 'bg-gradient-to-r from-slate-700 to-slate-900 border-0' : 'border-slate-400 text-slate-700 hover:bg-slate-50'}
+                    variant="outline"
+                    disabled
+                    aria-label="Steel BOQ — Coming soon"
+                    className="border-gray-200 bg-gray-100 text-gray-400 opacity-70 cursor-not-allowed"
                   >
-                    <span className="mr-1.5 text-sm">🏗️</span>
+                    <span className="mr-1.5 text-sm grayscale">🏗️</span>
                     Steel BOQ
-                    <Badge variant="secondary" className="ml-2 bg-gradient-to-r from-orange-500 to-amber-600 text-white text-[10px] px-1.5 py-0">
-                      NEW
+                    <Badge variant="secondary" className="ml-2 bg-gray-200 text-gray-500 text-[10px] px-1.5 py-0">
+                      Coming soon
                     </Badge>
                   </Button>
                 )}
@@ -818,12 +836,26 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                   }`}>
                     <span>
                       📊 Monthly BOQs: <strong>{monthlyBoqCount} / {boqQuota}</strong> used
+                      {activeTopUpAllowance > 0 && (
+                        <span className="ml-1 text-xs">
+                          ({baseBoqQuota} plan + {activeTopUpAllowance} add-on)
+                        </span>
+                      )}
                       {quotaExceeded && ' — Monthly limit reached'}
                     </span>
                     {quotaExceeded && (
-                      <button onClick={() => setShowUpgradeModal(true)} className="underline font-semibold ml-2">
-                        Upgrade plan
-                      </button>
+                      <div className="flex items-center gap-2 ml-3">
+                        <span className="text-xs font-semibold">Buy additional:</span>
+                        {[10, 25, 50].map(quantity => (
+                          <a
+                            key={quantity}
+                            href={getTopUpRequestUrl(quantity)}
+                            className="rounded bg-red-700 px-2 py-1 text-xs font-semibold text-white hover:bg-red-800"
+                          >
+                            +{quantity}
+                          </a>
+                        ))}
+                      </div>
                     )}
                   </div>
                 )}
@@ -848,9 +880,6 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                   contractorEmail={contractorData.email || user?.email || ''}
                   subscriptionTier={contractorTier}
                 />
-              )}
-              {currentView === 'steel-boq' && canUploadBOQ && (
-                <SteelBoqUpload contractorData={contractorData || undefined} />
               )}
               {isDemoMode && user?.is_operator && currentView === 'upload' && (<div className="mt-6"><CatalogManager /></div>)}
             </>
