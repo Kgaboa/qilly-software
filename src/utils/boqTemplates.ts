@@ -286,9 +286,30 @@ export const BOQ_TEMPLATES: BoqTemplate[] = [
   },
 ];
 
-// Helper function to get templates by project type
+// Contractor profiles and the template catalogue use slightly different
+// category labels. Resolve known equivalents without turning unknown categories
+// into unrelated templates.
+const PROJECT_TYPE_ALIASES: Record<string, string> = {
+  'residential building': 'Housing Development',
+  'general building': 'Building Construction',
+  'commercial building': 'Building Construction',
+  'industrial construction': 'Building Construction',
+  'renovation & refurbishment': 'Building Construction',
+  'electrical works': 'Building Construction',
+  'water & sanitation': 'Infrastructure (Water/Sewer)',
+  'storm water management': 'Infrastructure (Water/Sewer)',
+  'earthworks & grading': 'Civil Works',
+  'landscaping & earthworks': 'Civil Works',
+  'bridge construction': 'Bridges & Structures',
+};
+
 export function getTemplatesByProjectType(projectType: string): BoqTemplate[] {
-  return BOQ_TEMPLATES.filter(template => template.projectType === projectType);
+  const normalizedType = projectType.trim().toLowerCase();
+  const resolvedType = PROJECT_TYPE_ALIASES[normalizedType] || projectType.trim();
+
+  return BOQ_TEMPLATES.filter(
+    template => template.projectType.toLowerCase() === resolvedType.toLowerCase()
+  );
 }
 
 // Helper function to get all unique project types
