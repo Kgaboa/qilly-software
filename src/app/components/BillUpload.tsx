@@ -99,6 +99,7 @@ interface ProjectSettings {
   cidbGrading: string;
   duration: string;
   machineryType: string;
+  isTrainingTemplate?: boolean;
 }
 
 export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, onBackToTemplates, isContractor, canUploadBOQ }: BillUploadProps) {
@@ -381,7 +382,7 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
 
     console.log('Submitting bill with items:', validItems);
     console.log('Project settings:', projectSettings);
-    onProcess(validItems, projectSettings);
+    onProcess(validItems, { ...projectSettings, isTrainingTemplate: isFromTemplate });
   };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
