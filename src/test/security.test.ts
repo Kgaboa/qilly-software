@@ -181,6 +181,14 @@ describe('REGRESSION: BOQ top-ups and coming-soon features', () => {
     expect(dashboard).not.toContain('<DrawingUpload');
   });
 
+  it('does not persist or count training template previews', () => {
+    const upload = readSrc('app/components/BillUpload.tsx');
+    expect(upload).toContain('isTrainingTemplate: isFromTemplate');
+    expect(dashboard).toContain("projectSettings?.isTrainingTemplate === true");
+    expect(dashboard).toContain("!isTrainingTemplate");
+    expect(dashboard).toContain(".neq('uploaded_via', 'training_template')");
+  });
+
   it('locks template BOQ rows, Add Row, imports and project settings', () => {
     const upload = readSrc('app/components/BillUpload.tsx');
     expect(upload).toContain('disabled={isFromTemplate}');
