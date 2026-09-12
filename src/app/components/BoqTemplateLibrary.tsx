@@ -482,11 +482,16 @@ export function BoqTemplateLibrary({
               <CardContent className="flex flex-col items-center justify-center py-12">
                 <FileText className="w-12 h-12 text-gray-400 mb-4" />
                 <p className="text-gray-600 text-center">
-                  {searchQuery ? 
-                    'No templates found matching your search.' : 
-                    'No templates available for your selected project types.'
+                  {searchQuery
+                    ? 'No training templates match your search.'
+                    : 'No training template currently matches the project types saved in your profile.'
                   }
                 </p>
+                {!searchQuery && contractorProjectTypes.length > 0 && (
+                  <p className="mt-2 max-w-xl text-center text-xs text-gray-500">
+                    Profile project types: {contractorProjectTypes.join(', ')}. You can still start your own BOQ if your plan allows it.
+                  </p>
+                )}
                 {canUploadBOQ && (
                   <Button onClick={onManualEntry} variant="outline" className="mt-4">
                     Create Manual BOQ Instead
