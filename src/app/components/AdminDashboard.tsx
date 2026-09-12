@@ -387,6 +387,42 @@ export function AdminDashboard({ onLogout, onCapitalRaising }: AdminDashboardPro
     }
   };
 
+  const handleGrantBoqTopUp = async (contractor: any, quantity: number) => {
+    try {
+      const currentMonth = new Date().toISOString().slice(0, 7);
+      const existingMonth = contractor.boq_topup_month?.slice(0, 7);
+      const existingAllowance = existingMonth === currentMonth
+        ? Number(contractor.boq_topup_allowance || 0)
+        : 0;
+      const newAllowance = existingAllowance + quantity;
+
+      const { error } = await supabase
+        .from('contractors')
+        .update({
+          boq_topup_allowance: newAllowance,
+          boq_topup_month: `${currentMonth}-01`,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', contractor.id);
+
+      if (error) throw error;
+
+      const updatedContractor = {
+        ...contractor,
+        boq_topup_allowance: newAllowance,
+        boq_topup_month: `${currentMonth}-01`
+      };
+      setSelectedContractor(updatedContractor);
+      setContractors(current =>
+        current.map(item => item.id === contractor.id ? updatedContractor : item)
+      );
+      toast.success(`Added ${quantity} BOQs for ${contractor.company_name}. Current-month top-up: ${newAllowance}.`);
+    } catch (error) {
+      console.error('Failed to grant BOQ top-up:', error);
+      toast.error('Could not add the BOQ top-up. Please try again.');
+    }
+  };
+
   const handleRejectContractor = async (contractor: any) => {
     try {
       // Update in Supabase
@@ -1320,6 +1356,29 @@ export function AdminDashboard({ onLogout, onCapitalRaising }: AdminDashboardPro
                           </p>
                         )}
                         <p className="text-sm text-green-600 mt-1">Contractor has full login access.</p>
+                        <div className="mt-4 border-t border-green-200 pt-3">
+                          <p className="text-sm font-semibold text-green-900">Monthly BOQ top-up</p>
+                          <p className="text-xs text-green-700 mt-1">
+                            Current-month add-on: <strong>{selectedContractor.boq_topup_month?.slice(0, 7) === new Date().toISOString().slice(0, 7) ? Number(selectedContractor.boq_topup_allowance || 0) : 0} BOQs</strong>
+                          </p>
+                          <p className="text-xs text-green-700 mt-1 mb-2">
+                            Verify the contractor&apos;s payment before granting an add-on pack.
+                          </p>
+                          <div className="flex flex-wrap gap-2">
+                            {[10, 25, 50].map(quantity => (
+                              <Button
+                                key={quantity}
+                                type="button"
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleGrantBoqTopUp(selectedContractor, quantity)}
+                                className="border-green-400 bg-white text-green-800 hover:bg-green-100"
+                              >
+                                Grant +{quantity} BOQs
+                              </Button>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     )}
 
