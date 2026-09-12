@@ -2,6 +2,7 @@
  * Auth regression tests — verifies login flow logic and session handling.
  */
 import { describe, it, expect, beforeEach } from 'vitest';
+import { getTemplatesByProjectType } from '../utils/boqTemplates';
 
 // ─── Fallback login logic (pure unit tests, no DOM needed) ───────────────────
 describe('Fallback login accounts', () => {
@@ -21,6 +22,23 @@ describe('Fallback login accounts', () => {
       expect(account.tier, `${email} missing tier`).toBeTruthy();
       expect(account.type, `${email} missing type`).toBeTruthy();
     }
+  });
+});
+
+
+describe('Template project type matching', () => {
+  it('maps residential contractor work to housing templates', () => {
+    expect(getTemplatesByProjectType('Residential Building').length).toBeGreaterThan(0);
+    expect(getTemplatesByProjectType('Residential Building')[0].projectType).toBe('Housing Development');
+  });
+
+  it('maps water and sanitation work to infrastructure templates', () => {
+    expect(getTemplatesByProjectType('Water & Sanitation').length).toBeGreaterThan(0);
+    expect(getTemplatesByProjectType('Water & Sanitation')[0].projectType).toBe('Infrastructure (Water/Sewer)');
+  });
+
+  it('leaves genuinely unsupported project types empty', () => {
+    expect(getTemplatesByProjectType('Unsupported Specialist Work')).toHaveLength(0);
   });
 });
 
