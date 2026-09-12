@@ -73,7 +73,7 @@ export function BoqTemplateLibrary({
   }, [contractorProjectTypes, searchQuery, contractorTier]);
 
   const handleUseTemplate = (template: BoqTemplate) => {
-    toast.success(`Template "${template.name}" loaded! You can now adjust quantities or add items.`);
+    toast.success(`Template "${template.name}" loaded. Configure the project settings, then generate pricing.`);
     onTemplateSelect(template.items);
   };
 
@@ -250,10 +250,10 @@ export function BoqTemplateLibrary({
                 <p className="font-semibold mb-1">What happens next?</p>
                 <ul className="list-disc list-inside space-y-1">
                   <li>All {selectedTemplate.items.length} work items will be pre-loaded into the BOQ form</li>
-                  <li>You can adjust quantities, add new items, or remove items as needed</li>
-                  <li>Qilly will automatically fetch live pricing from 96 SA suppliers</li>
-                  <li>Provincial pricing will be applied based on your selected province</li>
-                  <li>Generate your complete, priced BOQ in under 5 minutes!</li>
+                  <li>Template work items are read-only so the standard scope stays consistent</li>
+                  <li>Qilly matches the work items against the available supplier catalogue</li>
+                  <li>Provincial factors are applied for the province you select</li>
+                  <li>Review the priced BOQ before using it for a bid</li>
                 </ul>
               </div>
             </div>
@@ -294,14 +294,14 @@ export function BoqTemplateLibrary({
               <p className="text-xs text-amber-800 mb-2">
                 You're on the <strong>FREE tier</strong>. {filteredTemplates.length > 0 ? `${filteredTemplates.length} training template${filteredTemplates.length !== 1 ? 's are' : ' is'} available below` : 'Select a BuildAid 2025/2026 template below'} 
                 {filteredTemplates.length > 0 && <> (1 per project type)</>}. 
-                Explore how Qilly prices BOQs and learn the system—completely free!
+                Explore Qilly's current template pricing workflow—completely free!
               </p>
               <div className="flex items-center gap-4 text-xs">
                 <span className="text-amber-700">
                   ✅ Unlimited template practice
                 </span>
                 <span className="text-amber-700">
-                  ✅ Real South African pricing
+                  ✅ Supplier-catalogue estimates
                 </span>
                 <span className="text-amber-700">
                   ✅ All 9 provinces supported
@@ -334,7 +334,10 @@ export function BoqTemplateLibrary({
       {!showAllTemplates && (
         <div className="grid md:grid-cols-2 gap-4">
           {/* Template Option */}
-          <Card className="border-2 border-blue-300 bg-gradient-to-br from-blue-50 to-cyan-50 hover:shadow-lg transition-shadow cursor-pointer group">
+          <Card
+            className="border-2 border-blue-300 bg-gradient-to-br from-blue-50 to-cyan-50 hover:shadow-lg transition-shadow cursor-pointer group"
+            onClick={() => setShowAllTemplates(true)}
+          >
             <CardHeader>
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-blue-600 rounded-lg">
@@ -348,15 +351,15 @@ export function BoqTemplateLibrary({
                   <div className="mt-3 space-y-1 text-sm text-gray-700">
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-green-600" />
-                      <span>50-200 work items pre-loaded</span>
+                      <span>Pre-loaded standard work items</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-green-600" />
-                      <span>⚡ Generate BOQ in 5 minutes</span>
+                      <span>Configure and price without starting from scratch</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-green-600" />
-                      <span>✅ 100% SANS 1200 compliant</span>
+                      <span>SANS 1200 references included where applicable</span>
                     </div>
                   </div>
                   
