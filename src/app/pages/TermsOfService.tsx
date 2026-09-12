@@ -447,6 +447,7 @@ export default function TermsOfService() {
                 <p><strong>Support Email:</strong> <a href="mailto:support@qilly.co.za" className="text-[#00b4d8] underline">support@qilly.co.za</a></p>
                 <p><strong>Billing &amp; Subscriptions:</strong> <a href="mailto:billing@qilly.co.za" className="text-[#00b4d8] underline">billing@qilly.co.za</a></p>
                 <p><strong>Phone:</strong> <a href="tel:+27837582645" className="text-[#00b4d8] underline">+27 83 758 2645</a></p>
+                <p><strong>Alternative enquiries:</strong> <a href="tel:+27768765069" className="text-[#00b4d8] underline">+27 76 876 5069</a></p>
                 <p><strong>Physical Address:</strong> 210 Kirkness Avenue, Pierre van Ryneveld, Centurion, 0157, Gauteng, South Africa</p>
               </div>
             </div>
