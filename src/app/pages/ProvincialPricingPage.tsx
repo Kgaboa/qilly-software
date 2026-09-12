@@ -237,7 +237,7 @@ export default function ProvincialPricingPage({ contractorData }: ProvincialPric
                 )}
               </div>
               <p className="text-gray-600 mt-1">
-                View supplier rates adjusted for all South African provinces
+                Explore supplier-catalogue estimates adjusted by Qilly's provincial pricing factors
               </p>
             </div>
           </div>
@@ -247,6 +247,13 @@ export default function ProvincialPricingPage({ contractorData }: ProvincialPric
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <div className="space-y-8">
+          <Alert className="border-blue-200 bg-blue-50">
+            <AlertCircle className="size-4 text-blue-700" />
+            <AlertTitle>Planning estimates, not supplier quotations</AlertTitle>
+            <AlertDescription>
+              Rates come from the available Qilly supplier catalogue (or its fallback catalogue) and are adjusted using the selected provincial factor. Confirm current prices, stock and delivery charges with the supplier before submitting a bid.
+            </AlertDescription>
+          </Alert>
           {/* Province Selector */}
           <ProvincialPricing 
             selectedProvince={selectedProvince}
@@ -297,7 +304,7 @@ export default function ProvincialPricingPage({ contractorData }: ProvincialPric
                 <div className="mt-4 bg-white rounded-lg p-4 border-2 border-primary/20">
                   <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                     <CheckCircle className="size-5 text-green-600" />
-                    Pricing Calculation Example
+                    Provincial Estimate Example
                   </h3>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-sm">
@@ -324,7 +331,7 @@ export default function ProvincialPricingPage({ contractorData }: ProvincialPric
                     )}
                   </div>
                   <div className="mt-3 text-xs text-gray-500 bg-blue-50 p-2 rounded">
-                    <strong>Formula:</strong> Provincial Price = GP Base Price × {selectedProvinceData.factor.toFixed(2)}
+                    <strong>Estimate formula:</strong> Catalogue base rate × {selectedProvinceData.factor.toFixed(2)}
                     {selectedProvinceData.factor !== 1.0 && ` (adds ${((selectedProvinceData.factor - 1) * 100).toFixed(1)}% to cover transport costs)`}
                   </div>
                 </div>
@@ -342,7 +349,7 @@ export default function ProvincialPricingPage({ contractorData }: ProvincialPric
                 </CardTitle>
                 {useDatabaseFactors && provincialFactors.length > 0 && (
                   <Badge className="bg-green-600 text-white">
-                    Live from Database
+                    Current Database Factors
                   </Badge>
                 )}
               </div>
