@@ -17,7 +17,7 @@ import { TeamManagement } from '@/app/components/TeamManagement';
 import { supabase } from '@/utils/supabase';
 import { Button } from '@/app/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/app/components/ui/card';
-import { FileUp, FileDown, TrendingDown, FileImage, Coins, User, LogOut, Users } from 'lucide-react';
+import { FileUp, FileDown, TrendingDown, FileImage, Coins, User, LogOut, Users, Sparkles } from 'lucide-react';
 import { Badge } from '@/app/components/ui/badge';
 import { toast } from 'sonner';
 import { api } from '@/utils/api';
@@ -760,12 +760,14 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                   <Button
                     variant="outline"
                     disabled
-                    aria-label="Upload Drawing AI — Coming soon"
-                    className="border-gray-200 bg-gray-100 text-gray-400 opacity-70 cursor-not-allowed"
+                    aria-label="AI Drawing Takeoff — Coming soon"
+                    title="AI-assisted drawing takeoff is being prepared for a future Qilly release"
+                    className="group border-violet-200 bg-gradient-to-r from-violet-50 to-fuchsia-50 text-violet-800 shadow-sm opacity-90 cursor-not-allowed"
                   >
-                    <FileImage className="h-4 w-4 mr-2 grayscale" />
-                    Upload Drawing (AI)
-                    <Badge variant="secondary" className="ml-2 bg-gray-200 text-gray-500 text-[10px] px-1.5 py-0">
+                    <FileImage className="h-4 w-4 mr-2 text-violet-600" />
+                    AI Drawing Takeoff
+                    <Badge className="ml-2 border-0 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-[10px] px-2 py-0.5 shadow-sm">
+                      <Sparkles className="mr-1 h-3 w-3" />
                       Coming soon
                     </Badge>
                   </Button>
@@ -775,11 +777,13 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                     variant="outline"
                     disabled
                     aria-label="Steel BOQ — Coming soon"
-                    className="border-gray-200 bg-gray-100 text-gray-400 opacity-70 cursor-not-allowed"
+                    title="Dedicated steel BOQ pricing is being prepared for a future Qilly release"
+                    className="border-amber-300 bg-gradient-to-r from-amber-50 to-orange-50 text-amber-900 shadow-sm opacity-90 cursor-not-allowed"
                   >
-                    <span className="mr-1.5 text-sm grayscale">🏗️</span>
+                    <span className="mr-1.5 text-sm">🏗️</span>
                     Steel BOQ
-                    <Badge variant="secondary" className="ml-2 bg-gray-200 text-gray-500 text-[10px] px-1.5 py-0">
+                    <Badge className="ml-2 border-0 bg-gradient-to-r from-amber-500 to-orange-600 text-white text-[10px] px-2 py-0.5 shadow-sm">
+                      <Sparkles className="mr-1 h-3 w-3" />
                       Coming soon
                     </Badge>
                   </Button>
@@ -797,10 +801,16 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                 <Button
                   variant="outline"
                   disabled
-                  className="border-gray-200 text-gray-400 opacity-50 cursor-not-allowed"
+                  aria-label="Team Management — Coming soon"
+                  title="Collaborative team management is planned for a future Qilly release"
+                  className="border-sky-200 bg-gradient-to-r from-sky-50 to-cyan-50 text-sky-800 shadow-sm opacity-90 cursor-not-allowed"
                 >
-                  <Users className="h-4 w-4 mr-2" />
+                  <Users className="h-4 w-4 mr-2 text-sky-600" />
                   Team Management
+                  <Badge className="ml-2 border-0 bg-gradient-to-r from-sky-600 to-cyan-600 text-white text-[10px] px-2 py-0.5 shadow-sm">
+                    <Sparkles className="mr-1 h-3 w-3" />
+                    Coming soon
+                  </Badge>
                 </Button>
                 {/* FREE tier contractors: Show upgrade message */}
                 {!canUploadBOQ && contractorData && (
