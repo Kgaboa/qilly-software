@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { BillUpload } from '@/app/components/BillUpload';
-import { DrawingUpload } from '@/app/components/DrawingUpload';
 import { BillHistory } from '@/app/components/BillHistory';
 import { RegionalPricedBillView } from '@/app/components/RegionalPricedBillView';
 import { Features } from '@/app/components/Features';
@@ -20,7 +19,6 @@ import { Button } from '@/app/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/app/components/ui/card';
 import { FileUp, FileDown, TrendingDown, FileImage, Coins, User, LogOut, Users } from 'lucide-react';
 import { Badge } from '@/app/components/ui/badge';
-import { getCurrentEnvironment } from '@/utils/environment';
 import { toast } from 'sonner';
 import { api } from '@/utils/api';
 import { getMunicipalitiesByProvince } from '@/utils/regionalOptimization';
@@ -48,10 +46,6 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
   const [professionalContractors, setProfessionalContractors] = useState<any[]>([]);
   const [selectedContractorId, setSelectedContractorId] = useState<string>('');
   const [monthlyBoqCount, setMonthlyBoqCount] = useState<number>(0);
-  
-  // Get current environment to conditionally show/hide features
-  const currentEnv = getCurrentEnvironment();
-  const showAIUpload = currentEnv === 'development' || currentEnv === 'demo';
   
   // ✅ Check if contractor can upload BOQ based on tier and monthly quota
   const contractorTier = (contractorData?.subscription_tier?.toLowerCase() || 'free') as SubscriptionTier;
@@ -762,16 +756,17 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                     Upload BOQ
                   </Button>
                 )}
-                {canUploadBOQ && showAIUpload && (
-                  <Button 
-                    variant={currentView === 'drawing' ? 'default' : 'outline'} 
-                    onClick={() => setCurrentView('drawing')}
-                    className={currentView === 'drawing' ? '' : 'border-purple-300 text-purple-700 hover:bg-purple-50'}
+                {canUploadBOQ && (
+                  <Button
+                    variant="outline"
+                    disabled
+                    aria-label="Upload Drawing AI — Coming soon"
+                    className="border-gray-200 bg-gray-100 text-gray-400 opacity-70 cursor-not-allowed"
                   >
-                    <FileImage className="h-4 w-4 mr-2" />
+                    <FileImage className="h-4 w-4 mr-2 grayscale" />
                     Upload Drawing (AI)
-                    <Badge variant="secondary" className="ml-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white text-[10px] px-1.5 py-0">
-                      NEW
+                    <Badge variant="secondary" className="ml-2 bg-gray-200 text-gray-500 text-[10px] px-1.5 py-0">
+                      Coming soon
                     </Badge>
                   </Button>
                 )}
@@ -871,7 +866,6 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                   canUploadBOQ={canUploadBOQ}
                 />
               )}
-              {currentView === 'drawing' && canUploadBOQ && (<DrawingUpload onProcess={handleBillProcess} isLoading={isLoading} canProcess={(!user?.trial_used || user?.paid_status) && !quotaExceeded} />)}
               {currentView === 'template-library' && (<BoqTemplateLibrary contractorProjectTypes={contractorData?.project_types || ['Road Construction', 'Housing Development', 'Infrastructure (Water/Sewer)', 'Civil Works', 'Bridges & Structures', 'Building Construction']} onTemplateSelect={handleTemplateSelect} onManualEntry={handleManualEntry} onBack={handleBackToUpload} canUploadBOQ={canUploadBOQ} contractorTier={contractorTier} />)}
               {currentView === 'result' && processedBill && (<RegionalPricedBillView bill={processedBill} contractorData={contractorData} processingTime={processedBill.processingTime} onBack={handleBackToUpload} />)}
               {currentView === 'history' && (<BillHistory accessToken={accessToken} />)}
