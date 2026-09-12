@@ -105,21 +105,21 @@ export function HowItWorks({ onNavigateToDashboard, contractorData }: HowItWorks
   const steps = [
     {
       number: '01',
-      title: 'Import Your Bill',
+      title: 'Choose How to Start',
       icon: Upload,
-      description: 'Upload your blank, unpriced bill of quantities in any common format. Our system automatically recognizes and parses the document structure.'
+      description: 'Select a pre-built Qilly template, or use a paid plan to upload or enter your own unpriced BOQ.'
     },
     {
       number: '02',
-      title: 'Click Generate',
+      title: 'Set the Project Location',
       icon: Sparkles,
-      description: 'Our intelligent pricing engine fetches live prices from suppliers and manufacturers, applying the correct formulas and rates automatically.'
+      description: 'Confirm the province, municipality, CIDB details, project duration and margin so Qilly can apply the relevant catalogue rates and regional factors.'
     },
     {
       number: '03',
-      title: 'Save & Download',
+      title: 'Generate, Review & Export',
       icon: Download,
-      description: 'Your fully priced document is ready. Download it to your device, make any adjustments, and submit your competitive bid with confidence.'
+      description: 'Generate the priced BOQ, compare available supplier matches, review every allowance and total, then save or export the result.'
     }
   ];
 
@@ -138,8 +138,8 @@ export function HowItWorks({ onNavigateToDashboard, contractorData }: HowItWorks
       <div className="space-y-8">
         {steps.map((step, index) => {
           const Icon = step.icon;
-          const isImportStep = step.title === 'Import Your Bill';
-          const isGenerateStep = step.title === 'Click Generate';
+          const isImportStep = step.title === 'Choose How to Start';
+          const isGenerateStep = step.title === 'Set the Project Location';
           
           return (
             <Card 
@@ -150,9 +150,9 @@ export function HowItWorks({ onNavigateToDashboard, contractorData }: HowItWorks
               onClick={(isImportStep || isGenerateStep) && onNavigateToDashboard ? () => {
                 onNavigateToDashboard();
                 if (isImportStep) {
-                  toast.success('Navigating to Dashboard - Upload your BOQ file to get started!');
+                  toast.success('Navigating to Dashboard - Choose a template or upload your BOQ to get started!');
                 } else if (isGenerateStep) {
-                  toast.success('Navigating to Dashboard - Upload a file and click Generate to price your BOQ!');
+                  toast.success('Navigating to Dashboard - Set your project details, then generate your priced BOQ!');
                 }
               } : undefined}
             >
@@ -179,7 +179,7 @@ export function HowItWorks({ onNavigateToDashboard, contractorData }: HowItWorks
                             onClick={(e) => {
                               e.stopPropagation();
                               onNavigateToDashboard();
-                              toast.success('Navigating to Dashboard - Upload your BOQ file to get started!');
+                              toast.success('Navigating to Dashboard - Choose a template or upload your BOQ to get started!');
                             }}
                           >
                             Go to Upload
@@ -191,7 +191,7 @@ export function HowItWorks({ onNavigateToDashboard, contractorData }: HowItWorks
                             onClick={(e) => {
                               e.stopPropagation();
                               onNavigateToDashboard();
-                              toast.success('Navigating to Dashboard - Upload a file and click Generate to price your BOQ!');
+                              toast.success('Navigating to Dashboard - Set your project details, then generate your priced BOQ!');
                             }}
                           >
                             Go to Generate
@@ -218,27 +218,27 @@ export function HowItWorks({ onNavigateToDashboard, contractorData }: HowItWorks
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold text-lg mb-2">⚡ Lightning Fast</h3>
+              <h3 className="font-semibold text-lg mb-2">🧩 Flexible Starting Point</h3>
               <p className="text-gray-600">
-                Complete bill pricing in under 5 minutes. What used to take hours now takes moments.
+                Begin with a read-only standard template, or upload and enter your own BOQ when your plan supports it.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-2">🎯 100% Accurate</h3>
+              <h3 className="font-semibold text-lg mb-2">📍 Location-aware Estimates</h3>
               <p className="text-gray-600">
-                Automated calculations eliminate human error. Every price and total is verified and correct.
+                Qilly applies the selected province's pricing factor to supplier-catalogue rates for a consistent regional estimate.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-2">📊 Live Data</h3>
+              <h3 className="font-semibold text-lg mb-2">🔎 Reviewable Results</h3>
               <p className="text-gray-600">
-                Access real-time pricing from multiple suppliers. Always get the most current rates available.
+                Supplier matches, allowances and calculated totals remain visible so you can verify them before submitting a bid.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-2">💼 Professional</h3>
+              <h3 className="font-semibold text-lg mb-2">📁 Persistent Workflow</h3>
               <p className="text-gray-600">
-                Generate professional, formatted bills ready for submission. Impress clients with polished documents.
+                Completed BOQs are saved to your account, while monthly plan usage and approved top-ups remain tied to the contractor.
               </p>
             </div>
           </div>
@@ -250,7 +250,7 @@ export function HowItWorks({ onNavigateToDashboard, contractorData }: HowItWorks
         <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
         <p className="text-gray-600 mb-6">
           {contractorData 
-            ? 'Upgrade your account to unlock unlimited BOQ pricing and advanced features.'
+            ? 'Upgrade your account to upload your own BOQs and increase your monthly BOQ allowance.'
             : 'Join hundreds of construction businesses already using Qilly.'
           }
         </p>
