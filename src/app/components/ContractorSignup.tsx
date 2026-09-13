@@ -378,7 +378,7 @@ export function ContractorSignup({ onSuccess, onBack }: ContractorSignupProps) {
         subscription_status: 'active',
         subscription_start_date: subscriptionStartDate,
         next_billing_date: null,
-        payment_method: payment?.method || null,
+        payment_method: payment?.method === 'manual' ? 'eft' : (payment?.method || null),
         payment_reference: payment?.reference || null,
         payment_amount: payment?.amount || selectedTierPrice,
         popia_consent_given: true,
