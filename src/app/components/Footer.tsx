@@ -73,9 +73,10 @@ export function Footer({ onNavigate }: FooterProps) {
                 </a>
               </li>
               <li>
-                <a href="mailto:billing@qilly.co.za" className="text-gray-400 hover:text-[#00b4d8] transition-colors">
-                  Billing Inquiries
+                <a href="mailto:billing@qilly-software.co.za" className="text-gray-400 hover:text-[#00b4d8] transition-colors">
+                  Billing Enquiries: billing@qilly-software.co.za
                 </a>
+                <span className="block text-xs text-gray-500">Alternative: <a href="mailto:billing@qilly.co.za" className="hover:text-[#00b4d8]">billing@qilly.co.za</a></span>
               </li>
             </ul>
           </div>
