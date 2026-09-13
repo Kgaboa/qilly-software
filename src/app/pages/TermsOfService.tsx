@@ -378,7 +378,7 @@ export default function TermsOfService() {
             <p className="text-gray-700 mb-3">You may terminate your account at any time by:</p>
             <ul className="list-disc pl-6 text-gray-700 space-y-2">
               <li>Emailing <a href="mailto:support@qilly.co.za" className="text-[#00b4d8] underline">support@qilly.co.za</a> requesting cancellation</li>
-              <li>Emailing <a href="mailto:billing@qilly.co.za" className="text-[#00b4d8] underline">billing@qilly.co.za</a> for billing-related termination</li>
+              <li>Emailing <a href="mailto:billing@qilly-software.co.za" className="text-[#00b4d8] underline">billing@qilly-software.co.za</a> (or <a href="mailto:billing@qilly.co.za" className="text-[#00b4d8] underline">billing@qilly.co.za</a>) for billing-related termination</li>
             </ul>
             <p className="text-gray-700 mt-3">
               Your data will be retained for <strong>30 days after termination</strong> to allow data export (POPIA
@@ -445,7 +445,7 @@ export default function TermsOfService() {
                 <p><strong>Company:</strong> Qilly (Pty) Ltd</p>
                 <p><strong>Registration Number:</strong> K2026156151</p>
                 <p><strong>Support Email:</strong> <a href="mailto:support@qilly.co.za" className="text-[#00b4d8] underline">support@qilly.co.za</a></p>
-                <p><strong>Billing &amp; Subscriptions:</strong> <a href="mailto:billing@qilly.co.za" className="text-[#00b4d8] underline">billing@qilly.co.za</a></p>
+                <p><strong>Billing &amp; Subscriptions:</strong> <a href="mailto:billing@qilly-software.co.za" className="text-[#00b4d8] underline">billing@qilly-software.co.za</a> (alternative: <a href="mailto:billing@qilly.co.za" className="text-[#00b4d8] underline">billing@qilly.co.za</a>)</p>
                 <p><strong>Phone:</strong> <a href="tel:+27837582645" className="text-[#00b4d8] underline">+27 83 758 2645</a></p>
                 <p><strong>Alternative enquiries:</strong> <a href="tel:+27768765069" className="text-[#00b4d8] underline">+27 76 876 5069</a></p>
                 <p><strong>Physical Address:</strong> 210 Kirkness Avenue, Pierre van Ryneveld, Centurion, 0157, Gauteng, South Africa</p>
