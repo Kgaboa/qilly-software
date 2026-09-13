@@ -69,7 +69,7 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
       `Current usage: ${monthlyBoqCount} of ${boqQuota ?? 'unlimited'} BOQs\n\n` +
       'The additional allowance must be activated after payment verification.'
     );
-    return `mailto:billing@qilly.co.za?subject=${subject}&body=${body}`;
+    return `mailto:billing@qilly-software.co.za?cc=billing%40qilly.co.za&subject=${subject}&body=${body}`;
   };
 
   useEffect(() => {
