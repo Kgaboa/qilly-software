@@ -623,9 +623,9 @@ export function AdminDashboard({ onLogout, onCapitalRaising }: AdminDashboardPro
             <TabsTrigger value="payments" className="flex items-center gap-2">
               <CreditCard className="w-4 h-4" />
               <span className="hidden sm:inline">Payments</span>
-              {contractors.filter(c => (c.payment_method === 'bank_transfer' || c.payment_method === 'manual') && c.status === 'pending').length > 0 && (
+              {contractors.filter(c => (c.payment_method === 'eft' || c.payment_method === 'bank_transfer' || c.payment_method === 'manual') && c.status === 'pending').length > 0 && (
                 <Badge className="bg-amber-500 text-white text-xs px-1.5 py-0 ml-1 min-w-[18px] flex items-center justify-center">
-                  {contractors.filter(c => (c.payment_method === 'bank_transfer' || c.payment_method === 'manual') && c.status === 'pending').length}
+                  {contractors.filter(c => (c.payment_method === 'eft' || c.payment_method === 'bank_transfer' || c.payment_method === 'manual') && c.status === 'pending').length}
                 </Badge>
               )}
             </TabsTrigger>
@@ -1090,7 +1090,7 @@ export function AdminDashboard({ onLogout, onCapitalRaising }: AdminDashboardPro
                         {filteredContractors.map((contractor) => (
                           <TableRow
                             key={contractor.id}
-                            className={(contractor.payment_method === 'bank_transfer' || contractor.payment_method === 'manual') && contractor.status === 'pending'
+                            className={(contractor.payment_method === 'eft' || contractor.payment_method === 'bank_transfer' || contractor.payment_method === 'manual') && contractor.status === 'pending'
                               ? 'bg-amber-50 hover:bg-amber-100'
                               : ''}
                           >
@@ -1117,9 +1117,9 @@ export function AdminDashboard({ onLogout, onCapitalRaising }: AdminDashboardPro
                                 <Badge className="bg-green-100 text-green-800 border border-green-300 text-xs">⚡ Stitch Auto ✓</Badge>
                               ) : contractor.payment_method === 'payfast' ? (
                                 <Badge className="bg-green-100 text-green-800 border border-green-300 text-xs">💳 PayFast Auto ✓</Badge>
-                              ) : (contractor.payment_method === 'bank_transfer' || contractor.payment_method === 'manual') && contractor.status === 'pending' ? (
+                              ) : (contractor.payment_method === 'eft' || contractor.payment_method === 'bank_transfer' || contractor.payment_method === 'manual') && contractor.status === 'pending' ? (
                                 <Badge className="bg-amber-100 text-amber-800 border border-amber-300 text-xs">🏦 EFT Pending ⚠️</Badge>
-                              ) : (contractor.payment_method === 'bank_transfer' || contractor.payment_method === 'manual') && contractor.status === 'approved' ? (
+                              ) : (contractor.payment_method === 'eft' || contractor.payment_method === 'bank_transfer' || contractor.payment_method === 'manual') && contractor.status === 'approved' ? (
                                 <Badge className="bg-blue-100 text-blue-800 border border-blue-300 text-xs">🏦 EFT Verified ✓</Badge>
                               ) : (
                                 <Badge variant="outline" className="text-xs">—</Badge>
@@ -1176,9 +1176,9 @@ export function AdminDashboard({ onLogout, onCapitalRaising }: AdminDashboardPro
                             <Badge className="bg-green-100 text-green-800 border border-green-300">⚡ Stitch — Auto-Approved ✓</Badge>
                           ) : selectedContractor.payment_method === 'payfast' ? (
                             <Badge className="bg-green-100 text-green-800 border border-green-300">💳 PayFast — Auto-Approved ✓</Badge>
-                          ) : (selectedContractor.payment_method === 'bank_transfer' || selectedContractor.payment_method === 'manual') && selectedContractor.status === 'pending' ? (
+                          ) : (selectedContractor.payment_method === 'eft' || selectedContractor.payment_method === 'bank_transfer' || selectedContractor.payment_method === 'manual') && selectedContractor.status === 'pending' ? (
                             <Badge className="bg-amber-100 text-amber-800 border border-amber-300">🏦 EFT — Awaiting Verification ⚠️</Badge>
-                          ) : (selectedContractor.payment_method === 'bank_transfer' || selectedContractor.payment_method === 'manual') && selectedContractor.status === 'approved' ? (
+                          ) : (selectedContractor.payment_method === 'eft' || selectedContractor.payment_method === 'bank_transfer' || selectedContractor.payment_method === 'manual') && selectedContractor.status === 'approved' ? (
                             <Badge className="bg-blue-100 text-blue-800 border border-blue-300">🏦 EFT — Admin Verified ✓</Badge>
                           ) : (
                             <Badge variant="outline" className="text-gray-500">
@@ -1309,7 +1309,7 @@ export function AdminDashboard({ onLogout, onCapitalRaising }: AdminDashboardPro
                     {/* Action Buttons — shown for ANY contractor with status=pending */}
                     {selectedContractor.status === 'pending' && (
                       <div className="space-y-3 pt-4 border-t">
-                        {(selectedContractor.payment_method === 'bank_transfer' || selectedContractor.payment_method === 'manual') && (
+                        {(selectedContractor.payment_method === 'eft' || selectedContractor.payment_method === 'bank_transfer' || selectedContractor.payment_method === 'manual') && (
                           <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800">
                             <p className="font-semibold mb-1">⚠️ EFT Payment Verification Required</p>
                             <p>Check your Standard Bank statement for reference: <strong className="font-mono">{selectedContractor.payment_reference || 'N/A'}</strong></p>
@@ -1323,7 +1323,7 @@ export function AdminDashboard({ onLogout, onCapitalRaising }: AdminDashboardPro
                             className="flex-1 bg-green-600 hover:bg-green-700"
                           >
                             <CheckCircle className="w-4 h-4 mr-2" />
-                            {(selectedContractor.payment_method === 'bank_transfer' || selectedContractor.payment_method === 'manual')
+                            {(selectedContractor.payment_method === 'eft' || selectedContractor.payment_method === 'bank_transfer' || selectedContractor.payment_method === 'manual')
                               ? 'Verify & Approve EFT ✓'
                               : 'Approve Contractor'}
                           </Button>
@@ -1346,7 +1346,7 @@ export function AdminDashboard({ onLogout, onCapitalRaising }: AdminDashboardPro
                           <span className="font-semibold">
                             {selectedContractor.payment_method === 'stitch'  ? '⚡ Stitch payment auto-approved at registration' :
                              selectedContractor.payment_method === 'payfast' ? '💳 PayFast payment auto-approved at registration' :
-                             (selectedContractor.payment_method === 'bank_transfer' || selectedContractor.payment_method === 'manual') ? '🏦 EFT payment verified by admin' :
+                             (selectedContractor.payment_method === 'eft' || selectedContractor.payment_method === 'bank_transfer' || selectedContractor.payment_method === 'manual') ? '🏦 EFT payment verified by admin' :
                              'Approved'}
                           </span>
                         </div>
