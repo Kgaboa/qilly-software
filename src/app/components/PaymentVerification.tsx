@@ -53,7 +53,7 @@ interface ContractorPayment {
   email: string;
   phone: string;
   subscription_tier: string;
-  payment_method: 'bank_transfer' | 'manual' | 'stitch' | 'payfast' | null;
+  payment_method: 'eft' | 'bank_transfer' | 'manual' | 'stitch' | 'payfast' | null;
   payment_reference: string | null;
   payment_amount: number | null;
   payment_approved: boolean;
@@ -64,7 +64,7 @@ interface ContractorPayment {
 
 // ── Helper: is this an EFT (manual bank transfer) record? ───────────────────
 function isEFT(p: ContractorPayment) {
-  return p.payment_method === 'bank_transfer' || p.payment_method === 'manual';
+  return p.payment_method === 'eft' || p.payment_method === 'bank_transfer' || p.payment_method === 'manual';
 }
 
 interface PaymentVerificationProps {
