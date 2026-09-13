@@ -961,7 +961,7 @@ export async function exportToWord(options: ExportOptions): Promise<void> {
         ...(pgCosts > 0 ? [new Paragraph({ children: [new TextRun({ text: 'Preliminaries & General: ', bold: true }), new TextRun(fmtR(pgCosts))] })] : []),
         new Paragraph({ children: [new TextRun({ text: 'OVERALL BOQ TOTAL: ', bold: true, size: 26 }), new TextRun({ text: fmtR(overallTotal), bold: true, size: 26 })] }),
         new Paragraph({ text: '' }),
-        new Paragraph({ children: [new TextRun({ text: 'Disclaimer: ', bold: true, italics: true }), new TextRun({ text: 'Prices are indicative estimates based on BuildAid 2025/2026 industry benchmarks. Contact billing@qilly.co.za for confirmed quotes.', italics: true, size: 16 })] }),
+        new Paragraph({ children: [new TextRun({ text: 'Disclaimer: ', bold: true, italics: true }), new TextRun({ text: 'Prices are indicative estimates based on BuildAid 2025/2026 industry benchmarks. For billing enquiries contact billing@qilly-software.co.za or billing@qilly.co.za. Confirm actual prices with suppliers.', italics: true, size: 16 })] }),
       ],
     }],
   });
