@@ -44,8 +44,8 @@ export function TierSelectionStep({ onSelectTier, onTierSelect, onBack }: TierSe
         'Email + Chat support',
       ],
       locked: [],
-      cta: 'Coming Soon',
-      active: false,
+      cta: 'Select Professional',
+      active: true,
     },
     {
       id: 'ENTERPRISE',
@@ -103,7 +103,7 @@ export function TierSelectionStep({ onSelectTier, onTierSelect, onBack }: TierSe
         )}
         <div>
           <h2 className="text-xl font-bold text-slate-900 leading-tight">Choose Your Tier</h2>
-          <p className="text-xs text-slate-500">Enterprise is the only tier currently available for new registrations.</p>
+          <p className="text-xs text-slate-500">Professional and Enterprise are available for new registrations.</p>
         </div>
       </div>
 
