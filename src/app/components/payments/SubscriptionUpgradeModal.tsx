@@ -296,12 +296,13 @@ export function SubscriptionUpgradeModal({
             </p>
             <div className="space-y-2">
               <a
-                href="mailto:billing@qilly.co.za?subject=Subscription%20Upgrade%20Request"
+                href="mailto:billing@qilly-software.co.za?cc=billing%40qilly.co.za&subject=Subscription%20Upgrade%20Request"
                 className="flex items-center gap-2 w-full bg-[#00b4d8] hover:bg-[#0077b6] text-white text-sm font-semibold px-4 py-2.5 rounded-md transition-colors"
               >
                 <CreditCard className="w-4 h-4" />
-                Email billing@qilly.co.za
+                Email billing@qilly-software.co.za
               </a>
+              <p className="text-xs text-blue-800">Alternative: <a href="mailto:billing@qilly.co.za" className="underline">billing@qilly.co.za</a></p>
               <div className="grid gap-2 sm:grid-cols-2">
                 <a
                   href="tel:+27837582645"
