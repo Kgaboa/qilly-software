@@ -562,7 +562,7 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
             <span className="mt-0.5 shrink-0">⚠️</span>
             <span>
               <strong>Indicative pricing only.</strong> Prices are based on BuildAid 2025/2026 industry benchmarks and may differ from confirmed supplier quotes.
-              Contact <a href="mailto:billing@qilly.co.za" className="underline font-medium">billing@qilly.co.za</a> for a verified quote.
+              For billing-related enquiries, contact <a href="mailto:billing@qilly-software.co.za" className="underline font-medium">billing@qilly-software.co.za</a> or <a href="mailto:billing@qilly.co.za" className="underline font-medium">billing@qilly.co.za</a>. Confirm actual rates directly with suppliers.
             </span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5" ref={summaryCardsRef}>
