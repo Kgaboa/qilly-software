@@ -230,7 +230,7 @@ function getSupplierQuotesWithProvince(item: BillItem, matchedItems: SupplierPri
   // Normalize quantity for special unit types
   let quantity = parseFloat(item.quantity) || 1;
   const unitLower = item.unit.toLowerCase().trim();
-  const isLumpSum = unitLower === 'lump sum' || unitLower === 'lumpsum' || unitLower === 'ls' || unitLower === 'sum';
+  const isLumpSum = unitLower === 'lump sum' || unitLower === 'lumpsum' || unitLower === 'lump' || unitLower === 'ls' || unitLower === 'sum';
   const isPCSum = unitLower.includes('prime cost') || unitLower.includes('pc sum') || unitLower === 'pc';
   const isProvisionalSum = unitLower.includes('provisional sum') || unitLower === 'provisional sum';
   const isRateOnly = item.isRateOnly === true;
@@ -352,7 +352,7 @@ export function priceBill(unpricedItems: BillItem[], projectSettings?: ProjectSe
     
     // Normalize quantity for special unit types BEFORE processing
     const unitLower = item.unit.toLowerCase().trim();
-    const isLumpSum = unitLower === 'lump sum' || unitLower === 'lumpsum' || unitLower === 'ls' || unitLower === 'sum';
+    const isLumpSum = unitLower === 'lump sum' || unitLower === 'lumpsum' || unitLower === 'lump' || unitLower === 'ls' || unitLower === 'sum';
     const isPCSum = unitLower.includes('prime cost') || unitLower.includes('pc sum') || unitLower === 'pc';
     const isProvisionalSum = unitLower.includes('provisional sum') || unitLower === 'provisional sum';
     
@@ -581,7 +581,7 @@ export function priceBillWithProvince(unpricedItems: BillItem[], provinceCode: s
     
     // Normalize quantity for special unit types BEFORE processing
     const unitLower = item.unit.toLowerCase().trim();
-    const isLumpSum = unitLower === 'lump sum' || unitLower === 'lumpsum' || unitLower === 'ls' || unitLower === 'sum';
+    const isLumpSum = unitLower === 'lump sum' || unitLower === 'lumpsum' || unitLower === 'lump' || unitLower === 'ls' || unitLower === 'sum';
     const isPCSum = unitLower.includes('prime cost') || unitLower.includes('pc sum') || unitLower === 'pc';
     const isProvisionalSum = unitLower.includes('provisional sum') || unitLower === 'provisional sum';
     
