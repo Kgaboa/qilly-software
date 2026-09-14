@@ -1000,38 +1000,15 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                     }}
                     className="w-full h-8 px-2 text-xs border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
-                    {isContractor && contractorData?.operating_provinces?.length > 0 ? (
-                      // Show only contractor's operating provinces (convert to codes first)
-                      contractorData.operating_provinces.map((prov: string) => {
-                        const provCode = provinceNameToCode(prov); // Convert to code
-                        return (
-                          <option key={provCode} value={provCode}>
-                            {provCode === 'GP' && 'Gauteng (GP)'}
-                            {provCode === 'WC' && 'Western Cape (WC)'}
-                            {provCode === 'KZN' && 'KwaZulu-Natal (KZN)'}
-                            {provCode === 'EC' && 'Eastern Cape (EC)'}
-                            {provCode === 'FS' && 'Free State (FS)'}
-                            {provCode === 'MP' && 'Mpumalanga (MP)'}
-                            {provCode === 'LP' && 'Limpopo (LP)'}
-                            {provCode === 'NW' && 'North West (NW)'}
-                            {provCode === 'NC' && 'Northern Cape (NC)'}
-                          </option>
-                        );
-                      })
-                    ) : (
-                      // Show all provinces for non-contractors
-                      <>
-                        <option value="GP">Gauteng (GP)</option>
-                        <option value="WC">Western Cape (WC)</option>
-                        <option value="KZN">KwaZulu-Natal (KZN)</option>
-                        <option value="EC">Eastern Cape (EC)</option>
-                        <option value="FS">Free State (FS)</option>
-                        <option value="MP">Mpumalanga (MP)</option>
-                        <option value="LP">Limpopo (LP)</option>
-                        <option value="NW">North West (NW)</option>
-                        <option value="NC">Northern Cape (NC)</option>
-                      </>
-                    )}
+                    <option value="GP">Gauteng (GP)</option>
+                    <option value="WC">Western Cape (WC)</option>
+                    <option value="KZN">KwaZulu-Natal (KZN)</option>
+                    <option value="EC">Eastern Cape (EC)</option>
+                    <option value="FS">Free State (FS)</option>
+                    <option value="MP">Mpumalanga (MP)</option>
+                    <option value="LP">Limpopo (LP)</option>
+                    <option value="NW">North West (NW)</option>
+                    <option value="NC">Northern Cape (NC)</option>
                   </select>
                 </div>
 
@@ -1068,12 +1045,9 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                     onChange={(e) => setProjectSettings(prev => ({ ...prev, profitMargin: e.target.value }))}
                     className="w-full h-8 px-2 text-xs border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
-                    <option value="10">10%</option>
-                    <option value="12">12%</option>
-                    <option value="15">15%</option>
-                    <option value="18">18%</option>
-                    <option value="20">20%</option>
-                    <option value="25">25%</option>
+                    {Array.from({ length: 25 }, (_, index) => index + 1).map(margin => (
+                      <option key={margin} value={margin.toString()}>{margin}%</option>
+                    ))}
                   </select>
                 </div>
 
@@ -1132,14 +1106,11 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                     onChange={(e) => setProjectSettings(prev => ({ ...prev, duration: e.target.value }))}
                     className="w-full h-8 px-2 text-xs border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
-                    <option value="1">1 month</option>
-                    <option value="3">3 months</option>
-                    <option value="6">6 months</option>
-                    <option value="9">9 months</option>
-                    <option value="12">12 months</option>
-                    <option value="18">18 months</option>
-                    <option value="24">24 months</option>
-                    <option value="36">36+ months</option>
+                    {Array.from({ length: 36 }, (_, index) => index + 1).map(months => (
+                      <option key={months} value={months.toString()}>
+                        {months} {months === 1 ? 'month' : 'months'}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
