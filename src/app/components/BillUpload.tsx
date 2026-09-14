@@ -336,7 +336,7 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
     // Auto-set quantity to 1 for special unit types
     if (field === 'unit') {
       const unitLower = value.toLowerCase().trim();
-      const isLumpSum = unitLower === 'lump sum' || unitLower === 'lumpsum' || unitLower === 'ls' || unitLower === 'sum';
+      const isLumpSum = unitLower === 'lump sum' || unitLower === 'lumpsum' || unitLower === 'lump' || unitLower === 'ls' || unitLower === 'sum';
       const isPCSum = unitLower.includes('prime cost') || unitLower.includes('pc sum') || unitLower === 'pc';
       const isProvisionalSum = unitLower.includes('provisional sum') || unitLower === 'provisional sum' || unitLower === 'prov';
       
