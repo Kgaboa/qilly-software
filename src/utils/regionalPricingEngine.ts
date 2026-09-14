@@ -481,6 +481,7 @@ export async function priceRegionalBill(
       
       const isLumpSum = unitLower === 'lump sum' || 
                        unitLower === 'lumpsum' || 
+                       unitLower === 'lump' ||
                        unitLower === 'ls' || 
                        unitLower === 'l/s' ||
                        unitLower === 'sum';
@@ -648,17 +649,9 @@ export async function priceRegionalBill(
     const totalLandedCost = parseFloat(bestQuote.totalLandedCost);
     const landedUnitPrice = parseFloat(bestQuote.landedUnitPrice);
     
-    // Check if unit is square meter and adjust calculation
-    const isSquareMeter = /^(m[²2]|sqm|sq\s*m|square\s*meter|square\s*metre)$/i.test(item.unit.trim());
-    
-    let adjustedTotalLandedCost = totalLandedCost;
-    if (isSquareMeter && quantity > 0) {
-      const adjustedUnitPrice = landedUnitPrice / quantity;
-      adjustedTotalLandedCost = adjustedUnitPrice * quantity;
-      console.log(`   📐 SQUARE METER DETECTED: Adjusted unit price from R${landedUnitPrice} to R${adjustedUnitPrice.toFixed(2)}`);
-    }
-    
-    const { finalPrice: finalTotalPrice, additionalFeesBreakdown } = applyProjectSettings(adjustedTotalLandedCost, projectSettings || {});
+    // Supplier quotes already return total landed cost as landed unit rate × quantity.
+    // Apply project settings to that total consistently for every unit, including m².
+    const { finalPrice: finalTotalPrice, additionalFeesBreakdown } = applyProjectSettings(totalLandedCost, projectSettings || {});
     const finalUnitPrice = quantity > 0 ? finalTotalPrice / quantity : finalTotalPrice;
     const additionalFeesPerUnit = quantity > 0 ? additionalFeesBreakdown.totalAdditionalAmount / quantity : additionalFeesBreakdown.totalAdditionalAmount;
     
