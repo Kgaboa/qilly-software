@@ -139,6 +139,7 @@ export function categorizeItem(
   
   const isLumpSum = unitLower === 'lump sum' || 
                    unitLower === 'lumpsum' || 
+                   unitLower === 'lump' ||
                    unitLower === 'ls' || 
                    unitLower === 'l/s' ||
                    unitLower === 'sum';
