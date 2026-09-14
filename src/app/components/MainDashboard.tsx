@@ -31,6 +31,11 @@ interface MainDashboardProps {
   onLogout: () => void;
 }
 
+const ALL_PROVINCES = [
+  'Gauteng', 'Western Cape', 'KwaZulu-Natal', 'Eastern Cape', 'Free State',
+  'Mpumalanga', 'Limpopo', 'North West', 'Northern Cape'
+];
+
 export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
   const [user, setUser] = useState<any>(null);
   const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq'>('upload');
@@ -46,6 +51,9 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
   const [professionalContractors, setProfessionalContractors] = useState<any[]>([]);
   const [selectedContractorId, setSelectedContractorId] = useState<string>('');
   const [monthlyBoqCount, setMonthlyBoqCount] = useState<number>(0);
+  const [isEditingProvinces, setIsEditingProvinces] = useState(false);
+  const [editedProvinces, setEditedProvinces] = useState<string[]>([]);
+  const [isSavingProvinces, setIsSavingProvinces] = useState(false);
   
   // ✅ Check if contractor can upload BOQ based on tier and monthly quota
   const contractorTier = (contractorData?.subscription_tier?.toLowerCase() || 'free') as SubscriptionTier;
@@ -59,6 +67,48 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
     : 0;
   const boqQuota = baseBoqQuota === null ? null : baseBoqQuota + activeTopUpAllowance;
   const quotaExceeded = boqQuota !== null && monthlyBoqCount >= boqQuota;
+
+  const startEditingProvinces = () => {
+    setEditedProvinces(contractorData?.operating_provinces || []);
+    setIsEditingProvinces(true);
+  };
+
+  const toggleEditedProvince = (province: string) => {
+    setEditedProvinces(current =>
+      current.includes(province)
+        ? current.filter(item => item !== province)
+        : [...current, province]
+    );
+  };
+
+  const saveOperatingProvinces = async () => {
+    if (!contractorData?.id || editedProvinces.length === 0) {
+      toast.error('Select at least one operating province.');
+      return;
+    }
+
+    setIsSavingProvinces(true);
+    try {
+      const { data, error } = await supabase
+        .from('contractors')
+        .update({ operating_provinces: editedProvinces })
+        .eq('id', contractorData.id)
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      setContractorData(data);
+      sessionStorage.setItem('contractor_data', JSON.stringify(data));
+      setIsEditingProvinces(false);
+      toast.success('Operating provinces updated.');
+    } catch (error: any) {
+      console.error('Failed to update operating provinces:', error);
+      toast.error(`Could not update provinces: ${error?.message || 'Unknown error'}`);
+    } finally {
+      setIsSavingProvinces(false);
+    }
+  };
 
   const getTopUpRequestUrl = (quantity: number) => {
     const subject = encodeURIComponent(`Qilly BOQ top-up request: +${quantity} BOQs`);
@@ -646,9 +696,56 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                                 `R${(contractorData.annual_turnover / 1000000).toFixed(0)}M (Generic)`
                               }
                             </p>
-                            <p className="text-xs text-white/90 leading-tight col-span-2 truncate">
-                              <span className="font-semibold">Operating Provinces:</span> {contractorData.operating_provinces?.join(', ') || contractorData.province}
-                            </p>
+                            <div className="text-xs text-white/90 leading-tight col-span-2">
+                              <div className="flex items-center gap-2">
+                                <p className="truncate flex-1">
+                                  <span className="font-semibold">Operating Provinces:</span> {contractorData.operating_provinces?.join(', ') || contractorData.province}
+                                </p>
+                                <button
+                                  type="button"
+                                  onClick={startEditingProvinces}
+                                  className="shrink-0 underline font-semibold hover:text-white"
+                                >
+                                  Update
+                                </button>
+                              </div>
+                              {isEditingProvinces && (
+                                <div className="mt-2 rounded-md bg-white p-3 text-slate-800 shadow-lg">
+                                  <p className="mb-2 font-semibold">Select all provinces where you operate</p>
+                                  <div className="grid grid-cols-2 gap-2">
+                                    {ALL_PROVINCES.map(province => (
+                                      <label key={province} className="flex items-center gap-2 cursor-pointer">
+                                        <input
+                                          type="checkbox"
+                                          checked={editedProvinces.includes(province)}
+                                          onChange={() => toggleEditedProvince(province)}
+                                        />
+                                        <span>{province}</span>
+                                      </label>
+                                    ))}
+                                  </div>
+                                  <div className="mt-3 flex justify-end gap-2">
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={() => setIsEditingProvinces(false)}
+                                      disabled={isSavingProvinces}
+                                    >
+                                      Cancel
+                                    </Button>
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      onClick={saveOperatingProvinces}
+                                      disabled={isSavingProvinces || editedProvinces.length === 0}
+                                    >
+                                      {isSavingProvinces ? 'Saving...' : 'Save provinces'}
+                                    </Button>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
                             <p className="text-xs text-white/90 leading-tight col-span-2 truncate">
                               <span className="font-semibold">📋 Projects:</span> {contractorData.project_types?.join(', ') || 'N/A'}
                             </p>
