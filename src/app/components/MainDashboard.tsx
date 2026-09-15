@@ -437,20 +437,35 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
         }
         
         await new Promise(resolve => setTimeout(resolve, 100));
-        const { data: billRecord, error: billError } = await supabase
+        const billPayload = {
+          user_id: authUser.id,
+          contractor_id: contractorData?.id ?? null,
+          project_name: `BOQ ${new Date().toLocaleDateString()}`,
+          bill_number: data.billId || `BILL-${Date.now()}`,
+          total_cost: parseFloat(data.overallTotal || '0'),
+          project_settings: projectSettings,
+          status: 'processed',
+          uploaded_via: contractorData ? 'contractor' : 'manual'
+        };
+
+        let { data: billRecord, error: billError } = await supabase
           .from('bills')
-          .insert({
-            user_id: authUser.id,
-            contractor_id: contractorData?.id ?? null,
-            project_name: `BOQ ${new Date().toLocaleDateString()}`,
-            bill_number: data.billId || `BILL-${Date.now()}`,
-            total_cost: parseFloat(data.overallTotal || '0'),
-            project_settings: projectSettings,
-            status: 'processed',
-            uploaded_via: contractorData ? 'contractor' : 'manual'
-          })
+          .insert(billPayload)
           .select()
           .single();
+
+        // Compatibility fallback for a stale PostgREST schema cache. user_id
+        // still links the BOQ and is included in the monthly quota query.
+        if (billError?.code === 'PGRST204' && billError.message?.includes('contractor_id')) {
+          const { contractor_id: _contractorId, ...compatiblePayload } = billPayload;
+          const retry = await supabase
+            .from('bills')
+            .insert(compatiblePayload)
+            .select()
+            .single();
+          billRecord = retry.data;
+          billError = retry.error;
+        }
         if (billError) {
           console.error('❌ Error saving bill to Supabase:', billError);
           toast.error(`Database error: ${billError.message}`);
@@ -518,12 +533,19 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                 };
               });
             if (billItems.length > 0) {
-              const { error: itemsError } = await supabase.from('bill_items').insert(billItems);
-              if (itemsError) {
-                console.error('⚠️ Error saving bill items:', itemsError);
-              } else {
-                console.log(`✅ ${billItems.length} bill items saved to Supabase`);
+              const batchSize = 100;
+              let savedItemCount = 0;
+              for (let start = 0; start < billItems.length; start += batchSize) {
+                const batch = billItems.slice(start, start + batchSize);
+                const { error: itemsError } = await supabase.from('bill_items').insert(batch);
+                if (itemsError) {
+                  console.error(`⚠️ Error saving bill item batch ${start / batchSize + 1}:`, itemsError);
+                  toast.error(`BOQ generated, but item storage failed: ${itemsError.message}`);
+                  break;
+                }
+                savedItemCount += batch.length;
               }
+              console.log(`✅ ${savedItemCount}/${billItems.length} bill items saved to Supabase`);
             }
           }
         }
