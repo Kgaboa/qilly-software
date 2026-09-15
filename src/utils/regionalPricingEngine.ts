@@ -24,6 +24,7 @@ export interface ProjectSettings {
   province?: string;
   municipality?: string;
   profitMargin?: string;
+  pcHandlingMargin?: string;
   cidbGrading?: string;
   duration?: string;
   machineryType?: string;
@@ -525,11 +526,12 @@ export async function priceRegionalBill(
         console.log(`   📦 Provisional Sum: R${catalogPrice.toFixed(2)} (direct from catalog)`);
         
       } else if (isPCSum) {
-        // PRIME COST SUM: Add 10-15% contractor handling/profit margin
-        const pcMargin = 0.125; // 12.5% handling fee for PC items
+        // PRIME COST SUM: contractor-selectable handling, starting at 3%
+        const pcMarginPercent = Math.max(3, parseFloat(projectSettings?.pcHandlingMargin || '3'));
+        const pcMargin = pcMarginPercent / 100;
         finalBasePrice = catalogPrice * (1 + pcMargin);
-        specialHandling = 'Prime Cost Sum (+12.5% handling)';
-        console.log(`   💰 PC Sum: Base=R${catalogPrice.toFixed(2)}, Margin=12.5%, Final=R${finalBasePrice.toFixed(2)}`);
+        specialHandling = `Prime Cost Sum (+${pcMarginPercent.toFixed(2)}% handling)`;
+        console.log(`   💰 PC Sum: Base=R${catalogPrice.toFixed(2)}, Margin=${pcMarginPercent.toFixed(2)}%, Final=R${finalBasePrice.toFixed(2)}`);
         
       } else if (isPercentage) {
         // PERCENTAGE: Calculate as percentage of the base value
@@ -651,9 +653,24 @@ export async function priceRegionalBill(
     
     // Supplier quotes already return total landed cost as landed unit rate × quantity.
     // Apply project settings to that total consistently for every unit, including m².
-    const { finalPrice: finalTotalPrice, additionalFeesBreakdown } = applyProjectSettings(totalLandedCost, projectSettings || {});
-    const finalUnitPrice = quantity > 0 ? finalTotalPrice / quantity : finalTotalPrice;
-    const additionalFeesPerUnit = quantity > 0 ? additionalFeesBreakdown.totalAdditionalAmount / quantity : additionalFeesBreakdown.totalAdditionalAmount;
+    let { finalPrice: finalTotalPrice, additionalFeesBreakdown } = applyProjectSettings(totalLandedCost, projectSettings || {});
+    let finalUnitPrice = quantity > 0 ? finalTotalPrice / quantity : finalTotalPrice;
+
+    // Reviewed haulage rule: the final tender rate may not exceed R50 per km/m³.
+    const normalizedUnit = item.unit.toLowerCase().replace(/\s+/g, '');
+    const isHaulageUnit = normalizedUnit === 'km/m3' || normalizedUnit === 'km/m³';
+    if (isHaulageUnit && finalUnitPrice > 50) {
+      finalUnitPrice = 50;
+      finalTotalPrice = 50 * quantity;
+      additionalFeesBreakdown = {
+        ...additionalFeesBreakdown,
+        totalAdditionalAmount: finalTotalPrice - totalLandedCost,
+        totalAdditional: totalLandedCost > 0
+          ? ((finalTotalPrice - totalLandedCost) / totalLandedCost) * 100
+          : 0,
+      };
+    }
+    const additionalFeesPerUnit = quantity > 0 ? (finalTotalPrice - totalLandedCost) / quantity : finalTotalPrice - totalLandedCost;
     
     console.log(`   🏆 Best Supplier: ${bestQuote.supplier} (${bestQuote.branchName})`);
     console.log(`   📦 Base Price: R${bestQuote.baseUnitPrice}/unit`);
