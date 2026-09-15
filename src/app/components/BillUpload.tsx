@@ -70,6 +70,11 @@ const CIDB_CLASSES = [
 
 // CIDB Grade Numbers - 1-9
 const CIDB_GRADE_NUMBERS = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const BOQ_PAGE_SIZE = 75;
+const CIDB_SUGGESTED_MARGINS: Record<string, string> = {
+  '1': '15', '2': '13', '3': '12', '4': '10', '5': '9',
+  '6': '8', '7': '7', '8': '6', '9': '5'
+};
 
 interface BillItem {
   code: string;
@@ -96,6 +101,7 @@ interface ProjectSettings {
   province: string;
   municipality?: string;
   profitMargin: string;
+  pcHandlingMargin: string;
   cidbGrading: string;
   duration: string;
   machineryType: string;
@@ -113,6 +119,7 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
   const [contractorData, setContractorData] = useState<any>(null);
   const [isLoadingContractor, setIsLoadingContractor] = useState(true);
   const [isFromTemplate, setIsFromTemplate] = useState(false); // ✅ Track if items are from template
+  const [itemPage, setItemPage] = useState(0);
 
   // Load contractor data from Supabase (not localStorage/sessionStorage)
   useEffect(() => {
@@ -210,6 +217,7 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
           province: defaultProvince,
           municipality: defaultMunicipality,
           cidbGrading: defaultCidb,
+          profitMargin: CIDB_SUGGESTED_MARGINS[defaultCidb.slice(-1)] || prev.profitMargin,
         }));
         
         console.log('  ✅ Project settings state updated');
@@ -255,7 +263,8 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
   const [projectSettings, setProjectSettings] = useState<ProjectSettings>({
     province: 'GP',
     municipality: 'JHB',
-    profitMargin: '15',
+    profitMargin: '10',
+    pcHandlingMargin: '3',
     cidbGrading: 'GB4',
     duration: '6',
     machineryType: 'rented'
@@ -287,6 +296,15 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
       setCidbGradeNumber(prev => gradeNum !== prev ? gradeNum : prev);
     }
   }, [projectSettings.cidbGrading]); // ✅ Only depend on cidbGrading, not the state we're setting
+
+  useEffect(() => {
+    const lastPage = Math.max(0, Math.ceil(items.length / BOQ_PAGE_SIZE) - 1);
+    if (itemPage > lastPage) setItemPage(lastPage);
+  }, [items.length, itemPage]);
+
+  const totalItemPages = Math.max(1, Math.ceil(items.length / BOQ_PAGE_SIZE));
+  const visibleItemStart = itemPage * BOQ_PAGE_SIZE;
+  const visibleItems = items.slice(visibleItemStart, visibleItemStart + BOQ_PAGE_SIZE);
 
   // Debug: Log project settings whenever they change
   useEffect(() => {
@@ -1051,6 +1069,24 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                   </select>
                 </div>
 
+                {/* Prime Cost handling margin */}
+                <div className="space-y-1.5">
+                  <Label htmlFor="pcHandlingMargin" className="text-xs font-medium">
+                    PC Handling (%)
+                  </Label>
+                  <select
+                    id="pcHandlingMargin"
+                    value={projectSettings.pcHandlingMargin}
+                    onChange={(e) => setProjectSettings(prev => ({ ...prev, pcHandlingMargin: e.target.value }))}
+                    className="w-full h-8 px-2 text-xs border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    {Array.from({ length: 23 }, (_, index) => index + 3).map(margin => (
+                      <option key={margin} value={margin.toString()}>{margin}%</option>
+                    ))}
+                  </select>
+                  <p className="text-[10px] text-slate-500">Starts at 3%; adjustable upward.</p>
+                </div>
+
                 {/* CIDB Class */}
                 <div className="space-y-1.5">
                   <Label htmlFor="cidbClass" className="text-xs font-medium">
@@ -1083,7 +1119,12 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                     value={cidbGradeNumber}
                     onChange={(e) => {
                       console.log('CIDB Grade Number changed to:', e.target.value);
-                      setCidbGradeNumber(e.target.value);
+                      const grade = e.target.value;
+                      setCidbGradeNumber(grade);
+                      setProjectSettings(prev => ({
+                        ...prev,
+                        profitMargin: CIDB_SUGGESTED_MARGINS[grade] || prev.profitMargin
+                      }));
                     }}
                     className="w-full h-8 px-2 text-xs border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
@@ -1184,6 +1225,23 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
             </div>
           </div>
 
+          {items.length > BOQ_PAGE_SIZE && (
+            <div className="mb-3 flex items-center justify-between rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs">
+              <span>
+                Showing {visibleItemStart + 1}-{Math.min(visibleItemStart + BOQ_PAGE_SIZE, items.length)} of {items.length} items
+              </span>
+              <div className="flex items-center gap-2">
+                <Button type="button" size="sm" variant="outline" onClick={() => setItemPage(page => Math.max(0, page - 1))} disabled={itemPage === 0}>
+                  Previous
+                </Button>
+                <span>Page {itemPage + 1} of {totalItemPages}</span>
+                <Button type="button" size="sm" variant="outline" onClick={() => setItemPage(page => Math.min(totalItemPages - 1, page + 1))} disabled={itemPage >= totalItemPages - 1}>
+                  Next
+                </Button>
+              </div>
+            </div>
+          )}
+
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
@@ -1228,7 +1286,9 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {items.map((item, index) => (
+                {visibleItems.map((item, pageIndex) => {
+                  const index = visibleItemStart + pageIndex;
+                  return (
                   <TableRow key={index}>
                     <TableCell className="p-2">
                       <Input
@@ -1307,7 +1367,8 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                       </Button>
                     </TableCell>
                   </TableRow>
-                ))}
+                  );
+                })}
               </TableBody>
             </Table>
           </div>
