@@ -29,6 +29,10 @@ export interface LaborRate {
   metadata?: any; // DB has JSON metadata column
 }
 
+const LABOR_RATE_CACHE_MS = 5 * 60 * 1000;
+let cachedLaborRates: LaborRate[] | null = null;
+let cachedLaborRatesAt = 0;
+
 export interface LaborPricing {
   matched: boolean;
   laborRate: number;
@@ -51,11 +55,12 @@ export async function matchLaborRate(
   try {
     console.log(`\n🔧 LABOR RATE LOOKUP: "${description}" (${unit})`);
 
-    let ratesToUse: LaborRate[] = [];
-    let dataSource = 'unknown';
+    const cacheIsFresh = cachedLaborRates && Date.now() - cachedLaborRatesAt < LABOR_RATE_CACHE_MS;
+    let ratesToUse: LaborRate[] = cacheIsFresh ? cachedLaborRates! : [];
+    let dataSource = cacheIsFresh ? 'in-memory cache' : 'unknown';
 
     // PRIORITY 1: Try boq_rates table (new schema with equipment rates)
-    try {
+    if (ratesToUse.length === 0) try {
       const { data: boqRates, error: boqError } = await supabase
         .from('boq_rates')
         .select('*')
@@ -124,6 +129,11 @@ export async function matchLaborRate(
       ratesToUse = mockLaborRates as any;
       dataSource = 'mock database (BuildAid 2025/2026)';
       console.log(`  📊 Loaded ${ratesToUse.length} labor rates from ${dataSource}`);
+    }
+
+    if (!cacheIsFresh && ratesToUse.length > 0) {
+      cachedLaborRates = ratesToUse;
+      cachedLaborRatesAt = Date.now();
     }
 
     // Filter out rates with missing required fields
