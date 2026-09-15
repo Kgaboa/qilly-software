@@ -19,6 +19,7 @@ import { Button } from '@/app/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/app/components/ui/card';
 import { FileUp, FileDown, TrendingDown, FileImage, Coins, User, LogOut, Users, Sparkles } from 'lucide-react';
 import { Badge } from '@/app/components/ui/badge';
+import { Progress } from '@/app/components/ui/progress';
 import { toast } from 'sonner';
 import { api } from '@/utils/api';
 import { getMunicipalitiesByProvince } from '@/utils/regionalOptimization';
@@ -42,6 +43,7 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
   const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'how-it-works' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck'>('dashboard');
   const [processedBill, setProcessedBill] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [pricingProgress, setPricingProgress] = useState({ processed: 0, total: 0, itemName: '', stage: 'Preparing BOQ', province: '' });
   const [isDemoMode, setIsDemoMode] = useState(false);
   const [preloadedItems, setPreloadedItems] = useState<any[]>([]);
   const [contractorData, setContractorData] = useState<any>(null);
@@ -67,6 +69,9 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
     : 0;
   const boqQuota = baseBoqQuota === null ? null : baseBoqQuota + activeTopUpAllowance;
   const quotaExceeded = boqQuota !== null && monthlyBoqCount >= boqQuota;
+  const pricingPercentage = pricingProgress.total > 0
+    ? Math.min(100, Math.round((pricingProgress.processed / pricingProgress.total) * 100))
+    : 0;
 
   const startEditingProvinces = () => {
     setEditedProvinces(contractorData?.operating_provinces || []);
@@ -370,6 +375,7 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
 
   const handleBillProcess = async (billData: any[], projectSettings?: any) => {
     setIsLoading(true);
+    setPricingProgress({ processed: 0, total: billData.length, itemName: '', stage: 'Preparing pricing engine', province: projectSettings?.province || '' });
     try {
       const { data: { user: authUser } } = await supabase.auth.getUser();
       
@@ -400,7 +406,15 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
         console.log('📋 Final project settings:', projectSettings);
       }
       const isTrainingTemplate = projectSettings?.isTrainingTemplate === true;
-      const data = await api.processBill(billData, freshAccessToken, projectSettings);
+      const data = await api.processBill(billData, freshAccessToken, projectSettings, (processed, total, itemName) => {
+        setPricingProgress({
+          processed,
+          total,
+          itemName: itemName || '',
+          stage: processed >= total ? 'Finalising priced BOQ' : 'Applying regional rates and pricing rules',
+          province: projectSettings?.province || contractorData?.operating_provinces?.[0] || ''
+        });
+      });
 
       // Training templates generate a preview only. They are intentionally not
       // persisted and never consume the contractor's monthly BOQ allowance.
@@ -472,11 +486,6 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
         } else {
           console.log('✅ Bill saved to Supabase:', billRecord);
 
-          // Increment monthly BOQ count for quota-tracked tiers
-          if (contractorData && boqQuota !== null) {
-            setMonthlyBoqCount(prev => prev + 1);
-          }
-
           // ✅ DECREMENT trial_bills_remaining for FREE tier users
           if (user?.subscription_tier === 'FREE' && user?.trial_bills_remaining > 0) {
             console.log('📉 Decrementing trial bills remaining for FREE tier user');
@@ -547,6 +556,12 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
               }
               console.log(`✅ ${savedItemCount}/${billItems.length} bill items saved to Supabase`);
             }
+          }
+
+          // Always reload the authoritative database count. This prevents local
+          // session state, retries, or failed inserts from drifting from usage.
+          if (contractorData?.id) {
+            await fetchMonthlyBoqCount(contractorData.id);
           }
         }
       }
@@ -994,6 +1009,41 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                 )}
               </div>
               {currentView === 'upload' && (canUploadBOQ || preloadedItems.length > 0) && (
+                isLoading ? (
+                  <Card className="mx-auto max-w-3xl overflow-hidden border-sky-200 shadow-lg">
+                    <div className="h-1.5 bg-gradient-to-r from-sky-500 via-cyan-400 to-emerald-400" />
+                    <CardHeader className="pb-4">
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <Badge className="mb-3 bg-sky-100 text-sky-800 hover:bg-sky-100">Pricing in progress</Badge>
+                          <CardTitle className="text-xl">Generating your priced BOQ</CardTitle>
+                          <p className="mt-1 text-sm text-slate-500">You can leave the item table hidden while Qilly completes the calculation.</p>
+                        </div>
+                        <Sparkles className="h-8 w-8 animate-pulse text-sky-600" />
+                      </div>
+                    </CardHeader>
+                    <CardContent className="space-y-5">
+                      <div className="flex items-end justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-slate-700">{pricingProgress.stage}</p>
+                          <p className="mt-1 text-xs text-slate-500">
+                            {pricingProgress.processed.toLocaleString()} of {pricingProgress.total.toLocaleString()} items processed
+                          </p>
+                        </div>
+                        <span className="text-3xl font-semibold tabular-nums text-sky-700">{pricingPercentage}%</span>
+                      </div>
+                      <Progress value={pricingPercentage} className="h-3" aria-label={`${pricingPercentage}% of BOQ pricing completed`} />
+                      <div className="grid gap-3 rounded-xl bg-slate-50 p-4 text-sm sm:grid-cols-3">
+                        <div><p className="text-xs uppercase tracking-wide text-slate-500">BOQ size</p><p className="mt-1 font-semibold">{pricingProgress.total.toLocaleString()} items</p></div>
+                        <div><p className="text-xs uppercase tracking-wide text-slate-500">Province</p><p className="mt-1 font-semibold">{pricingProgress.province || contractorData?.operating_provinces?.[0] || 'Selected province'}</p></div>
+                        <div><p className="text-xs uppercase tracking-wide text-slate-500">Status</p><p className="mt-1 font-semibold text-emerald-700">Processing securely</p></div>
+                      </div>
+                      <p className="truncate text-center text-xs text-slate-400">
+                        {pricingProgress.itemName ? `Currently pricing: ${pricingProgress.itemName}` : 'Loading pricing references…'}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ) : (
                 <BillUpload
                   onProcess={handleBillProcess}
                   isLoading={isLoading}
@@ -1003,6 +1053,7 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                   isContractor={!!contractorData}
                   canUploadBOQ={canUploadBOQ}
                 />
+                )
               )}
               {currentView === 'template-library' && (<BoqTemplateLibrary contractorProjectTypes={contractorData?.project_types || ['Road Construction', 'Housing Development', 'Infrastructure (Water/Sewer)', 'Civil Works', 'Bridges & Structures', 'Building Construction']} onTemplateSelect={handleTemplateSelect} onManualEntry={handleManualEntry} onBack={handleBackToUpload} canUploadBOQ={canUploadBOQ} contractorTier={contractorTier} />)}
               {currentView === 'result' && processedBill && (<RegionalPricedBillView bill={processedBill} contractorData={contractorData} processingTime={processedBill.processingTime} onBack={handleBackToUpload} />)}

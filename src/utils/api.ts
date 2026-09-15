@@ -181,7 +181,12 @@ export const api = {
   },
 
   // Bills
-  processBill: async (billData: any[], accessToken: string, projectSettings?: any) => {
+  processBill: async (
+    billData: any[],
+    accessToken: string,
+    projectSettings?: any,
+    onProgress?: (processed: number, total: number, itemName?: string) => void
+  ) => {
     // Helper function to process bill in demo mode
     const processBillDemo = async () => {
       // NEW: Get user data from demo_users array
@@ -212,7 +217,7 @@ export const api = {
       return new Promise(async (resolve) => {
         setTimeout(async () => {
           // Use the regional pricing engine (includes transport costs and location optimization)
-          const pricedItems = await priceRegionalBill(billData, projectSettings);
+          const pricedItems = await priceRegionalBill(billData, projectSettings, onProgress);
           
           // Calculate processing time
           const endTime = performance.now();

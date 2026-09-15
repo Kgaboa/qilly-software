@@ -282,7 +282,8 @@ function applyProjectSettings(
  */
 export async function priceRegionalBill(
   unpricedItems: BillItem[],
-  projectSettings?: ProjectSettings
+  projectSettings?: ProjectSettings,
+  onProgress?: (processed: number, total: number, itemName?: string) => void
 ): Promise<RegionalPricedBillItem[]> {
   const province = projectSettings?.province || 'GP';
   const municipalityCode = projectSettings?.municipality || 'JHB';
@@ -302,7 +303,13 @@ export async function priceRegionalBill(
   
   const pricedItems: RegionalPricedBillItem[] = [];
   
-  for (const item of unpricedItems) {
+  const progressInterval = Math.max(1, Math.ceil(unpricedItems.length / 100));
+  for (let itemIndex = 0; itemIndex < unpricedItems.length; itemIndex += 1) {
+    const item = unpricedItems[itemIndex];
+    if (itemIndex % progressInterval === 0) {
+      onProgress?.(itemIndex, unpricedItems.length, item.name);
+      await new Promise<void>(resolve => setTimeout(resolve, 0));
+    }
     console.log(`\n🔍 Pricing: "${item.name}" (${item.quantity} ${item.unit})`);
     
     // Check for summary rows (with null safety)
@@ -755,6 +762,7 @@ export async function priceRegionalBill(
       sansCode: item.sansCode || bestQuote.sansCode,
     });
   }
+  onProgress?.(unpricedItems.length, unpricedItems.length);
   
   console.log(`\n✅ Regional Pricing Complete: ${pricedItems.length} items priced\n`);
   
