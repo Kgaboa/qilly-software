@@ -390,7 +390,7 @@ export const api = {
             processingTime: processingTime, // Include in response
             message: 'Bill processed successfully with Regional Pricing (Demo Mode)'
           });
-        }, 1000); // 1 second delay to simulate processing
+        }, 0); // Yield once so the loading state can render without adding artificial delay
       });
     };
     
@@ -399,6 +399,13 @@ export const api = {
       return processBillDemo();
     }
     
+    // Large BOQs are processed directly in the browser. This avoids waiting for an
+    // Edge Function timeout and then repeating the same 300+ item calculation.
+    if (billData.length > 200) {
+      console.log(`📦 Large BOQ detected (${billData.length} items) - using optimized client processing`);
+      return processBillDemo();
+    }
+
     // Try to use Supabase edge function
     // For now, allow demo fallback in all environments until edge functions are deployed
     const currentEnv = getCurrentEnvironment();
