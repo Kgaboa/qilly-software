@@ -384,9 +384,19 @@ export async function priceRegionalBill(
         console.log(`   📋 Matched: \"${laborPricing.matchedDescription}\" (${laborPricing.tradeCategory})`);
         
         // Apply project settings to labor cost
-        const { finalPrice: finalTotalPrice, additionalFeesBreakdown } = applyProjectSettings(totalCost, projectSettings || {});
-        const finalUnitPrice = finalTotalPrice / quantity;
-        const additionalFeesPerUnit = additionalFeesBreakdown.totalAdditionalAmount / quantity;
+        let { finalPrice: finalTotalPrice, additionalFeesBreakdown } = applyProjectSettings(totalCost, projectSettings || {});
+        let finalUnitPrice = finalTotalPrice / quantity;
+        const normalizedLaborUnit = item.unit.toLowerCase().replace(/\s+/g, '');
+        if ((normalizedLaborUnit === 'km/m3' || normalizedLaborUnit === 'km/m³') && finalUnitPrice > 50) {
+          finalUnitPrice = 50;
+          finalTotalPrice = 50 * quantity;
+          additionalFeesBreakdown = {
+            ...additionalFeesBreakdown,
+            totalAdditionalAmount: finalTotalPrice - totalCost,
+            totalAdditional: totalCost > 0 ? ((finalTotalPrice - totalCost) / totalCost) * 100 : 0,
+          };
+        }
+        const additionalFeesPerUnit = (finalTotalPrice - totalCost) / quantity;
         
         pricedItems.push({
           ...item,
@@ -422,9 +432,19 @@ export async function priceRegionalBill(
         const defaultRate = 200; // R200/unit default
         const totalCost = defaultRate * quantity;
         
-        const { finalPrice: finalTotalPrice, additionalFeesBreakdown } = applyProjectSettings(totalCost, projectSettings || {});
-        const finalUnitPrice = finalTotalPrice / quantity;
-        const additionalFeesPerUnit = additionalFeesBreakdown.totalAdditionalAmount / quantity;
+        let { finalPrice: finalTotalPrice, additionalFeesBreakdown } = applyProjectSettings(totalCost, projectSettings || {});
+        let finalUnitPrice = finalTotalPrice / quantity;
+        const normalizedLaborUnit = item.unit.toLowerCase().replace(/\s+/g, '');
+        if ((normalizedLaborUnit === 'km/m3' || normalizedLaborUnit === 'km/m³') && finalUnitPrice > 50) {
+          finalUnitPrice = 50;
+          finalTotalPrice = 50 * quantity;
+          additionalFeesBreakdown = {
+            ...additionalFeesBreakdown,
+            totalAdditionalAmount: finalTotalPrice - totalCost,
+            totalAdditional: totalCost > 0 ? ((finalTotalPrice - totalCost) / totalCost) * 100 : 0,
+          };
+        }
+        const additionalFeesPerUnit = (finalTotalPrice - totalCost) / quantity;
         
         pricedItems.push({
           ...item,
