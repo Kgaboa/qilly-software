@@ -1742,6 +1742,18 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                     const hasAlternatives = item.supplierPrices.length > 1;
                     const mainRowKey = `row-${item.code}-${globalIndex}`;
                     const expandedRowKey = `expanded-${item.code}-${globalIndex}`;
+
+                    if (item.rowType === 'heading' || item.rowType === 'subheading') {
+                      categoryRows.push(
+                        <TableRow key={mainRowKey} className={item.rowType === 'heading' ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-800'}>
+                          <TableCell className="p-3 text-xs font-bold">{item.code}</TableCell>
+                          <TableCell colSpan={9} className={`p-3 font-semibold ${item.rowType === 'heading' ? 'uppercase tracking-wide' : ''}`}>
+                            {item.name}
+                          </TableCell>
+                        </TableRow>
+                      );
+                      return;
+                    }
                     
                     // Calculate carbon data for this item (from carbonSummary)
                     const itemWithCarbon = carbonSummary?.itemsWithCarbon?.find((i: any) => 

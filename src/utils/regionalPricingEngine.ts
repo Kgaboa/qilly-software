@@ -16,6 +16,7 @@ import {
 } from './regionalOptimization';
 import { matchLaborRate, type LaborPricing, formatLaborPricing } from '@/lib/boq/laborRates';
 import { categorizeItem, type ItemCategorization } from './itemCategorization';
+import type { BoqRowType } from './boqImport';
 
 // Local reference to ensure the function is included in the bundle
 const getMunicipalityByCode = _getMunicipalityByCode || ((code: string) => municipalities.find(m => m.code === code));
@@ -39,6 +40,7 @@ export interface BillItem {
   isRateOnly?: boolean;
   buildAidRef?: string; // BuildAid 2025/2026 reference
   sansCode?: string; // SANS 1200 standard code
+  rowType?: BoqRowType;
 }
 
 export interface RegionalSupplierQuote {
@@ -311,6 +313,24 @@ export async function priceRegionalBill(
       await new Promise<void>(resolve => setTimeout(resolve, 0));
     }
     console.log(`\n🔍 Pricing: "${item.name}" (${item.quantity} ${item.unit})`);
+
+    if (item.rowType === 'heading' || item.rowType === 'subheading') {
+      pricedItems.push({
+        ...item,
+        quantity: '',
+        unit: '',
+        supplierPrices: [],
+        selectedSupplier: 'N/A',
+        baseUnitPrice: '0',
+        transportCost: '0',
+        transportCostPerUnit: '0',
+        landedUnitPrice: '0',
+        additionalFees: '0',
+        finalUnitPrice: '0',
+        totalPrice: '0',
+      });
+      continue;
+    }
     
     // Check for summary rows (with null safety)
     const isSummaryRow = item.name && (

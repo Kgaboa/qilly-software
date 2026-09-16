@@ -12,6 +12,7 @@ import * as XLSX from 'xlsx';
 import { municipalities, getMunicipalitiesByProvince, type Municipality } from '@/utils/regionalOptimization';
 import { SubscriptionUpgradeModal } from '@/app/components/payments/SubscriptionUpgradeModal';
 import { supabase } from '@/utils/supabase';
+import { resolveImportedBoqRow, type BoqRowType } from '@/utils/boqImport';
 
 // Helper function to convert province full names to codes
 const provinceNameToCode = (provinceName: string): string => {
@@ -85,6 +86,7 @@ interface BillItem {
   isRateOnly: boolean;
   buildAidRef?: string; // BuildAid 2025/2026 page reference (optional)
   sansCode?: string; // SANS 1200 standard code (optional)
+  rowType?: BoqRowType;
 }
 
 interface BillUploadProps {
@@ -381,6 +383,9 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
     // Filter out items where both unit and quantity are blank (headers/blank rows)
     // BUT keep summary rows even if they have blank UNIT/QUANTITY
     const validItems = items.filter(item => {
+      if (item.rowType === 'heading' || item.rowType === 'subheading') {
+        return Boolean(item.name?.trim());
+      }
       // Always keep summary rows
       if (isSummaryRow(item)) {
         console.log(`✅ KEEPING SUMMARY ROW in submit: "${item.name}" (Code: ${item.code})`);
@@ -390,7 +395,9 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
       return item.name && item.name.trim() !== '' && item.unit;
     }).map(item => ({
       ...item,
-      quantity: item.quantity || '0' // Default to '0' if blank
+      quantity: item.rowType === 'heading' || item.rowType === 'subheading'
+        ? ''
+        : item.quantity || '0'
     }));
 
     if (validItems.length === 0) {
@@ -655,14 +662,14 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
 
           if (jsonData.length === 0) continue;
 
-          // Detect header row and column positions - scan rows 0 to 10
+          // Detect header row and column positions. Consultant BOQs often have
+          // cover content before the table, so inspect the first 50 rows.
           let headerIndex = -1;
           let columnMap: { itemNo: number; description: number; unit: number; quantity: number; rate: number; amount: number } = {
             itemNo: -1, description: -1, unit: -1, quantity: -1, rate: -1, amount: -1
           };
 
-          // Try to detect header row in first 10 rows (rows 0-10)
-          for (let i = 0; i < Math.min(11, jsonData.length); i++) {
+          for (let i = 0; i < Math.min(50, jsonData.length); i++) {
             const row = jsonData[i];
             if (!row || row.length === 0) continue;
 
@@ -762,32 +769,12 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
             // Skip completely empty rows
             if (parts.every((p: string) => !p || p === 'undefined')) continue;
 
-            // Extract fields using detected column positions
-            const description = columnMap.description >= 0 ? (parts[columnMap.description] || '') : '';
-            const unit = columnMap.unit >= 0 ? (parts[columnMap.unit] || '') : '';
-            const itemNo = columnMap.itemNo >= 0 ? (parts[columnMap.itemNo] || '') : '';
-            
-            // Map BOQ QUANTITY column to system Qty field
-            const rawQty = columnMap.quantity >= 0 ? (parts[columnMap.quantity] || '') : '';
-            let qty = rawQty;
-            let isRateOnly = false;
-            
-            // Check if this is a "Rate Only" item
-            if (qty && /^rate\s*only$/i.test(qty.trim())) {
-              isRateOnly = true;
-              qty = '1'; // Set quantity to 1 for pricing purposes
-            }
-            // Clean up qty only if it has a value (remove commas, spaces, currency symbols)
-            else if (qty && qty.trim() !== '' && qty !== 'undefined') {
-              qty = qty.replace(/[R$,\s]/g, '').trim();
-            } else {
-              qty = ''; // Keep it blank if no valid quantity
-            }
-            
-            // Debug logging for quantity parsing
-            if (rawQty !== qty || rawQty) {
-              console.log(`Excel Row ${i}: Raw qty="${rawQty}" → Cleaned qty="${qty}"${isRateOnly ? ' [RATE ONLY]' : ''}`);
-            }
+            const resolved = resolveImportedBoqRow(parts, columnMap);
+            const description = resolved.description;
+            const unit = resolved.unit;
+            const itemNo = resolved.code;
+            const qty = resolved.quantity;
+            const isRateOnly = /^rate\s*only$/i.test(String(columnMap.quantity >= 0 ? parts[columnMap.quantity] : '').trim());
             
             // Check if this is a summary row (TOTAL CARRIED FORWARD TO SUMMARY)
             const isSummaryRow = description && (
@@ -800,10 +787,6 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
               console.log(`✅ EXCEL SUMMARY ROW DETECTED at line ${i}: "${description}" (Code: ${itemNo})`);
             }
             
-            // Skip rows with section headers or subtotals (typically have no unit)
-            // UNLESS it's a summary row
-            if ((!unit || unit.trim() === '') && !isSummaryRow) continue;
-            
             // Skip header rows that might have been missed - check if description contains header keywords
             if (description && description.trim()) {
               const descLower = description.toLowerCase().trim();
@@ -815,9 +798,9 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
               }
             }
             
-            // Only include rows that have DESCRIPTION and UNIT (required for pricing)
-            // OR rows that are summary rows (which may have blank UNIT/QUANTITY)
-            if ((description && description.trim() && unit && unit.trim()) || isSummaryRow) {
+            // Preserve headings/subheadings for document structure, but price
+            // only rows classified as actual items.
+            if (description && description.trim()) {
               allParsedItems.push({
                 code: itemNo.trim() || '', // Map BOQ ITEM NO to code field
                 name: description.trim(), // Map BOQ DESCRIPTION to name field (used for supplier search)
@@ -825,6 +808,7 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                 quantity: qty, // Map BOQ QUANTITY to system Qty field (may be blank for summary rows)
                 unit: unit ? unit.trim() : '', // May be blank for summary rows
                 isRateOnly, // Flag for special handling in pricing
+                rowType: isSummaryRow ? 'summary' : resolved.rowType,
               });
             }
           }
