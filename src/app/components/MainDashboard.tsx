@@ -26,6 +26,7 @@ import { getMunicipalitiesByProvince } from '@/utils/regionalOptimization';
 import { getTierFeatures, type SubscriptionTier } from '@/utils/tierAccess';
 import { ArrowUpCircle, ChevronDown } from 'lucide-react';
 import { getProfessionalContractors } from '@/utils/database/contractors';
+import { CONTRACTOR_PROJECT_TYPES } from '@/utils/projectTypes';
 
 interface MainDashboardProps {
   accessToken: string;
@@ -56,6 +57,9 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
   const [isEditingProvinces, setIsEditingProvinces] = useState(false);
   const [editedProvinces, setEditedProvinces] = useState<string[]>([]);
   const [isSavingProvinces, setIsSavingProvinces] = useState(false);
+  const [isEditingProjectTypes, setIsEditingProjectTypes] = useState(false);
+  const [editedProjectTypes, setEditedProjectTypes] = useState<string[]>([]);
+  const [isSavingProjectTypes, setIsSavingProjectTypes] = useState(false);
   
   // ✅ Check if contractor can upload BOQ based on tier and monthly quota
   const contractorTier = (contractorData?.subscription_tier?.toLowerCase() || 'free') as SubscriptionTier;
@@ -112,6 +116,51 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
       toast.error(`Could not update provinces: ${error?.message || 'Unknown error'}`);
     } finally {
       setIsSavingProvinces(false);
+    }
+  };
+
+  const startEditingProjectTypes = () => {
+    setEditedProjectTypes(contractorData?.project_types || []);
+    setIsEditingProjectTypes(true);
+  };
+
+  const toggleEditedProjectType = (projectType: string) => {
+    setEditedProjectTypes(current =>
+      current.includes(projectType)
+        ? current.filter(item => item !== projectType)
+        : [...current, projectType]
+    );
+  };
+
+  const saveProjectTypes = async () => {
+    if (!contractorData?.id || editedProjectTypes.length === 0) {
+      toast.error('Select at least one project type.');
+      return;
+    }
+
+    setIsSavingProjectTypes(true);
+    try {
+      const { data, error } = await supabase
+        .from('contractors')
+        .update({
+          project_types: editedProjectTypes,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', contractorData.id)
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      setContractorData(data);
+      sessionStorage.setItem('contractor_data', JSON.stringify(data));
+      setIsEditingProjectTypes(false);
+      toast.success('Project types updated. Your available templates have been refreshed.');
+    } catch (error: any) {
+      console.error('Failed to update project types:', error);
+      toast.error(`Could not update project types: ${error?.message || 'Unknown error'}`);
+    } finally {
+      setIsSavingProjectTypes(false);
     }
   };
 
@@ -783,9 +832,59 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                                 </div>
                               )}
                             </div>
-                            <p className="text-xs text-white/90 leading-tight col-span-2 truncate">
-                              <span className="font-semibold">📋 Projects:</span> {contractorData.project_types?.join(', ') || 'N/A'}
-                            </p>
+                            <div className="text-xs text-white/90 leading-tight col-span-2">
+                              <div className="flex items-center gap-2">
+                                <p className="truncate flex-1">
+                                  <span className="font-semibold">📋 Projects:</span> {contractorData.project_types?.join(', ') || 'N/A'}
+                                </p>
+                                <button
+                                  type="button"
+                                  onClick={startEditingProjectTypes}
+                                  className="shrink-0 underline font-semibold hover:text-white"
+                                >
+                                  Update
+                                </button>
+                              </div>
+                              {isEditingProjectTypes && (
+                                <div className="mt-2 rounded-md bg-white p-3 text-slate-800 shadow-lg">
+                                  <p className="mb-1 font-semibold">Select all project types your company undertakes</p>
+                                  <p className="mb-2 text-[11px] text-slate-600">
+                                    Your training-template library will refresh after you save.
+                                  </p>
+                                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                                    {CONTRACTOR_PROJECT_TYPES.map(projectType => (
+                                      <label key={projectType} className="flex items-center gap-2 cursor-pointer">
+                                        <input
+                                          type="checkbox"
+                                          checked={editedProjectTypes.includes(projectType)}
+                                          onChange={() => toggleEditedProjectType(projectType)}
+                                        />
+                                        <span>{projectType}</span>
+                                      </label>
+                                    ))}
+                                  </div>
+                                  <div className="mt-3 flex justify-end gap-2">
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={() => setIsEditingProjectTypes(false)}
+                                      disabled={isSavingProjectTypes}
+                                    >
+                                      Cancel
+                                    </Button>
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      onClick={saveProjectTypes}
+                                      disabled={isSavingProjectTypes || editedProjectTypes.length === 0}
+                                    >
+                                      {isSavingProjectTypes ? 'Saving...' : 'Save project types'}
+                                    </Button>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>

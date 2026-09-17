@@ -148,6 +148,27 @@ describe('REGRESSION: Monthly BOQ count is database-backed', () => {
   });
 });
 
+describe('REGRESSION: Contractor project types remain editable', () => {
+  const dashboard = readSrc('app/components/MainDashboard.tsx');
+  const templateLibrary = readSrc('app/components/BoqTemplateLibrary.tsx');
+
+  it('persists changed project types to the contractor profile', () => {
+    expect(dashboard).toContain('saveProjectTypes');
+    expect(dashboard).toContain('project_types: editedProjectTypes');
+    expect(dashboard).toContain("sessionStorage.setItem('contractor_data', JSON.stringify(data))");
+  });
+
+  it('explains that saving refreshes the template library', () => {
+    expect(dashboard).toContain('Your training-template library will refresh after you save.');
+    expect(dashboard).toContain('Your available templates have been refreshed.');
+  });
+
+  it('removes an open template when its project type is no longer selected', () => {
+    expect(templateLibrary).toContain('remainsAvailable');
+    expect(templateLibrary).toContain('setSelectedTemplate(null)');
+  });
+});
+
 
 // ─── REGRESSION: BOQ add-ons and Steel BOQ release gating ────────────────────
 describe('REGRESSION: BOQ top-ups and coming-soon features', () => {

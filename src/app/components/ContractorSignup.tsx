@@ -13,6 +13,7 @@ import { TierSelectionStep } from '@/app/components/TierSelectionStep';
 import { PaymentStep } from '@/app/components/PaymentStep';
 import { PrivacyPolicy } from '@/app/components/PrivacyPolicy';
 import { TermsOfService } from '@/app/components/TermsOfService';
+import { CONTRACTOR_PROJECT_TYPES } from '@/utils/projectTypes';
 
 interface ContractorSignupProps {
   onSuccess: () => void;
@@ -33,20 +34,6 @@ const PROVINCES = [
   'Mpumalanga',
   'North West',
   'Northern Cape'
-];
-
-const PROJECT_TYPES = [
-  'Residential Building',
-  'Commercial Building',
-  'Industrial Construction',
-  'Infrastructure Development',
-  'Road Construction',
-  'Bridge Construction',
-  'Water & Sanitation',
-  'Electrical Works',
-  'Mechanical Works',
-  'Renovation & Refurbishment',
-  'Landscaping & Earthworks'
 ];
 
 // CIDB Classes - FULL LIST restored now that we're using native select (no freeze)
@@ -764,7 +751,7 @@ export function ContractorSignup({ onSuccess, onBack }: ContractorSignupProps) {
                             </span>
                           </Label>
                           <div className="grid sm:grid-cols-2 gap-2 p-4 border-2 rounded-lg bg-white max-h-48 overflow-y-auto">
-                            {PROJECT_TYPES.map((type) => (
+                            {CONTRACTOR_PROJECT_TYPES.map((type) => (
                               <div key={type} className="flex items-center space-x-2">
                                 <Checkbox
                                   id={type}

@@ -78,6 +78,18 @@ export function BoqTemplateLibrary({
     setFilteredTemplates(templates);
   }, [contractorProjectTypes, searchQuery, contractorTier]);
 
+  useEffect(() => {
+    if (!selectedTemplate) return;
+
+    const remainsAvailable = contractorProjectTypes.some(projectType =>
+      getTemplatesByProjectType(projectType).some(template => template.id === selectedTemplate.id)
+    );
+
+    if (!remainsAvailable) {
+      setSelectedTemplate(null);
+    }
+  }, [contractorProjectTypes, selectedTemplate]);
+
   const handleUseTemplate = (template: BoqTemplate) => {
     toast.success(`Training template "${template.name}" loaded in read-only mode. Generate pricing to explore the workflow.`);
     onTemplateSelect(template.items);
