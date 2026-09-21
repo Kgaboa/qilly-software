@@ -1544,9 +1544,9 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
       )}
 
       {/* Priced Bill Table */}
-      <Card>
+      <Card className="min-w-0 max-w-full overflow-hidden">
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
             <div>
               <CardTitle>Priced Bill of Quantities</CardTitle>
               <CardDescription>
@@ -1554,7 +1554,7 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                 Including transport costs from nearest branches
               </CardDescription>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {onBack && (
                 <Button 
                   variant="outline" 
@@ -1642,9 +1642,9 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
             </div>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="w-full border rounded-lg min-h-[600px] overflow-y-auto">
-            <Table className="w-full table-fixed">
+        <CardContent className="min-w-0 overflow-hidden">
+          <div className="min-h-[600px] w-full max-w-full overflow-x-hidden overflow-y-auto rounded-lg border [&_[data-slot=table-container]]:max-w-full [&_[data-slot=table-container]]:overflow-x-hidden">
+            <Table className="w-full max-w-full table-fixed">
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[9%] p-2 text-xs">Item</TableHead>
@@ -2121,7 +2121,7 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                       key={`subtotal-${category}`} 
                       className="bg-yellow-50 border-t border-b border-yellow-300 font-semibold"
                     >
-                      <TableCell colSpan={9} className="text-right p-2 text-[11px] uppercase">
+                      <TableCell colSpan={6} className="break-words p-2 text-right text-[11px] uppercase">
                         TOTAL CARRIED FORWARD - {category}:
                       </TableCell>
                       <TableCell className="text-right text-yellow-900 font-bold p-2 text-[11px] whitespace-nowrap">
@@ -2135,7 +2135,7 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
 
                 {/* Grand Total Row */}
                 <TableRow className="bg-[#00b4d8]/10 font-bold border-t-2 border-[#00b4d8]">
-                  <TableCell colSpan={9} className="text-right p-2 text-[11px] uppercase">
+                  <TableCell colSpan={6} className="p-2 text-right text-[11px] uppercase">
                     GRAND TOTAL:
                   </TableCell>
                   <TableCell className="text-right text-[#00b4d8] p-2 text-[11px] whitespace-nowrap">
