@@ -157,7 +157,7 @@ export function Footer({ onNavigate }: FooterProps) {
             Qilly is not liable for project cost variations or supplier pricing changes.
           </p>
           <p className="text-xs text-gray-600 mt-3">
-            Built with ❤️ in South Africa | BuildAid 2025/2026 referenced
+            Built with ❤️ in South Africa
           </p>
         </div>
       </div>
