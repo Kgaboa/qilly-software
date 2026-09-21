@@ -27,6 +27,20 @@ interface ExportOptions {
   contractorTier?: SubscriptionTier; // Subscription tier for watermarking
 }
 
+function getPricingStatus(item: RegionalPricedBillItem): string {
+  if (item.matchingDecision?.reviewStatus) return item.matchingDecision.reviewStatus;
+  switch (item.pricingRequirement) {
+    case 'NON_PRICEABLE': return 'Not priced — structural row';
+    case 'RATE_INPUT_REQUIRED': return 'Rate Input Required';
+    case 'PERCENTAGE_BASE_REQUIRED': return 'Percentage Base Required';
+    case 'ALLOWANCE_REQUIRED': return 'Allowance Required';
+    case 'SUPPLIER_MATCH_REQUIRED': return 'Pricing Required';
+    case 'PRICED': return 'ACCEPTED';
+    default:
+      return parseFloat(item.totalPrice || '0') > 0 ? 'ACCEPTED' : 'Pricing Required';
+  }
+}
+
 /**
  * Export priced BOQ to Excel format
  */
@@ -55,6 +69,7 @@ export function exportToExcel(options: ExportOptions): void {
     'Quantity',
     'Unit',
     'Supplier',
+    'Pricing Status',
     'Base Price',
     'Transport Cost',
     'Landed Cost',
@@ -77,6 +92,7 @@ export function exportToExcel(options: ExportOptions): void {
     'Quantity',
     'Unit',
     'Supplier',
+    'Pricing Status',
     'Base Price',
     'Transport Cost',
     'Landed Cost',
@@ -94,6 +110,7 @@ export function exportToExcel(options: ExportOptions): void {
       item.quantity,
       item.unit,
       item.selectedSupplier,
+      getPricingStatus(item),
       parseFloat(item.baseUnitPrice),
       parseFloat(item.transportCost),
       parseFloat(item.landedUnitPrice),
@@ -123,90 +140,30 @@ export function exportToExcel(options: ExportOptions): void {
 
   // Add totals rows
   data.push([
-    '',
-    'GRAND TOTAL (Delivery)',
-    '',
-    '',
-    '',
-    '',
-    totalTransportCost,
-    '',
-    '',
-    '',
-    grandTotal,
-    '',
-    ''
+    '', 'GRAND TOTAL (Delivery)', '', '', '', '', '', totalTransportCost, '', '', '', grandTotal, '', ''
   ]);
   
   // Add P&G row
   data.push([
-    '',
-    'Preliminaries & General (P&G)',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    pgCosts,
-    '',
-    ''
+    '', 'Preliminaries & General (P&G)', '', '', '', '', '', '', '', '', '', pgCosts, '', ''
   ]);
   
   // Add Compliance Costs row
   data.push([
-    '',
-    'Compliance Costs (NHBRC, CIDB, etc.)',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    complianceTotal,
-    '',
-    ''
+    '', 'Compliance Costs (NHBRC, CIDB, etc.)', '', '', '', '', '', '', '', '', '', complianceTotal, '', ''
   ]);
   
   // Add Green Cost Premium row (if green data included)
   if (includeGreenData && carbonSummary) {
     data.push([
-      '',
-      '🌿 Green Materials Cost Premium',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      carbonSummary.costPremium,
-      '',
-      ''
+      '', '🌿 Green Materials Cost Premium', '', '', '', '', '', '', '', '', '', carbonSummary.costPremium, '', ''
     ]);
   }
   
   // Add Overall BOQ Total row
   const overallTotal = grandTotal + complianceTotal + pgCosts + (includeGreenData && carbonSummary ? carbonSummary.costPremium : 0);
   data.push([
-    '',
-    'OVERALL BOQ TOTAL',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    overallTotal,
-    '',
-    ''
+    '', 'OVERALL BOQ TOTAL', '', '', '', '', '', '', '', '', '', overallTotal, '', ''
   ]);
 
   // Combine headers and data
@@ -220,6 +177,7 @@ export function exportToExcel(options: ExportOptions): void {
     { wch: 10 },  // Quantity
     { wch: 8 },   // Unit
     { wch: 15 },  // Supplier
+    { wch: 24 },  // Pricing Status
     { wch: 12 },  // Base Price
     { wch: 14 },  // Transport Cost
     { wch: 12 },  // Landed Cost
@@ -242,6 +200,7 @@ export function exportToExcel(options: ExportOptions): void {
     { wch: 10 },  // Quantity
     { wch: 8 },   // Unit
     { wch: 15 },  // Supplier
+    { wch: 24 },  // Pricing Status
     { wch: 12 },  // Base Price
     { wch: 14 },  // Transport Cost
     { wch: 12 },  // Landed Cost
@@ -255,7 +214,7 @@ export function exportToExcel(options: ExportOptions): void {
   // Apply number formatting to currency columns
   const range = XLSX.utils.decode_range(ws['!ref'] || 'A1');
   for (let R = 1; R <= range.e.r; R++) {
-    for (let C = 5; C <= 10; C++) {
+    for (let C = 6; C <= 11; C++) {
       const cellAddress = XLSX.utils.encode_cell({ r: R, c: C });
       if (ws[cellAddress] && typeof ws[cellAddress].v === 'number') {
         ws[cellAddress].z = 'R#,##0.00';
@@ -508,7 +467,8 @@ export function exportToPDF(options: ExportOptions): void {
         item.name.length > 35 ? item.name.substring(0, 32) + '...' : item.name,
         item.quantity,
         item.unit,
-        item.selectedSupplier.length > 8 ? item.selectedSupplier.substring(0, 6) + '...' : item.selectedSupplier,
+        String(item.selectedSupplier || '').length > 8 ? String(item.selectedSupplier || '').substring(0, 6) + '...' : String(item.selectedSupplier || ''),
+        getPricingStatus(item),
         `R${parseFloat(item.totalPrice).toLocaleString('en-ZA', { minimumFractionDigits: 0 })}`,
         item.distance !== undefined && item.distance !== null ? `${item.distance}km` : 'N/A',
         carbonData.greenAlternative ? '✅' : '',
@@ -522,7 +482,8 @@ export function exportToPDF(options: ExportOptions): void {
         item.name.length > 40 ? item.name.substring(0, 37) + '...' : item.name,
         item.quantity,
         item.unit,
-        item.selectedSupplier.length > 10 ? item.selectedSupplier.substring(0, 8) + '...' : item.selectedSupplier,
+        String(item.selectedSupplier || '').length > 10 ? String(item.selectedSupplier || '').substring(0, 8) + '...' : String(item.selectedSupplier || ''),
+        getPricingStatus(item),
         `R${item.baseUnitPrice}`,
         `R${item.transportCost}`,
         `R${item.additionalFees || '0.00'}`,
@@ -542,6 +503,7 @@ export function exportToPDF(options: ExportOptions): void {
     'Qty',
     'Unit',
     'Supplier',
+    'Status',
     'Total',
     'Dist',
     '🌿',
@@ -553,6 +515,7 @@ export function exportToPDF(options: ExportOptions): void {
     'Qty',
     'Unit',
     'Supplier',
+    'Status',
     'Base Price',
     'Transport',
     'Add. Fees',
@@ -564,19 +527,19 @@ export function exportToPDF(options: ExportOptions): void {
 
   const footerRows = includeGreenData ? [
     // Streamlined footer for green data version
-    ['', 'GRAND TOTAL', '', '', '', `R${grandTotal.toLocaleString('en-ZA', { minimumFractionDigits: 0 })}`, '', '', '', ''],
-    ['', 'P&G', '', '', '', `R${pgCosts.toLocaleString('en-ZA', { minimumFractionDigits: 0 })}`, '', '', '', ''],
-    ['', 'Compliance', '', '', '', `R${complianceTotal.toLocaleString('en-ZA', { minimumFractionDigits: 0 })}`, '', '', '', ''],
+    ['', 'GRAND TOTAL', '', '', '', '', `R${grandTotal.toLocaleString('en-ZA', { minimumFractionDigits: 0 })}`, '', '', '', ''],
+    ['', 'P&G', '', '', '', '', `R${pgCosts.toLocaleString('en-ZA', { minimumFractionDigits: 0 })}`, '', '', '', ''],
+    ['', 'Compliance', '', '', '', '', `R${complianceTotal.toLocaleString('en-ZA', { minimumFractionDigits: 0 })}`, '', '', '', ''],
     ...(carbonSummary ? [
-      ['', '🌿 Green Premium', '', '', '', `R${carbonSummary.costPremium.toLocaleString('en-ZA', { minimumFractionDigits: 0 })}`, '', '', '', '']
+      ['', '🌿 Green Premium', '', '', '', '', `R${carbonSummary.costPremium.toLocaleString('en-ZA', { minimumFractionDigits: 0 })}`, '', '', '', '']
     ] : []),
-    ['', 'OVERALL TOTAL', '', '', '', `R${(grandTotal + complianceTotal + pgCosts + (carbonSummary ? carbonSummary.costPremium : 0)).toLocaleString('en-ZA', { minimumFractionDigits: 0 })}`, '', '', '', '']
+    ['', 'OVERALL TOTAL', '', '', '', '', `R${(grandTotal + complianceTotal + pgCosts + (carbonSummary ? carbonSummary.costPremium : 0)).toLocaleString('en-ZA', { minimumFractionDigits: 0 })}`, '', '', '', '']
   ] : [
     // Full footer for standard version
-    ['', 'GRAND TOTAL (Delivery)', '', '', '', '', `R${totalTransportCost.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}`, '', '', `R${grandTotal.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, '', ''],
-    ['', 'Preliminaries & General (P&G)', '', '', '', '', '', '', '', `R${pgCosts.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, '', ''],
-    ['', 'Compliance Costs', '', '', '', '', '', '', '', `R${complianceTotal.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, '', ''],
-    ['', 'OVERALL BOQ TOTAL', '', '', '', '', '', '', '', `R${(grandTotal + complianceTotal + pgCosts).toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, '', '']
+    ['', 'GRAND TOTAL (Delivery)', '', '', '', '', '', `R${totalTransportCost.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}`, '', '', `R${grandTotal.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, '', ''],
+    ['', 'Preliminaries & General (P&G)', '', '', '', '', '', '', '', '', `R${pgCosts.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, '', ''],
+    ['', 'Compliance Costs', '', '', '', '', '', '', '', '', `R${complianceTotal.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, '', ''],
+    ['', 'OVERALL BOQ TOTAL', '', '', '', '', '', '', '', '', `R${(grandTotal + complianceTotal + pgCosts).toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, '', '']
   ];
 
   autoTable(doc, {
@@ -607,24 +570,26 @@ export function exportToPDF(options: ExportOptions): void {
       2: { cellWidth: 15 },  // Qty
       3: { cellWidth: 12 },  // Unit
       4: { cellWidth: 25 },  // Supplier
-      5: { cellWidth: 30, halign: 'right' },  // Total
-      6: { cellWidth: 15, halign: 'center' },  // Dist
-      7: { cellWidth: 12, halign: 'center' },  // 🌿
-      8: { cellWidth: 20, halign: 'right' },  // Carbon
-      9: { cellWidth: 15, halign: 'center' }   // Score
+      5: { cellWidth: 28 },  // Status
+      6: { cellWidth: 26, halign: 'right' },  // Total
+      7: { cellWidth: 15, halign: 'center' },  // Dist
+      8: { cellWidth: 12, halign: 'center' },  // 🌿
+      9: { cellWidth: 20, halign: 'right' },  // Carbon
+      10: { cellWidth: 15, halign: 'center' }   // Score
     } : {
       0: { cellWidth: 15 },  // Item No
-      1: { cellWidth: 45 },  // Description
-      2: { cellWidth: 12 },  // Qty
-      3: { cellWidth: 12 },  // Unit
-      4: { cellWidth: 20 },  // Supplier
-      5: { cellWidth: 20, halign: 'right' },  // Base Price
-      6: { cellWidth: 20, halign: 'right' },  // Transport
-      7: { cellWidth: 20, halign: 'right' },  // Add. Fees
-      8: { cellWidth: 20, halign: 'right' },  // Best Price
-      9: { cellWidth: 25, halign: 'right' },  // Total Price
-      10: { cellWidth: 15, halign: 'center' },  // Distance
-      11: { cellWidth: 20 }  // Branch
+      1: { cellWidth: 35 },  // Description
+      2: { cellWidth: 11 },  // Qty
+      3: { cellWidth: 11 },  // Unit
+      4: { cellWidth: 18 },  // Supplier
+      5: { cellWidth: 25 },  // Status
+      6: { cellWidth: 17, halign: 'right' },  // Base Price
+      7: { cellWidth: 17, halign: 'right' },  // Transport
+      8: { cellWidth: 17, halign: 'right' },  // Add. Fees
+      9: { cellWidth: 17, halign: 'right' },  // Best Price
+      10: { cellWidth: 23, halign: 'right' },  // Total Price
+      11: { cellWidth: 13, halign: 'center' },  // Distance
+      12: { cellWidth: 18 }  // Branch
     },
     margin: { left: 15, right: 15 }
   });
@@ -805,6 +770,7 @@ export function exportToCSV(options: ExportOptions): void {
     'Quantity',
     'Unit',
     'Supplier',
+    'Pricing Status',
     'Base Price',
     'Transport Cost',
     'Landed Cost',
@@ -821,6 +787,7 @@ export function exportToCSV(options: ExportOptions): void {
     item.quantity,
     item.unit,
     item.selectedSupplier,
+    getPricingStatus(item),
     `R${item.baseUnitPrice}`,
     `R${item.transportCost}`,
     `R${item.landedUnitPrice}`,
@@ -895,7 +862,7 @@ export async function exportToWord(options: ExportOptions): Promise<void> {
     })],
   });
 
-  // Match Excel columns exactly: Item No, Description, Quantity, Unit, Supplier,
+  // Match Excel columns exactly: Item No, Description, Quantity, Unit, Supplier, Pricing Status,
   // Base Price, Transport Cost, Landed Cost, Additional Fees,
   // Best Overall Price, Total Price, Distance (km), Branch Location
   const itemRows = pricedItems.map((item: any, i: number) => new TableRow({
@@ -905,6 +872,7 @@ export async function exportToWord(options: ExportOptions): Promise<void> {
       dCell(String(item.quantity ?? '')),
       dCell(item.unit || ''),
       dCell(item.selectedSupplier || item.supplierName || ''),
+      dCell(getPricingStatus(item)),
       dCell(fmtR(item.baseUnitPrice), true),
       dCell(fmtR(item.transportCost), true),
       dCell(fmtR(item.landedUnitPrice), true),
@@ -919,7 +887,7 @@ export async function exportToWord(options: ExportOptions): Promise<void> {
   // Totals row
   const totalsRow = new TableRow({
     children: [
-      dCell(''), dCell('GRAND TOTAL (Delivery)', false), dCell(''), dCell(''), dCell(''),
+      dCell(''), dCell('GRAND TOTAL (Delivery)', false), dCell(''), dCell(''), dCell(''), dCell(''),
       dCell(''), dCell(fmtR(totalTransportCost), true), dCell(''), dCell(''), dCell(''),
       dCell(fmtR(grandTotal), true), dCell(''), dCell(''),
     ],
@@ -944,7 +912,7 @@ export async function exportToWord(options: ExportOptions): Promise<void> {
             new TableRow({
               tableHeader: true,
               children: [
-                hCell('Item No'), hCell('Description'), hCell('Qty'), hCell('Unit'), hCell('Supplier'),
+                hCell('Item No'), hCell('Description'), hCell('Qty'), hCell('Unit'), hCell('Supplier'), hCell('Pricing Status'),
                 hCell('Base Price'), hCell('Transport Cost'), hCell('Landed Cost'),
                 hCell('Additional Fees'), hCell('Best Overall Price'), hCell('Total Price'),
                 hCell('Distance (km)'), hCell('Branch Location'),
