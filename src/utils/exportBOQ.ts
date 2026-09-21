@@ -6,6 +6,7 @@ import type { ComplianceCosts } from './complianceCalculations';
 import { calculateProjectCarbonSummary, calculateItemCarbon } from './carbonTracking';
 import type { SubscriptionTier } from './tierAccess';
 import { getTierFeatures } from './tierAccess';
+import { calculatePricingCompleteness } from './pricingStrategyV2';
 
 interface ExportOptions {
   pricedItems: RegionalPricedBillItem[];
@@ -41,6 +42,15 @@ function getPricingStatus(item: RegionalPricedBillItem): string {
   }
 }
 
+function getPricingStatusCounts(items: RegionalPricedBillItem[]): Array<[string, number]> {
+  const counts = new Map<string, number>();
+  items.forEach(item => {
+    const status = getPricingStatus(item);
+    counts.set(status, (counts.get(status) || 0) + 1);
+  });
+  return [...counts.entries()].sort((a, b) => b[1] - a[1]);
+}
+
 /**
  * Export priced BOQ to Excel format
  */
@@ -49,6 +59,8 @@ export function exportToExcel(options: ExportOptions): void {
   
   // Safe access to compliance costs
   const complianceTotal = complianceCosts?.total || 0;
+  const pricingCompleteness = calculatePricingCompleteness(pricedItems);
+  const pricingStatusCounts = getPricingStatusCounts(pricedItems);
 
   // Calculate carbon summary if green data is included
   const carbonSummary = includeGreenData ? calculateProjectCarbonSummary(pricedItems) : null;
@@ -222,6 +234,35 @@ export function exportToExcel(options: ExportOptions): void {
     }
   }
 
+  const summaryRows: Array<Array<string | number>> = [
+    ['BOQ SUMMARY', ''],
+    ['Project location', `${projectSettings?.municipality || 'N/A'}, ${projectSettings?.province || 'N/A'}`],
+    ['Pricing coverage', `${pricingCompleteness.coveragePercent.toFixed(1)}%`],
+    ['Priceable items', pricingCompleteness.priceableItems],
+    ['Priced items', pricingCompleteness.pricedItems],
+    ['Unresolved items', pricingCompleteness.unresolvedItems],
+    ['Structural/reference rows excluded', pricingCompleteness.nonPriceableRows],
+    ['BOQ pricing complete', pricingCompleteness.isComplete ? 'Yes' : 'No — total remains incomplete'],
+    ['', ''],
+    ['PRICING STATUS BREAKDOWN', ''],
+    ...pricingStatusCounts.map(([status, count]) => [status, count]),
+    ['', ''],
+    ['Delivery total', grandTotal],
+    ['Transport included', totalTransportCost],
+    ['Preliminaries & General (P&G)', pgCosts],
+    ['Compliance costs', complianceTotal],
+    ['Overall BOQ total', overallTotal],
+    ['', ''],
+    ['Generated', new Date().toLocaleString('en-ZA')],
+  ];
+  const wsSummary = XLSX.utils.aoa_to_sheet(summaryRows);
+  wsSummary['!cols'] = [{ wch: 38 }, { wch: 32 }];
+  for (let row = summaryRows.findIndex(entry => entry[0] === 'Delivery total'); row < summaryRows.length; row += 1) {
+    const address = XLSX.utils.encode_cell({ r: row, c: 1 });
+    if (wsSummary[address] && typeof wsSummary[address].v === 'number') wsSummary[address].z = 'R#,##0.00';
+  }
+
+  XLSX.utils.book_append_sheet(wb, wsSummary, 'BOQ Summary');
   XLSX.utils.book_append_sheet(wb, ws, 'Priced BOQ');
 
   // Create project info sheet with inflation projections
@@ -333,6 +374,8 @@ export function exportToPDF(options: ExportOptions): void {
   
   // Safe access to compliance costs
   const complianceTotal = complianceCosts?.total || 0;
+  const pricingCompleteness = calculatePricingCompleteness(pricedItems);
+  const pricingStatusCounts = getPricingStatusCounts(pricedItems);
 
   // Calculate carbon summary if green data is included
   const carbonSummary = includeGreenData ? calculateProjectCarbonSummary(pricedItems) : null;
@@ -457,6 +500,29 @@ export function exportToPDF(options: ExportOptions): void {
   doc.setFontSize(8);
   doc.text(`Future projections based on ${inflationRate}% annual inflation`, 15, summaryY + 20);
 
+  autoTable(doc, {
+    startY: summaryY + 24,
+    head: [['Priceable', 'Priced', 'Unresolved', 'Excluded rows', 'Coverage', 'Pricing complete']],
+    body: [[
+      String(pricingCompleteness.priceableItems),
+      String(pricingCompleteness.pricedItems),
+      String(pricingCompleteness.unresolvedItems),
+      String(pricingCompleteness.nonPriceableRows),
+      `${pricingCompleteness.coveragePercent.toFixed(1)}%`,
+      pricingCompleteness.isComplete ? 'Yes' : 'No — total incomplete',
+    ]],
+    theme: 'grid',
+    styles: { fontSize: 8, cellPadding: 2, halign: 'center' },
+    headStyles: { fillColor: [15, 23, 42], textColor: [255, 255, 255], fontStyle: 'bold' },
+    margin: { left: 15, right: 15 },
+  });
+  const boqSummaryEndY = (doc as any).lastAutoTable.finalY || summaryY + 38;
+  doc.setFontSize(7);
+  doc.setTextColor(60, 60, 60);
+  const statusBreakdown = `Status breakdown: ${pricingStatusCounts.map(([status, count]) => `${status}: ${count}`).join(' | ')}`;
+  doc.text(doc.splitTextToSize(statusBreakdown, 267), 15, boqSummaryEndY + 4);
+  const itemTableStartY = boqSummaryEndY + 10;
+
   // Add items table - streamline columns when green data is included to prevent cutoff
   const tableData = pricedItems.map(item => {
     if (includeGreenData) {
@@ -543,7 +609,7 @@ export function exportToPDF(options: ExportOptions): void {
   ];
 
   autoTable(doc, {
-    startY: summaryY + 25,
+    startY: itemTableStartY,
     head: [tableHeaders],
     body: tableData,
     foot: footerRows,
@@ -759,6 +825,8 @@ export function exportToCSV(options: ExportOptions): void {
   
   // Safe access to compliance costs
   const complianceTotal = complianceCosts?.total || 0;
+  const pricingCompleteness = calculatePricingCompleteness(pricedItems);
+  const pricingStatusCounts = getPricingStatusCounts(pricedItems);
 
   // Calculate inflation projections
   const projected6Months = grandTotal * (1 + (inflationRate / 100) * 0.5);
@@ -802,6 +870,14 @@ export function exportToCSV(options: ExportOptions): void {
   const summaryRows = [
     [''],
     ['SUMMARY'],
+    ['Pricing Coverage', `${pricingCompleteness.coveragePercent.toFixed(1)}%`],
+    ['Priceable Items', String(pricingCompleteness.priceableItems)],
+    ['Priced Items', String(pricingCompleteness.pricedItems)],
+    ['Unresolved Items', String(pricingCompleteness.unresolvedItems)],
+    ['Structural/Reference Rows Excluded', String(pricingCompleteness.nonPriceableRows)],
+    ['BOQ Pricing Complete', pricingCompleteness.isComplete ? 'Yes' : 'No - total remains incomplete'],
+    ...pricingStatusCounts.map(([status, count]) => [`Status: ${status}`, String(count)]),
+    [''],
     ['Current Grand Total', `R${grandTotal.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}`],
     ['Total Transport Cost', `R${totalTransportCost.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}`],
     ['Total Compliance Costs', `R${complianceTotal.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}`],
@@ -843,6 +919,8 @@ export async function exportToWord(options: ExportOptions): Promise<void> {
   const { pricedItems, projectSettings, grandTotal, totalTransportCost, complianceCosts, pgCosts = 0 } = options;
   const complianceTotal = complianceCosts?.total || 0;
   const overallTotal = grandTotal + complianceTotal + pgCosts;
+  const pricingCompleteness = calculatePricingCompleteness(pricedItems);
+  const pricingStatusCounts = getPricingStatusCounts(pricedItems);
   const fmtR = (v: any) => {
     const n = parseFloat(v);
     return isNaN(n) ? 'R0.00' : `R${n.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -861,6 +939,20 @@ export async function exportToWord(options: ExportOptions): Promise<void> {
       alignment: right ? AlignmentType.RIGHT : AlignmentType.LEFT,
     })],
   });
+
+  const summaryTableRows = [
+    ['Pricing coverage', `${pricingCompleteness.coveragePercent.toFixed(1)}%`],
+    ['Priceable items', String(pricingCompleteness.priceableItems)],
+    ['Priced items', String(pricingCompleteness.pricedItems)],
+    ['Unresolved items', String(pricingCompleteness.unresolvedItems)],
+    ['Structural/reference rows excluded', String(pricingCompleteness.nonPriceableRows)],
+    ['BOQ pricing complete', pricingCompleteness.isComplete ? 'Yes' : 'No — total remains incomplete'],
+    ...pricingStatusCounts.map(([status, count]) => [`Status: ${status}`, String(count)]),
+    ['Delivery total', fmtR(grandTotal)],
+    ['Preliminaries & General', fmtR(pgCosts)],
+    ['Compliance costs', fmtR(complianceTotal)],
+    ['Overall BOQ total', fmtR(overallTotal)],
+  ].map(([label, value]) => new TableRow({ children: [dCell(label), dCell(value, true)] }));
 
   // Match Excel columns exactly: Item No, Description, Quantity, Unit, Supplier, Pricing Status,
   // Base Price, Transport Cost, Landed Cost, Additional Fees,
@@ -904,6 +996,15 @@ export async function exportToWord(options: ExportOptions): Promise<void> {
         new Paragraph({ children: [new TextRun({ text: 'Municipality: ', bold: true }), new TextRun(projectSettings?.municipality || 'N/A')] }),
         new Paragraph({ children: [new TextRun({ text: 'CIDB Grade: ', bold: true }), new TextRun(projectSettings?.cidbGrading || 'N/A')] }),
         new Paragraph({ children: [new TextRun({ text: 'Generated: ', bold: true }), new TextRun(date)] }),
+        new Paragraph({ text: '' }),
+        new Paragraph({ text: 'BOQ SUMMARY', heading: HeadingLevel.HEADING_2 }),
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          rows: [
+            new TableRow({ tableHeader: true, children: [hCell('Metric'), hCell('Value')] }),
+            ...summaryTableRows,
+          ],
+        }),
         new Paragraph({ text: '' }),
         new Paragraph({ text: 'BOQ LINE ITEMS', heading: HeadingLevel.HEADING_2 }),
         new Table({
