@@ -119,5 +119,6 @@ export function evaluateBenchmarkRange(rate: number, benchmarkRate?: number): Pr
 }
 
 export function getPricingEngineVersion(settings?: { pricingEngineVersion?: PricingEngineVersion }): PricingEngineVersion {
-  return settings?.pricingEngineVersion === 'boq-matching-v2' ? 'boq-matching-v2' : 'legacy';
+  // UAT release default. Production main remains on the explicit legacy default.
+  return settings?.pricingEngineVersion === 'legacy' ? 'legacy' : 'boq-matching-v2';
 }
