@@ -1644,110 +1644,16 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
         </CardHeader>
         <CardContent>
           <div className="w-full border rounded-lg min-h-[600px] overflow-y-auto">
-            <Table className="w-full">
+            <Table className="w-full table-fixed">
               <TableHeader>
                 <TableRow>
-                  <TableHead className="text-xs p-2 min-w-[60px]">Item</TableHead>
-                  <TableHead className="text-xs p-2">Description</TableHead>
-                  <TableHead className="text-right text-xs p-2">Qty</TableHead>
-                  <TableHead className="text-xs p-2">Best Supplier</TableHead>
-                  <TableHead className="text-xs p-2">Unit</TableHead>
-                  <TableHead className="text-right text-xs p-2 min-w-[70px]">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <span className="cursor-help">Base Price</span>
-                        </TooltipTrigger>
-                        <TooltipContent className="max-w-sm">
-                          <p className="text-xs font-semibold mb-1">Supplier Catalog Price (Per Unit)</p>
-                          <p className="text-xs mb-2">Sourced from 96 major SA suppliers across 9 categories:</p>
-                          <ul className="text-xs space-y-1 ml-3">
-                            <li>• Automatically adjusted for provincial pricing multipliers</li>
-                            <li>• Live pricing data (auto-sync suppliers updated daily)</li>
-                            <li>• SANS 1200 compliant materials only</li>
-                          </ul>
-                          <p className="text-xs mt-2 text-gray-500 italic">Does NOT include transport or additional fees</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </TableHead>
-                  <TableHead className="text-right text-xs p-2">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <span className="cursor-help">Transport</span>
-                        </TooltipTrigger>
-                        <TooltipContent className="max-w-sm">
-                          <p className="text-xs font-semibold mb-1">Transport Cost Per Unit</p>
-                          <p className="text-xs mb-2">Calculated from nearest supplier branch using GPS coordinates. Uses whichever is HIGHER:</p>
-                          <ul className="text-xs space-y-1 ml-3">
-                            <li>• <span className="font-medium">Distance-based</span>: km × rate/km, OR</li>
-                            <li>• <span className="font-medium">Minimum charge</span>: Bulk (R450), Standard (R300), Lightweight (R150)</li>
-                          </ul>
-                          <p className="text-xs mt-2 text-gray-500 italic">Ensures realistic delivery costs per SA industry standards</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </TableHead>
-                  <TableHead className="text-right text-xs p-2 bg-purple-50">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <span className="cursor-help">Add. Fees</span>
-                        </TooltipTrigger>
-                        <TooltipContent className="max-w-sm">
-                          <p className="text-xs font-semibold mb-1">Additional Fees Per Unit</p>
-                          <p className="text-xs mb-2">Includes 4 project-specific cost factors:</p>
-                          <ul className="text-xs space-y-1 ml-3">
-                            <li>• <span className="font-medium">CIDB Overhead</span>: GB1-GB9 grading factor (2%-10%)</li>
-                            <li>• <span className="font-medium">Profit Margin</span>: Contractor markup (customizable %)</li>
-                            <li>• <span className="font-medium">Duration Impact</span>: Timeline adjustment (rush/extended)</li>
-                            <li>• <span className="font-medium">Machinery</span>: Owned (5% discount) vs Hired (3% premium)</li>
-                          </ul>
-                          <p className="text-xs mt-2 text-gray-500 italic">Applied cumulatively to landed cost (base + transport)</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </TableHead>
-                  <TableHead className="text-right text-xs p-2">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <span className="cursor-help">Best Overall Price</span>
-                        </TooltipTrigger>
-                        <TooltipContent className="max-w-sm">
-                          <p className="text-xs font-semibold mb-1">Final Unit Price (All-Inclusive)</p>
-                          <p className="text-xs mb-2">Complete per-unit cost calculation:</p>
-                          <ul className="text-xs space-y-1 ml-3">
-                            <li>• Base Price (provincial-adjusted catalog price)</li>
-                            <li>• + Transport Cost (optimized for nearest branch)</li>
-                            <li>• + Additional Fees (CIDB, profit, duration, machinery)</li>
-                          </ul>
-                          <p className="text-xs mt-2 font-medium text-blue-600">= Best Overall Price per unit</p>
-                          <p className="text-xs mt-1 text-gray-500 italic">Multiply by quantity for Total Price</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </TableHead>
-                  <TableHead className="text-right font-bold text-xs p-2 bg-blue-100 border-l-2 border-blue-300">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <span className="cursor-help">Total</span>
-                        </TooltipTrigger>
-                        <TooltipContent className="max-w-sm">
-                          <p className="text-xs font-semibold mb-1">Total Item Cost</p>
-                          <p className="text-xs mb-2">Full cost for this line item:</p>
-                          <ul className="text-xs space-y-1 ml-3">
-                            <li>• Best Overall Price × Quantity</li>
-                            <li>• Includes all base, transport, and additional fees</li>
-                          </ul>
-                          <p className="text-xs mt-2 font-medium text-blue-600">This is your final line item cost</p>
-                          <p className="text-xs mt-1 text-gray-500 italic">Sum of all line totals = Grand Total</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </TableHead>
+                  <TableHead className="w-[9%] p-2 text-xs">Item</TableHead>
+                  <TableHead className="w-[31%] p-2 text-xs">Description</TableHead>
+                  <TableHead className="w-[10%] p-2 text-right text-xs">Qty / Unit</TableHead>
+                  <TableHead className="w-[18%] p-2 text-xs">Pricing source</TableHead>
+                  <TableHead className="w-[11%] p-2 text-right text-xs">Final rate</TableHead>
+                  <TableHead className="w-[11%] p-2 text-xs">Status</TableHead>
+                  <TableHead className="w-[10%] border-l-2 border-blue-300 bg-blue-100 p-2 text-right text-xs font-bold">Total</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -1774,7 +1680,7 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                       categoryRows.push(
                         <TableRow key={mainRowKey} className={item.rowType === 'heading' ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-800'}>
                           <TableCell className="p-3 text-xs font-bold">{item.code}</TableCell>
-                          <TableCell colSpan={9} className={`p-3 font-semibold ${item.rowType === 'heading' ? 'uppercase tracking-wide' : ''}`}>
+                          <TableCell colSpan={6} className={`p-3 font-semibold ${item.rowType === 'heading' ? 'uppercase tracking-wide' : ''}`}>
                             {item.name}
                           </TableCell>
                         </TableRow>
@@ -1866,7 +1772,10 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                             </TooltipProvider>
                           )}
                         </TableCell>
-                        <TableCell className="text-right text-xs p-2" style={{ whiteSpace: 'normal' }}>{item.quantity}</TableCell>
+                        <TableCell className="p-2 text-right text-xs" style={{ whiteSpace: 'normal' }}>
+                          <div className="font-medium">{item.quantity || '—'}</div>
+                          <div className="text-[10px] text-slate-500">{item.unit || '—'}</div>
+                        </TableCell>
                         <TableCell className={`p-2 ${item.isGreenMaterial ? 'bg-green-50' : ''}`}>
                           <div className="flex items-center gap-1 flex-wrap">
                             <span className={`text-xs ${item.pricingRequirement && item.pricingRequirement !== 'PRICED' && item.pricingRequirement !== 'NON_PRICEABLE' ? 'font-semibold text-red-700' : ''}`} style={{ wordBreak: 'break-word', overflowWrap: 'break-word', whiteSpace: 'normal' }}>{item.selectedSupplier || item.supplierName}</span>
@@ -1877,16 +1786,22 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                             )}
                           </div>
                         </TableCell>
-                        <TableCell className="text-xs p-2" style={{ whiteSpace: 'normal' }}>{item.unit}</TableCell>
-                        <TableCell className="text-right text-xs p-2" style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>R{item.baseUnitPrice}</TableCell>
-                        <TableCell className="text-right text-orange-600 font-medium text-xs p-2" style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>
-                          +R{item.transportCostPerUnit}
-                        </TableCell>
-                        <TableCell className="text-right text-purple-600 font-medium text-xs p-2 bg-purple-50" style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>
-                          +R{item.additionalFees || '0.00'}
-                        </TableCell>
-                        <TableCell className="text-right font-medium text-xs p-2" style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>
+                        <TableCell className="p-2 text-right text-xs font-medium" style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>
                           R{parseFloat(item.finalUnitPrice || item.landedUnitPrice).toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </TableCell>
+                        <TableCell className="p-2 text-xs">
+                          <Badge
+                            variant="outline"
+                            className={`h-auto whitespace-normal px-1.5 py-0.5 text-[9px] ${
+                              item.matchingDecision?.reviewStatus === 'ACCEPTED'
+                                ? 'border-emerald-300 bg-emerald-50 text-emerald-700'
+                                : item.pricingRequirement === 'NON_PRICEABLE'
+                                  ? 'border-slate-300 bg-slate-50 text-slate-600'
+                                  : 'border-red-300 bg-red-50 text-red-700'
+                            }`}
+                          >
+                            {item.matchingDecision?.reviewStatus || (item.pricingRequirement === 'NON_PRICEABLE' ? 'NOT PRICEABLE' : 'REVIEW')}
+                          </Badge>
                         </TableCell>
                         <TableCell className="text-right font-bold text-[#00b4d8] text-xs p-2 bg-blue-50 border-l-2 border-blue-300" style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>
                           R{parseFloat(item.totalPrice).toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
@@ -1898,13 +1813,14 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                     if (isExpanded && hasPricingDetails) {
                       categoryRows.push(
                         <TableRow key={expandedRowKey}>
-                          <TableCell colSpan={10} className="bg-gray-50 p-4">
+                          <TableCell colSpan={7} className="bg-gray-50 p-4">
                             <div className="space-y-2">
                               {item.matchingDecision && (
                                 <div className="rounded-lg border border-slate-200 bg-white p-3 text-xs">
                                   <div className="mb-2 flex flex-wrap items-center gap-2">
                                     <span className="font-semibold text-slate-800">BOQ Matching Strategy</span>
                                     <Badge variant="outline">{item.matchingDecision.strategy.replace(/-/g, ' ')}</Badge>
+                                    {item.matchingDecision.priority && <Badge variant="outline">Priority {item.matchingDecision.priority}</Badge>}
                                     <Badge className={item.matchingDecision.reviewStatus === 'ACCEPTED' ? 'bg-green-600' : 'bg-amber-600'}>
                                       {item.matchingDecision.reviewStatus}
                                     </Badge>
@@ -1914,6 +1830,12 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                                   {item.matchingDecision.source && <p className="mt-1 text-slate-500">Source: {item.matchingDecision.source}</p>}
                                 </div>
                               )}
+                              <div className="grid grid-cols-2 gap-2 rounded-lg border border-slate-200 bg-white p-3 text-xs sm:grid-cols-4">
+                                <div><p className="text-slate-500">Base rate</p><p className="font-semibold">R{item.baseUnitPrice || '0.00'}</p></div>
+                                <div><p className="text-slate-500">Transport / unit</p><p className="font-semibold text-orange-700">R{item.transportCostPerUnit || '0.00'}</p></div>
+                                <div><p className="text-slate-500">Additional / unit</p><p className="font-semibold text-purple-700">R{item.additionalFees || '0.00'}</p></div>
+                                <div><p className="text-slate-500">Final rate</p><p className="font-semibold text-cyan-700">R{item.finalUnitPrice || item.landedUnitPrice || '0.00'}</p></div>
+                              </div>
                               {hasAlternatives && <h4 className="text-sm font-semibold text-gray-700 mb-3">
                                 Alternative Supplier Quotes (with all costs & fees)
                               </h4>}

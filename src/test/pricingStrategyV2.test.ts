@@ -11,6 +11,8 @@ import {
   normalizePricingUnit,
   calculatePricingCompleteness,
   classifyUnpricedRequirement,
+  BOQ_MATCHING_PRIORITIES,
+  selectBoqPricingCandidate,
 } from '@/utils/pricingStrategyV2';
 
 describe('BOQ Matching Strategy v2', () => {
@@ -92,5 +94,33 @@ describe('BOQ Matching Strategy v2', () => {
       .toBe('ALLOWANCE_REQUIRED');
     expect(classifyUnpricedRequirement('Road studs', 'No').requirement)
       .toBe('SUPPLIER_MATCH_REQUIRED');
+  });
+
+  it('applies the agreed BOQ matching priority order', () => {
+    expect(BOQ_MATCHING_PRIORITIES.map(item => item.strategy)).toEqual([
+      'historical-boq',
+      'supplier-product',
+      'buildaid-benchmark',
+      'equivalent-activity',
+      'composite-build-up',
+      'manual-review',
+    ]);
+
+    const selection = selectBoqPricingCandidate([
+      { strategy: 'composite-build-up', rate: 310, source: 'Qilly build-up', explanation: 'Built up', confidence: 'HIGH', reviewed: true },
+      { strategy: 'supplier-product', rate: 295, source: 'Supplier quote', explanation: 'Direct match', confidence: 'MEDIUM', reviewed: true },
+      { strategy: 'historical-boq', rate: 300, source: 'Approved BOQ', explanation: 'Approved match', confidence: 'HIGH', reviewed: true },
+    ]);
+
+    expect(selection?.candidate.strategy).toBe('historical-boq');
+    expect(selection?.decision.priority).toBe(1);
+    expect(selection?.decision.reviewStatus).toBe('ACCEPTED');
+  });
+
+  it('requires review when a benchmark source is not reviewed', () => {
+    const selection = selectBoqPricingCandidate([
+      { strategy: 'buildaid-benchmark', rate: 450, source: 'Fallback benchmark', explanation: 'Benchmark match', confidence: 'HIGH', reviewed: false },
+    ]);
+    expect(selection?.decision.reviewStatus).toBe('REVIEW REQUIRED');
   });
 });

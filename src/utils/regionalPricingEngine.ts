@@ -23,6 +23,7 @@ import {
   getPricingEngineVersion,
   pricingRequired,
   classifyUnpricedRequirement,
+  selectBoqPricingCandidate,
   type PricingDecision,
   type PricingEngineVersion,
   type PricingRequirement,
@@ -447,6 +448,15 @@ export async function priceRegionalBill(
           };
         }
         const additionalFeesPerUnit = (finalTotalPrice - totalCost) / quantity;
+        const isBuildAidBenchmark = laborPricing.source.toLowerCase().includes('buildaid');
+        const selectedPricing = selectBoqPricingCandidate([{
+          strategy: isBuildAidBenchmark ? 'buildaid-benchmark' : 'composite-build-up',
+          rate: totalRate,
+          source: laborPricing.source,
+          explanation: `${isBuildAidBenchmark ? 'BuildAid benchmark' : 'Composite labour and plant rate'} matched to ${laborPricing.matchedDescription} with a compatible ${item.unit} unit.`,
+          confidence: laborPricing.confidence,
+          reviewed: laborPricing.reviewedSource,
+        }]);
         
         pricedItems.push({
           ...item,
@@ -474,6 +484,8 @@ export async function priceRegionalBill(
           laborConfidence: laborPricing.confidence,
           laborDescription: laborPricing.matchedDescription,
           laborTradeCategory: laborPricing.tradeCategory,
+          matchingDecision: selectedPricing?.decision,
+          pricingRequirement: 'PRICED',
         });
         continue; // SKIP supplier search entirely
       } else {

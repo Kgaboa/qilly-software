@@ -1,5 +1,5 @@
 export type PricingEngineVersion = 'legacy' | 'boq-matching-v2';
-export type PricingPath = 'historical-boq' | 'equivalent-activity' | 'composite-build-up' | 'supplier-product' | 'controlled-fallback' | 'manual-review';
+export type PricingPath = 'historical-boq' | 'supplier-product' | 'buildaid-benchmark' | 'equivalent-activity' | 'composite-build-up' | 'controlled-fallback' | 'manual-review';
 export type MatchConfidence = 'HIGH' | 'MEDIUM' | 'LOW';
 export type PricingReviewStatus = 'ACCEPTED' | 'REVIEW REQUIRED' | 'PRICING REQUIRED';
 export type PricingRequirement =
@@ -17,6 +17,50 @@ export interface PricingDecision {
   reviewStatus: PricingReviewStatus;
   source?: string;
   candidateScore?: number;
+  priority?: number;
+  attemptedStrategies?: PricingPath[];
+}
+
+export interface PricingCandidate {
+  strategy: PricingPath;
+  rate: number;
+  source: string;
+  explanation: string;
+  confidence: MatchConfidence;
+  reviewed: boolean;
+}
+
+export const BOQ_MATCHING_PRIORITIES: ReadonlyArray<{ strategy: PricingPath; priority: number; label: string }> = [
+  { strategy: 'historical-boq', priority: 1, label: 'Approved historical BOQ' },
+  { strategy: 'supplier-product', priority: 2, label: 'Compatible supplier product' },
+  { strategy: 'buildaid-benchmark', priority: 3, label: 'BuildAid benchmark' },
+  { strategy: 'equivalent-activity', priority: 4, label: 'Equivalent activity' },
+  { strategy: 'composite-build-up', priority: 5, label: 'Composite build-up' },
+  { strategy: 'manual-review', priority: 6, label: 'Contractor input or manual review' },
+];
+
+const PRIORITY_BY_STRATEGY = new Map(BOQ_MATCHING_PRIORITIES.map(item => [item.strategy, item.priority]));
+
+export function selectBoqPricingCandidate(candidates: PricingCandidate[]): { candidate: PricingCandidate; decision: PricingDecision } | null {
+  const attemptedStrategies = [...new Set(candidates.map(candidate => candidate.strategy))];
+  const candidate = candidates
+    .filter(item => Number.isFinite(item.rate) && item.rate > 0)
+    .sort((a, b) => (PRIORITY_BY_STRATEGY.get(a.strategy) ?? 99) - (PRIORITY_BY_STRATEGY.get(b.strategy) ?? 99))[0];
+
+  if (!candidate) return null;
+  const priority = PRIORITY_BY_STRATEGY.get(candidate.strategy) ?? 99;
+  return {
+    candidate,
+    decision: {
+      strategy: candidate.strategy,
+      explanation: candidate.explanation,
+      confidence: candidate.confidence,
+      reviewStatus: candidate.reviewed && candidate.confidence !== 'LOW' ? 'ACCEPTED' : 'REVIEW REQUIRED',
+      source: candidate.source,
+      priority,
+      attemptedStrategies,
+    },
+  };
 }
 
 export interface PricingCompleteness {
@@ -191,11 +235,17 @@ export function evaluateSupplierMatch(input: {
     reviewStatus: confidence === 'LOW' ? 'REVIEW REQUIRED' : 'ACCEPTED',
     source: input.supplier,
     candidateScore: input.score,
+    priority: 2,
+    attemptedStrategies: ['historical-boq', 'supplier-product'],
   };
 }
 
 export function pricingRequired(reason: string): PricingDecision {
-  return { strategy: 'manual-review', explanation: reason, confidence: 'LOW', reviewStatus: 'PRICING REQUIRED' };
+  return {
+    strategy: 'manual-review', explanation: reason, confidence: 'LOW', reviewStatus: 'PRICING REQUIRED',
+    priority: 6,
+    attemptedStrategies: ['historical-boq', 'supplier-product', 'buildaid-benchmark', 'equivalent-activity', 'composite-build-up', 'manual-review'],
+  };
 }
 
 export function evaluateBenchmarkRange(rate: number, benchmarkRate?: number): PricingDecision | null {

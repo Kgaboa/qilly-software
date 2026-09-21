@@ -41,6 +41,8 @@ export interface LaborPricing {
   confidence: 'HIGH' | 'MEDIUM' | 'LOW';
   matchedDescription: string;
   tradeCategory: string;
+  source: string;
+  reviewedSource: boolean;
 }
 
 /**
@@ -204,6 +206,8 @@ export async function matchLaborRate(
       confidence,
       matchedDescription: bestMatch.rate.description,
       tradeCategory: bestMatch.rate.category,
+      source: bestMatch.rate.source || dataSource,
+      reviewedSource: !dataSource.toLowerCase().includes('mock'),
     };
   } catch (error) {
     console.error('❌ Error in matchLaborRate:', error);
@@ -362,6 +366,8 @@ function getDefaultLaborPricing(): LaborPricing {
     confidence: 'LOW',
     matchedDescription: 'No match found',
     tradeCategory: 'General',
+    source: 'No reviewed rate source',
+    reviewedSource: false,
   };
 }
 
