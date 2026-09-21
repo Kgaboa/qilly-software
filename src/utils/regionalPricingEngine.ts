@@ -22,8 +22,10 @@ import {
   evaluateSupplierMatch,
   getPricingEngineVersion,
   pricingRequired,
+  classifyUnpricedRequirement,
   type PricingDecision,
   type PricingEngineVersion,
+  type PricingRequirement,
 } from './pricingStrategyV2';
 
 // Local reference to ensure the function is included in the bundle
@@ -108,6 +110,7 @@ export interface RegionalPricedBillItem extends BillItem {
   sansCode?: string; // SANS 1200 standard code (from user or supplier)
   pricingType?: string; // Special item pricing label (Lump Sum, Provisional Sum, etc.) — separate from branch
   matchingDecision?: PricingDecision;
+  pricingRequirement?: PricingRequirement;
 }
 
 /**
@@ -327,12 +330,14 @@ export async function priceRegionalBill(
     console.log(`\n🔍 Pricing: "${item.name}" (${item.quantity} ${item.unit})`);
 
     if (item.rowType === 'heading' || item.rowType === 'subheading') {
+      const missingInput = classifyUnpricedRequirement(item.name, item.unit);
+      const isExplicitRateLine = item.isRateOnly || missingInput.requirement !== 'SUPPLIER_MATCH_REQUIRED';
       pricedItems.push({
         ...item,
         quantity: '',
         unit: '',
         supplierPrices: [],
-        selectedSupplier: 'N/A',
+        selectedSupplier: isExplicitRateLine ? missingInput.label : 'Not priced — structural row',
         baseUnitPrice: '0',
         transportCost: '0',
         transportCostPerUnit: '0',
@@ -340,6 +345,8 @@ export async function priceRegionalBill(
         additionalFees: '0',
         finalUnitPrice: '0',
         totalPrice: '0',
+        pricingRequirement: isExplicitRateLine ? missingInput.requirement : 'NON_PRICEABLE',
+        matchingDecision: isExplicitRateLine ? pricingRequired(missingInput.reason) : undefined,
       });
       continue;
     }
@@ -364,12 +371,14 @@ export async function priceRegionalBill(
         additionalFees: '0',
         finalUnitPrice: '0',
         totalPrice: '0',
+        pricingRequirement: 'NON_PRICEABLE',
       });
       continue;
     }
     
     // Skip items with missing required fields
     if (!item.name || !item.unit || !item.quantity) {
+      const missingInput = classifyUnpricedRequirement(item.name, item.unit);
       console.log(`   ⚠️  SKIPPING - Missing required fields (name: ${item.name}, unit: ${item.unit}, quantity: ${item.quantity})`);
       pricedItems.push({
         ...item,
@@ -377,7 +386,7 @@ export async function priceRegionalBill(
         unit: item.unit || 'unit',
         quantity: item.quantity || '0',
         supplierPrices: [],
-        selectedSupplier: 'Not Available',
+        selectedSupplier: missingInput.label,
         baseUnitPrice: '0',
         transportCost: '0',
         transportCostPerUnit: '0',
@@ -385,6 +394,8 @@ export async function priceRegionalBill(
         additionalFees: '0',
         finalUnitPrice: '0',
         totalPrice: '0',
+        pricingRequirement: missingInput.requirement,
+        matchingDecision: pricingRequired(missingInput.reason),
       });
       continue;
     }
@@ -477,6 +488,7 @@ export async function priceRegionalBill(
             laborMatched: false, laborConfidence: 'LOW', laborDescription: 'No compatible labour or plant rate',
             laborTradeCategory: categorization.category,
             matchingDecision: pricingRequired('No compatible labour or plant activity was found. A reviewed rate or composite build-up is required.'),
+            pricingRequirement: 'RATE_INPUT_REQUIRED',
           });
           continue;
         }
@@ -574,6 +586,7 @@ export async function priceRegionalBill(
             baseUnitPrice: '0', transportCost: '0', transportCostPerUnit: '0', landedUnitPrice: '0',
             additionalFees: '0', finalUnitPrice: '0', totalPrice: '0',
             matchingDecision: pricingRequired('Special sums and percentage items cannot use an arbitrary fallback. Enter the tender allowance or define the percentage base.'),
+            pricingRequirement: isPercentage ? 'PERCENTAGE_BASE_REQUIRED' : 'ALLOWANCE_REQUIRED',
           });
           continue;
         }
@@ -693,7 +706,7 @@ export async function priceRegionalBill(
       pricedItems.push({
         ...item,
         supplierPrices: [],
-        selectedSupplier: 'Not Available',
+        selectedSupplier: 'Pricing Required',
         baseUnitPrice: '0',
         transportCost: '0',
         transportCostPerUnit: '0',
@@ -704,6 +717,7 @@ export async function priceRegionalBill(
         matchingDecision: useBoqMatchingV2
           ? pricingRequired('No supplier candidate passed the minimum score and unit-compatibility rules.')
           : undefined,
+        pricingRequirement: useBoqMatchingV2 ? 'SUPPLIER_MATCH_REQUIRED' : undefined,
       });
       continue;
     }
@@ -727,7 +741,7 @@ export async function priceRegionalBill(
       pricedItems.push({
         ...item,
         supplierPrices: regionalQuotes,
-        selectedSupplier: 'Not Available',
+        selectedSupplier: useBoqMatchingV2 ? 'Pricing Required' : 'Not Available',
         baseUnitPrice: '0',
         transportCost: '0',
         transportCostPerUnit: '0',
@@ -735,6 +749,10 @@ export async function priceRegionalBill(
         additionalFees: '0',
         finalUnitPrice: '0',
         totalPrice: '0',
+        matchingDecision: useBoqMatchingV2
+          ? pricingRequired('Compatible catalogue candidates exist, but no supplier has an available regional quote.')
+          : undefined,
+        pricingRequirement: useBoqMatchingV2 ? 'SUPPLIER_MATCH_REQUIRED' : undefined,
       });
       continue;
     }
@@ -834,6 +852,7 @@ export async function priceRegionalBill(
             supplier: bestQuote.supplier,
           })
         : undefined,
+      pricingRequirement: useBoqMatchingV2 ? 'PRICED' : undefined,
     });
   }
   onProgress?.(unpricedItems.length, unpricedItems.length);

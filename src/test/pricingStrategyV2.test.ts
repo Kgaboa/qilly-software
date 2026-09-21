@@ -9,6 +9,8 @@ import {
   isSpecialPricingUnit,
   isSupportedPricingUnit,
   normalizePricingUnit,
+  calculatePricingCompleteness,
+  classifyUnpricedRequirement,
 } from '@/utils/pricingStrategyV2';
 
 describe('BOQ Matching Strategy v2', () => {
@@ -61,5 +63,34 @@ describe('BOQ Matching Strategy v2', () => {
     const unknown = BOQ_TEMPLATES.flatMap(template => template.items)
       .filter(item => !isSupportedPricingUnit(item.unit));
     expect(unknown).toEqual([]);
+  });
+
+  it('excludes structural rows and exposes incomplete BOQ totals', () => {
+    const completeness = calculatePricingCompleteness([
+      { rowType: 'heading', selectedSupplier: 'Not priced — structural row', totalPrice: '0', pricingRequirement: 'NON_PRICEABLE' },
+      { rowType: 'item', quantity: '10', unit: 'm2', selectedSupplier: 'Buco', totalPrice: '2500', pricingRequirement: 'PRICED' },
+      { rowType: 'item', quantity: '5', unit: 'No.', selectedSupplier: 'Pricing Required', totalPrice: '0', pricingRequirement: 'SUPPLIER_MATCH_REQUIRED' },
+    ]);
+
+    expect(completeness).toMatchObject({
+      totalRows: 3,
+      nonPriceableRows: 1,
+      priceableItems: 2,
+      pricedItems: 1,
+      unresolvedItems: 1,
+      coveragePercent: 50,
+      isComplete: false,
+    });
+  });
+
+  it('routes specialised items away from general supplier matching', () => {
+    expect(classifyUnpricedRequirement('Handling cost, profit and all other charges').requirement)
+      .toBe('PERCENTAGE_BASE_REQUIRED');
+    expect(classifyUnpricedRequirement('Motor grader CAT 140G').requirement)
+      .toBe('RATE_INPUT_REQUIRED');
+    expect(classifyUnpricedRequirement('Prime cost sum').requirement)
+      .toBe('ALLOWANCE_REQUIRED');
+    expect(classifyUnpricedRequirement('Road studs', 'No').requirement)
+      .toBe('SUPPLIER_MATCH_REQUIRED');
   });
 });

@@ -2,6 +2,13 @@ export type PricingEngineVersion = 'legacy' | 'boq-matching-v2';
 export type PricingPath = 'historical-boq' | 'equivalent-activity' | 'composite-build-up' | 'supplier-product' | 'controlled-fallback' | 'manual-review';
 export type MatchConfidence = 'HIGH' | 'MEDIUM' | 'LOW';
 export type PricingReviewStatus = 'ACCEPTED' | 'REVIEW REQUIRED' | 'PRICING REQUIRED';
+export type PricingRequirement =
+  | 'PRICED'
+  | 'NON_PRICEABLE'
+  | 'RATE_INPUT_REQUIRED'
+  | 'PERCENTAGE_BASE_REQUIRED'
+  | 'ALLOWANCE_REQUIRED'
+  | 'SUPPLIER_MATCH_REQUIRED';
 
 export interface PricingDecision {
   strategy: PricingPath;
@@ -10,6 +17,92 @@ export interface PricingDecision {
   reviewStatus: PricingReviewStatus;
   source?: string;
   candidateScore?: number;
+}
+
+export interface PricingCompleteness {
+  totalRows: number;
+  nonPriceableRows: number;
+  priceableItems: number;
+  pricedItems: number;
+  unresolvedItems: number;
+  coveragePercent: number;
+  isComplete: boolean;
+}
+
+type PricingItemLike = {
+  quantity?: string | number;
+  unit?: string;
+  rowType?: string;
+  pricingRequirement?: PricingRequirement;
+  selectedSupplier?: string;
+  totalPrice?: string | number;
+};
+
+const hasPositiveQuantity = (value: unknown) => {
+  const quantity = Number.parseFloat(String(value ?? '').replace(/,/g, ''));
+  return Number.isFinite(quantity) && quantity > 0;
+};
+
+export function isPriceableBoqItem(item: PricingItemLike): boolean {
+  if (item.pricingRequirement === 'NON_PRICEABLE') return false;
+  if (item.rowType === 'heading' || item.rowType === 'subheading' || item.rowType === 'summary') return false;
+  return hasPositiveQuantity(item.quantity) && Boolean(String(item.unit || '').trim());
+}
+
+export function calculatePricingCompleteness(items: PricingItemLike[]): PricingCompleteness {
+  const priceableItems = items.filter(isPriceableBoqItem);
+  const pricedItems = priceableItems.filter(item => {
+    if (item.pricingRequirement && item.pricingRequirement !== 'PRICED') return false;
+    if (['Pricing Required', 'Not Available', 'N/A'].includes(String(item.selectedSupplier || ''))) return false;
+    const total = Number.parseFloat(String(item.totalPrice ?? ''));
+    return Number.isFinite(total) && total > 0;
+  });
+  const unresolvedItems = priceableItems.length - pricedItems.length;
+  const coveragePercent = priceableItems.length === 0 ? 100 : (pricedItems.length / priceableItems.length) * 100;
+
+  return {
+    totalRows: items.length,
+    nonPriceableRows: items.length - priceableItems.length,
+    priceableItems: priceableItems.length,
+    pricedItems: pricedItems.length,
+    unresolvedItems,
+    coveragePercent,
+    isComplete: unresolvedItems === 0,
+  };
+}
+
+export function classifyUnpricedRequirement(description: string, unit?: string): {
+  requirement: Exclude<PricingRequirement, 'PRICED' | 'NON_PRICEABLE'>;
+  label: string;
+  reason: string;
+} {
+  const text = `${description || ''} ${unit || ''}`.toLowerCase();
+  if (/%|percentage|handling cost|handling charge|profit and all other charges/.test(text)) {
+    return {
+      requirement: 'PERCENTAGE_BASE_REQUIRED',
+      label: 'Percentage Base Required',
+      reason: 'Enter the percentage and identify the BOQ amount to which it must be applied.',
+    };
+  }
+  if (/provisional sum|prime cost|pc sum|lump sum|allowance/.test(text)) {
+    return {
+      requirement: 'ALLOWANCE_REQUIRED',
+      label: 'Allowance Required',
+      reason: 'Enter the tender allowance or approved project-specific sum.',
+    };
+  }
+  if (/labou?r|artisan|foreman|gang leader|grader|roller|loader|excavator|compressor|milling machine|truck|plant|equipment|mobilisation|execution of the works|suspension period/.test(text)) {
+    return {
+      requirement: 'RATE_INPUT_REQUIRED',
+      label: 'Rate Input Required',
+      reason: 'Use a reviewed labour, plant, time-related or contractor rate rather than a supplier product price.',
+    };
+  }
+  return {
+    requirement: 'SUPPLIER_MATCH_REQUIRED',
+    label: 'Pricing Required',
+    reason: 'No compatible reviewed rate or supplier match is available for this BOQ item.',
+  };
 }
 
 const UNIT_ALIASES: Record<string, string> = {

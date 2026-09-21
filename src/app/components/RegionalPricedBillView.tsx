@@ -30,6 +30,7 @@ import { EnvironmentalComplianceDashboard } from '@/app/components/Environmental
 import { hasFeatureAccess, getTierFeatures, type SubscriptionTier } from '@/utils/tierAccess';
 import { UpgradePrompt, UpgradeBadge } from '@/app/components/UpgradePrompt';
 import { SubscriptionUpgradeModal } from '@/app/components/payments/SubscriptionUpgradeModal';
+import { calculatePricingCompleteness } from '@/utils/pricingStrategyV2';
 
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 
@@ -118,6 +119,10 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
   // Support both direct pricedItems or bill.items structure (MUST COME FIRST)
   const pricedItems = propPricedItems || bill?.items || [];
   const projectSettings = propProjectSettings || bill?.projectSettings;
+  const pricingCompleteness = useMemo(
+    () => calculatePricingCompleteness(pricedItems),
+    [pricedItems],
+  );
 
   // Calculate totals (now that pricedItems is defined)
   const { grandTotal, totalTransportCost, totalOptimizedSavings, totalWithoutTransport } = useMemo(() => {
@@ -564,6 +569,27 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
               <strong>Indicative pricing only.</strong> Prices are generated from Qilly's configured pricing sources and may differ from confirmed supplier quotes.
               For billing-related enquiries, contact <a href="mailto:billing@qilly-software.co.za" className="underline font-medium">billing@qilly-software.co.za</a> or <a href="mailto:billing@qilly.co.za" className="underline font-medium">billing@qilly.co.za</a>. Confirm actual rates directly with suppliers.
             </span>
+          </div>
+          <div className={`flex items-start gap-2 rounded-lg border px-3 py-2 mb-2 text-xs ${
+            pricingCompleteness.isComplete
+              ? 'border-emerald-200 bg-emerald-50 text-emerald-800'
+              : 'border-red-300 bg-red-50 text-red-900'
+          }`}>
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+            <div className="flex-1">
+              <p className="font-semibold">
+                {pricingCompleteness.pricedItems} of {pricingCompleteness.priceableItems} priceable items priced
+                {' '}({pricingCompleteness.coveragePercent.toFixed(1)}% complete)
+              </p>
+              {pricingCompleteness.isComplete ? (
+                <p>All priceable BOQ items have a non-zero reviewed price.</p>
+              ) : (
+                <p>
+                  {pricingCompleteness.unresolvedItems} items still require a supplier match, reviewed rate, allowance or percentage base.
+                  The displayed BOQ total is incomplete until these items are resolved. Structural and reference rows are excluded from this calculation.
+                </p>
+              )}
+            </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5" ref={summaryCardsRef}>
         <Card className="shadow-sm">
@@ -1843,7 +1869,7 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                         <TableCell className="text-right text-xs p-2" style={{ whiteSpace: 'normal' }}>{item.quantity}</TableCell>
                         <TableCell className={`p-2 ${item.isGreenMaterial ? 'bg-green-50' : ''}`}>
                           <div className="flex items-center gap-1 flex-wrap">
-                            <span className="text-xs" style={{ wordBreak: 'break-word', overflowWrap: 'break-word', whiteSpace: 'normal' }}>{item.selectedSupplier || item.supplierName}</span>
+                            <span className={`text-xs ${item.pricingRequirement && item.pricingRequirement !== 'PRICED' && item.pricingRequirement !== 'NON_PRICEABLE' ? 'font-semibold text-red-700' : ''}`} style={{ wordBreak: 'break-word', overflowWrap: 'break-word', whiteSpace: 'normal' }}>{item.selectedSupplier || item.supplierName}</span>
                             {applyGreenMaterials && item.isGreenMaterial && (
                               <Badge className="bg-green-600 text-white text-[10px] px-1.5 py-0 h-4 shrink-0">
                                 🌿 Green
