@@ -44,9 +44,10 @@ describe('BOQ Matching Strategy v2', () => {
     expect(convertCandidateRate(10, 'each', 'm2')).toBeNull();
   });
 
-  it('requires an explicit switch before the new engine is used', () => {
-    expect(getPricingEngineVersion()).toBe('legacy');
+  it('uses v2 by default in UAT while allowing an explicit legacy fallback', () => {
+    expect(getPricingEngineVersion()).toBe('boq-matching-v2');
     expect(getPricingEngineVersion({ pricingEngineVersion: 'boq-matching-v2' })).toBe('boq-matching-v2');
+    expect(getPricingEngineVersion({ pricingEngineVersion: 'legacy' })).toBe('legacy');
   });
 
   it('flags the client workbook outliers instead of silently accepting them', () => {
