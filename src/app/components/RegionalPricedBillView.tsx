@@ -561,7 +561,7 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
           <div className="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mb-2 text-xs text-amber-800">
             <span className="mt-0.5 shrink-0">⚠️</span>
             <span>
-              <strong>Indicative pricing only.</strong> Prices are based on BuildAid 2025/2026 industry benchmarks and may differ from confirmed supplier quotes.
+              <strong>Indicative pricing only.</strong> Prices are generated from Qilly's configured pricing sources and may differ from confirmed supplier quotes.
               For billing-related enquiries, contact <a href="mailto:billing@qilly-software.co.za" className="underline font-medium">billing@qilly-software.co.za</a> or <a href="mailto:billing@qilly.co.za" className="underline font-medium">billing@qilly.co.za</a>. Confirm actual rates directly with suppliers.
             </span>
           </div>
@@ -1740,6 +1740,7 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                     const globalIndex = itemIndexOffset + localIndex;
                     const isExpanded = expandedRows.has(globalIndex);
                     const hasAlternatives = item.supplierPrices.length > 1;
+                    const hasPricingDetails = hasAlternatives || Boolean(item.matchingDecision);
                     const mainRowKey = `row-${item.code}-${globalIndex}`;
                     const expandedRowKey = `expanded-${item.code}-${globalIndex}`;
 
@@ -1868,14 +1869,28 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                     );
 
                     // Add expanded row if needed
-                    if (isExpanded && hasAlternatives) {
+                    if (isExpanded && hasPricingDetails) {
                       categoryRows.push(
                         <TableRow key={expandedRowKey}>
                           <TableCell colSpan={10} className="bg-gray-50 p-4">
                             <div className="space-y-2">
-                              <h4 className="text-sm font-semibold text-gray-700 mb-3">
+                              {item.matchingDecision && (
+                                <div className="rounded-lg border border-slate-200 bg-white p-3 text-xs">
+                                  <div className="mb-2 flex flex-wrap items-center gap-2">
+                                    <span className="font-semibold text-slate-800">BOQ Matching Strategy</span>
+                                    <Badge variant="outline">{item.matchingDecision.strategy.replace(/-/g, ' ')}</Badge>
+                                    <Badge className={item.matchingDecision.reviewStatus === 'ACCEPTED' ? 'bg-green-600' : 'bg-amber-600'}>
+                                      {item.matchingDecision.reviewStatus}
+                                    </Badge>
+                                    <Badge variant="outline">{item.matchingDecision.confidence} confidence</Badge>
+                                  </div>
+                                  <p className="text-slate-600">{item.matchingDecision.explanation}</p>
+                                  {item.matchingDecision.source && <p className="mt-1 text-slate-500">Source: {item.matchingDecision.source}</p>}
+                                </div>
+                              )}
+                              {hasAlternatives && <h4 className="text-sm font-semibold text-gray-700 mb-3">
                                 Alternative Supplier Quotes (with all costs & fees)
-                              </h4>
+                              </h4>}
                               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                                 {(() => {
                                   // If green materials are applied and this item has a green alternative,

@@ -17,6 +17,14 @@ import {
 import { matchLaborRate, type LaborPricing, formatLaborPricing } from '@/lib/boq/laborRates';
 import { categorizeItem, type ItemCategorization } from './itemCategorization';
 import type { BoqRowType } from './boqImport';
+import {
+  arePricingUnitsCompatible,
+  evaluateSupplierMatch,
+  getPricingEngineVersion,
+  pricingRequired,
+  type PricingDecision,
+  type PricingEngineVersion,
+} from './pricingStrategyV2';
 
 // Local reference to ensure the function is included in the bundle
 const getMunicipalityByCode = _getMunicipalityByCode || ((code: string) => municipalities.find(m => m.code === code));
@@ -29,6 +37,7 @@ export interface ProjectSettings {
   cidbGrading?: string;
   duration?: string;
   machineryType?: string;
+  pricingEngineVersion?: PricingEngineVersion;
 }
 
 export interface BillItem {
@@ -98,6 +107,7 @@ export interface RegionalPricedBillItem extends BillItem {
   buildAidRef?: string; // BuildAid 2025/2026 reference (from user or supplier)
   sansCode?: string; // SANS 1200 standard code (from user or supplier)
   pricingType?: string; // Special item pricing label (Lump Sum, Provisional Sum, etc.) — separate from branch
+  matchingDecision?: PricingDecision;
 }
 
 /**
@@ -288,6 +298,8 @@ export async function priceRegionalBill(
   onProgress?: (processed: number, total: number, itemName?: string) => void
 ): Promise<RegionalPricedBillItem[]> {
   const province = projectSettings?.province || 'GP';
+  const pricingEngineVersion = getPricingEngineVersion(projectSettings);
+  const useBoqMatchingV2 = pricingEngineVersion === 'boq-matching-v2';
   const municipalityCode = projectSettings?.municipality || 'JHB';
   
   // Get project location coordinates
@@ -454,8 +466,23 @@ export async function priceRegionalBill(
         });
         continue; // SKIP supplier search entirely
       } else {
-        // No labor match found - use default
-        console.log(`   ⚠️  No labor rate found - using default`);
+        // Version 2 never silently substitutes a generic rate for an unmatched activity.
+        if (useBoqMatchingV2) {
+          pricedItems.push({
+            ...item,
+            supplierPrices: [],
+            selectedSupplier: 'Pricing Required',
+            baseUnitPrice: '0', transportCost: '0', transportCostPerUnit: '0', landedUnitPrice: '0',
+            additionalFees: '0', finalUnitPrice: '0', totalPrice: '0',
+            laborMatched: false, laborConfidence: 'LOW', laborDescription: 'No compatible labour or plant rate',
+            laborTradeCategory: categorization.category,
+            matchingDecision: pricingRequired('No compatible labour or plant activity was found. A reviewed rate or composite build-up is required.'),
+          });
+          continue;
+        }
+
+        // Legacy fallback retained while the new strategy is under controlled rollout.
+        console.log(`   ⚠️  No labor rate found - using legacy default`);
         const defaultRate = 200; // R200/unit default
         const totalCost = defaultRate * quantity;
         
@@ -538,7 +565,19 @@ export async function priceRegionalBill(
       const searchResult = enhancedSearchCatalog(item.name, allSupplierCatalogs, item.description);
       
       if (!searchResult.topMatch) {
-        console.log(`   ⚠️  No catalog match found for special item - using fallback`);
+        if (useBoqMatchingV2) {
+          pricedItems.push({
+            ...item,
+            quantity: '1',
+            supplierPrices: [], selectedSupplier: 'Pricing Required',
+            pricingType: 'Special item — reviewed allowance required',
+            baseUnitPrice: '0', transportCost: '0', transportCostPerUnit: '0', landedUnitPrice: '0',
+            additionalFees: '0', finalUnitPrice: '0', totalPrice: '0',
+            matchingDecision: pricingRequired('Special sums and percentage items cannot use an arbitrary fallback. Enter the tender allowance or define the percentage base.'),
+          });
+          continue;
+        }
+        console.log(`   ⚠️  No catalog match found for special item - using legacy fallback`);
         // For special items without matches, use a reasonable default
         const defaultPrice = 50000; // R50,000 default for provisional/PC sums
         
@@ -645,7 +684,11 @@ export async function priceRegionalBill(
       matchResults.push(...searchResult.alternativeMatches);
     }
     
-    if (matchResults.length === 0) {
+    const compatibleMatchResults = useBoqMatchingV2
+      ? matchResults.filter(result => result.score >= 60 && arePricingUnitsCompatible(item.unit, result.item.unit))
+      : matchResults;
+
+    if (compatibleMatchResults.length === 0) {
       console.log(`   ❌ No matches found`);
       pricedItems.push({
         ...item,
@@ -658,6 +701,9 @@ export async function priceRegionalBill(
         additionalFees: '0',
         finalUnitPrice: '0',
         totalPrice: '0',
+        matchingDecision: useBoqMatchingV2
+          ? pricingRequired('No supplier candidate passed the minimum score and unit-compatibility rules.')
+          : undefined,
       });
       continue;
     }
@@ -667,7 +713,7 @@ export async function priceRegionalBill(
     // Get regional quotes with transport optimization
     const regionalQuotes = getRegionalSupplierQuotes(
       item,
-      matchResults.map(r => r.item),
+      compatibleMatchResults.map(r => r.item),
       projectLat,
       projectLng,
       province
@@ -780,6 +826,14 @@ export async function priceRegionalBill(
       // BUILDAID & SANS COMPLIANCE - Use user-entered values if available, otherwise from supplier catalog
       buildAidRef: item.buildAidRef || bestQuote.buildAidRef,
       sansCode: item.sansCode || bestQuote.sansCode,
+      matchingDecision: useBoqMatchingV2
+        ? evaluateSupplierMatch({
+            boqUnit: item.unit,
+            candidateUnit: compatibleMatchResults[0].item.unit,
+            score: compatibleMatchResults[0].score,
+            supplier: bestQuote.supplier,
+          })
+        : undefined,
     });
   }
   onProgress?.(unpricedItems.length, unpricedItems.length);

@@ -1058,7 +1058,7 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                 {!canUploadBOQ && contractorData && (
                   <div className="w-full p-4 bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300 rounded-lg">
                     <p className="text-sm font-semibold text-amber-900">
-                      🎓 Training Mode: Use pre-loaded BuildAid 2025/2026 templates to learn how Qilly works
+                      🎓 Training Mode: Use pre-loaded Qilly templates to learn how the BOQ workflow works
                     </p>
                     <p className="text-xs text-amber-700 mt-1">
                       <button

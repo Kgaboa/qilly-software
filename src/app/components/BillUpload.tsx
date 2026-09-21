@@ -922,7 +922,7 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                     Training Mode: Template Items Loaded (Read-Only)
                   </p>
                   <p className="text-xs text-amber-800 mb-2">
-                    You're viewing a <strong>pre-loaded BuildAid training template</strong>. The template BOQ and project settings are <strong>locked and cannot be edited</strong>. Click "Generate Priced BOQ" to explore Qilly's catalogue-based pricing workflow.
+                    You're viewing a <strong>pre-loaded Qilly training template</strong>. The template BOQ and project settings are <strong>locked and cannot be edited</strong>. Click "Generate Priced BOQ" to explore Qilly's pricing workflow.
                   </p>
                   <div className="flex items-center gap-4 text-xs">
                     <span className="text-amber-700">
