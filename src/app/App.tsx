@@ -11,7 +11,6 @@ import { PublicPartnerPortal } from './components/PublicPartnerPortal';
 import { PartnerLogin } from './components/PartnerLogin';
 import { PartnerPortal } from './components/PartnerPortal';
 import { Footer } from './components/Footer';
-import { BuildAidReferenceBar } from './components/BuildAidReferenceBar';
 import { CapitalRaisingGuide } from './components/CapitalRaisingGuide';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
@@ -91,7 +90,6 @@ export default function App() {
   return (
     <>
       <Toaster position="top-right" richColors />
-      <BuildAidReferenceBar />
       {currentView === 'auth' && (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
           <AuthForm
