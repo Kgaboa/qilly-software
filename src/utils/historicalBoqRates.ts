@@ -54,6 +54,10 @@ function extractSpecs(value: string) {
 }
 
 export function scoreHistoricalDescription(input: string, candidate: string): number {
+  const normalizedInput = normalize(input);
+  const normalizedCandidate = normalize(candidate);
+  if (normalizedInput && normalizedInput === normalizedCandidate) return 100;
+
   const inputSpecs = extractSpecs(input);
   const candidateSpecs = extractSpecs(candidate);
   if (candidateSpecs.pressureClass && inputSpecs.pressureClass !== candidateSpecs.pressureClass) return 0;
@@ -75,15 +79,24 @@ export function scoreHistoricalDescription(input: string, candidate: string): nu
 
 async function loadRates(): Promise<HistoricalBoqRate[]> {
   if (cache && Date.now() - cachedAt < CACHE_MS) return cache;
-  const { data, error } = await supabase
-    .from('historical_boq_rates')
-    .select('id,description,unit,rate,category,province_code,supplier,quote_date,source_reference,page_reference,status')
-    .eq('status', 'reviewed');
-  if (error) {
-    console.warn('Historical BOQ rates unavailable:', error.message);
-    return [];
+  const pageSize = 1000;
+  const rows: HistoricalBoqRate[] = [];
+  for (let from = 0; ; from += pageSize) {
+    const { data, error } = await supabase
+      .from('historical_boq_rates')
+      .select('id,description,unit,rate,category,province_code,supplier,quote_date,source_reference,page_reference,status')
+      .eq('status', 'reviewed')
+      .order('id', { ascending: true })
+      .range(from, from + pageSize - 1);
+    if (error) {
+      console.warn('Historical BOQ rates unavailable:', error.message);
+      return [];
+    }
+    const page = (data || []).map(row => ({ ...row, rate: Number(row.rate) })) as HistoricalBoqRate[];
+    rows.push(...page);
+    if (page.length < pageSize) break;
   }
-  cache = (data || []).map(row => ({ ...row, rate: Number(row.rate) })) as HistoricalBoqRate[];
+  cache = rows;
   cachedAt = Date.now();
   return cache;
 }

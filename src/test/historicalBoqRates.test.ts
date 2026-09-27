@@ -2,6 +2,10 @@ import { describe, expect, it } from 'vitest';
 import { scoreHistoricalDescription } from '@/utils/historicalBoqRates';
 
 describe('historical BOQ matching controls', () => {
+  it('accepts an exact generic activity description', () => {
+    expect(scoreHistoricalDescription('Flagmen', 'Flagmen')).toBe(100);
+  });
+
   it('accepts a fully specified equivalent pipe description', () => {
     expect(scoreHistoricalDescription(
       'Supply and deliver 110 mm class 12 uPVC pressure pipe',
