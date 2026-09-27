@@ -30,7 +30,7 @@ import { EnvironmentalComplianceDashboard } from '@/app/components/Environmental
 import { hasFeatureAccess, getTierFeatures, type SubscriptionTier } from '@/utils/tierAccess';
 import { UpgradePrompt, UpgradeBadge } from '@/app/components/UpgradePrompt';
 import { SubscriptionUpgradeModal } from '@/app/components/payments/SubscriptionUpgradeModal';
-import { calculatePricingCompleteness } from '@/utils/pricingStrategyV2';
+import { calculatePricingCompleteness, getCompactPricingReason } from '@/utils/pricingStrategyV2';
 
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 
@@ -1673,6 +1673,7 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                     const isExpanded = expandedRows.has(globalIndex);
                     const hasAlternatives = item.supplierPrices.length > 1;
                     const hasPricingDetails = hasAlternatives || Boolean(item.matchingDecision);
+                    const compactPricingReason = getCompactPricingReason(item);
                     const mainRowKey = `row-${item.code}-${globalIndex}`;
                     const expandedRowKey = `expanded-${item.code}-${globalIndex}`;
 
@@ -1802,10 +1803,19 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                           >
                             {item.matchingDecision?.reviewStatus || (item.pricingRequirement === 'NON_PRICEABLE' ? 'NOT PRICEABLE' : 'REVIEW')}
                           </Badge>
-                          {item.matchingDecision?.reviewStatus && item.matchingDecision.reviewStatus !== 'ACCEPTED' && (
-                            <p className="mt-1 max-w-[180px] text-[9px] leading-tight text-slate-600">
-                              {item.matchingDecision.explanation}
-                            </p>
+                          {compactPricingReason && item.matchingDecision?.reviewStatus !== 'ACCEPTED' && (
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <p className="mt-1 truncate text-[9px] leading-tight text-slate-600" title={compactPricingReason}>
+                                    {compactPricingReason}
+                                  </p>
+                                </TooltipTrigger>
+                                <TooltipContent className="max-w-sm">
+                                  <p className="text-xs">{item.matchingDecision?.explanation || compactPricingReason}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
                           )}
                         </TableCell>
                         <TableCell className="text-right font-bold text-[#00b4d8] text-xs p-2 bg-blue-50 border-l-2 border-blue-300" style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>
