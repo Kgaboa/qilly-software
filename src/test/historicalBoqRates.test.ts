@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { scoreHistoricalDescription } from '@/utils/historicalBoqRates';
+import { calculateHistoricalProvinceAdjustment, scoreHistoricalDescription } from '@/utils/historicalBoqRates';
 
 describe('historical BOQ matching controls', () => {
   it('accepts an exact generic activity description', () => {
@@ -40,5 +40,13 @@ describe('historical BOQ matching controls', () => {
       'Excavate hard material from trench',
       'Exceeding 1.5m and up to 3.0m',
     )).toBe(0);
+  });
+
+  it('adjusts a national-base rate to the selected province', () => {
+    expect(calculateHistoricalProvinceAdjustment('ALL', 'LP')).toBeCloseTo(1.06, 6);
+  });
+
+  it('converts a known source-province rate using the factor ratio', () => {
+    expect(calculateHistoricalProvinceAdjustment('WC', 'NC')).toBeCloseTo(1.12 / 1.05, 6);
   });
 });

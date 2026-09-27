@@ -1,5 +1,6 @@
 import { supabase } from '@/utils/supabase';
 import { arePricingUnitsCompatible, normalizePricingUnit } from './pricingStrategyV2';
+import { getProvinceByCode } from './provincialPricing';
 
 export interface HistoricalBoqRate {
   id: number;
@@ -27,6 +28,8 @@ export interface HistoricalRateMatch {
   sampleCount: number;
   minRate: number;
   maxRate: number;
+  provinceAdjustmentFactor: number;
+  provinceAdjustmentReason: string;
 }
 
 const CACHE_MS = 10 * 60 * 1000;
@@ -44,6 +47,14 @@ const normalize = (value: string) => String(value || '')
 
 const tokens = (value: string) => new Set(normalize(value).split(' ').filter(token => token.length > 1));
 const first = (value: string, expression: RegExp) => normalize(value).match(expression)?.[1];
+
+export function calculateHistoricalProvinceAdjustment(sourceProvince: string, targetProvince: string): number {
+  const targetFactor = getProvinceByCode(targetProvince)?.factor ?? 1;
+  const sourceFactor = sourceProvince && sourceProvince !== 'ALL'
+    ? (getProvinceByCode(sourceProvince)?.factor ?? 1)
+    : 1;
+  return targetFactor / sourceFactor;
+}
 
 function extractSpecs(value: string) {
   return {
@@ -116,11 +127,21 @@ export async function matchHistoricalBoqRate(
 
   const bestScore = candidates[0].score;
   const equivalent = candidates.filter(candidate => candidate.score === bestScore);
-  const values = equivalent.map(candidate => candidate.rate.rate).sort((a, b) => a - b);
+  const adjustedCandidates = equivalent.map(candidate => {
+    const sourceProvince = candidate.rate.province_code;
+    const adjustmentFactor = calculateHistoricalProvinceAdjustment(sourceProvince, provinceCode);
+    return {
+      ...candidate,
+      adjustedRate: candidate.rate.rate * adjustmentFactor,
+      adjustmentFactor,
+    };
+  });
+  const values = adjustedCandidates.map(candidate => candidate.adjustedRate).sort((a, b) => a - b);
   const midpoint = Math.floor(values.length / 2);
   const median = values.length % 2 ? values[midpoint] : (values[midpoint - 1] + values[midpoint]) / 2;
   const best = equivalent[0].rate;
-  const sameProvince = best.province_code === provinceCode;
+  const bestAdjusted = adjustedCandidates[0];
+  const sameProvince = best.province_code === provinceCode || best.province_code === 'ALL';
   const sourceDate = best.quote_date ? new Date(best.quote_date) : null;
   const ageMonths = sourceDate && !Number.isNaN(sourceDate.getTime())
     ? (Date.now() - sourceDate.getTime()) / (1000 * 60 * 60 * 24 * 30.44)
@@ -130,15 +151,19 @@ export async function matchHistoricalBoqRate(
   return {
     rate: median,
     score: bestScore,
-    confidence: bestScore >= 92 && sameProvince && currentEnough ? 'HIGH' : 'MEDIUM',
-    reviewed: sameProvince && currentEnough,
-    requiresReview: !sameProvince || !currentEnough,
+    confidence: bestScore >= 92 && currentEnough ? 'HIGH' : 'MEDIUM',
+    reviewed: currentEnough,
+    requiresReview: !currentEnough,
     source: `${best.source_reference}, ${best.page_reference}${best.quote_date ? `; dated ${best.quote_date}` : '; source date not recorded'}`,
     supplier: best.supplier,
     matchedDescription: best.description,
     sampleCount: values.length,
     minRate: values[0],
     maxRate: values[values.length - 1],
+    provinceAdjustmentFactor: bestAdjusted.adjustmentFactor,
+    provinceAdjustmentReason: sameProvince && bestAdjusted.adjustmentFactor === 1
+      ? `Rate is applicable to ${provinceCode} without a provincial adjustment.`
+      : `Rate adjusted from ${best.province_code || 'national base'} to ${provinceCode} using provincial factor ${bestAdjusted.adjustmentFactor.toFixed(4)}.`,
   };
 }
 

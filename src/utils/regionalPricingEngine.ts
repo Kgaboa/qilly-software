@@ -508,7 +508,7 @@ export async function priceRegionalBill(
           strategy: 'historical-boq',
           rate: historicalMatch.rate,
           source: historicalMatch.source,
-          explanation: `Reviewed historical BOQ match: ${historicalMatch.matchedDescription}. ${historicalMatch.sampleCount > 1 ? `Median of ${historicalMatch.sampleCount} equivalent rates (R${historicalMatch.minRate.toFixed(2)}–R${historicalMatch.maxRate.toFixed(2)}).` : 'One validated source rate.'}${historicalMatch.requiresReview ? ' Source province differs from the project province.' : ''}`,
+          explanation: `Reviewed historical BOQ match: ${historicalMatch.matchedDescription}. ${historicalMatch.sampleCount > 1 ? `Median of ${historicalMatch.sampleCount} province-adjusted equivalent rates (R${historicalMatch.minRate.toFixed(2)}–R${historicalMatch.maxRate.toFixed(2)}).` : 'One validated source rate.'} ${historicalMatch.provinceAdjustmentReason}${historicalMatch.requiresReview ? ' Review is required because the source is older than 18 months or has no recorded date.' : ''}`,
           confidence: historicalMatch.confidence,
           reviewed: historicalMatch.reviewed,
         }]);
@@ -631,7 +631,7 @@ export async function priceRegionalBill(
             additionalFees: '0', finalUnitPrice: '0', totalPrice: '0',
             laborMatched: false, laborConfidence: 'LOW', laborDescription: 'No compatible labour or plant rate',
             laborTradeCategory: categorization.category,
-            matchingDecision: pricingRequired('No compatible labour or plant activity was found. A reviewed rate or composite build-up is required.'),
+            matchingDecision: pricingRequired('Item Matching checked the reviewed historical BOQ library and labour/plant activity library, but found no compatible description-and-unit match. A reviewed rate or composite build-up is required.'),
             pricingRequirement: 'RATE_INPUT_REQUIRED',
           });
           continue;
@@ -859,7 +859,7 @@ export async function priceRegionalBill(
         finalUnitPrice: '0',
         totalPrice: '0',
         matchingDecision: useBoqMatchingV2
-          ? pricingRequired('No supplier candidate passed the minimum score and unit-compatibility rules.')
+          ? pricingRequired('Item Matching searched the supplier catalogue through exact/fuzzy, scored, substring, description and word-level matching, but no candidate passed both the minimum score and unit-compatibility rules.')
           : undefined,
         pricingRequirement: useBoqMatchingV2 ? 'SUPPLIER_MATCH_REQUIRED' : undefined,
       });
@@ -894,7 +894,7 @@ export async function priceRegionalBill(
         finalUnitPrice: '0',
         totalPrice: '0',
         matchingDecision: useBoqMatchingV2
-          ? pricingRequired('Compatible catalogue candidates exist, but no supplier has an available regional quote.')
+          ? pricingRequired('Item Matching found compatible supplier-catalogue candidates, but none has an available regional quote for the selected project location.')
           : undefined,
         pricingRequirement: useBoqMatchingV2 ? 'SUPPLIER_MATCH_REQUIRED' : undefined,
       });

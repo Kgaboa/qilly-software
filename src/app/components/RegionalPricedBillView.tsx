@@ -1802,6 +1802,11 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                           >
                             {item.matchingDecision?.reviewStatus || (item.pricingRequirement === 'NON_PRICEABLE' ? 'NOT PRICEABLE' : 'REVIEW')}
                           </Badge>
+                          {item.matchingDecision?.reviewStatus && item.matchingDecision.reviewStatus !== 'ACCEPTED' && (
+                            <p className="mt-1 max-w-[180px] text-[9px] leading-tight text-slate-600">
+                              {item.matchingDecision.explanation}
+                            </p>
+                          )}
                         </TableCell>
                         <TableCell className="text-right font-bold text-[#00b4d8] text-xs p-2 bg-blue-50 border-l-2 border-blue-300" style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>
                           R{parseFloat(item.totalPrice).toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}

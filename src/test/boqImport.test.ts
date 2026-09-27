@@ -25,14 +25,21 @@ describe('BOQ import rules', () => {
     expect(resolved.recoveredColumns).toBe(true);
   });
 
-  it('does not price a numeric cell as a unit', () => {
+  it('keeps a row with numeric pricing evidence priceable without using the number as a unit', () => {
     const row = ['C20.1', 'Testing materials and judgement of workmanship', '11843040', '11843040'];
     const resolved = resolveImportedBoqRow(row, {
       itemNo: 0, description: 1, unit: 2, quantity: 3, rate: -1, amount: -1,
     });
 
-    expect(resolved.rowType).toBe('heading');
-    expect(resolved.unit).toBe('');
-    expect(resolved.quantity).toBe('');
+    expect(resolved.rowType).toBe('item');
+    expect(resolved.unit).toBe('item');
+    expect(resolved.quantity).toBe('1');
+    expect(resolved.recoveredColumns).toBe(true);
+  });
+
+  it('recognises common labour and plant units', () => {
+    expect(classifyBoqRow('C1.5.7.3', 'Flagmen', 'man-day', '704')).toBe('item');
+    expect(classifyBoqRow('C1.5.7.4', 'Labourer', 'person-day', '20')).toBe('item');
+    expect(classifyBoqRow('C1.5.7.5', 'Roller operator', 'man-shift', '5')).toBe('item');
   });
 });

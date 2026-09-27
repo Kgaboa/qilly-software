@@ -13,6 +13,10 @@ const UNIT_ALIASES = new Set([
   'm', 'm1', 'm2', 'm²', 'sqm', 'm3', 'm³', 'cum', 'km', 'km/m3', 'km/m³',
   'mm', 'cm', 'ha', 'kg', 'g', 't', 'ton', 'tonne', 'l', 'lt', 'ltr', 'litre',
   'no', 'nr', 'ea', 'each', 'item', 'month', 'months', 'day', 'days', 'hour', 'hr',
+  'mth', 'mths', 'week', 'weeks', 'man-day', 'man-days', 'person-day', 'person-days',
+  'man-shift', 'man-shifts', 'shift', 'shifts', 'lot', 'lots', 'point', 'points',
+  'pair', 'pairs', 'set', 'sets', 'bag', 'bags', 'trip', 'trips', 'km/month',
+  'm/month', 'm2/month', 'm²/month',
   '%', 'sum', 'ls', 'l/s', 'lump', 'lumpsum', 'lump sum', 'pc', 'pcsum', 'pc sum',
   'primecostsum', 'prime cost sum', 'provisionalsum', 'provisional sum', 'rateonly',
 ]);
@@ -51,7 +55,14 @@ function outlineDepth(code: string): number {
   return normalized ? normalized.split('.').filter(Boolean).length : 0;
 }
 
-export function classifyBoqRow(code: string, description: string, unit: string, quantity: string): BoqRowType {
+export function classifyBoqRow(
+  code: string,
+  description: string,
+  unit: string,
+  quantity: string,
+  rate = '',
+  amount = '',
+): BoqRowType {
   const descriptionLower = description.toLowerCase();
   if (descriptionLower.includes('total carried forward to summary') ||
       descriptionLower.includes('total carried to summary') ||
@@ -59,7 +70,8 @@ export function classifyBoqRow(code: string, description: string, unit: string, 
     return 'summary';
   }
 
-  if (description.trim() && (!isRecognizedBoqUnit(unit) || !quantity)) {
+  const hasPricingEvidence = Boolean(quantity || normalizeBoqQuantity(rate) || normalizeBoqQuantity(amount));
+  if (description.trim() && !hasPricingEvidence && (!isRecognizedBoqUnit(unit) || !quantity)) {
     return outlineDepth(code) >= 3 ? 'subheading' : 'heading';
   }
 
@@ -72,6 +84,8 @@ export function resolveImportedBoqRow(row: unknown[], columns: BoqColumnMap) {
   const description = columns.description >= 0 ? cells[columns.description] || '' : '';
   let unit = columns.unit >= 0 ? cells[columns.unit] || '' : '';
   let quantity = columns.quantity >= 0 ? normalizeBoqQuantity(cells[columns.quantity]) : '';
+  const rate = columns.rate >= 0 ? normalizeBoqQuantity(cells[columns.rate]) : '';
+  const amount = columns.amount >= 0 ? normalizeBoqQuantity(cells[columns.amount]) : '';
   let recoveredColumns = false;
 
   // Some consultant workbooks use merged or multi-row headers. If the mapped
@@ -89,11 +103,22 @@ export function resolveImportedBoqRow(row: unknown[], columns: BoqColumnMap) {
       if (adjacentQuantity) quantity = adjacentQuantity;
       recoveredColumns = true;
     } else {
-      unit = '';
-      quantity = '';
+      // Preserve unfamiliar consultant units when the row contains numeric
+      // pricing evidence. It is safer to flag an item for unit review than to
+      // silently turn a priceable row into a structural heading.
+      if (quantity || rate || amount) {
+        const numericUnit = normalizeBoqQuantity(unit);
+        if (numericUnit && numericUnit === quantity) quantity = '1';
+        unit = numericUnit ? 'item' : (unit || 'item');
+        quantity = quantity || '1';
+        recoveredColumns = true;
+      } else {
+        unit = '';
+        quantity = '';
+      }
     }
   }
 
-  const rowType = classifyBoqRow(code, description, unit, quantity);
+  const rowType = classifyBoqRow(code, description, unit, quantity, rate, amount);
   return { code, description, unit, quantity, rowType, recoveredColumns };
 }

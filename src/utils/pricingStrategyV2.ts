@@ -167,6 +167,10 @@ const UNIT_ALIASES: Record<string, string> = {
   kl: 'kL', 'kℓ': 'kL', kiloliter: 'kL', kilolitre: 'kL',
   bag: 'bag', bags: 'bag', pair: 'pair', set: 'set',
   month: 'month', months: 'month', hour: 'hour', hours: 'hour', hr: 'hour', hrs: 'hour', day: 'day', days: 'day',
+  mth: 'month', mths: 'month', week: 'week', weeks: 'week',
+  'man-day': 'man-day', 'man-days': 'man-day', 'person-day': 'man-day', 'person-days': 'man-day',
+  'man-shift': 'man-shift', 'man-shifts': 'man-shift', shift: 'man-shift', shifts: 'man-shift',
+  lot: 'lot', lots: 'lot', point: 'point', points: 'point', trip: 'trip', trips: 'trip',
 };
 
 export function normalizePricingUnit(unit: string): string {
@@ -181,6 +185,7 @@ export function isSpecialPricingUnit(unit: string): boolean {
 const SUPPORTED_UNITS = new Set([
   'No.', 'item', 'sum', 'lump sum', 'prime cost (PC) sum', 'provisional sum', '%',
   'month', 'hour', 'day', 'm', 'm2', 'm3', 'km', 'km/m3', 'kg', 't', 'L', 'kL', 'bag', 'pair', 'set', 'ha',
+  'week', 'man-day', 'man-shift', 'lot', 'point', 'trip',
 ]);
 
 export function isSupportedPricingUnit(unit: string): boolean {
