@@ -81,7 +81,32 @@ type PricingItemLike = {
   pricingRequirement?: PricingRequirement;
   selectedSupplier?: string;
   totalPrice?: string | number;
+  matchingDecision?: Pick<PricingDecision, 'explanation' | 'reviewStatus'>;
 };
+
+/** Short reason for dense tables and exported BOQs. The full matching explanation remains available in row details. */
+export function getCompactPricingReason(item: PricingItemLike): string {
+  switch (item.pricingRequirement) {
+    case 'NON_PRICEABLE': return 'Structural row';
+    case 'RATE_INPUT_REQUIRED': return 'Labour/plant rate needed';
+    case 'PERCENTAGE_BASE_REQUIRED': return 'Percentage/base missing';
+    case 'ALLOWANCE_REQUIRED': return 'Project allowance needed';
+    case 'SUPPLIER_MATCH_REQUIRED': return 'No compatible rate match';
+  }
+
+  const explanation = String(item.matchingDecision?.explanation || '').toLowerCase();
+  if (/contractor|project-specific|minimum project|overhead/.test(explanation)) return 'Contractor rate to review';
+  if (/outside|control range|benchmark/.test(explanation)) return 'Rate outside benchmark';
+  if (/older than|undated|date/.test(explanation)) return 'Source date to review';
+  if (/low confidence/.test(explanation)) return 'Low-confidence match';
+  if (/medium confidence/.test(explanation)) return 'Match needs review';
+  if (/incompatible.*unit|unit.*incompatible/.test(explanation)) return 'Unit mismatch';
+  if (/category.*incompatible/.test(explanation)) return 'Category mismatch';
+  if (/no compatible|no reviewed|no supplier|no match/.test(explanation)) return 'No compatible rate match';
+  if (item.matchingDecision?.reviewStatus === 'REVIEW REQUIRED') return 'Rate needs review';
+  if (item.matchingDecision?.reviewStatus === 'PRICING REQUIRED') return 'Rate required';
+  return '';
+}
 
 const hasPositiveQuantity = (value: unknown) => {
   const quantity = Number.parseFloat(String(value ?? '').replace(/,/g, ''));
