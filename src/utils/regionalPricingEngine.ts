@@ -42,7 +42,52 @@ export interface ProjectSettings {
   duration?: string;
   machineryType?: string;
   pricingEngineVersion?: PricingEngineVersion;
+  eligibleContractValue?: string;
+  valueRelatedPercentage?: string;
+  monthlyProjectOverhead?: string;
 }
+
+export type ContractorObligationType = 'value-related' | 'time-related';
+
+const VALUE_RELATED_MINIMUM = 65000;
+const TIME_RELATED_MONTHLY_MINIMUM = 25000;
+
+const positiveNumber = (value: unknown): number => {
+  const parsed = Number.parseFloat(String(value ?? '').replace(/,/g, ''));
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
+};
+
+export function calculateContractorObligationRate(input: {
+  type: ContractorObligationType;
+  historicalBenchmark?: number;
+  eligibleContractValue?: number;
+  valueRelatedPercentage?: number;
+  monthlyProjectOverhead?: number;
+}): { rate: number; basis: string } {
+  const benchmark = positiveNumber(input.historicalBenchmark);
+  if (input.type === 'value-related') {
+    const calculatedPercentageAmount = positiveNumber(input.eligibleContractValue)
+      * (positiveNumber(input.valueRelatedPercentage) / 100);
+    const rate = Math.max(VALUE_RELATED_MINIMUM, benchmark, calculatedPercentageAmount);
+    return {
+      rate,
+      basis: `Maximum of R${VALUE_RELATED_MINIMUM.toLocaleString('en-ZA')} minimum, reviewed BOQ benchmark${calculatedPercentageAmount > 0 ? ', and the contractor percentage applied to eligible works' : ''}.`,
+    };
+  }
+
+  const rate = Math.max(TIME_RELATED_MONTHLY_MINIMUM, benchmark, positiveNumber(input.monthlyProjectOverhead));
+  return {
+    rate,
+    basis: `Maximum of R${TIME_RELATED_MONTHLY_MINIMUM.toLocaleString('en-ZA')}/month minimum, reviewed BOQ benchmark, and contractor monthly project overhead.`,
+  };
+}
+
+const getContractorObligationType = (description: string): ContractorObligationType | null => {
+  const normalized = String(description || '').toLowerCase().replace(/[–—]/g, '-');
+  if (/value\s*-?\s*related\s+obligations?/.test(normalized)) return 'value-related';
+  if (/time\s*-?\s*related\s+obligations?/.test(normalized)) return 'time-related';
+  return null;
+};
 
 export interface BillItem {
   code: string;
@@ -402,7 +447,51 @@ export async function priceRegionalBill(
       continue;
     }
 
-    // Priority 1: use only reviewed historical BOQ rates with compatible units
+    // Contract preliminaries are contractor/project calculations. A reviewed
+    // BOQ match may establish a benchmark, but BuildAid and supplier catalogues
+    // must never determine the final rate for these obligations.
+    const contractorObligationType = getContractorObligationType(`${item.name} ${item.description || ''}`);
+    if (useBoqMatchingV2 && contractorObligationType) {
+      const historicalBenchmark = await matchHistoricalBoqRate(item.name, item.unit, province);
+      const contractorCalculation = calculateContractorObligationRate({
+        type: contractorObligationType,
+        historicalBenchmark: historicalBenchmark?.rate,
+        eligibleContractValue: positiveNumber(projectSettings?.eligibleContractValue),
+        valueRelatedPercentage: positiveNumber(projectSettings?.valueRelatedPercentage),
+        monthlyProjectOverhead: positiveNumber(projectSettings?.monthlyProjectOverhead),
+      });
+      const quantity = positiveNumber(item.quantity) || 1;
+      const totalPrice = contractorCalculation.rate * quantity;
+      const selectedPricing = selectBoqPricingCandidate([{
+        strategy: 'contractor-calculation',
+        rate: contractorCalculation.rate,
+        source: historicalBenchmark?.source || 'Qilly contractor/project minimum-rate rule',
+        explanation: `${contractorCalculation.basis} BuildAid is excluded from this calculation. Contractor confirmation is required.`,
+        confidence: 'MEDIUM',
+        reviewed: false,
+      }]);
+
+      pricedItems.push({
+        ...item,
+        supplierPrices: [],
+        selectedSupplier: 'Contractor Calculation — Review Required',
+        selectedProvince: province,
+        selectedMunicipality: municipalityCode,
+        selectedBranchName: contractorCalculation.basis,
+        baseUnitPrice: contractorCalculation.rate.toFixed(2),
+        transportCost: '0',
+        transportCostPerUnit: '0',
+        landedUnitPrice: contractorCalculation.rate.toFixed(2),
+        additionalFees: '0',
+        finalUnitPrice: contractorCalculation.rate.toFixed(2),
+        totalPrice: totalPrice.toFixed(2),
+        pricingRequirement: 'PRICED',
+        matchingDecision: selectedPricing?.decision,
+      });
+      continue;
+    }
+
+    // Priority 2: use only reviewed historical BOQ rates with compatible units
     // and explicit specification matches (diameter/class/angle where applicable).
     if (useBoqMatchingV2) {
       const historicalMatch = await matchHistoricalBoqRate(

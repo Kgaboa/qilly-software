@@ -1,5 +1,5 @@
 export type PricingEngineVersion = 'legacy' | 'boq-matching-v2';
-export type PricingPath = 'historical-boq' | 'supplier-product' | 'buildaid-benchmark' | 'equivalent-activity' | 'composite-build-up' | 'controlled-fallback' | 'manual-review';
+export type PricingPath = 'contractor-calculation' | 'historical-boq' | 'supplier-product' | 'buildaid-benchmark' | 'equivalent-activity' | 'composite-build-up' | 'controlled-fallback' | 'manual-review';
 export type MatchConfidence = 'HIGH' | 'MEDIUM' | 'LOW';
 export type PricingReviewStatus = 'ACCEPTED' | 'REVIEW REQUIRED' | 'PRICING REQUIRED';
 export type PricingRequirement =
@@ -31,12 +31,13 @@ export interface PricingCandidate {
 }
 
 export const BOQ_MATCHING_PRIORITIES: ReadonlyArray<{ strategy: PricingPath; priority: number; label: string }> = [
-  { strategy: 'historical-boq', priority: 1, label: 'Approved historical BOQ' },
-  { strategy: 'supplier-product', priority: 2, label: 'Compatible supplier product' },
-  { strategy: 'buildaid-benchmark', priority: 3, label: 'BuildAid benchmark' },
-  { strategy: 'equivalent-activity', priority: 4, label: 'Equivalent activity' },
-  { strategy: 'composite-build-up', priority: 5, label: 'Composite build-up' },
-  { strategy: 'manual-review', priority: 6, label: 'Contractor input or manual review' },
+  { strategy: 'contractor-calculation', priority: 1, label: 'Contractor/project calculation' },
+  { strategy: 'historical-boq', priority: 2, label: 'Approved historical BOQ' },
+  { strategy: 'supplier-product', priority: 3, label: 'Compatible supplier product' },
+  { strategy: 'buildaid-benchmark', priority: 4, label: 'BuildAid benchmark' },
+  { strategy: 'equivalent-activity', priority: 5, label: 'Equivalent activity' },
+  { strategy: 'composite-build-up', priority: 6, label: 'Composite build-up' },
+  { strategy: 'manual-review', priority: 7, label: 'Contractor input or manual review' },
 ];
 
 const PRIORITY_BY_STRATEGY = new Map(BOQ_MATCHING_PRIORITIES.map(item => [item.strategy, item.priority]));

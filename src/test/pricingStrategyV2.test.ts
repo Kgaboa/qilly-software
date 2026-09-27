@@ -98,6 +98,7 @@ describe('BOQ Matching Strategy v2', () => {
 
   it('applies the agreed BOQ matching priority order', () => {
     expect(BOQ_MATCHING_PRIORITIES.map(item => item.strategy)).toEqual([
+      'contractor-calculation',
       'historical-boq',
       'supplier-product',
       'buildaid-benchmark',
@@ -113,8 +114,18 @@ describe('BOQ Matching Strategy v2', () => {
     ]);
 
     expect(selection?.candidate.strategy).toBe('historical-boq');
-    expect(selection?.decision.priority).toBe(1);
+    expect(selection?.decision.priority).toBe(2);
     expect(selection?.decision.reviewStatus).toBe('ACCEPTED');
+  });
+
+  it('prioritises a contractor calculation while keeping it under review', () => {
+    const selection = selectBoqPricingCandidate([
+      { strategy: 'historical-boq', rate: 220000, source: 'Approved BOQ', explanation: 'Benchmark', confidence: 'HIGH', reviewed: true },
+      { strategy: 'contractor-calculation', rate: 250000, source: 'Project calculation', explanation: 'Contractor inputs', confidence: 'MEDIUM', reviewed: false },
+    ]);
+    expect(selection?.candidate.strategy).toBe('contractor-calculation');
+    expect(selection?.decision.priority).toBe(1);
+    expect(selection?.decision.reviewStatus).toBe('REVIEW REQUIRED');
   });
 
   it('requires review when a benchmark source is not reviewed', () => {
