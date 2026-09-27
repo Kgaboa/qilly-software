@@ -6,6 +6,7 @@ import {
   evaluateSupplierMatch,
   evaluateBenchmarkRange,
   getPricingEngineVersion,
+  getCompactPricingReason,
   isSpecialPricingUnit,
   isSupportedPricingUnit,
   normalizePricingUnit,
@@ -94,6 +95,19 @@ describe('BOQ Matching Strategy v2', () => {
       .toBe('ALLOWANCE_REQUIRED');
     expect(classifyUnpricedRequirement('Road studs', 'No').requirement)
       .toBe('SUPPLIER_MATCH_REQUIRED');
+  });
+
+  it('uses compact, client-readable pricing reasons in dense reports', () => {
+    expect(getCompactPricingReason({ pricingRequirement: 'SUPPLIER_MATCH_REQUIRED' })).toBe('No compatible rate match');
+    expect(getCompactPricingReason({ pricingRequirement: 'RATE_INPUT_REQUIRED' })).toBe('Labour/plant rate needed');
+    expect(getCompactPricingReason({ pricingRequirement: 'PERCENTAGE_BASE_REQUIRED' })).toBe('Percentage/base missing');
+    expect(getCompactPricingReason({ pricingRequirement: 'ALLOWANCE_REQUIRED' })).toBe('Project allowance needed');
+    expect(getCompactPricingReason({
+      matchingDecision: {
+        reviewStatus: 'REVIEW REQUIRED',
+        explanation: 'Candidate rate falls outside the reviewed project benchmark control range.',
+      },
+    })).toBe('Rate outside benchmark');
   });
 
   it('applies the agreed BOQ matching priority order', () => {
