@@ -6,7 +6,7 @@ import type { ComplianceCosts } from './complianceCalculations';
 import { calculateProjectCarbonSummary, calculateItemCarbon } from './carbonTracking';
 import type { SubscriptionTier } from './tierAccess';
 import { getTierFeatures } from './tierAccess';
-import { calculatePricingCompleteness } from './pricingStrategyV2';
+import { calculatePricingCompleteness, getCompactPricingReason } from './pricingStrategyV2';
 
 interface ExportOptions {
   pricedItems: RegionalPricedBillItem[];
@@ -40,6 +40,12 @@ function getPricingStatus(item: RegionalPricedBillItem): string {
     default:
       return parseFloat(item.totalPrice || '0') > 0 ? 'ACCEPTED' : 'Pricing Required';
   }
+}
+
+function getCompactPricingStatus(item: RegionalPricedBillItem): string {
+  const status = getPricingStatus(item);
+  const reason = getCompactPricingReason(item);
+  return reason && status !== 'ACCEPTED' ? `${status} — ${reason}` : status;
 }
 
 function getPricingStatusCounts(items: RegionalPricedBillItem[]): Array<[string, number]> {
@@ -122,7 +128,7 @@ export function exportToExcel(options: ExportOptions): void {
       item.quantity,
       item.unit,
       item.selectedSupplier,
-      getPricingStatus(item),
+      getCompactPricingStatus(item),
       parseFloat(item.baseUnitPrice),
       parseFloat(item.transportCost),
       parseFloat(item.landedUnitPrice),
@@ -534,7 +540,7 @@ export function exportToPDF(options: ExportOptions): void {
         item.quantity,
         item.unit,
         String(item.selectedSupplier || '').length > 8 ? String(item.selectedSupplier || '').substring(0, 6) + '...' : String(item.selectedSupplier || ''),
-        getPricingStatus(item),
+        getCompactPricingStatus(item),
         `R${parseFloat(item.totalPrice).toLocaleString('en-ZA', { minimumFractionDigits: 0 })}`,
         item.distance !== undefined && item.distance !== null ? `${item.distance}km` : 'N/A',
         carbonData.greenAlternative ? '✅' : '',
@@ -549,7 +555,7 @@ export function exportToPDF(options: ExportOptions): void {
         item.quantity,
         item.unit,
         String(item.selectedSupplier || '').length > 10 ? String(item.selectedSupplier || '').substring(0, 8) + '...' : String(item.selectedSupplier || ''),
-        getPricingStatus(item),
+        getCompactPricingStatus(item),
         `R${item.baseUnitPrice}`,
         `R${item.transportCost}`,
         `R${item.additionalFees || '0.00'}`,
@@ -855,7 +861,7 @@ export function exportToCSV(options: ExportOptions): void {
     item.quantity,
     item.unit,
     item.selectedSupplier,
-    getPricingStatus(item),
+    getCompactPricingStatus(item),
     `R${item.baseUnitPrice}`,
     `R${item.transportCost}`,
     `R${item.landedUnitPrice}`,
@@ -964,7 +970,7 @@ export async function exportToWord(options: ExportOptions): Promise<void> {
       dCell(String(item.quantity ?? '')),
       dCell(item.unit || ''),
       dCell(item.selectedSupplier || item.supplierName || ''),
-      dCell(getPricingStatus(item)),
+      dCell(getCompactPricingStatus(item)),
       dCell(fmtR(item.baseUnitPrice), true),
       dCell(fmtR(item.transportCost), true),
       dCell(fmtR(item.landedUnitPrice), true),
