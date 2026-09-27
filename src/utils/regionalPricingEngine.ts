@@ -17,6 +17,7 @@ import {
 import { matchLaborRate, type LaborPricing, formatLaborPricing } from '@/lib/boq/laborRates';
 import { categorizeItem, type ItemCategorization } from './itemCategorization';
 import type { BoqRowType } from './boqImport';
+import { matchHistoricalBoqRate } from './historicalBoqRates';
 import {
   arePricingUnitsCompatible,
   evaluateSupplierMatch,
@@ -399,6 +400,48 @@ export async function priceRegionalBill(
         matchingDecision: pricingRequired(missingInput.reason),
       });
       continue;
+    }
+
+    // Priority 1: use only reviewed historical BOQ rates with compatible units
+    // and explicit specification matches (diameter/class/angle where applicable).
+    if (useBoqMatchingV2) {
+      const historicalMatch = await matchHistoricalBoqRate(
+        `${item.name} ${item.description || ''}`,
+        item.unit,
+        province,
+      );
+      if (historicalMatch) {
+        const quantity = parseFloat(item.quantity) || 1;
+        const baseTotal = historicalMatch.rate * quantity;
+        const { finalPrice, additionalFeesBreakdown } = applyProjectSettings(baseTotal, projectSettings || {});
+        const finalUnitPrice = finalPrice / quantity;
+        const selectedPricing = selectBoqPricingCandidate([{
+          strategy: 'historical-boq',
+          rate: historicalMatch.rate,
+          source: historicalMatch.source,
+          explanation: `Reviewed historical BOQ match: ${historicalMatch.matchedDescription}. ${historicalMatch.sampleCount > 1 ? `Median of ${historicalMatch.sampleCount} equivalent rates (R${historicalMatch.minRate.toFixed(2)}–R${historicalMatch.maxRate.toFixed(2)}).` : 'One validated source rate.'}${historicalMatch.requiresReview ? ' Source province differs from the project province.' : ''}`,
+          confidence: historicalMatch.confidence,
+          reviewed: historicalMatch.reviewed,
+        }]);
+
+        pricedItems.push({
+          ...item,
+          supplierPrices: [],
+          selectedSupplier: `Historical BOQ — ${historicalMatch.supplier}`,
+          selectedProvince: province,
+          baseUnitPrice: historicalMatch.rate.toFixed(2),
+          transportCost: '0',
+          transportCostPerUnit: '0',
+          landedUnitPrice: historicalMatch.rate.toFixed(2),
+          additionalFees: (finalUnitPrice - historicalMatch.rate).toFixed(2),
+          additionalFeesBreakdown,
+          finalUnitPrice: finalUnitPrice.toFixed(2),
+          totalPrice: finalPrice.toFixed(2),
+          matchingDecision: selectedPricing?.decision,
+          pricingRequirement: 'PRICED',
+        });
+        continue;
+      }
     }
     
     // ============================================================================
