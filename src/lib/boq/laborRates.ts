@@ -5,6 +5,11 @@
 
 import { supabase } from '@/utils/supabase';
 import { mockLaborRates } from '@/data/mockLaborRates';
+import { evaluateEquivalentActivity } from '@/utils/pricingStrategyV2';
+
+export type RateSourceType = 'qilly-own-library' | 'buildaid-benchmark' | 'supplier-product' | 'historical-boq' | 'unknown';
+export type UsageRightsStatus = 'internal-approved' | 'licensed' | 'benchmark-reference-only' | 'restricted' | 'unknown';
+export type RateReviewStatus = 'reviewed' | 'review-required' | 'rejected';
 
 export interface LaborRate {
   id: string;
@@ -27,11 +32,20 @@ export interface LaborRate {
   page_reference?: string;
   notes?: string;
   metadata?: any; // DB has JSON metadata column
+  source_type?: RateSourceType;
+  source_date?: string;
+  valid_until?: string;
+  usage_rights_status?: UsageRightsStatus;
+  review_status?: RateReviewStatus;
+  commercial_basis?: string;
+  province_basis?: string;
+  evidence_reference?: string;
 }
 
 const LABOR_RATE_CACHE_MS = 5 * 60 * 1000;
 let cachedLaborRates: LaborRate[] | null = null;
 let cachedLaborRatesAt = 0;
+let cachedLaborRatesSource = 'unknown';
 
 export interface LaborPricing {
   matched: boolean;
@@ -42,7 +56,70 @@ export interface LaborPricing {
   matchedDescription: string;
   tradeCategory: string;
   source: string;
+  sourceType: RateSourceType;
+  usageRightsStatus: UsageRightsStatus;
   reviewedSource: boolean;
+  sourcePermitted: boolean;
+  sourceCurrent: boolean;
+  commercialBasisKnown: boolean;
+  geographicBasisKnown: boolean;
+  evidenceComplete: boolean;
+}
+
+export interface RateProvenance {
+  sourceType: RateSourceType;
+  usageRightsStatus: UsageRightsStatus;
+  reviewStatus: RateReviewStatus;
+  sourcePermitted: boolean;
+  sourceCurrent: boolean;
+  commercialBasisKnown: boolean;
+  geographicBasisKnown: boolean;
+  evidenceComplete: boolean;
+}
+
+const monthsBetween = (from: Date, to: Date) => (to.getTime() - from.getTime()) / (1000 * 60 * 60 * 24 * 30.44);
+
+/** Explicit provenance wins; legacy rows are classified conservatively. */
+export function classifyRateProvenance(
+  rate: Partial<LaborRate>,
+  dataSource: string,
+  now: Date = new Date(),
+): RateProvenance {
+  const sourceText = `${rate.source || ''} ${dataSource || ''}`.toLowerCase();
+  const sourceType: RateSourceType = rate.source_type
+    || (sourceText.includes('buildaid')
+      ? 'buildaid-benchmark'
+      : sourceText.includes('supplier') || sourceText.includes('quotation')
+        ? 'supplier-product'
+        : dataSource === 'boq_rates table' || sourceText.includes('qilly')
+          ? 'qilly-own-library'
+          : 'unknown');
+  const usageRightsStatus: UsageRightsStatus = rate.usage_rights_status
+    || (sourceType === 'qilly-own-library'
+      ? 'internal-approved'
+      : sourceType === 'buildaid-benchmark'
+        ? 'benchmark-reference-only'
+        : 'unknown');
+  const reviewStatus: RateReviewStatus = rate.review_status || 'review-required';
+  const validUntil = rate.valid_until ? new Date(rate.valid_until) : null;
+  const sourceDate = rate.source_date ? new Date(rate.source_date) : null;
+  const sourceCurrent = validUntil && !Number.isNaN(validUntil.getTime())
+    ? validUntil.getTime() >= now.getTime()
+    : sourceDate && !Number.isNaN(sourceDate.getTime())
+      ? monthsBetween(sourceDate, now) <= 18
+      : sourceType === 'qilly-own-library' && reviewStatus === 'reviewed';
+
+  return {
+    sourceType,
+    usageRightsStatus,
+    reviewStatus,
+    sourcePermitted: ['internal-approved', 'licensed', 'benchmark-reference-only'].includes(usageRightsStatus)
+      && reviewStatus !== 'rejected',
+    sourceCurrent: Boolean(sourceCurrent),
+    commercialBasisKnown: Boolean(rate.commercial_basis || rate.notes),
+    geographicBasisKnown: Boolean(rate.province_basis || rate.province),
+    evidenceComplete: Boolean(rate.description && rate.unit && Number.isFinite(rate.composite_rate)),
+  };
 }
 
 /**
@@ -59,7 +136,7 @@ export async function matchLaborRate(
 
     const cacheIsFresh = cachedLaborRates && Date.now() - cachedLaborRatesAt < LABOR_RATE_CACHE_MS;
     let ratesToUse: LaborRate[] = cacheIsFresh ? cachedLaborRates! : [];
-    let dataSource = cacheIsFresh ? 'in-memory cache' : 'unknown';
+    let dataSource = cacheIsFresh ? cachedLaborRatesSource : 'unknown';
 
     // PRIORITY 1: Try boq_rates table (new schema with equipment rates)
     if (ratesToUse.length === 0) try {
@@ -80,7 +157,7 @@ export async function matchLaborRate(
         if (hasPerUnitStructure) {
           ratesToUse = boqRates as any;
           dataSource = 'boq_rates table';
-          console.log(`  ✅ Loaded ${ratesToUse.length} rates from boq_rates table (BuildAid 2025/2026)`);
+          console.log(`  ✅ Loaded ${ratesToUse.length} rates from boq_rates table; provenance is evaluated per record`);
         } else {
           console.log(`⚠️ boq_rates table exists but has unexpected structure`);
         }
@@ -136,6 +213,7 @@ export async function matchLaborRate(
     if (!cacheIsFresh && ratesToUse.length > 0) {
       cachedLaborRates = ratesToUse;
       cachedLaborRatesAt = Date.now();
+      cachedLaborRatesSource = dataSource;
     }
 
     // Filter out rates with missing required fields
@@ -154,27 +232,32 @@ export async function matchLaborRate(
 
     console.log(`  ✅ ${validRates.length} valid labor rates to match against`);
 
-    // Normalize search term
-    const searchTerm = normalizeText(description);
-    const searchUnit = normalizeUnit(unit);
+    console.log(`  🔍 Controlled match search: "${description}" (${unit})`);
 
-    console.log(`  🔍 Normalized search: "${searchTerm}" (${searchUnit})`);
-
-    // Score each labor rate
-    const scoredRates = validRates.map(rate => {
-      const score = calculateLaborMatchScore(
-        searchTerm,
-        searchUnit,
-        normalizeText(rate.description),
-        normalizeUnit(rate.unit),
-        rate.category
-      );
-
-      return {
-        rate,
-        score,
-      };
+    // Apply the client-approved technical controls before a Qilly-library rate
+    // can compete. This prevents common words and a matching unit from
+    // producing a false high-confidence match.
+    const scoredRates = validRates.flatMap(rate => {
+      const provenance = classifyRateProvenance(rate, dataSource);
+      const evaluation = evaluateEquivalentActivity({
+        boqDescription: description,
+        boqUnit: unit,
+        candidateDescription: rate.description,
+        candidateUnit: rate.unit,
+        candidateRate: rate.composite_rate,
+        source: rate.source || dataSource,
+        sourcePermitted: provenance.sourcePermitted,
+        sourceCurrent: provenance.sourceCurrent,
+        commercialBasisKnown: provenance.commercialBasisKnown,
+        geographicBasisKnown: provenance.geographicBasisKnown,
+      });
+      return evaluation.candidate ? [{ rate, score: evaluation.score, provenance }] : [];
     });
+
+    if (scoredRates.length === 0) {
+      console.warn('⚠️  No technically compatible Qilly-library rate found');
+      return getDefaultLaborPricing();
+    }
 
     // Sort by score (highest first)
     scoredRates.sort((a, b) => b.score - a.score);
@@ -186,7 +269,7 @@ export async function matchLaborRate(
 
     // Determine confidence
     let confidence: 'HIGH' | 'MEDIUM' | 'LOW';
-    if (bestMatch.score >= 80) {
+    if (bestMatch.score >= 75) {
       confidence = 'HIGH';
     } else if (bestMatch.score >= 60) {
       confidence = 'MEDIUM';
@@ -198,8 +281,9 @@ export async function matchLaborRate(
     console.log(`  💰 Labor rate: R${bestMatch.rate.labor_rate.toFixed(2)}/${bestMatch.rate.unit}`);
     console.log(`  🚜 Equipment rate: R${(bestMatch.rate.equipment_rate || 0).toFixed(2)}/${bestMatch.rate.unit}`);
 
+    const provenance = bestMatch.provenance;
     return {
-      matched: bestMatch.score >= 50, // Minimum threshold
+      matched: bestMatch.score >= 60,
       laborRate: bestMatch.rate.labor_rate,
       equipmentRate: bestMatch.rate.equipment_rate || 0,
       totalRate: bestMatch.rate.composite_rate,
@@ -207,151 +291,19 @@ export async function matchLaborRate(
       matchedDescription: bestMatch.rate.description,
       tradeCategory: bestMatch.rate.category,
       source: bestMatch.rate.source || dataSource,
-      reviewedSource: !dataSource.toLowerCase().includes('mock'),
+      sourceType: provenance.sourceType,
+      usageRightsStatus: provenance.usageRightsStatus,
+      reviewedSource: provenance.reviewStatus === 'reviewed',
+      sourcePermitted: provenance.sourcePermitted,
+      sourceCurrent: provenance.sourceCurrent,
+      commercialBasisKnown: provenance.commercialBasisKnown,
+      geographicBasisKnown: provenance.geographicBasisKnown,
+      evidenceComplete: provenance.evidenceComplete,
     };
   } catch (error) {
     console.error('❌ Error in matchLaborRate:', error);
     return getDefaultLaborPricing();
   }
-}
-
-/**
- * Calculate match score between search term and labor rate
- */
-function calculateLaborMatchScore(
-  searchTerm: string,
-  searchUnit: string,
-  rateDescription: string,
-  rateUnit: string,
-  tradeCategory: string
-): number {
-  let score = 0;
-
-  // Exact match = 100
-  if (searchTerm === rateDescription) {
-    return 100;
-  }
-
-  // Unit match (very important) = +30
-  if (searchUnit === rateUnit) {
-    score += 30;
-  }
-
-  // Split into keywords
-  const searchKeywords = searchTerm.split(/\s+/).filter(k => k.length > 0);
-  const rateKeywords = rateDescription.split(/\s+/).filter(k => k.length > 0);
-  const categoryKeywords = (tradeCategory || '').toLowerCase().split(/\s+/).filter(k => k.length > 0);
-
-  // Count matching keywords
-  let keywordMatches = 0;
-  let exactKeywordMatches = 0;
-
-  for (const searchWord of searchKeywords) {
-    // Check description keywords
-    for (const rateWord of rateKeywords) {
-      if (searchWord === rateWord) {
-        exactKeywordMatches++;
-        score += 10;
-      } else if (rateWord.includes(searchWord) || searchWord.includes(rateWord)) {
-        keywordMatches++;
-        score += 5;
-      }
-    }
-
-    // Check trade category
-    for (const categoryWord of categoryKeywords) {
-      if (searchWord === categoryWord) {
-        score += 8;
-      } else if (categoryWord.includes(searchWord) || searchWord.includes(categoryWord)) {
-        score += 4;
-      }
-    }
-  }
-
-  // Bonus for multiple exact matches
-  if (exactKeywordMatches >= 2) {
-    score += 10;
-  }
-
-  // Substring match bonus
-  if (rateDescription.includes(searchTerm)) {
-    score += 15;
-  } else if (searchTerm.includes(rateDescription)) {
-    score += 10;
-  }
-
-  // Trade category relevance
-  const tradeCategoryMatch = (tradeCategory || '').toLowerCase();
-  if (tradeCategoryMatch && searchTerm.includes(tradeCategoryMatch)) {
-    score += 5;
-  }
-
-  // Cap at 100
-  return Math.min(score, 100);
-}
-
-/**
- * Normalize text for matching
- */
-function normalizeText(text: string): string {
-  if (!text) return '';
-  return text
-    .toLowerCase()
-    .trim()
-    // Remove special characters
-    .replace(/[^\w\s]/g, ' ')
-    // Normalize whitespace
-    .replace(/\s+/g, ' ')
-    // Common substitutions
-    .replace(/\bmm\b/g, 'millimeter')
-    .replace(/\bm2\b/g, 'm²')
-    .replace(/\bm3\b/g, 'm³');
-}
-
-/**
- * Normalize unit for matching
- */
-function normalizeUnit(unit: string): string {
-  if (!unit) return '';
-  const normalized = unit.toLowerCase().trim();
-
-  // Unit mappings
-  const unitMap: Record<string, string> = {
-    'm2': 'm²',
-    'm²': 'm²',
-    'sqm': 'm²',
-    'square meter': 'm²',
-    'square metre': 'm²',
-    'm3': 'm³',
-    'm³': 'm³',
-    'cum': 'm³',
-    'cubic meter': 'm³',
-    'cubic metre': 'm³',
-    'lin m': 'm',
-    'linear m': 'm',
-    'running m': 'm',
-    'nr': 'nr',
-    'no': 'nr',
-    'number': 'nr',
-    'each': 'nr',
-    'kg': 'kg',
-    'kilogram': 'kg',
-    't': 'ton',
-    'ton': 'ton',
-    'tonne': 'ton',
-    'l': 'liter',
-    'liter': 'liter',
-    'litre': 'liter',
-    'sum': 'sum',
-    'lump sum': 'sum',
-    'ls': 'sum',
-    'prov sum': 'sum',
-    'h': 'hour',
-    'hr': 'hour',
-    'hour': 'hour',
-  };
-
-  return unitMap[normalized] || normalized;
 }
 
 /**
@@ -367,7 +319,14 @@ function getDefaultLaborPricing(): LaborPricing {
     matchedDescription: 'No match found',
     tradeCategory: 'General',
     source: 'No reviewed rate source',
+    sourceType: 'unknown',
+    usageRightsStatus: 'unknown',
     reviewedSource: false,
+    sourcePermitted: false,
+    sourceCurrent: false,
+    commercialBasisKnown: false,
+    geographicBasisKnown: false,
+    evidenceComplete: false,
   };
 }
 

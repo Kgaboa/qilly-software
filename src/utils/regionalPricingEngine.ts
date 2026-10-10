@@ -20,11 +20,12 @@ import type { BoqRowType } from './boqImport';
 import { matchHistoricalBoqRate } from './historicalBoqRates';
 import {
   arePricingUnitsCompatible,
-  evaluateSupplierMatch,
+  evaluateEquivalentActivity,
   getPricingEngineVersion,
   pricingRequired,
   classifyUnpricedRequirement,
   selectBoqPricingCandidate,
+  type PricingCandidate,
   type PricingDecision,
   type PricingEngineVersion,
   type PricingRequirement,
@@ -491,47 +492,69 @@ export async function priceRegionalBill(
       continue;
     }
 
-    // Priority 2: use only reviewed historical BOQ rates with compatible units
-    // and explicit specification matches (diameter/class/angle where applicable).
-    if (useBoqMatchingV2) {
-      const historicalMatch = await matchHistoricalBoqRate(
+    // Historical BOQ is evidence, not an early-return result. Keep it as a
+    // candidate so higher-priority current build-ups and supplier evidence can
+    // be assessed before the approved strategy chooses a rate.
+    const historicalMatch = useBoqMatchingV2
+      ? await matchHistoricalBoqRate(
         `${item.name} ${item.description || ''}`,
         item.unit,
         province,
-      );
-      if (historicalMatch) {
+      )
+      : null;
+    const historicalCandidate: PricingCandidate | null = historicalMatch ? {
+      strategy: 'historical-boq',
+      rate: historicalMatch.rate,
+      source: historicalMatch.source,
+      explanation: `Reviewed historical BOQ match: ${historicalMatch.matchedDescription}. ${historicalMatch.sampleCount > 1 ? `Median of ${historicalMatch.sampleCount} province-adjusted equivalent rates (R${historicalMatch.minRate.toFixed(2)}–R${historicalMatch.maxRate.toFixed(2)}).` : 'One validated source rate.'} ${historicalMatch.provinceAdjustmentReason}${historicalMatch.requiresReview ? ' Review is required because the source is older than 18 months or has no recorded date.' : ''}`,
+      confidence: historicalMatch.confidence,
+      reviewed: historicalMatch.reviewed,
+      validity: {
+        unitCompatible: true,
+        specificationCompatible: true,
+        sourcePermitted: true,
+        sourceCurrent: !historicalMatch.requiresReview,
+        commercialBasisKnown: true,
+        geographicBasisKnown: true,
+        evidenceComplete: true,
+      },
+      evidence: {
+        sourceType: 'historical-boq',
+        matchedDescription: historicalMatch.matchedDescription,
+        boqUnit: item.unit,
+        candidateUnit: item.unit,
+        provinceCode: province,
+        adjustmentFactors: { province: historicalMatch.provinceAdjustmentFactor },
+        matchReason: historicalMatch.provinceAdjustmentReason,
+      },
+    } : null;
+
+    const useHistoricalFallback = (): boolean => {
+      if (!historicalMatch || !historicalCandidate) return false;
         const quantity = parseFloat(item.quantity) || 1;
         const baseTotal = historicalMatch.rate * quantity;
         const { finalPrice, additionalFeesBreakdown } = applyProjectSettings(baseTotal, projectSettings || {});
         const finalUnitPrice = finalPrice / quantity;
-        const selectedPricing = selectBoqPricingCandidate([{
-          strategy: 'historical-boq',
-          rate: historicalMatch.rate,
-          source: historicalMatch.source,
-          explanation: `Reviewed historical BOQ match: ${historicalMatch.matchedDescription}. ${historicalMatch.sampleCount > 1 ? `Median of ${historicalMatch.sampleCount} province-adjusted equivalent rates (R${historicalMatch.minRate.toFixed(2)}–R${historicalMatch.maxRate.toFixed(2)}).` : 'One validated source rate.'} ${historicalMatch.provinceAdjustmentReason}${historicalMatch.requiresReview ? ' Review is required because the source is older than 18 months or has no recorded date.' : ''}`,
-          confidence: historicalMatch.confidence,
-          reviewed: historicalMatch.reviewed,
-        }]);
+      const selectedPricing = selectBoqPricingCandidate([historicalCandidate]);
 
-        pricedItems.push({
-          ...item,
-          supplierPrices: [],
-          selectedSupplier: `Historical BOQ — ${historicalMatch.supplier}`,
-          selectedProvince: province,
-          baseUnitPrice: historicalMatch.rate.toFixed(2),
-          transportCost: '0',
-          transportCostPerUnit: '0',
-          landedUnitPrice: historicalMatch.rate.toFixed(2),
-          additionalFees: (finalUnitPrice - historicalMatch.rate).toFixed(2),
-          additionalFeesBreakdown,
-          finalUnitPrice: finalUnitPrice.toFixed(2),
-          totalPrice: finalPrice.toFixed(2),
-          matchingDecision: selectedPricing?.decision,
-          pricingRequirement: 'PRICED',
-        });
-        continue;
-      }
-    }
+      pricedItems.push({
+        ...item,
+        supplierPrices: [],
+        selectedSupplier: `Historical BOQ — ${historicalMatch.supplier}`,
+        selectedProvince: province,
+        baseUnitPrice: historicalMatch.rate.toFixed(2),
+        transportCost: '0',
+        transportCostPerUnit: '0',
+        landedUnitPrice: historicalMatch.rate.toFixed(2),
+        additionalFees: (finalUnitPrice - historicalMatch.rate).toFixed(2),
+        additionalFeesBreakdown,
+        finalUnitPrice: finalUnitPrice.toFixed(2),
+        totalPrice: finalPrice.toFixed(2),
+        matchingDecision: selectedPricing?.decision,
+        pricingRequirement: 'PRICED',
+      });
+      return true;
+    };
     
     // ============================================================================
     // CATEGORIZE ITEM FIRST - Determine pricing method
@@ -558,7 +581,43 @@ export async function priceRegionalBill(
         const laborRate = laborPricing.laborRate;
         const equipmentRate = laborPricing.equipmentRate;
         const totalRate = laborPricing.totalRate;
-        const totalCost = totalRate * quantity;
+        const isBuildAidBenchmark = laborPricing.sourceType === 'buildaid-benchmark';
+        const laborStrategy = isBuildAidBenchmark
+          ? 'buildaid-benchmark'
+          : laborPricing.sourceType === 'qilly-own-library'
+            ? 'qilly-own-library'
+            : 'composite-build-up';
+        const laborCandidate: PricingCandidate = {
+          strategy: laborStrategy,
+          rate: totalRate,
+          source: laborPricing.source,
+          explanation: `${isBuildAidBenchmark ? 'BuildAid benchmark' : 'Composite labour and plant rate'} matched to ${laborPricing.matchedDescription} with a compatible ${item.unit} unit.`,
+          confidence: laborPricing.confidence,
+          reviewed: laborPricing.reviewedSource,
+          validity: {
+            unitCompatible: true,
+            specificationCompatible: laborPricing.confidence !== 'LOW',
+            sourcePermitted: laborPricing.sourcePermitted,
+            sourceCurrent: laborPricing.sourceCurrent,
+            commercialBasisKnown: laborPricing.commercialBasisKnown,
+            geographicBasisKnown: laborPricing.geographicBasisKnown,
+            evidenceComplete: laborPricing.evidenceComplete && Number.isFinite(laborRate) && Number.isFinite(equipmentRate),
+          },
+          evidence: {
+            sourceType: laborPricing.sourceType,
+            matchedDescription: laborPricing.matchedDescription,
+            boqUnit: item.unit,
+            candidateUnit: item.unit,
+            commercialBasis: 'Labour plus plant or equipment composite rate',
+            provinceCode: province,
+          },
+        };
+        const selectedPricing = selectBoqPricingCandidate([
+          laborCandidate,
+          ...(historicalCandidate ? [historicalCandidate] : []),
+        ]);
+        const selectedRate = selectedPricing?.candidate.rate ?? totalRate;
+        const totalCost = selectedRate * quantity;
         
         console.log(`   ✅ Labor rate: R${laborRate.toFixed(2)}/${item.unit}`);
         console.log(`   ✅ Equipment rate: R${equipmentRate.toFixed(2)}/${item.unit}`);
@@ -580,27 +639,21 @@ export async function priceRegionalBill(
           };
         }
         const additionalFeesPerUnit = (finalTotalPrice - totalCost) / quantity;
-        const isBuildAidBenchmark = laborPricing.source.toLowerCase().includes('buildaid');
-        const selectedPricing = selectBoqPricingCandidate([{
-          strategy: isBuildAidBenchmark ? 'buildaid-benchmark' : 'composite-build-up',
-          rate: totalRate,
-          source: laborPricing.source,
-          explanation: `${isBuildAidBenchmark ? 'BuildAid benchmark' : 'Composite labour and plant rate'} matched to ${laborPricing.matchedDescription} with a compatible ${item.unit} unit.`,
-          confidence: laborPricing.confidence,
-          reviewed: laborPricing.reviewedSource,
-        }]);
+        const selectedHistorical = selectedPricing?.candidate.strategy === 'historical-boq';
         
         pricedItems.push({
           ...item,
           supplierPrices: [], // NO SUPPLIERS!
-          selectedSupplier: `Labor Rate (${laborPricing.tradeCategory})`,
+          selectedSupplier: selectedHistorical && historicalMatch
+            ? `Historical BOQ — ${historicalMatch.supplier}`
+            : `${isBuildAidBenchmark ? 'BuildAid Benchmark' : laborStrategy === 'qilly-own-library' ? 'Qilly Own Library' : 'Composite Build-Up'} (${laborPricing.tradeCategory})`,
           selectedProvince: undefined, // NO PROVINCE
           selectedMunicipality: undefined,
           selectedBranchName: undefined,
-          baseUnitPrice: totalRate.toFixed(2),
+          baseUnitPrice: selectedRate.toFixed(2),
           transportCost: '0', // NO TRANSPORT!
           transportCostPerUnit: '0',
-          landedUnitPrice: totalRate.toFixed(2),
+          landedUnitPrice: selectedRate.toFixed(2),
           additionalFees: additionalFeesPerUnit.toFixed(2),
           additionalFeesBreakdown,
           finalUnitPrice: finalUnitPrice.toFixed(2),
@@ -623,6 +676,7 @@ export async function priceRegionalBill(
       } else {
         // Version 2 never silently substitutes a generic rate for an unmatched activity.
         if (useBoqMatchingV2) {
+          if (useHistoricalFallback()) continue;
           pricedItems.push({
             ...item,
             supplierPrices: [],
@@ -847,6 +901,60 @@ export async function priceRegionalBill(
 
     if (compatibleMatchResults.length === 0) {
       console.log(`   ❌ No matches found`);
+      if (useBoqMatchingV2 && useHistoricalFallback()) continue;
+      const equivalentEvaluations = useBoqMatchingV2
+        ? matchResults.map(result => {
+            const sourceDate = result.item.lastUpdated ? new Date(result.item.lastUpdated) : null;
+            const sourceAgeMonths = sourceDate && !Number.isNaN(sourceDate.getTime())
+              ? (Date.now() - sourceDate.getTime()) / (1000 * 60 * 60 * 24 * 30.44)
+              : Number.POSITIVE_INFINITY;
+            return evaluateEquivalentActivity({
+              boqDescription: `${item.name} ${item.description || ''}`,
+              boqUnit: item.unit,
+              boqCategory: categorization.category,
+              candidateDescription: `${result.item.itemName} ${result.item.description || ''}`,
+              candidateUnit: result.item.unit,
+              candidateCategory: result.item.category,
+              candidateRate: calculateProvincialPrice(result.item.unitPrice, province),
+              source: `${result.item.supplier} catalogue equivalent`,
+              sourcePermitted: !/macsteel/i.test(result.item.supplier),
+              sourceCurrent: sourceAgeMonths <= 12,
+              commercialBasisKnown: true,
+              geographicBasisKnown: true,
+            });
+          })
+        : [];
+      const equivalentCandidates = equivalentEvaluations
+        .map(result => result.candidate)
+        .filter((candidate): candidate is PricingCandidate => Boolean(candidate));
+      const equivalentSelection = equivalentCandidates.length
+        ? selectBoqPricingCandidate(equivalentCandidates)
+        : null;
+      if (equivalentSelection) {
+        const quantity = parseFloat(item.quantity) || 1;
+        const baseTotal = equivalentSelection.candidate.rate * quantity;
+        const { finalPrice, additionalFeesBreakdown } = applyProjectSettings(baseTotal, projectSettings || {});
+        const finalUnitPrice = finalPrice / quantity;
+        pricedItems.push({
+          ...item,
+          supplierPrices: [],
+          selectedSupplier: `Equivalent Activity — ${equivalentSelection.candidate.source}`,
+          selectedProvince: province,
+          selectedMunicipality: municipality?.name,
+          baseUnitPrice: equivalentSelection.candidate.rate.toFixed(2),
+          transportCost: '0',
+          transportCostPerUnit: '0',
+          landedUnitPrice: equivalentSelection.candidate.rate.toFixed(2),
+          additionalFees: (finalUnitPrice - equivalentSelection.candidate.rate).toFixed(2),
+          additionalFeesBreakdown,
+          finalUnitPrice: finalUnitPrice.toFixed(2),
+          totalPrice: finalPrice.toFixed(2),
+          matchingDecision: equivalentSelection.decision,
+          pricingRequirement: 'PRICED',
+        });
+        continue;
+      }
+      const equivalentRejections = [...new Set(equivalentEvaluations.flatMap(result => result.rejectionReasons))];
       pricedItems.push({
         ...item,
         supplierPrices: [],
@@ -859,7 +967,7 @@ export async function priceRegionalBill(
         finalUnitPrice: '0',
         totalPrice: '0',
         matchingDecision: useBoqMatchingV2
-          ? pricingRequired('Item Matching searched the supplier catalogue through exact/fuzzy, scored, substring, description and word-level matching, but no candidate passed both the minimum score and unit-compatibility rules.')
+          ? pricingRequired(`Item Matching searched supplier and controlled equivalent-activity candidates, but none passed the unit, category and technical-attribute controls.${equivalentRejections.length ? ` Rejected because: ${equivalentRejections.join(' ')}` : ''}`)
           : undefined,
         pricingRequirement: useBoqMatchingV2 ? 'SUPPLIER_MATCH_REQUIRED' : undefined,
       });
@@ -882,6 +990,7 @@ export async function priceRegionalBill(
     
     if (!bestQuote) {
       console.log(`   ❌ No available suppliers`);
+      if (useBoqMatchingV2 && useHistoricalFallback()) continue;
       pricedItems.push({
         ...item,
         supplierPrices: regionalQuotes,
@@ -901,14 +1010,113 @@ export async function priceRegionalBill(
       continue;
     }
     
-    // Apply project settings to get final price
+    // Build all valid candidates before selecting a final rate. Supplier
+    // evidence is supply/delivery evidence; a complete material + labour +
+    // plant build-up is a separate higher-priority candidate.
     const quantity = parseFloat(item.quantity) || 1;
-    const totalLandedCost = parseFloat(bestQuote.totalLandedCost);
     const landedUnitPrice = parseFloat(bestQuote.landedUnitPrice);
-    
-    // Supplier quotes already return total landed cost as landed unit rate × quantity.
-    // Apply project settings to that total consistently for every unit, including m².
-    let { finalPrice: finalTotalPrice, additionalFeesBreakdown } = applyProjectSettings(totalLandedCost, projectSettings || {});
+
+    const laborPricing: LaborPricing = await matchLaborRate(item.name, item.unit, quantity);
+    const laborRate = laborPricing.matched ? laborPricing.laborRate.toFixed(2) : '0';
+    const equipmentRate = laborPricing.matched ? laborPricing.equipmentRate.toFixed(2) : '0';
+    const laborTotal = (parseFloat(laborRate) * quantity).toFixed(2);
+    const equipmentTotal = (parseFloat(equipmentRate) * quantity).toFixed(2);
+    const laborIsBuildAid = laborPricing.sourceType === 'buildaid-benchmark';
+    const matchedCatalogItem = compatibleMatchResults[0].item;
+    const supplierDate = matchedCatalogItem.lastUpdated ? new Date(matchedCatalogItem.lastUpdated) : null;
+    const supplierAgeMonths = supplierDate && !Number.isNaN(supplierDate.getTime())
+      ? (Date.now() - supplierDate.getTime()) / (1000 * 60 * 60 * 24 * 30.44)
+      : Number.POSITIVE_INFINITY;
+    const supplierSourceCurrent = supplierAgeMonths <= 12;
+    const supplierSourcePermitted = !/macsteel/i.test(bestQuote.supplier);
+    const supplierCandidate: PricingCandidate = {
+      strategy: 'supplier-product',
+      rate: landedUnitPrice,
+      source: `${bestQuote.supplier} regional catalogue`,
+      explanation: `Compatible supplier product selected on regional landed cost from ${bestQuote.supplier}.`,
+      confidence: compatibleMatchResults[0].score >= 85 ? 'HIGH' : compatibleMatchResults[0].score >= 70 ? 'MEDIUM' : 'LOW',
+      reviewed: compatibleMatchResults[0].score >= 70,
+      validity: {
+        unitCompatible: arePricingUnitsCompatible(item.unit, matchedCatalogItem.unit),
+        specificationCompatible: compatibleMatchResults[0].score >= 60,
+        sourcePermitted: supplierSourcePermitted,
+        sourceCurrent: supplierSourceCurrent,
+        commercialBasisKnown: true,
+        geographicBasisKnown: true,
+        evidenceComplete: Number.isFinite(landedUnitPrice) && landedUnitPrice > 0,
+      },
+      evidence: {
+        sourceType: 'supplier-product',
+        sourceDate: matchedCatalogItem.lastUpdated,
+        matchedDescription: matchedCatalogItem.itemName,
+        boqUnit: item.unit,
+        candidateUnit: matchedCatalogItem.unit,
+        commercialBasis: 'Supply price plus regional delivery or transport',
+        provinceCode: province,
+        matchReason: `Catalogue score ${compatibleMatchResults[0].score}.`,
+      },
+    };
+    const compositeCandidate: PricingCandidate | null = laborPricing.matched
+      && !laborIsBuildAid
+      && laborPricing.sourceType === 'qilly-own-library'
+      && laborPricing.sourcePermitted
+      ? {
+          strategy: 'composite-build-up',
+          rate: landedUnitPrice + laborPricing.laborRate + laborPricing.equipmentRate,
+          source: `${bestQuote.supplier} material + ${laborPricing.source}`,
+          explanation: `Composite build-up combines regional landed material cost, matched labour and matched plant/equipment for ${laborPricing.matchedDescription}.`,
+          confidence: supplierCandidate.confidence === 'HIGH' && laborPricing.confidence === 'HIGH' ? 'HIGH' : 'MEDIUM',
+          reviewed: supplierCandidate.reviewed && laborPricing.reviewedSource,
+          validity: {
+            unitCompatible: true,
+            specificationCompatible: supplierCandidate.validity?.specificationCompatible && laborPricing.confidence !== 'LOW',
+            sourcePermitted: supplierSourcePermitted && laborPricing.sourcePermitted,
+            sourceCurrent: supplierSourceCurrent && laborPricing.sourceCurrent,
+            commercialBasisKnown: laborPricing.commercialBasisKnown,
+            geographicBasisKnown: laborPricing.geographicBasisKnown,
+            evidenceComplete: laborPricing.evidenceComplete && Number.isFinite(landedUnitPrice) && Number.isFinite(laborPricing.laborRate) && Number.isFinite(laborPricing.equipmentRate),
+          },
+          evidence: {
+            sourceType: 'composite-build-up',
+            sourceDate: matchedCatalogItem.lastUpdated,
+            matchedDescription: `${matchedCatalogItem.itemName}; ${laborPricing.matchedDescription}`,
+            boqUnit: item.unit,
+            candidateUnit: matchedCatalogItem.unit,
+            commercialBasis: 'Landed materials plus labour plus plant/equipment',
+            provinceCode: province,
+            matchReason: `Supplier score ${compatibleMatchResults[0].score}; labour confidence ${laborPricing.confidence}.`,
+          },
+        }
+      : null;
+    const selectedPricing = useBoqMatchingV2
+      ? selectBoqPricingCandidate([
+          ...(compositeCandidate ? [compositeCandidate] : []),
+          supplierCandidate,
+          ...(historicalCandidate ? [historicalCandidate] : []),
+        ])
+      : null;
+    if (useBoqMatchingV2 && !selectedPricing) {
+      pricedItems.push({
+        ...item,
+        supplierPrices: regionalQuotes,
+        selectedSupplier: 'Pricing Required',
+        baseUnitPrice: '0',
+        transportCost: '0',
+        transportCostPerUnit: '0',
+        landedUnitPrice: '0',
+        additionalFees: '0',
+        finalUnitPrice: '0',
+        totalPrice: '0',
+        matchingDecision: pricingRequired('Candidate rates were found, but none passed the source, unit, specification and evidence validity gate.'),
+        pricingRequirement: 'SUPPLIER_MATCH_REQUIRED',
+      });
+      continue;
+    }
+    const selectedRate = selectedPricing?.candidate.rate ?? landedUnitPrice;
+    const selectedBaseTotal = selectedRate * quantity;
+
+    // Apply project settings to the selected candidate consistently.
+    let { finalPrice: finalTotalPrice, additionalFeesBreakdown } = applyProjectSettings(selectedBaseTotal, projectSettings || {});
     let finalUnitPrice = quantity > 0 ? finalTotalPrice / quantity : finalTotalPrice;
 
     // Reviewed haulage rule: the final tender rate may not exceed R50 per km/m³.
@@ -919,13 +1127,13 @@ export async function priceRegionalBill(
       finalTotalPrice = 50 * quantity;
       additionalFeesBreakdown = {
         ...additionalFeesBreakdown,
-        totalAdditionalAmount: finalTotalPrice - totalLandedCost,
-        totalAdditional: totalLandedCost > 0
-          ? ((finalTotalPrice - totalLandedCost) / totalLandedCost) * 100
+        totalAdditionalAmount: finalTotalPrice - selectedBaseTotal,
+        totalAdditional: selectedBaseTotal > 0
+          ? ((finalTotalPrice - selectedBaseTotal) / selectedBaseTotal) * 100
           : 0,
       };
     }
-    const additionalFeesPerUnit = quantity > 0 ? (finalTotalPrice - totalLandedCost) / quantity : finalTotalPrice - totalLandedCost;
+    const additionalFeesPerUnit = quantity > 0 ? (finalTotalPrice - selectedBaseTotal) / quantity : finalTotalPrice - selectedBaseTotal;
     
     console.log(`   🏆 Best Supplier: ${bestQuote.supplier} (${bestQuote.branchName})`);
     console.log(`   📦 Base Price: R${bestQuote.baseUnitPrice}/unit`);
@@ -943,13 +1151,6 @@ export async function priceRegionalBill(
       console.log(`   💚 Savings vs Distant: R${totalSavingsForItem} (R${bestQuote.savingsVsNationalBest}/unit × ${quantity})`);
     }
     
-    // Add labor and equipment pricing
-    const laborPricing: LaborPricing = await matchLaborRate(item.name, item.unit, quantity);
-    const laborRate = laborPricing.matched ? laborPricing.laborRate.toFixed(2) : '0';
-    const equipmentRate = laborPricing.matched ? laborPricing.equipmentRate.toFixed(2) : '0';
-    const laborTotal = (parseFloat(laborRate) * quantity).toFixed(2);
-    const equipmentTotal = (parseFloat(equipmentRate) * quantity).toFixed(2);
-    
     if (laborPricing.matched) {
       console.log(`   🔧 Labor Rate: R${laborRate}/${item.unit} (${laborPricing.confidence} confidence)`);
       console.log(`   🚜 Equipment Rate: R${equipmentRate}/${item.unit}`);
@@ -962,7 +1163,11 @@ export async function priceRegionalBill(
     pricedItems.push({
       ...item,
       supplierPrices: regionalQuotes,
-      selectedSupplier: bestQuote.supplier,
+      selectedSupplier: selectedPricing?.candidate.strategy === 'composite-build-up'
+        ? `Composite Build-Up — ${bestQuote.supplier}`
+        : selectedPricing?.candidate.strategy === 'historical-boq' && historicalMatch
+          ? `Historical BOQ — ${historicalMatch.supplier}`
+          : bestQuote.supplier,
       selectedProvince: province,
       selectedMunicipality: municipality?.name,
       selectedBranchName: bestQuote.branchName,
@@ -988,14 +1193,7 @@ export async function priceRegionalBill(
       // BUILDAID & SANS COMPLIANCE - Use user-entered values if available, otherwise from supplier catalog
       buildAidRef: item.buildAidRef || bestQuote.buildAidRef,
       sansCode: item.sansCode || bestQuote.sansCode,
-      matchingDecision: useBoqMatchingV2
-        ? evaluateSupplierMatch({
-            boqUnit: item.unit,
-            candidateUnit: compatibleMatchResults[0].item.unit,
-            score: compatibleMatchResults[0].score,
-            supplier: bestQuote.supplier,
-          })
-        : undefined,
+      matchingDecision: useBoqMatchingV2 ? selectedPricing?.decision : undefined,
       pricingRequirement: useBoqMatchingV2 ? 'PRICED' : undefined,
     });
   }

@@ -1843,6 +1843,15 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
                                   </div>
                                   <p className="text-slate-600">{item.matchingDecision.explanation}</p>
                                   {item.matchingDecision.source && <p className="mt-1 text-slate-500">Source: {item.matchingDecision.source}</p>}
+                                  {item.matchingDecision.manualReview && (
+                                    <div className="mt-3 border-t border-amber-200 pt-2 text-amber-950">
+                                      <p className="font-semibold">Action required</p>
+                                      <p>{item.matchingDecision.manualReview.requiredAction}</p>
+                                      <p className="mt-1"><span className="font-medium">Required from:</span> {item.matchingDecision.manualReview.responsibleParty}</p>
+                                      <p className="mt-1"><span className="font-medium">Missing:</span> {item.matchingDecision.manualReview.missingInputs.join('; ')}</p>
+                                      <p className="mt-1"><span className="font-medium">After submission:</span> {item.matchingDecision.manualReview.resolutionOutcome}</p>
+                                    </div>
+                                  )}
                                 </div>
                               )}
                               <div className="grid grid-cols-2 gap-2 rounded-lg border border-slate-200 bg-white p-3 text-xs sm:grid-cols-4">
