@@ -17,7 +17,7 @@ import { TeamManagement } from '@/app/components/TeamManagement';
 import { supabase } from '@/utils/supabase';
 import { Button } from '@/app/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/app/components/ui/card';
-import { FileUp, FileDown, TrendingDown, FileImage, Coins, User, LogOut, Users, Sparkles } from 'lucide-react';
+import { FileUp, FileDown, TrendingDown, FileImage, Coins, User, LogOut, Users, Sparkles, KeyRound } from 'lucide-react';
 import { Badge } from '@/app/components/ui/badge';
 import { Progress } from '@/app/components/ui/progress';
 import { toast } from 'sonner';
@@ -31,6 +31,7 @@ import { CONTRACTOR_PROJECT_TYPES } from '@/utils/projectTypes';
 interface MainDashboardProps {
   accessToken: string;
   onLogout: () => void;
+  onChangePassword: () => void;
 }
 
 const ALL_PROVINCES = [
@@ -38,7 +39,7 @@ const ALL_PROVINCES = [
   'Mpumalanga', 'Limpopo', 'North West', 'Northern Cape'
 ];
 
-export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
+export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainDashboardProps) {
   const [user, setUser] = useState<any>(null);
   const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq'>('upload');
   const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'how-it-works' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck'>('dashboard');
@@ -733,6 +734,15 @@ export function MainDashboard({ accessToken, onLogout }: MainDashboardProps) {
                               <p className="text-xs text-white/80 leading-tight truncate mt-0.5">{contractorData.email}</p>
                             </div>
                             <div className="flex items-center gap-1.5 flex-shrink-0">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={onChangePassword}
+                                className="bg-white/10 text-white border-white/30 hover:bg-white/20 h-6 px-2 py-0"
+                              >
+                                <KeyRound className="h-3.5 w-3.5 mr-1" />
+                                <span className="text-xs">Password</span>
+                              </Button>
                               <Button 
                                 variant="ghost" 
                                 size="sm" 

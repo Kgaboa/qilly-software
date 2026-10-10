@@ -18,10 +18,11 @@ import CookiePolicy from './pages/CookiePolicy';
 import { Toaster } from 'sonner';
 import { initAuthCleanup } from '@/utils/supabase/auth-helpers';
 import { supabase } from '@/utils/supabase';
+import { PasswordRecovery } from './components/PasswordRecovery';
 
 export default function App() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [currentView, setCurrentView] = useState<'auth' | 'supplier-signup' | 'contractor-signup' | 'admin-login' | 'public-partner-portal' | 'partner-login' | 'partner-portal' | 'main' | 'admin' | 'green-building' | 'performance-test' | 'privacy-policy' | 'terms-of-service' | 'cookie-policy' | 'capital-raising'>('auth');
+  const [currentView, setCurrentView] = useState<'auth' | 'forgot-password' | 'reset-password' | 'supplier-signup' | 'contractor-signup' | 'admin-login' | 'public-partner-portal' | 'partner-login' | 'partner-portal' | 'main' | 'admin' | 'green-building' | 'performance-test' | 'privacy-policy' | 'terms-of-service' | 'cookie-policy' | 'capital-raising'>('auth');
 
   useEffect(() => {
     // Initialize auth cleanup to prevent orphaned locks
@@ -39,6 +40,18 @@ export default function App() {
         setCurrentView('main');
       }
     }
+  }, []);
+
+  useEffect(() => {
+    const recoveryInUrl = new URLSearchParams(window.location.search).get('password-recovery') === '1'
+      || window.location.hash.includes('type=recovery');
+    if (recoveryInUrl) setCurrentView('reset-password');
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'PASSWORD_RECOVERY') setCurrentView('reset-password');
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const handleAuthSuccess = (token: string) => {
@@ -99,7 +112,22 @@ export default function App() {
             onAdminLogin={() => setCurrentView('admin-login')}
             onGreenBuilding={() => setCurrentView('green-building')}
             onPartnerPortal={() => setCurrentView('public-partner-portal')}
+            onForgotPassword={() => setCurrentView('forgot-password')}
             onNavigateToPolicy={(view) => setCurrentView(view)}
+          />
+        </div>
+      )}
+      {currentView === 'forgot-password' && (
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+          <PasswordRecovery mode="request" onBack={() => setCurrentView('auth')} />
+        </div>
+      )}
+      {currentView === 'reset-password' && (
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+          <PasswordRecovery
+            mode="update"
+            onBack={() => setCurrentView(accessToken ? 'main' : 'auth')}
+            onComplete={() => setCurrentView(accessToken ? 'main' : 'auth')}
           />
         </div>
       )}
@@ -149,7 +177,7 @@ export default function App() {
         </div>
       )}
       {currentView === 'main' && accessToken && (
-        <MainDashboard accessToken={accessToken} onLogout={handleLogout} />
+        <MainDashboard accessToken={accessToken} onLogout={handleLogout} onChangePassword={() => setCurrentView('reset-password')} />
       )}
       {currentView === 'admin' && accessToken && (
         <AdminDashboard onLogout={handleLogout} onCapitalRaising={() => setCurrentView('capital-raising')} />

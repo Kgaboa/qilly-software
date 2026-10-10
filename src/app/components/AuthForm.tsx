@@ -14,10 +14,11 @@ interface AuthFormProps {
   onAdminLogin?: () => void;
   onGreenBuilding?: () => void;
   onPartnerPortal?: () => void;
+  onForgotPassword?: () => void;
   onNavigateToPolicy?: (view: 'privacy-policy' | 'terms-of-service' | 'cookie-policy') => void;
 }
 
-export function AuthForm({ onSuccess, onSupplierSignup, onContractorSignup, onAdminLogin, onGreenBuilding, onPartnerPortal, onNavigateToPolicy }: AuthFormProps) {
+export function AuthForm({ onSuccess, onSupplierSignup, onContractorSignup, onAdminLogin, onGreenBuilding, onPartnerPortal, onForgotPassword, onNavigateToPolicy }: AuthFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
@@ -221,7 +222,12 @@ export function AuthForm({ onSuccess, onSupplierSignup, onContractorSignup, onAd
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="login-password">Password</Label>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="login-password">Password</Label>
+                    <button type="button" onClick={onForgotPassword} className="text-xs font-medium text-[#0077b6] hover:underline">
+                      Forgot password?
+                    </button>
+                  </div>
                   <Input
                     id="login-password"
                     type="password"
