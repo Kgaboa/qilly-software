@@ -1201,10 +1201,12 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
           <div className="flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 rounded-md text-sm text-blue-800 mb-3">
             <CheckCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
-              <strong className="block mb-1">BuildAid 2025/2026 Compliance</strong>
+              <strong className="block mb-1">References and Technical Standards</strong>
               <p className="text-xs text-blue-700">
-                The <strong>BuildAid Ref</strong> and <strong>SANS Code</strong> columns help track compliance with industry standards.
-                These are optional but recommended for professional BOQs. Example: "p.42 §M001" for BuildAid reference, "SANS 1200 F" for standard code.
+                The <strong>Source Reference</strong> field records the applicable Qilly rate-library record, supplier quotation,
+                approved historical BOQ or other authorised pricing evidence. The <strong>SANS Code</strong> field identifies the
+                relevant South African technical standard. Both are optional but recommended for traceability and professional BOQ reporting.
+                Example: "QOR-2026-001" for a rate source and "SANS 1200 F" for a technical standard.
               </p>
             </div>
           </div>
@@ -1244,7 +1246,7 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                   </TableHead>
                   <TableHead className="min-w-[140px]">
                     <div className="flex items-center gap-2 text-xs">
-                      BuildAid Ref
+                      Source Reference
                       {isFromTemplate && <Lock className="w-3 h-3 text-amber-600" />}
                     </div>
                   </TableHead>
@@ -1297,7 +1299,7 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                     </TableCell>
                     <TableCell className="p-2">
                       <Input
-                        placeholder="p.42 §M001"
+                        placeholder="QOR-2026-001"
                         value={item.buildAidRef || ''}
                         onChange={(e) => updateItem(index, 'buildAidRef', e.target.value)}
                         className="text-xs h-9"

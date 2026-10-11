@@ -1204,7 +1204,7 @@ export function SteelBoqUpload({ contractorData }: SteelBoqUploadProps) {
                                   </div>
                                   <div className="flex gap-4 text-xs text-gray-500">
                                     <span><strong>SANS 1200:</strong> {row.sans1200}</span>
-                                    <span><strong>BuildAid Ref:</strong> {row.buildAidRef}</span>
+                                    <span><strong>Source Reference:</strong> {row.buildAidRef}</span>
                                     <span><strong>Mass:</strong> {row.massKg.toFixed(1)} kg ({row.massTonne.toFixed(3)} t)</span>
                                   </div>
                                 </div>

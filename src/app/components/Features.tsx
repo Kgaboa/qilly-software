@@ -126,7 +126,7 @@ export function Features() {
                 'Automatic provincial freight adjustment (up to +18% for Northern Cape)',
                 'Tonnage calculation per line item — total steel mass summary',
                 'Fabrication allowances: welding, grit blasting, hot-dip galvanising, erection',
-                'Export to Excel with project summary, BuildAid refs, and supplier attribution',
+                'Export to Excel with project summary, source references, and supplier attribution',
               ].map(item => (
                 <li key={item} className="flex items-start gap-2 text-sm text-slate-300">
                   <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" />

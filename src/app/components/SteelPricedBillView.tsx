@@ -159,7 +159,7 @@ function buildExcelWorkbook(rows: BoqRow[], ps: ProjectSettings, totals: any, co
   XLSX.utils.book_append_sheet(wb, ws1, 'Summary');
 
   // ── BOQ Detail sheet ────────────────────────────────────────
-  const headers = ['#', 'Item Code', 'Description', 'Category', 'Grade', 'SANS 1200', 'BuildAid Ref', 'Unit', 'Quantity', 'Rate (excl VAT)', 'Total (excl VAT)', 'VAT 15%', 'Total (incl VAT)', 'Mass (kg)', 'Mass (t)', 'Best Supplier', 'Notes'];
+  const headers = ['#', 'Item Code', 'Description', 'Category', 'Grade', 'SANS 1200', 'Source Reference', 'Unit', 'Quantity', 'Rate (excl VAT)', 'Total (excl VAT)', 'VAT 15%', 'Total (incl VAT)', 'Mass (kg)', 'Mass (t)', 'Best Supplier', 'Notes'];
   const dataRows = rows.map((r, i) => [
     i + 1, r.itemCode, r.description, CAT_CFG[r.category]?.label || r.category,
     r.grade, r.sans1200, r.buildAidRef, r.unit, r.quantity,
@@ -661,7 +661,7 @@ export function SteelPricedBillView({ rows, projectSettings: ps, contractorData,
                               </div>
                               <div className="flex flex-wrap gap-4 text-xs text-gray-500">
                                 <span><strong>SANS 1200:</strong> {row.sans1200}</span>
-                                <span><strong>BuildAid Ref:</strong> {row.buildAidRef}</span>
+                                <span><strong>Source Reference:</strong> {row.buildAidRef}</span>
                                 <span><strong>Mass:</strong> {row.massKg.toFixed(1)} kg</span>
                                 {isEnterprise && <span><strong>Carbon:</strong> {(row.massKg * STEEL_CARBON[row.category].factor / 1000).toFixed(3)} tCO₂e</span>}
                               </div>

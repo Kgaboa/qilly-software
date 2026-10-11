@@ -280,7 +280,7 @@ export default function TermsOfService() {
             <ul className="list-disc pl-6 text-gray-700 space-y-2">
               <li>All software, source code, algorithms, and BOQ calculation methodologies</li>
               <li>Proprietary pricing databases, supplier rate cards, and regional cost models</li>
-              <li>BOQ template libraries, including BuildAid reference templates</li>
+              <li>BOQ template libraries, including source-reference templates</li>
               <li>The Qilly brand, logos, trademarks, and all design elements</li>
               <li>Documentation, user guides, and all training materials</li>
             </ul>
