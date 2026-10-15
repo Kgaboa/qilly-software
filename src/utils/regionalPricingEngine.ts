@@ -531,6 +531,76 @@ export async function priceRegionalBill(
       },
     } : null;
 
+    // Qilly's reviewed own-rate library is a global candidate stage. It must
+    // run before category routing so materials, mixed items and SANRAL rows do
+    // not miss an exact reviewed rate merely because they were categorised as
+    // supplier-backed.
+    const quantityForMatching = parseFloat(item.quantity) || 1;
+    const globalLibraryPricing: LaborPricing | null = useBoqMatchingV2
+      ? await matchLaborRate(`${item.name} ${item.description || ''}`.trim(), item.unit, quantityForMatching)
+      : null;
+    const qillyLibraryCandidate: PricingCandidate | null = globalLibraryPricing?.matched
+      && globalLibraryPricing.sourceType === 'qilly-own-library'
+      ? {
+          strategy: 'qilly-own-library',
+          rate: globalLibraryPricing.totalRate,
+          source: globalLibraryPricing.source,
+          explanation: `Qilly own-rate library matched ${globalLibraryPricing.matchedDescription} with a compatible ${item.unit} unit.`,
+          confidence: globalLibraryPricing.confidence,
+          reviewed: globalLibraryPricing.reviewedSource,
+          validity: {
+            unitCompatible: true,
+            specificationCompatible: globalLibraryPricing.confidence !== 'LOW',
+            sourcePermitted: globalLibraryPricing.sourcePermitted,
+            sourceCurrent: globalLibraryPricing.sourceCurrent,
+            commercialBasisKnown: globalLibraryPricing.commercialBasisKnown,
+            geographicBasisKnown: globalLibraryPricing.geographicBasisKnown,
+            evidenceComplete: globalLibraryPricing.evidenceComplete && globalLibraryPricing.totalRate > 0,
+          },
+          evidence: {
+            sourceType: 'qilly-own-library',
+            matchedDescription: globalLibraryPricing.matchedDescription,
+            boqUnit: item.unit,
+            candidateUnit: item.unit,
+            commercialBasis: 'Reviewed Qilly-owned unit rate',
+            provinceCode: province,
+          },
+        }
+      : null;
+
+    const useLibraryOrHistoricalFallback = (): boolean => {
+      const selectedPricing = selectBoqPricingCandidate([
+        ...(qillyLibraryCandidate ? [qillyLibraryCandidate] : []),
+        ...(historicalCandidate ? [historicalCandidate] : []),
+      ]);
+      if (!selectedPricing) return false;
+      const quantity = parseFloat(item.quantity) || 1;
+      const baseRate = selectedPricing.candidate.rate;
+      const baseTotal = baseRate * quantity;
+      const { finalPrice, additionalFeesBreakdown } = applyProjectSettings(baseTotal, projectSettings || {});
+      const finalUnitPrice = finalPrice / quantity;
+      const isQillyLibrary = selectedPricing.candidate.strategy === 'qilly-own-library';
+      pricedItems.push({
+        ...item,
+        supplierPrices: [],
+        selectedSupplier: isQillyLibrary
+          ? `Qilly Own Library — ${selectedPricing.candidate.source}`
+          : `Historical BOQ — ${historicalMatch?.supplier || selectedPricing.candidate.source}`,
+        selectedProvince: province,
+        baseUnitPrice: baseRate.toFixed(2),
+        transportCost: '0',
+        transportCostPerUnit: '0',
+        landedUnitPrice: baseRate.toFixed(2),
+        additionalFees: (finalUnitPrice - baseRate).toFixed(2),
+        additionalFeesBreakdown,
+        finalUnitPrice: finalUnitPrice.toFixed(2),
+        totalPrice: finalPrice.toFixed(2),
+        matchingDecision: selectedPricing.decision,
+        pricingRequirement: 'PRICED',
+      });
+      return true;
+    };
+
     const useHistoricalFallback = (): boolean => {
       if (!historicalMatch || !historicalCandidate) return false;
         const quantity = parseFloat(item.quantity) || 1;
@@ -577,7 +647,7 @@ export async function priceRegionalBill(
       
       // Get labor and equipment pricing
       const quantity = parseFloat(item.quantity) || 1;
-      const laborPricing: LaborPricing = await matchLaborRate(item.name, item.unit, quantity);
+      const laborPricing: LaborPricing = globalLibraryPricing || await matchLaborRate(item.name, item.unit, quantity);
       
       if (laborPricing.matched) {
         const laborRate = laborPricing.laborRate;
@@ -778,6 +848,7 @@ export async function priceRegionalBill(
       
       if (!searchResult.topMatch) {
         if (useBoqMatchingV2) {
+          if (useLibraryOrHistoricalFallback()) continue;
           pricedItems.push({
             ...item,
             quantity: '1',
@@ -903,7 +974,7 @@ export async function priceRegionalBill(
 
     if (compatibleMatchResults.length === 0) {
       console.log(`   ❌ No matches found`);
-      if (useBoqMatchingV2 && useHistoricalFallback()) continue;
+      if (useBoqMatchingV2 && useLibraryOrHistoricalFallback()) continue;
       const equivalentEvaluations = useBoqMatchingV2
         ? matchResults.map(result => {
             const sourceDate = result.item.lastUpdated ? new Date(result.item.lastUpdated) : null;
@@ -992,7 +1063,7 @@ export async function priceRegionalBill(
     
     if (!bestQuote) {
       console.log(`   ❌ No available suppliers`);
-      if (useBoqMatchingV2 && useHistoricalFallback()) continue;
+      if (useBoqMatchingV2 && useLibraryOrHistoricalFallback()) continue;
       pricedItems.push({
         ...item,
         supplierPrices: regionalQuotes,
@@ -1018,7 +1089,7 @@ export async function priceRegionalBill(
     const quantity = parseFloat(item.quantity) || 1;
     const landedUnitPrice = parseFloat(bestQuote.landedUnitPrice);
 
-    const laborPricing: LaborPricing = await matchLaborRate(item.name, item.unit, quantity);
+    const laborPricing: LaborPricing = globalLibraryPricing || await matchLaborRate(item.name, item.unit, quantity);
     const laborRate = laborPricing.matched ? laborPricing.laborRate.toFixed(2) : '0';
     const equipmentRate = laborPricing.matched ? laborPricing.equipmentRate.toFixed(2) : '0';
     const laborTotal = (parseFloat(laborRate) * quantity).toFixed(2);
@@ -1094,6 +1165,7 @@ export async function priceRegionalBill(
       ? selectBoqPricingCandidate([
           ...(compositeCandidate ? [compositeCandidate] : []),
           supplierCandidate,
+          ...(qillyLibraryCandidate ? [qillyLibraryCandidate] : []),
           ...(historicalCandidate ? [historicalCandidate] : []),
         ])
       : null;
