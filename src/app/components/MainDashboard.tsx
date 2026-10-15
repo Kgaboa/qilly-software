@@ -27,6 +27,7 @@ import { getTierFeatures, type SubscriptionTier } from '@/utils/tierAccess';
 import { ArrowUpCircle, ChevronDown } from 'lucide-react';
 import { getProfessionalContractors } from '@/utils/database/contractors';
 import { CONTRACTOR_PROJECT_TYPES } from '@/utils/projectTypes';
+import type { SanralNativeWorkbookContext } from '@/utils/sanralNativeWorkbook';
 
 interface MainDashboardProps {
   accessToken: string;
@@ -44,6 +45,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
   const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq'>('upload');
   const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'how-it-works' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck'>('dashboard');
   const [processedBill, setProcessedBill] = useState<any>(null);
+  const [sanralWorkbook, setSanralWorkbook] = useState<SanralNativeWorkbookContext | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [pricingProgress, setPricingProgress] = useState({ processed: 0, total: 0, itemName: '', stage: 'Preparing BOQ', province: '' });
   const [isDemoMode, setIsDemoMode] = useState(false);
@@ -423,8 +425,9 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
     }
   };
 
-  const handleBillProcess = async (billData: any[], projectSettings?: any) => {
+  const handleBillProcess = async (billData: any[], projectSettings?: any, nativeWorkbook?: SanralNativeWorkbookContext | null) => {
     setIsLoading(true);
+    setSanralWorkbook(nativeWorkbook || null);
     setPricingProgress({ processed: 0, total: billData.length, itemName: '', stage: 'Preparing pricing engine', province: projectSettings?.province || '' });
     try {
       const { data: { user: authUser } } = await supabase.auth.getUser();
@@ -667,6 +670,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
       setCurrentView('upload');
     }
     setProcessedBill(null);
+    setSanralWorkbook(null);
     setPreloadedItems([]);
   };
 
@@ -1165,7 +1169,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                 )
               )}
               {currentView === 'template-library' && (<BoqTemplateLibrary contractorProjectTypes={contractorData?.project_types || ['Road Construction', 'Housing Development', 'Infrastructure (Water/Sewer)', 'Civil Works', 'Bridges & Structures', 'Building Construction']} onTemplateSelect={handleTemplateSelect} onManualEntry={handleManualEntry} onBack={handleBackToUpload} canUploadBOQ={canUploadBOQ} contractorTier={contractorTier} />)}
-              {currentView === 'result' && processedBill && (<RegionalPricedBillView bill={processedBill} contractorData={contractorData} processingTime={processedBill.processingTime} onBack={handleBackToUpload} />)}
+              {currentView === 'result' && processedBill && (<RegionalPricedBillView bill={processedBill} contractorData={contractorData} processingTime={processedBill.processingTime} sanralWorkbook={sanralWorkbook} onBack={handleBackToUpload} />)}
               {currentView === 'history' && (<BillHistory accessToken={accessToken} />)}
               {currentView === 'team-management' && contractorData && (
                 <TeamManagement
