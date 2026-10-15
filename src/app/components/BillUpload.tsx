@@ -13,6 +13,13 @@ import { municipalities, getMunicipalitiesByProvince, type Municipality } from '
 import { SubscriptionUpgradeModal } from '@/app/components/payments/SubscriptionUpgradeModal';
 import { supabase } from '@/utils/supabase';
 import { resolveImportedBoqRow, type BoqRowType } from '@/utils/boqImport';
+import {
+  createSanralWorkbookContext,
+  describeSanralTarget,
+  parseSanralInputFileName,
+  parseSanralItems,
+  type SanralNativeWorkbookContext,
+} from '@/utils/sanralNativeWorkbook';
 
 // Helper function to convert province full names to codes
 const provinceNameToCode = (provinceName: string): string => {
@@ -87,10 +94,16 @@ interface BillItem {
   buildAidRef?: string; // BuildAid 2025/2026 page reference (optional)
   sansCode?: string; // SANS 1200 standard code (optional)
   rowType?: BoqRowType;
+  sanralCellRef?: {
+    sheetName: string;
+    rowIndex: number;
+    rateColumn: number;
+    amountColumn: number;
+  };
 }
 
 interface BillUploadProps {
-  onProcess: (billData: BillItem[], projectSettings?: ProjectSettings) => void;
+  onProcess: (billData: BillItem[], projectSettings?: ProjectSettings, sanralWorkbook?: SanralNativeWorkbookContext | null) => void;
   isLoading: boolean;
   canProcess: boolean;
   preloadedItems?: BillItem[];
@@ -108,6 +121,11 @@ interface ProjectSettings {
   duration: string;
   machineryType: string;
   isTrainingTemplate?: boolean;
+  sanralNativeMode?: boolean;
+  sanralContractNumber?: string;
+  sanralSourceFileName?: string;
+  sanralOutputFileName?: string;
+  sanralTarget?: string;
 }
 
 export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, onBackToTemplates, isContractor, canUploadBOQ }: BillUploadProps) {
@@ -122,6 +140,8 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
   const [isLoadingContractor, setIsLoadingContractor] = useState(true);
   const [isFromTemplate, setIsFromTemplate] = useState(false); // ✅ Track if items are from template
   const [itemPage, setItemPage] = useState(0);
+  const [sanralWorkbook, setSanralWorkbook] = useState<SanralNativeWorkbookContext | null>(null);
+  const areRowsLocked = isFromTemplate || Boolean(sanralWorkbook);
 
   // Load contractor data from Supabase (not localStorage/sessionStorage)
   useEffect(() => {
@@ -330,24 +350,24 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
   }, [projectSettings.province]); // ✅ Only depend on province, not municipality
 
   const addItem = () => {
-    if (isFromTemplate) {
-      toast.error('Cannot add items to a template. Templates are read-only.');
+    if (areRowsLocked) {
+      toast.error(sanralWorkbook ? 'SANRAL workbook rows are locked to preserve their original cell mapping.' : 'Cannot add items to a template. Templates are read-only.');
       return;
     }
     setItems([...items, { code: '', name: '', description: '', quantity: '', unit: '', isRateOnly: false, buildAidRef: '', sansCode: '' }]);
   };
 
   const removeItem = (index: number) => {
-    if (isFromTemplate) {
-      toast.error('Cannot remove items from a template. Templates are read-only.');
+    if (areRowsLocked) {
+      toast.error(sanralWorkbook ? 'SANRAL workbook rows are locked to preserve their original cell mapping.' : 'Cannot remove items from a template. Templates are read-only.');
       return;
     }
     setItems(items.filter((_, i) => i !== index));
   };
 
   const updateItem = (index: number, field: keyof BillItem, value: string) => {
-    if (isFromTemplate) {
-      toast.error('Template items are locked and cannot be edited.');
+    if (areRowsLocked) {
+      toast.error(sanralWorkbook ? 'SANRAL workbook rows are locked to preserve their original cell mapping.' : 'Template items are locked and cannot be edited.');
       return;
     }
     const newItems = [...items];
@@ -407,12 +427,25 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
 
     console.log('Submitting bill with items:', validItems);
     console.log('Project settings:', projectSettings);
-    onProcess(validItems, { ...projectSettings, isTrainingTemplate: isFromTemplate });
+    onProcess(validItems, {
+      ...projectSettings,
+      isTrainingTemplate: isFromTemplate,
+      ...(sanralWorkbook ? {
+        sanralNativeMode: true,
+        sanralContractNumber: sanralWorkbook.contractNumber,
+        sanralSourceFileName: sanralWorkbook.sourceFileName,
+        sanralOutputFileName: sanralWorkbook.outputFileName,
+        sanralTarget: describeSanralTarget(
+          sanralWorkbook.targets.find(target => target.id === sanralWorkbook.selectedTargetId) || sanralWorkbook.targets[0],
+        ),
+      } : {}),
+    }, sanralWorkbook);
   };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    setSanralWorkbook(null);
 
     // ✅ Prevent upload if viewing template items
     if (isFromTemplate) {
@@ -648,7 +681,26 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
     const reader = new FileReader();
     reader.onload = (event) => {
       try {
-        const data = new Uint8Array(event.target?.result as ArrayBuffer);
+        const arrayBuffer = event.target?.result as ArrayBuffer;
+        if (/^SANRAL_/i.test(file.name) && !parseSanralInputFileName(file.name)) {
+          throw new Error('Rename the file as SANRAL_<ContractNumber>_UNPRICED.xlsx before using SANRAL Native Workbook mode.');
+        }
+        if (parseSanralInputFileName(file.name)) {
+          const context = createSanralWorkbookContext(file.name, arrayBuffer);
+          const parsedItems = parseSanralItems(context);
+          if (!parsedItems.length) {
+            throw new Error('The selected SANRAL pricing columns do not contain any recognizable BOQ rows.');
+          }
+          setSanralWorkbook(context);
+          setItems(parsedItems);
+          setItemPage(0);
+          setIsFileUploaded(true);
+          toast.success(`SANRAL Native Workbook loaded: ${parsedItems.length} rows. Confirm the target columns before pricing.`);
+          return;
+        }
+
+        setSanralWorkbook(null);
+        const data = new Uint8Array(arrayBuffer);
         const workbook = XLSX.read(data, { type: 'array' });
         
         const allParsedItems: BillItem[] = [];
@@ -845,7 +897,7 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
         }
       } catch (error) {
         console.error('Excel parsing error:', error);
-        toast.error('Error parsing Excel file. Please check format.');
+        toast.error(error instanceof Error ? error.message : 'Error parsing Excel file. Please check format.');
       }
     };
     reader.readAsArrayBuffer(file);
@@ -1187,6 +1239,58 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
             />
           </div>
 
+          {sanralWorkbook && (
+            <div className="mb-4 rounded-xl border-2 border-sky-300 bg-gradient-to-r from-sky-50 to-cyan-50 p-4 shadow-sm">
+              <div className="flex items-start gap-3">
+                <FileUp className="mt-0.5 h-5 w-5 shrink-0 text-sky-700" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-bold text-sky-950">SANRAL Native Workbook mode</p>
+                  <p className="mt-1 text-xs text-sky-800">
+                    Qilly will preserve the uploaded workbook and populate only the confirmed RATE and AMOUNT columns.
+                    Unresolved or structural rows will not be written as zero.
+                  </p>
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <Label className="text-xs text-sky-900">Input workbook</Label>
+                      <p className="truncate text-xs font-semibold text-sky-950">{sanralWorkbook.sourceFileName}</p>
+                    </div>
+                    <div>
+                      <Label className="text-xs text-sky-900">Priced output</Label>
+                      <p className="truncate text-xs font-semibold text-sky-950">{sanralWorkbook.outputFileName}</p>
+                    </div>
+                  </div>
+                  <div className="mt-3 space-y-1.5">
+                    <Label htmlFor="sanral-target" className="text-xs font-semibold text-sky-950">
+                      Confirm pricing columns
+                    </Label>
+                    <select
+                      id="sanral-target"
+                      value={sanralWorkbook.selectedTargetId}
+                      onChange={(event) => {
+                        try {
+                          const selectedTargetId = event.target.value;
+                          const updated = { ...sanralWorkbook, selectedTargetId };
+                          const parsedItems = parseSanralItems(updated, selectedTargetId);
+                          setSanralWorkbook(updated);
+                          setItems(parsedItems);
+                          setItemPage(0);
+                          toast.success(`${parsedItems.length} SANRAL rows mapped to the confirmed target columns.`);
+                        } catch (error) {
+                          toast.error(error instanceof Error ? error.message : 'Could not map the selected SANRAL columns.');
+                        }
+                      }}
+                      className="h-9 w-full rounded-md border border-sky-300 bg-white px-3 text-xs text-sky-950 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                    >
+                      {sanralWorkbook.targets.map(target => (
+                        <option key={target.id} value={target.id}>{describeSanralTarget(target)}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Template Lock Notice */}
           {isFromTemplate && (
             <div className="flex items-center gap-2 p-3 bg-amber-50 border border-amber-300 rounded-md text-sm text-amber-800 mb-3">
@@ -1235,37 +1339,37 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                   <TableHead className="min-w-[120px]">
                     <div className="flex items-center gap-2">
                       ITEM NO *
-                      {isFromTemplate && <Lock className="w-3 h-3 text-amber-600" />}
+                      {areRowsLocked && <Lock className="w-3 h-3 text-amber-600" />}
                     </div>
                   </TableHead>
                   <TableHead className="min-w-[200px]">
                     <div className="flex items-center gap-2">
                       Description
-                      {isFromTemplate && <Lock className="w-3 h-3 text-amber-600" />}
+                      {areRowsLocked && <Lock className="w-3 h-3 text-amber-600" />}
                     </div>
                   </TableHead>
                   <TableHead className="min-w-[140px]">
                     <div className="flex items-center gap-2 text-xs">
                       Source Reference
-                      {isFromTemplate && <Lock className="w-3 h-3 text-amber-600" />}
+                      {areRowsLocked && <Lock className="w-3 h-3 text-amber-600" />}
                     </div>
                   </TableHead>
                   <TableHead className="min-w-[110px]">
                     <div className="flex items-center gap-2 text-xs">
                       SANS Code
-                      {isFromTemplate && <Lock className="w-3 h-3 text-amber-600" />}
+                      {areRowsLocked && <Lock className="w-3 h-3 text-amber-600" />}
                     </div>
                   </TableHead>
                   <TableHead className="w-[90px]">
                     <div className="flex items-center gap-2">
                       Qty *
-                      {isFromTemplate && <Lock className="w-3 h-3 text-amber-600" />}
+                      {areRowsLocked && <Lock className="w-3 h-3 text-amber-600" />}
                     </div>
                   </TableHead>
                   <TableHead className="w-[90px]">
                     <div className="flex items-center gap-2">
                       Unit
-                      {isFromTemplate && <Lock className="w-3 h-3 text-amber-600" />}
+                      {areRowsLocked && <Lock className="w-3 h-3 text-amber-600" />}
                     </div>
                   </TableHead>
                   <TableHead className="w-[60px]"></TableHead>
@@ -1282,8 +1386,8 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                         value={item.code}
                         onChange={(e) => updateItem(index, 'code', e.target.value)}
                         className="text-sm h-9"
-                        disabled={isFromTemplate}
-                        title={isFromTemplate ? "Template items are locked" : ""}
+                        disabled={areRowsLocked}
+                        title={areRowsLocked ? "Imported workbook rows are locked" : ""}
                       />
                     </TableCell>
                     <TableCell className="p-2">
@@ -1293,8 +1397,8 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                         onChange={(e) => updateItem(index, 'name', e.target.value)}
                         required
                         className="text-sm h-9"
-                        disabled={isFromTemplate}
-                        title={isFromTemplate ? "Template items are locked" : ""}
+                        disabled={areRowsLocked}
+                        title={areRowsLocked ? "Imported workbook rows are locked" : ""}
                       />
                     </TableCell>
                     <TableCell className="p-2">
@@ -1303,8 +1407,8 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                         value={item.buildAidRef || ''}
                         onChange={(e) => updateItem(index, 'buildAidRef', e.target.value)}
                         className="text-xs h-9"
-                        disabled={isFromTemplate}
-                        title={isFromTemplate ? "Template items are locked" : "BuildAid 2025/2026 page reference (optional)"}
+                        disabled={areRowsLocked}
+                        title={areRowsLocked ? "Imported workbook rows are locked" : "Source reference (optional)"}
                       />
                     </TableCell>
                     <TableCell className="p-2">
@@ -1313,8 +1417,8 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                         value={item.sansCode || ''}
                         onChange={(e) => updateItem(index, 'sansCode', e.target.value)}
                         className="text-xs h-9"
-                        disabled={isFromTemplate}
-                        title={isFromTemplate ? "Template items are locked" : "SANS standard code (optional)"}
+                        disabled={areRowsLocked}
+                        title={areRowsLocked ? "Imported workbook rows are locked" : "SANS standard code (optional)"}
                       />
                     </TableCell>
                     <TableCell className="p-2">
@@ -1326,8 +1430,8 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                         min="0"
                         step="any"
                         className="text-sm h-9"
-                        disabled={isFromTemplate}
-                        title={isFromTemplate ? "Template items are locked" : ""}
+                        disabled={areRowsLocked}
+                        title={areRowsLocked ? "Imported workbook rows are locked" : ""}
                       />
                     </TableCell>
                     <TableCell className="p-2">
@@ -1336,8 +1440,8 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                         value={item.unit}
                         onChange={(e) => updateItem(index, 'unit', e.target.value)}
                         className="text-sm h-9"
-                        disabled={isFromTemplate}
-                        title={isFromTemplate ? "Template items are locked" : ""}
+                        disabled={areRowsLocked}
+                        title={areRowsLocked ? "Imported workbook rows are locked" : ""}
                       />
                     </TableCell>
                     <TableCell className="p-2">
@@ -1346,8 +1450,8 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                         variant="ghost"
                         size="sm"
                         onClick={() => removeItem(index)}
-                        disabled={items.length === 1 || isFromTemplate}
-                        title={isFromTemplate ? "Cannot delete template items" : ""}
+                        disabled={items.length === 1 || areRowsLocked}
+                        title={areRowsLocked ? "Cannot delete imported workbook rows" : ""}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
@@ -1367,15 +1471,15 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                 variant="outline" 
                 size="sm"
                 onClick={addItem}
-                className={!canUploadBOQ || isFromTemplate ? 'gap-2 opacity-50 cursor-not-allowed' : 'gap-2'}
-                disabled={!canUploadBOQ || isFromTemplate}
+                className={!canUploadBOQ || areRowsLocked ? 'gap-2 opacity-50 cursor-not-allowed' : 'gap-2'}
+                disabled={!canUploadBOQ || areRowsLocked}
               >
                 <Plus className="h-4 w-4" />
                 Add Row
               </Button>
-              {(!canUploadBOQ || isFromTemplate) && (
+              {(!canUploadBOQ || areRowsLocked) && (
                 <span className="absolute -top-8 left-0 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                  {isFromTemplate ? 'Rows are locked for training templates' : 'Upgrade to PROFESSIONAL to add items'}
+                  {areRowsLocked ? (sanralWorkbook ? 'Rows are locked to preserve SANRAL cell mapping' : 'Rows are locked for training templates') : 'Upgrade to PROFESSIONAL to add items'}
                 </span>
               )}
             </div>
