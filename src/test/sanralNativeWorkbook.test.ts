@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import * as XLSX from 'xlsx';
 import {
   buildSanralPricedWorkbook,
+  countExistingSanralRates,
   createSanralWorkbookContext,
   detectSanralTargets,
   parseSanralInputFileName,
@@ -90,5 +91,38 @@ describe('SANRAL Native Workbook processing', () => {
     expect(result.unresolvedRows).toBe(1);
     expect(output.Sheets['Pricing Schedule'].E5?.v ?? '').toBe('');
     expect(output.Sheets['Pricing Schedule'].F5.f).toBe('D5*E5');
+  });
+
+  it('preserves existing positive rates by default and reports the safeguard', () => {
+    const context = createSanralWorkbookContext('SANRAL_NRA-N001-2026_UNPRICED.xlsx', createFixture());
+    context.selectedTargetId = context.targets[1].id;
+    const items = parseSanralItems(context);
+    expect(countExistingSanralRates(context)).toBe(2);
+
+    const result = buildSanralPricedWorkbook(context, [
+      { ...items[0], finalUnitPrice: '810.50', totalPrice: '8105.00', pricingRequirement: 'PRICED' },
+    ]);
+    const output = XLSX.read(result.data, { type: 'array', cellFormula: true });
+    expect(result.writtenRows).toBe(0);
+    expect(result.preservedExistingRateRows).toBe(1);
+    expect(result.replacedExistingRateRows).toBe(0);
+    expect(output.Sheets['Pricing Schedule'].Q5.v).toBe(750);
+    expect(output.Sheets['Pricing Schedule'].R5.v).toBe(7500);
+  });
+
+  it('replaces existing rates only after explicit repricing opt-in', () => {
+    const context = createSanralWorkbookContext('SANRAL_NRA-N001-2026_UNPRICED.xlsx', createFixture());
+    context.selectedTargetId = context.targets[1].id;
+    context.repriceExistingRates = true;
+    const items = parseSanralItems(context);
+    const result = buildSanralPricedWorkbook(context, [
+      { ...items[0], finalUnitPrice: '810.50', totalPrice: '8105.00', pricingRequirement: 'PRICED' },
+    ]);
+    const output = XLSX.read(result.data, { type: 'array', cellFormula: true });
+    expect(result.writtenRows).toBe(1);
+    expect(result.preservedExistingRateRows).toBe(0);
+    expect(result.replacedExistingRateRows).toBe(1);
+    expect(output.Sheets['Pricing Schedule'].Q5.v).toBe(810.5);
+    expect(output.Sheets['Pricing Schedule'].R5.v).toBe(8105);
   });
 });
