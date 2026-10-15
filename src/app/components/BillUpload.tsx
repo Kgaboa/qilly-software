@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card';
 import { Button } from '@/app/components/ui/button';
 import { Input } from '@/app/components/ui/input';
@@ -15,6 +15,7 @@ import { supabase } from '@/utils/supabase';
 import { resolveImportedBoqRow, type BoqRowType } from '@/utils/boqImport';
 import {
   createSanralWorkbookContext,
+  countExistingSanralRates,
   describeSanralTarget,
   parseSanralInputFileName,
   parseSanralItems,
@@ -141,6 +142,10 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
   const [isFromTemplate, setIsFromTemplate] = useState(false); // ✅ Track if items are from template
   const [itemPage, setItemPage] = useState(0);
   const [sanralWorkbook, setSanralWorkbook] = useState<SanralNativeWorkbookContext | null>(null);
+  const sanralExistingRateCount = useMemo(
+    () => sanralWorkbook ? countExistingSanralRates(sanralWorkbook) : 0,
+    [sanralWorkbook],
+  );
   const areRowsLocked = isFromTemplate || Boolean(sanralWorkbook);
 
   // Load contractor data from Supabase (not localStorage/sessionStorage)
@@ -1286,6 +1291,26 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                       ))}
                     </select>
                   </div>
+                  {sanralExistingRateCount > 0 && (
+                    <div className="mt-3 rounded-lg border border-amber-300 bg-amber-50 p-3 text-xs text-amber-950">
+                      <p className="font-semibold">
+                        {sanralExistingRateCount} existing positive rate{sanralExistingRateCount === 1 ? '' : 's'} detected in the selected RATE column.
+                      </p>
+                      <p className="mt-1">They will be preserved. Qilly will fill blank rates only.</p>
+                      <label className="mt-2 flex items-start gap-2 font-medium">
+                        <input
+                          type="checkbox"
+                          className="mt-0.5 h-4 w-4 rounded border-amber-400"
+                          checked={Boolean(sanralWorkbook.repriceExistingRates)}
+                          onChange={(event) => setSanralWorkbook({
+                            ...sanralWorkbook,
+                            repriceExistingRates: event.target.checked,
+                          })}
+                        />
+                        <span>Reprice existing rates (explicit override)</span>
+                      </label>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
