@@ -31,6 +31,11 @@ import { hasFeatureAccess, getTierFeatures, type SubscriptionTier } from '@/util
 import { UpgradePrompt, UpgradeBadge } from '@/app/components/UpgradePrompt';
 import { SubscriptionUpgradeModal } from '@/app/components/payments/SubscriptionUpgradeModal';
 import { calculatePricingCompleteness, getCompactPricingReason } from '@/utils/pricingStrategyV2';
+import {
+  downloadSanralPricedWorkbook,
+  type SanralNativeWorkbookContext,
+} from '@/utils/sanralNativeWorkbook';
+import { toast } from 'sonner';
 
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 
@@ -67,10 +72,11 @@ interface RegionalPricedBillViewProps {
     last_payment_date?: string;
   };
   processingTime?: number;
+  sanralWorkbook?: SanralNativeWorkbookContext | null;
   onBack?: () => void;
 }
 
-export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, projectSettings: propProjectSettings, contractorData, processingTime, onBack }: RegionalPricedBillViewProps) {
+export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, projectSettings: propProjectSettings, contractorData, processingTime, sanralWorkbook, onBack }: RegionalPricedBillViewProps) {
   const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
   const [showInflationProjection, setShowInflationProjection] = useState(false);
   const [customInflationRate, setCustomInflationRate] = useState<number>(7.5);
@@ -264,6 +270,27 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
       contractorTier,
     }).finally(() => setIsExporting(false));
   }, [displayedItems, pricedItems, projectSettings, grandTotal, totalTransportCost, totalOptimizedSavings, effectiveComplianceCosts, contractorTier]);
+
+  const handleExportSanralNative = useCallback(() => {
+    if (!sanralWorkbook) return;
+    setIsExporting(true);
+    try {
+      const result = downloadSanralPricedWorkbook(
+        sanralWorkbook,
+        (displayedItems.length > 0 ? displayedItems : pricedItems) as any,
+      );
+      if (result.writtenRows === 0) {
+        toast.warning('No reviewed non-zero rates were available to write into the SANRAL workbook.');
+      } else {
+        toast.success(`${result.writtenRows} SANRAL rows written. ${result.unresolvedRows} unresolved rows were left unchanged.`);
+      }
+    } catch (error) {
+      console.error('SANRAL native workbook export failed:', error);
+      toast.error(error instanceof Error ? error.message : 'Could not create the SANRAL priced workbook.');
+    } finally {
+      setIsExporting(false);
+    }
+  }, [sanralWorkbook, displayedItems, pricedItems]);
 
   // Initialize displayed items and store originals
   useEffect(() => {
@@ -497,6 +524,29 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
 
   return (
     <div className="space-y-6">
+      {sanralWorkbook && (
+        <div className="rounded-xl border-2 border-sky-300 bg-gradient-to-r from-sky-50 to-cyan-50 p-4 shadow-sm">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-bold text-sky-950">SANRAL Native Workbook ready</p>
+              <p className="mt-1 text-xs text-sky-800">
+                Download a preserved copy of the source workbook with only the confirmed RATE and AMOUNT cells populated.
+                Rows without a reviewed non-zero price remain unchanged.
+              </p>
+              <p className="mt-1 text-xs font-semibold text-sky-950">{sanralWorkbook.outputFileName}</p>
+            </div>
+            <Button
+              type="button"
+              onClick={handleExportSanralNative}
+              disabled={contractorTier === 'free' || isExporting}
+              className="shrink-0 bg-sky-700 text-white hover:bg-sky-800"
+            >
+              <FileSpreadsheet className="mr-2 h-4 w-4" />
+              Download SANRAL workbook
+            </Button>
+          </div>
+        </div>
+      )}
       {/* FREE TIER TRAINING MODE BANNER */}
       {contractorTier === 'free' && (
         <div className="w-full p-3 bg-gradient-to-r from-amber-100 via-orange-50 to-amber-100 border-2 border-amber-500 rounded-lg shadow">
@@ -1587,6 +1637,21 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
               <DropdownMenuContent>
                 <DropdownMenuLabel>Export Format</DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                {sanralWorkbook && hasFeatureAccess(contractorTier, 'excelExport') && (
+                  <>
+                    <DropdownMenuItem
+                      onClick={(event) => {
+                        event.preventDefault();
+                        handleExportSanralNative();
+                      }}
+                      disabled={isExporting}
+                    >
+                      <FileSpreadsheet className="mr-2 h-4 w-4 text-sky-700" />
+                      Download SANRAL native workbook
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                  </>
+                )}
                 {hasFeatureAccess(contractorTier, 'excelExport') ? (
                   <DropdownMenuItem 
                     onClick={(e) => {
