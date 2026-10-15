@@ -29,6 +29,8 @@ export interface SanralNativeWorkbookContext {
   workbookData: ArrayBuffer;
   targets: SanralTargetMapping[];
   selectedTargetId: string;
+  /** Existing positive rates are preserved unless the user explicitly opts in. */
+  repriceExistingRates?: boolean;
 }
 
 export interface SanralImportedItem {
@@ -56,6 +58,8 @@ export interface SanralExportResult {
   fileName: string;
   writtenRows: number;
   unresolvedRows: number;
+  preservedExistingRateRows: number;
+  replacedExistingRateRows: number;
   preservedFormulaRows: number;
   changedCells: string[];
 }
@@ -168,7 +172,26 @@ export function createSanralWorkbookContext(fileName: string, data: ArrayBuffer)
     workbookData: data.slice(0),
     targets,
     selectedTargetId: targets[0].id,
+    repriceExistingRates: false,
   };
+}
+
+export function countExistingSanralRates(
+  context: SanralNativeWorkbookContext,
+  selectedTargetId = context.selectedTargetId,
+): number {
+  const target = context.targets.find(candidate => candidate.id === selectedTargetId);
+  if (!target) return 0;
+  const workbook = XLSX.read(new Uint8Array(context.workbookData), { type: 'array', cellFormula: true });
+  const worksheet = workbook.Sheets[target.sheetName];
+  if (!worksheet?.['!ref']) return 0;
+  const range = XLSX.utils.decode_range(worksheet['!ref']);
+  let count = 0;
+  for (let row = target.headerRow + 1; row <= range.e.r; row += 1) {
+    const address = XLSX.utils.encode_cell({ r: row, c: target.rateColumn });
+    if (positivePrice((worksheet[address] as XLSX.CellObject | undefined)?.v) > 0) count += 1;
+  }
+  return count;
 }
 
 export function parseSanralItems(context: SanralNativeWorkbookContext, selectedTargetId = context.selectedTargetId): SanralImportedItem[] {
@@ -256,6 +279,8 @@ export function buildSanralPricedWorkbook(
 
   let writtenRows = 0;
   let unresolvedRows = 0;
+  let preservedExistingRateRows = 0;
+  let replacedExistingRateRows = 0;
   let preservedFormulaRows = 0;
   const changedCells: string[] = [];
 
@@ -273,6 +298,12 @@ export function buildSanralPricedWorkbook(
     if (!worksheet) return;
     const rateAddress = XLSX.utils.encode_cell({ r: ref.rowIndex, c: ref.rateColumn });
     const amountAddress = XLSX.utils.encode_cell({ r: ref.rowIndex, c: ref.amountColumn });
+    const existingRate = positivePrice((worksheet[rateAddress] as XLSX.CellObject | undefined)?.v);
+    if (existingRate > 0 && !context.repriceExistingRates) {
+      preservedExistingRateRows += 1;
+      return;
+    }
+    if (existingRate > 0) replacedExistingRateRows += 1;
     setNumericCell(worksheet, rateAddress, rate);
     const amountHadFormula = Boolean((worksheet[amountAddress] as XLSX.CellObject | undefined)?.f);
     setNumericCell(worksheet, amountAddress, amount);
@@ -293,6 +324,8 @@ export function buildSanralPricedWorkbook(
     fileName: context.outputFileName,
     writtenRows,
     unresolvedRows,
+    preservedExistingRateRows,
+    replacedExistingRateRows,
     preservedFormulaRows,
     changedCells,
   };
