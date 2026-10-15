@@ -18,6 +18,7 @@ import { matchLaborRate, type LaborPricing, formatLaborPricing } from '@/lib/boq
 import { categorizeItem, type ItemCategorization } from './itemCategorization';
 import type { BoqRowType } from './boqImport';
 import { matchHistoricalBoqRate } from './historicalBoqRates';
+import type { SanralNativeCellReference } from './sanralNativeWorkbook';
 import {
   arePricingUnitsCompatible,
   evaluateEquivalentActivity,
@@ -100,6 +101,7 @@ export interface BillItem {
   buildAidRef?: string; // BuildAid 2025/2026 reference
   sansCode?: string; // SANS 1200 standard code
   rowType?: BoqRowType;
+  sanralCellRef?: SanralNativeCellReference;
 }
 
 export interface RegionalSupplierQuote {
