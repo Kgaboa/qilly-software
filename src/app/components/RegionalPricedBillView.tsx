@@ -280,9 +280,11 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
         (displayedItems.length > 0 ? displayedItems : pricedItems) as any,
       );
       if (result.writtenRows === 0) {
-        toast.warning('No reviewed non-zero rates were available to write into the SANRAL workbook.');
+        toast.warning(`No blank SANRAL rates were filled. Existing preserved: ${result.preservedExistingRateRows}; unresolved: ${result.unresolvedRows}.`);
       } else {
-        toast.success(`${result.writtenRows} SANRAL rows written. ${result.unresolvedRows} unresolved rows were left unchanged.`);
+        toast.success(
+          `SANRAL export complete — blanks filled: ${result.writtenRows}; existing preserved: ${result.preservedExistingRateRows}; replaced by override: ${result.replacedExistingRateRows}; unresolved: ${result.unresolvedRows}.`,
+        );
       }
     } catch (error) {
       console.error('SANRAL native workbook export failed:', error);
