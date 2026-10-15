@@ -5,7 +5,7 @@
 
 import { supabase } from '@/utils/supabase';
 import { mockLaborRates } from '@/data/mockLaborRates';
-import { evaluateEquivalentActivity } from '@/utils/pricingStrategyV2';
+import { arePricingUnitsCompatible, evaluateEquivalentActivity } from '@/utils/pricingStrategyV2';
 
 export type RateSourceType = 'qilly-own-library' | 'buildaid-benchmark' | 'supplier-product' | 'historical-boq' | 'unknown';
 export type UsageRightsStatus = 'internal-approved' | 'licensed' | 'benchmark-reference-only' | 'restricted' | 'unknown';
@@ -43,9 +43,63 @@ export interface LaborRate {
 }
 
 const LABOR_RATE_CACHE_MS = 5 * 60 * 1000;
+const BOQ_RATE_PAGE_SIZE = 1000;
 let cachedLaborRates: LaborRate[] | null = null;
 let cachedLaborRatesAt = 0;
 let cachedLaborRatesSource = 'unknown';
+
+export function clearLaborRateCache(): void {
+  cachedLaborRates = null;
+  cachedLaborRatesAt = 0;
+  cachedLaborRatesSource = 'unknown';
+}
+
+const normalizeExactMatchText = (value: string) => String(value || '')
+  .toLowerCase()
+  .replace(/[^a-z0-9.%]+/g, ' ')
+  .replace(/\s+/g, ' ')
+  .trim();
+
+export const medianRate = (values: number[]): number => {
+  const sorted = values.filter(Number.isFinite).sort((a, b) => a - b);
+  if (!sorted.length) return 0;
+  const midpoint = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[midpoint] : (sorted[midpoint - 1] + sorted[midpoint]) / 2;
+};
+
+export async function collectRatePages<T>(
+  fetchPage: (from: number, to: number) => Promise<T[]>,
+  pageSize = BOQ_RATE_PAGE_SIZE,
+): Promise<T[]> {
+  const rows: T[] = [];
+  for (let from = 0; ; from += pageSize) {
+    const page = await fetchPage(from, from + pageSize - 1);
+    rows.push(...page);
+    if (page.length < pageSize) break;
+  }
+  return rows;
+}
+
+const sourcePriority = (sourceType: RateSourceType): number => ({
+  'qilly-own-library': 1,
+  'supplier-product': 2,
+  'historical-boq': 3,
+  'buildaid-benchmark': 4,
+  unknown: 5,
+}[sourceType]);
+
+async function loadAllBoqRates(): Promise<LaborRate[]> {
+  return collectRatePages(async (from, to) => {
+    const { data, error } = await supabase
+      .from('boq_rates')
+      .select('*')
+      .order('category')
+      .order('id')
+      .range(from, to);
+    if (error) throw error;
+    return (data || []) as LaborRate[];
+  });
+}
 
 export interface LaborPricing {
   matched: boolean;
@@ -140,10 +194,8 @@ export async function matchLaborRate(
 
     // PRIORITY 1: Try boq_rates table (new schema with equipment rates)
     if (ratesToUse.length === 0) try {
-      const { data: boqRates, error: boqError } = await supabase
-        .from('boq_rates')
-        .select('*')
-        .order('category');
+      const boqRates = await loadAllBoqRates();
+      const boqError = null;
 
       if (!boqError && boqRates && boqRates.length > 0) {
         // Check if it has the correct per-unit structure
@@ -234,10 +286,18 @@ export async function matchLaborRate(
 
     console.log(`  🔍 Controlled match search: "${description}" (${unit})`);
 
+    // Resolve exact description + compatible-unit candidates before running
+    // the broader controlled-equivalence scan. This both honours the approved
+    // strategy and avoids scoring all 9,000+ records for ordinary exact hits.
+    const exactRatePool = validRates.filter(rate =>
+      normalizeExactMatchText(description) === normalizeExactMatchText(rate.description)
+      && arePricingUnitsCompatible(unit, rate.unit));
+    const ratePool = exactRatePool.length ? exactRatePool : validRates;
+
     // Apply the client-approved technical controls before a Qilly-library rate
     // can compete. This prevents common words and a matching unit from
     // producing a false high-confidence match.
-    const scoredRates = validRates.flatMap(rate => {
+    const scoredRates = ratePool.flatMap(rate => {
       const provenance = classifyRateProvenance(rate, dataSource);
       const evaluation = evaluateEquivalentActivity({
         boqDescription: description,
@@ -251,7 +311,8 @@ export async function matchLaborRate(
         commercialBasisKnown: provenance.commercialBasisKnown,
         geographicBasisKnown: provenance.geographicBasisKnown,
       });
-      return evaluation.candidate ? [{ rate, score: evaluation.score, provenance }] : [];
+      const exact = exactRatePool.length > 0;
+      return evaluation.candidate ? [{ rate, score: evaluation.score, provenance, exact }] : [];
     });
 
     if (scoredRates.length === 0) {
@@ -259,10 +320,34 @@ export async function matchLaborRate(
       return getDefaultLaborPricing();
     }
 
-    // Sort by score (highest first)
-    scoredRates.sort((a, b) => b.score - a.score);
-
-    const bestMatch = scoredRates[0];
+    // Exact description + compatible unit is authoritative. When several
+    // reviewed records are equally exact, use the median within the highest
+    // priority provenance group so duplicate historical observations cannot
+    // produce an arbitrary first-row result.
+    const exactRates = scoredRates.filter(candidate => candidate.exact);
+    const candidatePool = exactRates.length ? exactRates : scoredRates;
+    candidatePool.sort((a, b) =>
+      sourcePriority(a.provenance.sourceType) - sourcePriority(b.provenance.sourceType)
+      || b.score - a.score
+      || Number(a.rate.id) - Number(b.rate.id));
+    const bestPriority = sourcePriority(candidatePool[0].provenance.sourceType);
+    const samePriority = candidatePool.filter(candidate => sourcePriority(candidate.provenance.sourceType) === bestPriority);
+    const reviewed = samePriority.filter(candidate => candidate.provenance.reviewStatus === 'reviewed');
+    const medianPool = exactRates.length ? (reviewed.length ? reviewed : samePriority) : [candidatePool[0]];
+    const representative = medianPool[0];
+    const bestMatch = {
+      ...representative,
+      rate: {
+        ...representative.rate,
+        labor_rate: medianRate(medianPool.map(candidate => candidate.rate.labor_rate)),
+        equipment_rate: medianRate(medianPool.map(candidate => candidate.rate.equipment_rate || 0)),
+        composite_rate: medianRate(medianPool.map(candidate => candidate.rate.composite_rate)),
+        source: medianPool.length > 1
+          ? `${representative.rate.source || dataSource}; median of ${medianPool.length} reviewed exact matches`
+          : representative.rate.source,
+      },
+      score: exactRates.length ? 100 : representative.score,
+    };
 
     console.log(`  🏆 Best match: "${bestMatch.rate.description}" (${bestMatch.rate.category})`);
     console.log(`  📊 Score: ${bestMatch.score}/100`);
