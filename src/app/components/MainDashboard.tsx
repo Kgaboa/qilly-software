@@ -5,7 +5,6 @@ import { BillHistory } from '@/app/components/BillHistory';
 import { RegionalPricedBillView } from '@/app/components/RegionalPricedBillView';
 import { Features } from '@/app/components/Features';
 import { Suppliers } from '@/app/components/Suppliers';
-import { HowItWorks } from '@/app/components/HowItWorks';
 import ProvincialPricingPage from '@/app/pages/ProvincialPricingPage';
 import { BoqTemplateLibrary } from '@/app/components/BoqTemplateLibrary';
 import { TechStackRecommendations } from '@/app/components/TechStackRecommendations';
@@ -44,7 +43,7 @@ const ALL_PROVINCES = [
 export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainDashboardProps) {
   const [user, setUser] = useState<any>(null);
   const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq' | 'import-hub' | 'flexible-import'>('upload');
-  const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'how-it-works' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck'>('dashboard');
+  const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck'>('dashboard');
   const [processedBill, setProcessedBill] = useState<any>(null);
   const [sanralWorkbook, setSanralWorkbook] = useState<SanralNativeWorkbookContext | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -689,7 +688,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
     setCurrentView('template-library');
   };
 
-  const handlePageChange = (page: 'dashboard' | 'features' | 'suppliers' | 'how-it-works' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck') => {
+  const handlePageChange = (page: 'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck') => {
     setCurrentPage(page);
     if (page === 'dashboard') {
       // ✅ FIX: FREE tier contractors should see template library, not upload
@@ -949,7 +948,6 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
             </div>
             <div className="flex flex-wrap gap-1 pb-0 border-t border-white/20 pt-1">
               <button onClick={() => handlePageChange('dashboard')} className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'dashboard' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Dashboard</button>
-              <button onClick={() => handlePageChange('how-it-works')} className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'how-it-works' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>How It Works</button>
               {/* ✅ HIDE Supplier Catalog for Contractors - only show for non-contractors/suppliers */}
               {!contractorData && (
                 <button onClick={() => handlePageChange('suppliers')} className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'suppliers' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Supplier Catalog</button>
@@ -1005,15 +1003,6 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
               )}
               <div className="flex gap-2 mb-6 flex-wrap">
                 {canUploadBOQ && <Button variant={currentView === 'import-hub' || currentView === 'flexible-import' ? 'default' : 'outline'} onClick={() => setCurrentView('import-hub')}><FileUp className="h-4 w-4 mr-2" />Import Tender / BOQ</Button>}
-                {canUploadBOQ && (
-                  <Button 
-                    variant={currentView === 'upload' ? 'default' : 'outline'} 
-                    onClick={handleBackToUpload}
-                  >
-                    <FileUp className="h-4 w-4 mr-2" />
-                    Upload BOQ
-                  </Button>
-                )}
                 {canUploadBOQ && (
                   <Button
                     variant="outline"
@@ -1203,7 +1192,6 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
           )}
           {currentPage === 'features' && (<Features />)}
           {currentPage === 'suppliers' && (<Suppliers />)}
-          {currentPage === 'how-it-works' && (<HowItWorks onNavigateToDashboard={() => handlePageChange('dashboard')} contractorData={contractorData} />)}
           {currentPage === 'provincial-pricing' && (<ProvincialPricingPage contractorData={contractorData} />)}
           {currentPage === 'enhanced-matching' && (<EnhancedMatchingDemo contractorData={contractorData} />)}
         </main>
