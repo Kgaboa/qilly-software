@@ -1,3 +1,4 @@
+import { FlexibleTenderFileReview } from './FlexibleTenderFileReview';
 import { useState, useEffect, useRef } from 'react';
 import { BillUpload } from '@/app/components/BillUpload';
 import { BillHistory } from '@/app/components/BillHistory';
@@ -42,7 +43,7 @@ const ALL_PROVINCES = [
 
 export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainDashboardProps) {
   const [user, setUser] = useState<any>(null);
-  const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq'>('upload');
+  const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq' | 'import-hub' | 'flexible-import'>('upload');
   const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'how-it-works' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck'>('dashboard');
   const [processedBill, setProcessedBill] = useState<any>(null);
   const [sanralWorkbook, setSanralWorkbook] = useState<SanralNativeWorkbookContext | null>(null);
@@ -1003,6 +1004,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                 </div>
               )}
               <div className="flex gap-2 mb-6 flex-wrap">
+                {canUploadBOQ && <Button variant={currentView === 'import-hub' || currentView === 'flexible-import' ? 'default' : 'outline'} onClick={() => setCurrentView('import-hub')}><FileUp className="h-4 w-4 mr-2" />Import Tender / BOQ</Button>}
                 {canUploadBOQ && (
                   <Button 
                     variant={currentView === 'upload' ? 'default' : 'outline'} 
@@ -1121,6 +1123,25 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                   </div>
                 )}
               </div>
+              {currentView === 'import-hub' && canUploadBOQ && (
+                <section aria-label="Import Tender or BOQ" className="mb-6 rounded-xl border border-sky-200 bg-white p-6 shadow-sm">
+                  <h2 className="text-2xl font-bold text-slate-900">Import Tender / BOQ</h2>
+                  <p className="mt-2 text-slate-600">Choose your workflow. Existing Excel pricing and rate matching remain unchanged.</p>
+                  <div className="mt-5 grid gap-4 md:grid-cols-2">
+                    <div className="rounded-lg border p-5 space-y-3">
+                      <h3 className="text-lg font-semibold">Standard Excel BOQ Import</h3>
+                      <p className="text-sm text-slate-600">Use the existing Excel uploader, rate matching and pricing workflow.</p>
+                      <Button onClick={handleBackToUpload}>Open Standard Excel BOQ Import</Button>
+                    </div>
+                    <div className="rounded-lg border p-5 space-y-3">
+                      <h3 className="text-lg font-semibold">Flexible Tender Import</h3>
+                      <p className="text-sm text-slate-600">Select Excel, Word, PDF, CSV or text documents for local file validation. Full PDF/Word extraction and reconciliation are not yet connected in this UAT.</p>
+                      <Button variant="outline" onClick={() => setCurrentView('flexible-import')}>Open Flexible Tender Import</Button>
+                    </div>
+                  </div>
+                </section>
+              )}
+              {currentView === 'flexible-import' && canUploadBOQ && <FlexibleTenderFileReview onBack={() => setCurrentView('import-hub')} onStandard={handleBackToUpload} />}
               {currentView === 'upload' && (canUploadBOQ || preloadedItems.length > 0) && (
                 isLoading ? (
                   <Card className="mx-auto max-w-3xl overflow-hidden border-sky-200 shadow-lg">
