@@ -1,4 +1,4 @@
-import { FlexibleTenderFileReview } from './FlexibleTenderFileReview';
+import { FlexibleBoqImport } from './FlexibleBoqImport';
 import { useState, useEffect, useRef } from 'react';
 import { BillUpload } from '@/app/components/BillUpload';
 import { BillHistory } from '@/app/components/BillHistory';
@@ -1135,13 +1135,13 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                     </div>
                     <div className="rounded-lg border p-5 space-y-3">
                       <h3 className="text-lg font-semibold">Flexible Tender Import</h3>
-                      <p className="text-sm text-slate-600">Select Excel, Word, PDF, CSV or text documents for local file validation. Full PDF/Word extraction and reconciliation are not yet connected in this UAT.</p>
+                      <p className="text-sm text-slate-600">Preview and reconcile Excel, PDF, DOCX, CSV and text tenders. PDF/DOCX require an authenticated extraction server. Review and approval remain separate from pricing.</p>
                       <Button variant="outline" onClick={() => setCurrentView('flexible-import')}>Open Flexible Tender Import</Button>
                     </div>
                   </div>
                 </section>
               )}
-              {currentView === 'flexible-import' && canUploadBOQ && <FlexibleTenderFileReview onBack={() => setCurrentView('import-hub')} onStandard={handleBackToUpload} />}
+              {currentView === 'flexible-import' && canUploadBOQ && <FlexibleBoqImport accessToken={accessToken} onBack={() => setCurrentView('import-hub')} />}
               {currentView === 'upload' && (canUploadBOQ || preloadedItems.length > 0) && (
                 isLoading ? (
                   <Card className="mx-auto max-w-3xl overflow-hidden border-sky-200 shadow-lg">
