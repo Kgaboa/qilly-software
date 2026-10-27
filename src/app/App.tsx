@@ -22,7 +22,28 @@ import { PasswordRecovery } from './components/PasswordRecovery';
 
 export default function App() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [entryChecked, setEntryChecked] = useState(false);
   const [currentView, setCurrentView] = useState<'auth' | 'forgot-password' | 'reset-password' | 'supplier-signup' | 'contractor-signup' | 'admin-login' | 'public-partner-portal' | 'partner-login' | 'partner-portal' | 'main' | 'admin' | 'green-building' | 'performance-test' | 'privacy-policy' | 'terms-of-service' | 'cookie-policy' | 'capital-raising'>('auth');
+
+  useEffect(() => {
+    // Navigation gating is NOT authentication. Supabase and tenant authorization remain mandatory.
+    // Do not redirect password recovery, existing app sessions, or public-site sign-in handoffs.
+    let cancelled = false;
+    const params = new URLSearchParams(window.location.search);
+    const fromPublic = params.get('entry') === 'public';
+    const recovery = params.get('password-recovery') === '1' || window.location.hash.includes('type=recovery');
+    const existingSession = !!sessionStorage.getItem('access_token');
+    if (fromPublic) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.hash);
+    }
+    if (fromPublic || recovery || existingSession) { setEntryChecked(true); return; }
+    supabase.auth.getSession().then(({ data }) => {
+      if (cancelled) return;
+      if (data.session) setEntryChecked(true);
+      else window.location.replace('https://qilly-public-demo-staging-git-feat-738bd8-kgaboa-7233s-projects.vercel.app/');
+    }).catch(() => { if (!cancelled) window.location.replace('https://qilly-public-demo-staging-git-feat-738bd8-kgaboa-7233s-projects.vercel.app/'); });
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     // Initialize auth cleanup to prevent orphaned locks
@@ -100,11 +121,15 @@ export default function App() {
     setCurrentView('partner-portal');
   };
 
+  if (!entryChecked) return <div role="status" className="min-h-screen flex items-center justify-center">Checking Qilly sign-in entry…</div>;
+
   return (
     <>
       <Toaster position="top-right" richColors />
       {currentView === 'auth' && (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+          <div className="w-full flex flex-col items-center gap-3">
+            <a href="https://qilly-public-demo-staging-git-feat-738bd8-kgaboa-7233s-projects.vercel.app/" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-blue-200 bg-white px-4 py-2 text-sm font-medium text-blue-800 hover:bg-blue-50">Explore Qilly in Action ↗</a>
           <AuthForm
             onSuccess={handleAuthSuccess}
             onSupplierSignup={() => setCurrentView('supplier-signup')}
@@ -115,6 +140,7 @@ export default function App() {
             onForgotPassword={() => setCurrentView('forgot-password')}
             onNavigateToPolicy={(view) => setCurrentView(view)}
           />
+          </div>
         </div>
       )}
       {currentView === 'forgot-password' && (
