@@ -21,5 +21,10 @@ export async function parseTenderDocxServer(bytes:Uint8Array) {
     .replace(/<\/w:p>/g,' ')
     .replace(/<[^>]+>/g,''));
   const parsed=parseTenderText(text);
-  return {...parsed,warnings:[...parsed.warnings,'DOCX extraction is best-effort; verify merged cells, multi-line descriptions, headings, VAT and totals against the original.']};
+  // DOCX is a best-effort conversion: never allow local approval while source
+  // lines remain unmatched or validation errors remain unresolved.
+  const importBlocked = parsed.lines.length === 0 ||
+    parsed.issues.length > 0 ||
+    parsed.unparsed.length > 0;
+  return {...parsed,importBlocked,warnings:[...parsed.warnings,'DOCX extraction is best-effort; verify merged cells, multi-line descriptions, headings, VAT and totals against the original.']};
 }
