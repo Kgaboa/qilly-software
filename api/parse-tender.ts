@@ -8,10 +8,11 @@ export default async function handler(req:any,res:any) {
   if(req.method!=='POST') return res.status(405).json({error:'Method not allowed'});
   const auth=req.headers.authorization;
   const token=auth?.startsWith('Bearer ')?auth.slice(7):'';
+  // Reject anonymous callers before exposing service configuration status.
+  if(!token) return res.status(401).json({error:'Authentication required'});
   const url=process.env.QILLY_IMPORT_SUPABASE_URL;
   const key=process.env.QILLY_IMPORT_SUPABASE_PUBLISHABLE_KEY;
   if(!url||!key) return res.status(503).json({error:'Document extraction is not configured'});
-  if(!token) return res.status(401).json({error:'Authentication required'});
   const client=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});
   const {data,error}=await client.auth.getUser(token);
   if(error||!data.user) return res.status(401).json({error:'Invalid session'});
