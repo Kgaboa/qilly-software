@@ -1,11 +1,11 @@
 {
-  "buildCommand": "npm run test && npm run build",
+  "buildCommand": "node scripts/build-extraction.mjs && npm run test && npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
   "installCommand": "npm install",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!api(?:/|$)).*)",
       "destination": "/index.html"
     }
   ],
