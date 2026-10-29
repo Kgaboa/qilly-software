@@ -1,7 +1,14 @@
 /** Server-only, conservative coordinate-aware PDF extraction.
  * Local-only optional OCR; no persistence, external fetching, or automatic pricing.
  */
-import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
+import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf.mjs';
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+
+// Serverless ESM: resolve PDF.js worker explicitly; implicit fake-worker resolution
+// can fail when the API handler and parser are separately bundled.
+const nodeRequire = createRequire(import.meta.url);
+GlobalWorkerOptions.workerSrc = pathToFileURL(nodeRequire.resolve('pdfjs-dist/legacy/build/pdf.worker.mjs')).href;
 import { parsePositionedTender, type PositionedText } from './pdf-coordinate';
 import { recognizeTenderPage } from './pdf-ocr';
 import { auditTenderPages } from './page-audit';
