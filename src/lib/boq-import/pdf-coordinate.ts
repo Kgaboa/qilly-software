@@ -81,6 +81,14 @@ export function parsePositionedTender(items:PositionedText[],declaredPageCount?:
        if(tail.length<=2&&tail.every(v=>numeric.test(v)))parts=[tokens[0],clean(tokens.slice(1,u).join(' ')),tokens[u],tokens[u+1],tail[0]??'',tail[1]??''];
      }
    }
+   if(!parts){
+     // Many unpriced tender PDFs put an entire visual row into one PDF text fragment.
+     // Parse only fully anchored item/description/unit/quantity rows; rates remain blank.
+     const inline=clean(text).match(/^([A-Za-z]{0,5}[-.]?\d+[A-Za-z0-9./-]*)\s+(.{4,}?)\s+(m|m2|m3|m²|m³|mm|km|kg|t|ton|tonne|l|litre|no|nr|ea|each|item|sum|ls|hr|day|week|set|%)\s+(\d+(?:,\d{3})*(?:\.\d+)?)(?:\s+(\d+(?:,\d{3})*(?:\.\d+)?))?(?:\s+(\d+(?:,\d{3})*(?:\.\d+)?))?$/i);
+     if(inline&&!summary.test(inline[2])){
+       parts=[inline[1],inline[2],inline[3],inline[4],inline[5]??'',inline[6]??''];
+     }
+   }
    if(parts&&parts[1]&&!summary.test(parts[1])){
      raw.push({'Item No':parts[0],Description:parts[1],Unit:parts[2],Quantity:parts[3],Rate:parts[4],Amount:parts[5]});
      candidates.push({sourceLine:i+1,sourcePage:row.page,raw:text,cells:parts});
