@@ -1,7 +1,7 @@
 export const config = { api: { bodyParser: false } };
 import { createClient } from '@supabase/supabase-js';
-import { parseTenderPdfServer } from '../src/lib/boq-import/pdf-server';
-import { parseTenderDocxServer } from '../src/lib/boq-import/docx-server';
+import { parseTenderPdfServer } from '../server-bundles/pdf-server.mjs';
+import { parseTenderDocxServer } from '../server-bundles/docx-server.mjs';
 
 export default async function handler(req:any,res:any) {
   res.setHeader('Cache-Control','no-store');
