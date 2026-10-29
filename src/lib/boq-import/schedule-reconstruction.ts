@@ -7,7 +7,7 @@ export type ScheduleType='resource_cost'|'service_pricing'|'commission'|'area_su
 export type ScheduleRow={
  page:number;line:number;type:ScheduleType;description:string;
  cells:{text:string;x:number}[];amounts:{raw:string;value:number}[];
- source:string;reviewRequired:true;missingPrice?:boolean;commissionPercent?:number;arithmetic?:{expected:number;actual:number;difference:number;matches:boolean}
+ source:string;periodValues?:{period:string;raw:string;value:number|null;x:number}[];reviewRequired:true;missingPrice?:boolean;commissionPercent?:number;arithmetic?:{expected:number;actual:number;difference:number;matches:boolean}
 };
 const clean=(s:string)=>s.replace(/\s+/g,' ').trim();
 const money=/^(?:R\s*)?-?\d{1,3}(?:[ ,]\d{3})*(?:[.,]\d{2})$|^(?:R\s*)?-?\d+[.,]\d{2}$/i;
@@ -39,6 +39,7 @@ export function reconstructTenderSchedules(items:PositionedText[]){
    const lines=linesForPage(parts);
    let kind:ScheduleType|null=null;
    let headerX:number[]=[];
+   let periodColumns:{period:string;x:number}[]=[];
    let last:ScheduleRow|null=null;
    let lastY=0;
    for(let i=0;i<lines.length;i++){
@@ -47,6 +48,9 @@ export function reconstructTenderSchedules(items:PositionedText[]){
      if(stop.test(source)){kind=null;last=null;continue;}
      const detected=detectKind(source);
      if(detected){kind=detected;headerX=cells.map(c=>c.x);last=null;continue;}
+     // Capture only explicit year headings with their PDF x-coordinates; never invent periods.
+     const periodHeaders=cells.flatMap(c=>[...c.text.matchAll(/\b(?:20\d{2}(?:\s*[-/]\s*(?:20)?\d{2})?|year\s*[1-9]\d*)\b/gi)].map(m=>({period:clean(m[0]),x:c.x})));
+     if(kind==='service_pricing'&&periodHeaders.length){periodColumns=periodHeaders;last=null;continue;}
      if(!kind||!source)continue;
      const amounts=cells.filter(c=>money.test(c.text)).map(c=>({raw:c.text,value:parseMoney(c.text)})).filter(v=>Number.isFinite(v.value));
      const description=clean(cells.filter(c=>!money.test(c.text)).map(c=>c.text).join(' '));
@@ -68,7 +72,8 @@ export function reconstructTenderSchedules(items:PositionedText[]){
      const commissionRate=kind==='commission'?source.match(/\b(\d{1,2}(?:\.\d+)?)\s*%/):null;
      if(!amounts.length&&!hasBlankPrice&&!commissionRate)continue;
      if(kind==='area_summary'&&amounts.length<3)continue;
-     const entry:ScheduleRow={page,line:i+1,type:kind,description,cells,amounts,source:source.slice(0,700),reviewRequired:true,...(hasBlankPrice?{missingPrice:true}:{}),...(commissionRate?{commissionPercent:Number(commissionRate[1])}:{})};
+     const periodValues=kind==='service_pricing'&&periodColumns.length?cells.filter(cell=>money.test(cell.text)||/^R\s*$/i.test(cell.text)).map(cell=>{const heading=periodColumns.reduce((best,p)=>Math.abs(p.x-cell.x)<Math.abs(best.x-cell.x)?p:best);return {period:heading.period,raw:cell.text,value:money.test(cell.text)?parseMoney(cell.text):null,x:cell.x};}):[];
+     const entry:ScheduleRow={page,line:i+1,type:kind,description,cells,amounts,source:source.slice(0,700),...(periodValues.length?{periodValues}:{}),reviewRequired:true,...(hasBlankPrice?{missingPrice:true}:{}),...(commissionRate?{commissionPercent:Number(commissionRate[1])}:{})};
      if(kind==='area_summary'&&amounts.length>=3){
        const [excluding,vat,including]=amounts.slice(-3).map(a=>a.value);
        const difference=Math.round((excluding+vat-including)*100)/100;
