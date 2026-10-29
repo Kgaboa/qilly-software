@@ -57,7 +57,7 @@ export function FlexibleBoqImport({onBack,accessToken}:{onBack:()=>void;accessTo
     const rows=lines.map(line=>({'Item No':line.itemCode,Description:line.description,Unit:line.unit,Quantity:line.quantity??'',Rate:line.rate??'',Amount:line.amount??''}));
     const validation=normalizeBoqRows(rows);
     const issues=validation.issues.map(issue=>({...issue,row:lines[issue.row-2]?.sourceRow??issue.row}));
-    updatePreview({...preview,lines,candidates,issues,importBlocked:true,warnings:[...preview.warnings,'Service pricing row staged for manual mapping. Verify item, unit and quantity; no values were inferred.']});
+    setPreview({...preview,lines,candidates,issues,importBlocked:true,warnings:[...preview.warnings,'Service pricing row staged for manual mapping. Verify item, unit and quantity; no values were inferred.']});setApproved(false);setAcknowledged(false);
     setSelectedPage(row.page);
   }
   async function load(f:File) {
