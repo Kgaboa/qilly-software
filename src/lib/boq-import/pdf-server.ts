@@ -7,11 +7,15 @@ import { recognizeTenderPage } from './pdf-ocr';
 import { auditTenderPages } from './page-audit';
 
 export async function parseTenderPdfServer(bytes:Uint8Array) {
+ let stage='input-validation';
+ try {
  if(!bytes.length||bytes.length>15*1024*1024)throw new Error('PDF must be between 1 byte and 15 MB');
  if(new TextDecoder('ascii').decode(bytes.slice(0,5))!=='%PDF-')throw new Error('Invalid PDF signature');
+ stage='pdf-initialization';
  const task=getDocument({data:new Uint8Array(bytes),useSystemFonts:true,disableFontFace:true,isEvalSupported:false,stopAtErrors:true});
  let pdf:Awaited<typeof task.promise>|undefined;
  try {
+   stage='pdf-loading';
    pdf=await task.promise;
    if(pdf.numPages>200)throw new Error('PDF exceeds 200 page safety limit');
    const items:PositionedText[]=[];
@@ -23,7 +27,9 @@ export async function parseTenderPdfServer(bytes:Uint8Array) {
    const ocrPath=process.env.QILLY_OCR_LANG_PATH;
    const ocrEnabled=process.env.QILLY_ENABLE_LOCAL_OCR==='true'&&Boolean(ocrPath);
    for(let pageNumber=1;pageNumber<=pdf.numPages;pageNumber++){
+     stage='page-loading';
      const page=await pdf.getPage(pageNumber);
+     stage='text-extraction';
      const content=await page.getTextContent({disableNormalization:false});
      let pageTextCount=0;
      for(const element of content.items){
@@ -39,6 +45,7 @@ export async function parseTenderPdfServer(bytes:Uint8Array) {
      if(pageTextCount<35&&ocrEnabled){
        if(ocrPages.length>=12){ocrFailedPages.push(pageNumber);ocrWarnings.push('OCR page limit reached (12); remaining image pages require manual review.');}
        else try{
+         stage='ocr';
          const ocr=await recognizeTenderPage(page,pageNumber,ocrPath!);
          items.push(...ocr.items);
          if(!ocr.items.length)ocrFailedPages.push(pageNumber);
@@ -49,14 +56,22 @@ export async function parseTenderPdfServer(bytes:Uint8Array) {
      }else if(pageTextCount<35&&!ocrEnabled)ocrWarnings.push('Page '+pageNumber+' has little selectable text; local OCR is disabled or not configured.');
      page.cleanup();
    }
+   stage='boq-reconstruction';
    const result=parsePositionedTender(items,pdf.numPages);
    const lowConfidencePages=ocrConfidenceByPage.filter(item=>item.confidence<85).map(item=>item.page);
    const missingOcrPages=ocrRequiredPages.filter(page=>!ocrPages.includes(page)||lowConfidencePages.includes(page));
+   stage='page-audit';
    const pageAudit=auditTenderPages({pageCount:pdf.numPages,items,classification:result.classification,candidates:result.candidates,scheduleRows:result.scheduleRows,ocrRequiredPages,ocrPages,ocrConfidenceByPage});
    const pageCoverage={total:pdf.numPages,accounted:pageAudit.length,manualReview:pageAudit.filter(p=>p.requiresReview).length,unresolved:pageAudit.filter(p=>p.disposition==='manual_review'||p.disposition==='ocr_review').length};
    const importBlocked=missingOcrPages.length>0||result.lines.length===0||result.issues.length>0||result.unparsed.length>0||result.scheduleRows.some(row=>row.arithmetic&&!row.arithmetic.matches);
    return {...result,pageAudit,pageCoverage,ocrPages,ocrRequiredPages,ocrFailedPages,ocrConfidenceByPage,lowConfidencePages,missingOcrPages,importBlocked,ocrReviewRequired:ocrPages.length>0,warnings:[...result.warnings,...ocrWarnings,...(missingOcrPages.length?['Some scanned pages have not been OCR processed; import approval blocked.']:[])]};
  } finally {
    if(pdf)await pdf.destroy();else await task.destroy();
+ }
+ } catch (cause) {
+   // Bounded stage identifier only; never include source document text.
+   const safeStage = ['input-validation','pdf-initialization','pdf-loading','page-loading','text-extraction','ocr','boq-reconstruction','page-audit'].includes(stage) ? stage : 'unknown';
+   console.error('[qilly-extraction] pdf failure stage:', safeStage);
+   throw cause;
  }
 }
