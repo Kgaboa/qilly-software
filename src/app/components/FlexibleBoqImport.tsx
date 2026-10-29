@@ -52,7 +52,12 @@ export function FlexibleBoqImport({onBack,accessToken}:{onBack:()=>void;accessTo
         const p=parseTenderText(await f.text());updatePreview({name:f.name,...p});
       }else if(/\.(pdf|docx)$/i.test(f.name)){
         const type=f.name.toLowerCase().endsWith('.pdf')?'pdf':'docx';
-        const response=await fetch('/api/parse-tender',{method:'POST',headers:{Authorization:'Bearer '+accessToken,'Content-Type':'application/octet-stream','x-qilly-file-type':type},body:await f.arrayBuffer()});
+        const {data:authData,error:authError}=await (await import('../../utils/supabase')).supabase.auth.getUser();
+        if(authError||!authData.user)throw new Error('Your login session has expired. Please sign in again before importing.');
+        const {data:sessionData}=await (await import('../../utils/supabase')).supabase.auth.getSession();
+        const verifiedToken=sessionData.session?.access_token;
+        if(!verifiedToken)throw new Error('No active login session. Please sign in again.');
+        const response=await fetch('/api/parse-tender',{method:'POST',headers:{Authorization:'Bearer '+verifiedToken,'Content-Type':'application/octet-stream','x-qilly-file-type':type},body:await f.arrayBuffer()});
         const responseText=await response.text();
         let result:any;
         try { result=JSON.parse(responseText); } catch {
