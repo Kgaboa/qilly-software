@@ -42,7 +42,7 @@ const ALL_PROVINCES = [
 
 export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainDashboardProps) {
   const [user, setUser] = useState<any>(null);
-  const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq' | 'import-hub' | 'flexible-import'>('upload');
+  const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq' | 'import-hub' | 'flexible-import'>('import-hub');
   const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck'>('dashboard');
   const [processedBill, setProcessedBill] = useState<any>(null);
   const [sanralWorkbook, setSanralWorkbook] = useState<SanralNativeWorkbookContext | null>(null);
@@ -695,7 +695,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
       if (contractorData && !canUploadBOQ) {
         setCurrentView('template-library');
       } else {
-        setCurrentView('upload');
+        setCurrentView('import-hub');
       }
       setProcessedBill(null);
     }
@@ -1120,7 +1120,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                     <div className="rounded-lg border p-5 space-y-3">
                       <h3 className="text-lg font-semibold">Standard Excel BOQ Import</h3>
                       <p className="text-sm text-slate-600">Use the existing Excel uploader, rate matching and pricing workflow.</p>
-                      <Button onClick={handleBackToUpload}>Open Standard Excel BOQ Import</Button>
+                      <Button onClick={handleManualEntry}>Open Standard Excel BOQ Import</Button>
                     </div>
                     <div className="rounded-lg border p-5 space-y-3">
                       <h3 className="text-lg font-semibold">Flexible Tender Import</h3>
