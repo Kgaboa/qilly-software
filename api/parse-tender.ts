@@ -31,6 +31,9 @@ export default async function handler(req:any,res:any) {
     const result=type==='pdf'?await parseTenderPdfServer(bytes):await parseTenderDocxServer(bytes);
     return res.status(200).json(result);
   }catch(e) {
+    // Log only a bounded error category, never uploaded content, tokens or stack traces.
+    const category = e instanceof Error ? e.name : 'UnknownError';
+    console.error('[qilly-extraction] parser failure category:', /^[A-Za-z]+Error$/.test(category) ? category : 'UnknownError');
     // Do not expose document content, stack traces or internal parser details.
     return res.status(422).json({error:'Unable to extract tender document. Confirm the file is valid and review manually.'});
   }
