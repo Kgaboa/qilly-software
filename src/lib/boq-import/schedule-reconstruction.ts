@@ -47,7 +47,7 @@ export function reconstructTenderSchedules(items:PositionedText[]){
      const source=clean(cells.map(c=>c.text).join(' '));
      if(stop.test(source)){kind=null;last=null;continue;}
      const detected=detectKind(source);
-     if(detected){kind=detected;headerX=cells.map(c=>c.x);last=null;continue;}
+     if(detected){kind=detected;headerX=cells.map(c=>c.x);last=null;const inlinePeriods=cells.flatMap(cell=>[...cell.text.matchAll(/\b(?:20\d{2}(?:\s*[-/]\s*(?:20)?\d{2})?|year\s*[1-9]\d*)\b/gi)].map(m=>({period:clean(m[0]),x:cell.x})));if(kind==='service_pricing'&&inlinePeriods.length)periodColumns=inlinePeriods;continue;}
      // Capture only explicit year headings with their PDF x-coordinates; never invent periods.
      const periodHeaders=cells.flatMap(c=>[...c.text.matchAll(/\b(?:20\d{2}(?:\s*[-/]\s*(?:20)?\d{2})?|year\s*[1-9]\d*)\b/gi)].map(m=>({period:clean(m[0]),x:c.x})));
      if(kind==='service_pricing'&&periodHeaders.length){periodColumns=periodHeaders;last=null;continue;}
