@@ -53,7 +53,13 @@ export function FlexibleBoqImport({onBack,accessToken}:{onBack:()=>void;accessTo
       }else if(/\.(pdf|docx)$/i.test(f.name)){
         const type=f.name.toLowerCase().endsWith('.pdf')?'pdf':'docx';
         const response=await fetch('/api/parse-tender',{method:'POST',headers:{Authorization:'Bearer '+accessToken,'Content-Type':'application/octet-stream','x-qilly-file-type':type},body:await f.arrayBuffer()});
-        const result=await response.json();
+        const responseText=await response.text();
+        let result:any;
+        try { result=JSON.parse(responseText); } catch {
+          throw new Error(response.ok
+            ? 'Document extraction returned an invalid response. Please contact support.'
+            : 'Document extraction service is temporarily unavailable (HTTP '+response.status+'). Please retry shortly.');
+        }
         if(!response.ok)throw new Error(result.error||'Document extraction failed');
         if(type==='pdf')setSourcePdfUrl(URL.createObjectURL(f));
         updatePreview({name:f.name,lines:result.lines??[],issues:result.issues??[],warnings:result.warnings??[],candidates:result.candidates??[],unparsed:result.unparsed??[],ocrPages:result.ocrPages??[],ocrReviewRequired:result.ocrReviewRequired??false,classification:result.classification,pageAudit:result.pageAudit??[],pageCoverage:result.pageCoverage,evidenceRows:result.evidenceRows??[],scheduleRows:result.scheduleRows??[],importBlocked:result.importBlocked??false,missingOcrPages:result.missingOcrPages??[],ocrConfidenceByPage:result.ocrConfidenceByPage??[]});
