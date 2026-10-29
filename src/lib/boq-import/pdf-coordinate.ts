@@ -89,6 +89,14 @@ export function parsePositionedTender(items:PositionedText[],declaredPageCount?:
        parts=[inline[1],inline[2],inline[3],inline[4],inline[5]??'',inline[6]??''];
      }
    }
+   if(!parts){
+     // Some unpriced schedules place quantity before unit. Require a complete
+     // anchored item/description/quantity/unit sequence; never infer a price.
+     const quantityFirst=clean(text).match(/^([A-Za-z]{0,5}[-.]?\d+[A-Za-z0-9./-]*)\s+(.{4,}?)\s+(\d+(?:,\d{3})*(?:\.\d+)?)\s+(m|m2|m3|m²|m³|mm|km|kg|t|ton|tonne|l|litre|no|nr|ea|each|item|sum|ls|hr|day|week|set|%)$/i);
+     if(quantityFirst&&!summary.test(quantityFirst[2])){
+       parts=[quantityFirst[1],quantityFirst[2],quantityFirst[4],quantityFirst[3],'',''];
+     }
+   }
    if(parts&&parts[1]&&!summary.test(parts[1])){
      raw.push({'Item No':parts[0],Description:parts[1],Unit:parts[2],Quantity:parts[3],Rate:parts[4],Amount:parts[5]});
      candidates.push({sourceLine:i+1,sourcePage:row.page,raw:text,cells:parts});
