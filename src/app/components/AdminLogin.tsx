@@ -75,45 +75,12 @@ export function AdminLogin({ onSuccess, onBack }: AdminLoginProps) {
         return;
       }
 
-      // If user doesn't exist in users table, create them as admin
-      if (!userData) {
-        console.log('⚠️ User not found in users table. Creating admin user...');
-        
-        // ✅ FIX: Use UPSERT to avoid duplicate key errors
-        const { error: insertError } = await supabase
-          .from('users')
-          .upsert({
-            id: authData.user.id,
-            email: authData.user.email,
-            role: 'admin',
-            created_at: new Date().toISOString()
-          }, {
-            onConflict: 'id',
-            ignoreDuplicates: false // For admin, we want to update if exists
-          });
-
-        if (insertError) {
-          console.error('❌ Error creating admin user:', insertError);
-          setError('User setup failed. Please contact support.');
-          setIsLoading(false);
-          return;
-        }
-
-        console.log('✅ Admin user created successfully');
-        toast.success('Admin account set up successfully!');
-      } else {
-        // User exists, check if they have admin role
-        if (userData.role !== 'admin') {
-          console.error('❌ User is not an admin. Role:', userData.role);
-          setError('Access denied. This account does not have admin privileges.');
-          
-          // Sign out the non-admin user
-          await supabase.auth.signOut();
-          setIsLoading(false);
-          return;
-        }
-
-        console.log('✅ User has admin role');
+      // Admin roles must be provisioned through a trusted server-side process.
+      if (!userData || userData.role !== 'admin') {
+        setError('Access denied. Contact support if you require administrator access.');
+        await supabase.auth.signOut();
+        setIsLoading(false);
+        return;
       }
 
       // Set admin session flag for backward compatibility
