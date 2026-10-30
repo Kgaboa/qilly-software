@@ -124,7 +124,7 @@ export function FlexibleBoqImport({onBack,accessToken}:{onBack:()=>void;accessTo
       <div className="rounded-xl bg-gradient-to-r from-sky-900 via-blue-800 to-teal-700 text-white p-4 shadow-sm"><h1 className="text-2xl font-bold">Flexible BOQ Import</h1><p className="text-sky-100 text-sm">BOQ import, correction and approval preview. Excel and text remain local to your browser; PDF/DOCX require a configured protected extraction server. No data is saved to Qilly.</p></div>
       <section className="bg-white border border-sky-100 shadow-sm rounded-xl p-3 space-y-3">
         <label className="block font-semibold" htmlFor="boq-file">Choose BOQ or tender document</label>
-        <input id="boq-file" type="file" accept=".xlsx,.xls,.csv,.tsv,.txt,.pdf,.doc,.docx" disabled={busy} onChange={e=>{const f=e.target.files?.[0];if(f)void load(f);}}/>
+        <input id="boq-file" type="file" accept=".xlsx,.xls,.csv,.tsv,.txt,.pdf,.docx" disabled={busy} onChange={e=>{const f=e.target.files?.[0];if(f)void load(f);}}/>
         <p className="text-sm text-slate-600">Excel, CSV, text, PDF and DOCX can be previewed. PDF/DOCX extraction requires a configured authenticated server. Scanned PDFs may need OCR.</p>
         {file&&<p className="text-sm">Selected: {file}</p>}
         {busy&&<p role="status">Reading file…</p>}
