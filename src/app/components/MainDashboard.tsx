@@ -1,3 +1,4 @@
+import { TenderPipeline } from './TenderPipeline';
 import { FlexibleBoqImport } from './FlexibleBoqImport';
 import { useState, useEffect, useRef } from 'react';
 import { BillUpload } from '@/app/components/BillUpload';
@@ -43,8 +44,9 @@ const ALL_PROVINCES = [
 export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainDashboardProps) {
   const [user, setUser] = useState<any>(null);
   const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq' | 'import-hub' | 'flexible-import'>('import-hub');
-  const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck'>('dashboard');
+  const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck' | 'tender-pipeline'>('dashboard');
   const [processedBill, setProcessedBill] = useState<any>(null);
+  const [selectedTenderId, setSelectedTenderId] = useState<string | null>(null);
   const [sanralWorkbook, setSanralWorkbook] = useState<SanralNativeWorkbookContext | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [pricingProgress, setPricingProgress] = useState({ processed: 0, total: 0, itemName: '', stage: 'Preparing BOQ', province: '' });
@@ -618,6 +620,13 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
           }
         }
       }
+      if (selectedTenderId && authUser) {
+        const billId = data?.billId || data?.id;
+        const { error: tenderError } = await supabase.from('tender_opportunities')
+          .update({ stage: 'BOQ Pricing', ...(billId ? { linked_bill_id: billId } : {}) })
+          .eq('id', selectedTenderId).eq('owner_user_id', authUser.id);
+        if (tenderError) toast.error('BOQ priced, but tender pipeline link could not be updated.');
+      }
       setProcessedBill(data);
       setCurrentView('result');
       await fetchUserProfile();
@@ -952,12 +961,18 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
               {!contractorData && (
                 <button onClick={() => handlePageChange('suppliers')} className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'suppliers' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Supplier Catalog</button>
               )}
+              <button onClick={() => handlePageChange('tender-pipeline')} className={`px-3 py-1.5 text-sm font-medium rounded-t-md ${currentPage === 'tender-pipeline' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>CRM &amp; Tenders</button>
               <button onClick={() => handlePageChange('provincial-pricing')} className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'provincial-pricing' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Provincial Pricing</button>
               <button onClick={() => handlePageChange('enhanced-matching')} className={`px-3 py-2 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'enhanced-matching' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Item matching</button>
             </div>
           </div>
         </header>
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {currentPage === 'tender-pipeline' && <TenderPipeline
+            selectedOpportunityId={selectedTenderId}
+            onSelectOpportunity={setSelectedTenderId}
+            onStartPricing={() => { setCurrentPage('dashboard'); setCurrentView('upload'); }}
+          />}
           {currentPage === 'dashboard' && (
             <>
               {!contractorData && (
