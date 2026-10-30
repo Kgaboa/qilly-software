@@ -1,3 +1,5 @@
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { classifyBoqRow, normalizeBoqQuantity, resolveImportedBoqRow } from '@/utils/boqImport';
 
@@ -41,5 +43,39 @@ describe('BOQ import rules', () => {
     expect(classifyBoqRow('C1.5.7.3', 'Flagmen', 'man-day', '704')).toBe('item');
     expect(classifyBoqRow('C1.5.7.4', 'Labourer', 'person-day', '20')).toBe('item');
     expect(classifyBoqRow('C1.5.7.5', 'Roller operator', 'man-shift', '5')).toBe('item');
+  });
+});
+
+describe('Flexible BOQ customer import integration contracts', () => {
+  const root = path.resolve(__dirname, '../..');
+  const ui = fs.readFileSync(path.join(root, 'src/app/components/FlexibleBoqImport.tsx'), 'utf8');
+  const api = fs.readFileSync(path.join(root, 'api/parse-tender.ts'), 'utf8');
+  const build = fs.readFileSync(path.join(root, 'scripts/build-extraction.mjs'), 'utf8');
+
+  it('routes PDF and DOCX through the authenticated server endpoint', () => {
+    expect(ui).toContain("fetch('/api/parse-tender'");
+    expect(ui).toContain("supabase.auth.getUser()");
+    expect(ui).toContain("'x-qilly-file-type':type");
+    expect(api).toContain('client.auth.getUser(token)');
+  });
+
+  it('does not offer unsupported legacy DOC uploads', () => {
+    expect(ui).toContain('.pdf,.docx');
+    expect(ui).not.toMatch(/accept="[^"]*\.doc,/);
+  });
+
+  it('enforces a server-side file limit and supported document types', () => {
+    expect(api).toContain("['pdf','docx'].includes(type)");
+    expect(api).toContain('15*1024*1024');
+    expect(api).toContain("res.setHeader('Cache-Control','no-store')");
+  });
+
+  it('bundles both server parsers for deployment', () => {
+    expect(build).toContain("['pdf-server', 'docx-server']");
+  });
+
+  it('does not silently persist or price a preview', () => {
+    expect(ui).toContain('Approve interpreted BOQ (preview only)');
+    expect(ui).toContain('Pricing and saving remain unavailable');
   });
 });
