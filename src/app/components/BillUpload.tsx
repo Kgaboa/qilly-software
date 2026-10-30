@@ -418,12 +418,21 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
       }
       // For regular items, require name and unit
       return item.name && item.name.trim() !== '' && item.unit;
-    }).map(item => ({
-      ...item,
-      quantity: item.rowType === 'heading' || item.rowType === 'subheading'
-        ? ''
-        : item.quantity || '0'
-    }));
+    });
+
+    // Never convert an unknown quantity into zero: it can silently underprice a tender.
+    // Structural headings and carried-forward summary rows do not require quantities.
+    const missingQuantity = validItems.find(item =>
+      item.rowType !== 'heading' &&
+      item.rowType !== 'subheading' &&
+      !isSummaryRow(item) &&
+      (item.quantity === '' || item.quantity === null || item.quantity === undefined ||
+        !Number.isFinite(Number(item.quantity)))
+    );
+    if (missingQuantity) {
+      toast.error(`Quantity required for item ${missingQuantity.code || missingQuantity.name}. Review the BOQ before pricing.`);
+      return;
+    }
 
     if (validItems.length === 0) {
       toast.error('Please add at least one item with a name and unit');
