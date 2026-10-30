@@ -1,3 +1,4 @@
+import { ProgrammeCashflow } from './ProgrammeCashflow';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card';
 import { Button } from '@/app/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/app/components/ui/table';
@@ -2539,6 +2540,7 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
           lastPaymentDate={contractorData.last_payment_date}
         />
       )}
+      <ProgrammeCashflow projectValue={grandTotal} durationMonths={Number(projectSettings?.duration) || 6} isMasked={isFreeTier} />
     </div>
   );
 }
