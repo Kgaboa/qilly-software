@@ -8,7 +8,7 @@ create table if not exists public.tender_opportunities (
   stage text not null default 'Lead' check (stage in ('Lead','Qualified','BOQ Pricing','Submitted','Won','Lost')),
   due_date date,
   notes text,
-  linked_bill_id uuid,
+  linked_bill_id text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
