@@ -219,3 +219,17 @@ describe('REGRESSION: BOQ top-ups and coming-soon features', () => {
     expect(upload).toContain('Rows are locked for training templates');
   });
 });
+
+// P0-S003: Guard against reintroducing unsafe contractor authorization patterns.
+describe('P0-S003: Contractor and admin authorization guards', () => {
+  const adminLogin = readSrc('app/components/AdminLogin.tsx');
+
+  it('never self-provisions an administrator from the browser', () => {
+    expect(adminLogin).not.toMatch(/\.from\(['\"]users['\"]\)[\s\S]{0,250}\.upsert\(/);
+    expect(adminLogin).not.toMatch(/role:\s*['\"]admin['\"]/);
+  });
+
+  it('requires an existing administrator role before login succeeds', () => {
+    expect(adminLogin).toMatch(/!userData\s*\|\|\s*userData\.role\s*!==\s*['\"]admin['\"]/);
+  });
+});
