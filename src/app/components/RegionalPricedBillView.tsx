@@ -1,3 +1,4 @@
+import { deriveBoqProgrammeGroups } from '../../utils/boqProgramme';
 import { ProgrammeCashflow } from './ProgrammeCashflow';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card';
 import { Button } from '@/app/components/ui/button';
@@ -126,6 +127,7 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
   // Support both direct pricedItems or bill.items structure (MUST COME FIRST)
   const pricedItems = propPricedItems || bill?.items || [];
   const projectSettings = propProjectSettings || bill?.projectSettings;
+  const boqProgramme = useMemo(() => deriveBoqProgrammeGroups(pricedItems), [pricedItems]);
   const pricingCompleteness = useMemo(
     () => calculatePricingCompleteness(pricedItems),
     [pricedItems],
@@ -2540,7 +2542,7 @@ export function RegionalPricedBillView({ pricedItems: propPricedItems, bill, pro
           lastPaymentDate={contractorData.last_payment_date}
         />
       )}
-      <ProgrammeCashflow projectValue={grandTotal} durationMonths={Number(projectSettings?.duration) || 6} isMasked={isFreeTier} />
+      <ProgrammeCashflow projectValue={grandTotal} durationMonths={Number(projectSettings?.duration) || 6} isMasked={isFreeTier} boqGroups={boqProgramme.groups} eligibleValue={boqProgramme.eligibleTotal} excludedCount={boqProgramme.excludedCount} />
     </div>
   );
 }
