@@ -97,7 +97,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, isMasked = fal
             <tbody>{series.map(s => <tr key={s.month} className="border-b"><td className="p-2">{s.month}</td><td className="p-2">{money(s.planned)}</td><td className="p-2">{money(s.cumulative)}</td><td className="p-2">{(100*s.cumulative/scenarioValue).toFixed(1)}%</td></tr>)}</tbody>
           </table></div>
         </>}
-      </>}
+      </>)}
     </section>
   );
 }
