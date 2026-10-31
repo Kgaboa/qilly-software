@@ -24,6 +24,7 @@ export function SupplierSignup({ onSuccess, onBack }: SupplierSignupProps) {
   const [currentStep, setCurrentStep] = useState<'pricing' | 'signup'>('pricing');
   const [selectedTier, setSelectedTier] = useState<string>('free');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
+  const [completeAfterVerification, setCompleteAfterVerification] = useState(false);
 
   const [signupData, setSignupData] = useState({
     // Company Information
@@ -133,40 +134,26 @@ export function SupplierSignup({ onSuccess, onBack }: SupplierSignupProps) {
         nextBillingDate.setFullYear(nextBillingDate.getFullYear() + 1);
       }
 
-      // 1. Create user account in Supabase Auth
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: signupData.email,
-        password: signupData.password,
-        options: {
-          data: {
-            user_type: 'supplier',
-            company_name: signupData.companyName,
-          }
-        }
-      });
-
-      if (authError) {
-        // Handle specific error cases
-        if (authError.message.includes('User already registered')) {
-          setError('This email is already registered. Please use the login page or try a different email.');
-        } else if (authError.message.includes('Email not confirmed')) {
-          setError('Please check your email and confirm your account before logging in.');
-        } else {
-          setError(authError.message);
-        }
+      const authResult = completeAfterVerification
+        ? await supabase.auth.signInWithPassword({ email: signupData.email, password: signupData.password })
+        : await supabase.auth.signUp({ email: signupData.email, password: signupData.password,
+            options: { data: { user_type: 'supplier', company_name: signupData.companyName } } });
+      const { data: authData, error: authError } = authResult;
+      if (authError || !authData.user) {
+        setError(authError?.message || 'Unable to authenticate supplier account.');
         setIsLoading(false);
         return;
       }
-      if (!authData.user) {
-        setError('Failed to create user account. Please try again.');
-        setIsLoading(false);
-        return;
-      }
-
-      // A confirmed session is required by supplier RLS. Never attempt a
-      // privileged profile insert using an unconfirmed signup response.
       if (!authData.session) {
-        setError('Please verify your email, then sign in to complete supplier registration. Your account is not yet approved.');
+        setCompleteAfterVerification(true);
+        setError('Verify your email, then return to this form and select Complete verified registration.');
+        setIsLoading(false);
+        return;
+      }
+      const { data: existingSupplier, error: existingError } = await supabase
+        .from('suppliers').select('id').eq('user_id', authData.user.id).maybeSingle();
+      if (existingError || existingSupplier) {
+        setError(existingError?.message || 'Supplier profile already exists. Please sign in.');
         setIsLoading(false);
         return;
       }
@@ -303,6 +290,13 @@ export function SupplierSignup({ onSuccess, onBack }: SupplierSignupProps) {
         </CardHeader>
         <CardContent className="pt-6">
           <form onSubmit={handleSignup} className="space-y-8">
+          {completeAfterVerification && (
+            <div className="rounded-md border p-4 space-y-2">
+              <p className="text-sm">After confirming your email, use the same details to complete your supplier profile.</p>
+              <Button type="submit" variant="outline" disabled={isLoading}>Complete verified registration</Button>
+            </div>
+          )}
+
             {/* Pricing Tiers */}
             {currentStep === 'pricing' && (
               <div className="space-y-4">
