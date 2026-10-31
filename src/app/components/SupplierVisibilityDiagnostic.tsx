@@ -41,25 +41,19 @@ export function SupplierVisibilityDiagnostic() {
         });
       }
 
-      // Step 2: Check if user is admin
-      const { data: adminCheck, error: adminError } = await supabase
-        .rpc('is_admin');
-
-      if (adminError) {
-        diagnosticResults.push({
-          step: '2. Admin Function',
-          status: 'error',
-          message: 'is_admin() function not found',
-          detail: 'Run /FIX_ADMIN_SUPPLIER_VISIBILITY.sql to create it'
-        });
-      } else {
-        diagnosticResults.push({
-          step: '2. Admin Function',
-          status: adminCheck ? 'success' : 'warning',
-          message: adminCheck ? 'You are an admin' : 'You are NOT an admin',
-          detail: adminCheck ? 'Can see all suppliers' : 'Can only see your own suppliers'
-        });
-      }
+      // Step 2: Check the same trusted claim used by supplier RLS.
+      // This is a diagnostic only; the database remains the authorization authority.
+      const { data: sessionData } = await supabase.auth.getSession();
+      const role = sessionData.session?.user?.app_metadata?.role;
+      const hasAdminClaim = role === 'admin' || role === 'administrator';
+      diagnosticResults.push({
+        step: '2. Administrator Role',
+        status: hasAdminClaim ? 'success' : 'error',
+        message: hasAdminClaim ? 'Trusted administrator role present' : 'Trusted administrator role missing',
+        detail: hasAdminClaim
+          ? 'Supplier visibility must also be confirmed by the database query below.'
+          : 'Ask the Qilly Supabase project administrator to verify App Metadata for this account. Sign out and in again after any authorised change.'
+      });
 
       // Step 3: Check suppliers table accessibility
       const { data: suppliers, error: suppliersError } = await supabase
@@ -116,20 +110,16 @@ export function SupplierVisibilityDiagnostic() {
         });
       }
 
-      // Step 5: Check RLS policies
-      const { data: policies, error: policiesError } = await supabase
-        .from('suppliers')
-        .select('id')
-        .limit(1);
-
-      if (!policiesError) {
-        diagnosticResults.push({
-          step: '5. RLS Policies',
-          status: 'success',
-          message: 'RLS policies are working',
-          detail: 'You have permission to query suppliers table'
-        });
-      }
+      // Step 5: A successful SELECT does not prove access to other suppliers.
+      const visibleCount = suppliers?.length ?? 0;
+      diagnosticResults.push({
+        step: '5. Supplier Visibility',
+        status: hasAdminClaim && visibleCount > 0 ? 'success' : 'warning',
+        message: hasAdminClaim && visibleCount > 0
+          ? 'Administrator role and supplier records are visible'
+          : 'Administrator visibility has not been verified',
+        detail: 'A query returning zero rows may be restricted by RLS; it does not mean the database is empty.'
+      });
 
     } catch (err) {
       diagnosticResults.push({
@@ -236,24 +226,6 @@ export function SupplierVisibilityDiagnostic() {
               ))}
             </div>
 
-            {/* Fix Instructions */}
-            {hasErrors && (
-              <Alert className="border-orange-500 bg-orange-50">
-                <AlertCircle className="w-4 h-4" />
-                <AlertDescription>
-                  <div className="font-semibold mb-2">🔧 How to Fix:</div>
-                  <ol className="list-decimal list-inside space-y-1 text-sm">
-                    <li>Open Supabase Dashboard</li>
-                    <li>Go to SQL Editor</li>
-                    <li>Open <code className="bg-white px-2 py-1 rounded">/FIX_ADMIN_SUPPLIER_VISIBILITY.sql</code></li>
-                    <li>Copy entire file and paste into SQL Editor</li>
-                    <li>Click "RUN" button</li>
-                    <li>Refresh this page and run diagnostic again</li>
-                  </ol>
-                </AlertDescription>
-              </Alert>
-            )}
-
             {/* Success Next Steps */}
             {allSuccess && (
               <Alert className="border-green-500 bg-green-50">
@@ -262,8 +234,8 @@ export function SupplierVisibilityDiagnostic() {
                   <div className="font-semibold mb-2">✅ Everything is working!</div>
                   <div className="text-sm space-y-1">
                     <p>• You can now see all suppliers in the Suppliers tab</p>
-                    <p>• Approval workflow will work correctly</p>
-                    <p>• You're ready for Monday's investor presentation</p>
+                    <p>• Approval still requires a separate functional test</p>
+                    <p>• Verify the pending supplier is visible before client sign-off</p>
                   </div>
                 </AlertDescription>
               </Alert>
