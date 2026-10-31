@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 type Opportunity = { id: string; customer_name: string; tender_title: string; tender_reference: string | null;
   stage: string; due_date: string | null; notes: string | null; linked_bill_id: string | null };
 type PublishedLead = { id: string; title: string; category: string; province: string | null; status: string; published_at: string };
+type SupplierResponse = { id: string; lead_id: string; message: string; created_at: string; supplier_id: string };
 const stages = ['Lead', 'Qualified', 'BOQ Pricing', 'Submitted', 'Won', 'Lost'];
 export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOpportunityId }: {
   onStartPricing: () => void; onSelectOpportunity: (id: string | null) => void; selectedOpportunityId: string | null;
@@ -12,6 +13,9 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
   const [rows, setRows] = useState<Opportunity[]>([]);
   const [publishedLeads, setPublishedLeads] = useState<PublishedLead[]>([]);
   const [leadListError, setLeadListError] = useState('');
+  const [responsesByLead, setResponsesByLead] = useState<Record<string, SupplierResponse[]>>({});
+  const [expandedLead, setExpandedLead] = useState<string | null>(null);
+  const [responseError, setResponseError] = useState('');
   const [customer, setCustomer] = useState('');
   const [title, setTitle] = useState('');
   const [reference, setReference] = useState('');
@@ -40,6 +44,16 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
     setLeadListError(''); setPublishedLeads((data || []) as PublishedLead[]);
   }, []);
   useEffect(() => { void load(); void loadPublishedLeads(); }, [load, loadPublishedLeads]);
+  const loadResponses = async (leadId: string) => {
+    if (expandedLead === leadId) { setExpandedLead(null); return; }
+    setResponseError('');
+    const { data, error: failure } = await supabase.from('supplier_lead_responses')
+      .select('id,lead_id,message,created_at,supplier_id')
+      .eq('lead_id',leadId).order('created_at',{ascending:false}).limit(100);
+    if (failure) { setResponseError('Unable to load supplier responses.'); return; }
+    setResponsesByLead(prev => ({...prev,[leadId]:(data || []) as SupplierResponse[]}));
+    setExpandedLead(leadId);
+  };
   const create = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!customer.trim() || !title.trim()) return;
@@ -114,19 +128,29 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
     <section aria-label="Published supplier leads" className="space-y-3 border-t pt-5">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div><h3 className="font-semibold">Published Supplier Leads</h3>
-          <p className="text-sm text-gray-600">Your supplier-facing opportunities. Supplier responses will be added in a later release.</p></div>
+          <p className="text-sm text-gray-600">Your supplier-facing opportunities and supplier responses.</p></div>
         <button type="button" className="rounded border px-3 py-1 text-sm" onClick={()=>void loadPublishedLeads()}>Refresh published leads</button>
       </div>
       {leadListError && <p role="alert" className="text-sm text-red-700">{leadListError}</p>}
       {!leadListError && publishedLeads.length===0 && <p className="text-sm text-gray-600">No supplier leads published yet.</p>}
       {publishedLeads.length>0 && <div className="overflow-x-auto"><table className="w-full min-w-[500px] text-sm">
-        <thead><tr className="border-b text-left"><th className="p-2">Opportunity</th><th className="p-2">Category</th><th className="p-2">Province</th><th className="p-2">Status</th><th className="p-2">Published</th></tr></thead>
+        <thead><tr className="border-b text-left"><th className="p-2">Opportunity</th><th className="p-2">Category</th><th className="p-2">Province</th><th className="p-2">Status</th><th className="p-2">Published</th><th className="p-2">Responses</th></tr></thead>
         <tbody>{publishedLeads.map(lead=><tr key={lead.id} className="border-b">
           <td className="p-2">{lead.title}</td><td className="p-2">{lead.category}</td>
           <td className="p-2">{lead.province || 'All provinces'}</td><td className="p-2">{lead.status}</td>
           <td className="p-2">{new Date(lead.published_at).toLocaleDateString()}</td>
+          <td className="p-2"><button type="button" className="rounded border px-2 py-1" onClick={()=>void loadResponses(lead.id)}>{expandedLead===lead.id?'Hide responses':'View responses'}</button></td>
         </tr>)}</tbody>
       </table></div>}
+      {responseError && <p role="alert" className="text-sm text-red-700">{responseError}</p>}
+      {expandedLead && <div className="space-y-2 rounded border p-3">
+        <h4 className="font-semibold">Supplier responses</h4>
+        {(responsesByLead[expandedLead] || []).length===0 && <p className="text-sm text-gray-600">No responses received yet.</p>}
+        {(responsesByLead[expandedLead] || []).map(response=><article key={response.id} className="rounded border p-3">
+          <p className="whitespace-pre-wrap text-sm">{response.message}</p>
+          <p className="mt-1 text-xs text-gray-500">Supplier reference: {response.supplier_id.slice(0,8)} · {new Date(response.created_at).toLocaleString()}</p>
+        </article>)}
+      </div>}
     </section>
 
   </section>;
