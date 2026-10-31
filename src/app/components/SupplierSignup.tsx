@@ -208,12 +208,13 @@ export function SupplierSignup({ onSuccess, onBack }: SupplierSignupProps) {
         bbbee_level: signupData.bbbeeLevel || null,
         has_certification: signupData.hasCertification,
         status: 'pending',
-        subscription_tier: selectedTier,
+        requested_subscription_tier: selectedTier,
+        subscription_tier: 'free',
         billing_cycle: billingCycle,
-        subscription_status: selectedTier === 'free' ? 'active' : 'trial',
+        subscription_status: 'active',
         subscription_start_date: subscriptionStartDate,
-        next_billing_date: nextBillingDate.toISOString(),
-        payment_method: selectedTier === 'free' ? null : 'Pending Setup',
+        next_billing_date: null,
+        payment_method: null,
         popia_consent_given: true,
         popia_consent_date: new Date().toISOString(),
         popia_consent_version: '1.0',
@@ -247,7 +248,7 @@ export function SupplierSignup({ onSuccess, onBack }: SupplierSignupProps) {
       console.log('✅ Supplier record created:', supplierRecord);
       
       const tierName = selectedTier.charAt(0).toUpperCase() + selectedTier.slice(1);
-      toast.success(`Supplier account created successfully! ${tierName} tier selected. Pending admin approval.`);
+      toast.success(`Supplier account created. ${tierName} tier requested; access remains Free until verified. Pending admin approval.`);
       
       // Sign out the user (they need admin approval before logging in)
       await supabase.auth.signOut();
