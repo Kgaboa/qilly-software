@@ -19,6 +19,10 @@ interface AuthFormProps {
 }
 
 export function AuthForm({ onSuccess, onSupplierSignup, onContractorSignup, onAdminLogin, onGreenBuilding, onPartnerPortal, onForgotPassword, onNavigateToPolicy }: AuthFormProps) {
+  // Supplier signup is enabled only on the explicitly designated controlled UAT hostname.
+  // This is a UI gate, not an authorization boundary; Supabase must still enforce approval.
+  const supplierUatRegistrationEnabled = typeof window !== 'undefined'
+    && window.location.hostname === 'qilly-software-git-uat-controlled-5512a6-kgaboa-7233s-projects.vercel.app';
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
@@ -262,8 +266,11 @@ export function AuthForm({ onSuccess, onSupplierSignup, onContractorSignup, onAd
         </Button>
         <Button
           variant="outline"
-          className="w-full border-2 border-blue-200 cursor-not-allowed opacity-50"
-          disabled
+          className={supplierUatRegistrationEnabled
+            ? "w-full border-2 border-blue-600 text-blue-700 hover:bg-blue-50"
+            : "w-full border-2 border-blue-200 cursor-not-allowed opacity-50"}
+          disabled={!supplierUatRegistrationEnabled}
+          onClick={supplierUatRegistrationEnabled ? onSupplierSignup : undefined}
         >
           <Building2 className="w-4 h-4 mr-2" />
           Register as Supplier
