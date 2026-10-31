@@ -5,13 +5,11 @@ import { toast } from 'sonner';
 type Opportunity = { id: string; customer_name: string; tender_title: string; tender_reference: string | null;
   stage: string; due_date: string | null; notes: string | null; linked_bill_id: string | null };
 type PublishedLead = { id: string; title: string; category: string; province: string | null; status: string; published_at: string };
-type PublishedLead = { id: string; title: string; category: string; province: string | null; status: string; published_at: string };
 const stages = ['Lead', 'Qualified', 'BOQ Pricing', 'Submitted', 'Won', 'Lost'];
 export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOpportunityId }: {
   onStartPricing: () => void; onSelectOpportunity: (id: string | null) => void; selectedOpportunityId: string | null;
 }) {
   const [rows, setRows] = useState<Opportunity[]>([]);
-  const [publishedLeads, setPublishedLeads] = useState<PublishedLead[]>([]);
   const [publishedLeads, setPublishedLeads] = useState<PublishedLead[]>([]);
   const [leadListError, setLeadListError] = useState('');
   const [customer, setCustomer] = useState('');
@@ -130,19 +128,6 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
         </tr>)}</tbody>
       </table></div>}
     </section>
-    <section aria-label="Published supplier leads" className="space-y-3 border-t pt-5">
-      <div className="flex items-center justify-between"><h3 className="text-lg font-semibold">Published Supplier Leads</h3>
-        <button type="button" className="rounded border px-3 py-1 text-sm" onClick={()=>void loadPublishedLeads()}>Refresh</button></div>
-      {publishedLeads.length===0 && <p className="text-sm text-gray-500">No supplier leads published from this account yet.</p>}
-      <div className="overflow-x-auto"><table className="w-full min-w-[550px] text-sm">
-        <thead><tr className="border-b text-left"><th className="p-2">Opportunity</th><th className="p-2">Category</th><th className="p-2">Province</th><th className="p-2">Published</th><th className="p-2">Status</th></tr></thead>
-        <tbody>{publishedLeads.map(lead=><tr key={lead.id} className="border-b">
-          <td className="p-2">{lead.title}</td><td className="p-2">{lead.category}</td>
-          <td className="p-2">{lead.province || 'All provinces'}</td>
-          <td className="p-2">{new Date(lead.published_at).toLocaleDateString()}</td>
-          <td className="p-2">{lead.status}</td>
-        </tr>)}</tbody>
-      </table></div>
-    </section>
+
   </section>;
 }
