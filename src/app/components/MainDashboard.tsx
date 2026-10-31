@@ -1,3 +1,4 @@
+import { SupplierLeads } from './SupplierLeads';
 import { TenderPipeline } from './TenderPipeline';
 import { FlexibleBoqImport } from './FlexibleBoqImport';
 import { useState, useEffect, useRef } from 'react';
@@ -44,7 +45,7 @@ const ALL_PROVINCES = [
 export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainDashboardProps) {
   const [user, setUser] = useState<any>(null);
   const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq' | 'import-hub' | 'flexible-import'>('import-hub');
-  const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck' | 'tender-pipeline'>('dashboard');
+  const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck' | 'tender-pipeline' | 'supplier-leads'>('dashboard');
   const [processedBill, setProcessedBill] = useState<any>(null);
   const [selectedTenderId, setSelectedTenderId] = useState<string | null>(null);
   const [sanralWorkbook, setSanralWorkbook] = useState<SanralNativeWorkbookContext | null>(null);
@@ -962,12 +963,14 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                 <button onClick={() => handlePageChange('suppliers')} className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'suppliers' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Supplier Catalog</button>
               )}
               <button onClick={() => handlePageChange('tender-pipeline')} className={`px-3 py-1.5 text-sm font-medium rounded-t-md ${currentPage === 'tender-pipeline' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>CRM &amp; Tenders</button>
+              <button onClick={() => setCurrentPage('supplier-leads')} className={`px-3 py-1.5 text-sm font-medium rounded-t-md ${currentPage === 'supplier-leads' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Supplier Leads</button>
               <button onClick={() => handlePageChange('provincial-pricing')} className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'provincial-pricing' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Provincial Pricing</button>
               <button onClick={() => handlePageChange('enhanced-matching')} className={`px-3 py-2 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'enhanced-matching' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Item matching</button>
             </div>
           </div>
         </header>
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {currentPage === 'supplier-leads' && <SupplierLeads />}
           {currentPage === 'tender-pipeline' && <TenderPipeline
             selectedOpportunityId={selectedTenderId}
             onSelectOpportunity={setSelectedTenderId}
