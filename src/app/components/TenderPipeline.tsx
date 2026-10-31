@@ -14,6 +14,11 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
   const [reference, setReference] = useState('');
   const [due, setDue] = useState('');
   const [busy, setBusy] = useState(false);
+  const [publishBusy, setPublishBusy] = useState<string | null>(null);
+  const [publishing, setPublishing] = useState<string | null>(null);
+  const [leadCategory, setLeadCategory] = useState('');
+  const [leadProvince, setLeadProvince] = useState('');
+  const [leadSummary, setLeadSummary] = useState('');
   const [error, setError] = useState('');
   const load = useCallback(async () => {
     const { data, error: failure } = await supabase.from('tender_opportunities')
@@ -43,6 +48,26 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
     if (failure) { toast.error(failure.message); return; }
     await load();
   };
+  const publishSupplierLead = async (opportunity: Opportunity) => {
+    if (!leadCategory.trim() || leadSummary.trim().length < 10) {
+      toast.error('Provide a supplier category and a summary of at least 10 characters.');
+      return;
+    }
+    setPublishBusy(opportunity.id);
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) { toast.error('Sign in to publish a lead.'); setPublishBusy(null); return; }
+    // Publish only an explicitly authored summary. Never copy private CRM notes,
+    // customer identity, BOQ pricing, or tender attachments into supplier offers.
+    const { error: failure } = await supabase.from('supplier_lead_offers').insert({
+      contractor_user_id: user.id, title: opportunity.tender_title,
+      category: leadCategory.trim(), province: leadProvince.trim() || null,
+      summary: leadSummary.trim(), status: 'open'
+    });
+    setPublishBusy(null);
+    if (failure) { toast.error(failure.message); return; }
+    setPublishing(null); setLeadCategory(''); setLeadProvince(''); setLeadSummary('');
+    toast.success('Supplier lead published');
+  };
   return <section className="space-y-5 rounded-xl border bg-white p-5">
     <div><h2 className="text-xl font-semibold">CRM &amp; Tender Pipeline</h2>
       <p className="text-sm text-gray-600">Track customer opportunities and start pricing from the selected tender.</p></div>
@@ -62,7 +87,15 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
         <td className="p-2">{row.due_date || 'Not set'}</td>
         <td className="p-2"><select aria-label="Tender stage" value={row.stage} className="border rounded p-1" onChange={e=>void setStage(row.id,e.target.value)}>
           {stages.map(stage=><option key={stage} value={stage}>{stage}</option>)}</select></td>
-        <td className="p-2"><button type="button" className="rounded border px-3 py-1 text-cyan-800" onClick={()=>{onSelectOpportunity(row.id);onStartPricing();}}>Price BOQ</button></td>
+        <td className="p-2 space-y-2"><button type="button" className="rounded border px-3 py-1 text-cyan-800" onClick={()=>{onSelectOpportunity(row.id);onStartPricing();}}>Price BOQ</button>
+          <button type="button" className="block rounded border px-3 py-1 text-cyan-800" onClick={()=>setPublishing(publishing===row.id?null:row.id)}>Publish supplier lead</button>
+          {publishing===row.id && <div className="space-y-2 min-w-56">
+            <input aria-label="Supplier lead category" className="w-full rounded border p-1" placeholder="Supplier category" value={leadCategory} onChange={e=>setLeadCategory(e.target.value)} />
+            <input aria-label="Supplier lead province" className="w-full rounded border p-1" placeholder="Province (optional)" value={leadProvince} onChange={e=>setLeadProvince(e.target.value)} />
+            <textarea aria-label="Public supplier lead summary" className="w-full rounded border p-1" placeholder="Public summary only — no confidential tender details" value={leadSummary} onChange={e=>setLeadSummary(e.target.value)} />
+            <button type="button" disabled={publishBusy===row.id} className="rounded bg-cyan-700 px-3 py-1 text-white disabled:opacity-50" onClick={()=>void publishSupplierLead(row)}>Confirm publication</button>
+          </div>}
+        </td>
       </tr>)}</tbody>
     </table></div>
     {rows.length === 0 && !error && <p className="text-sm text-gray-500">No opportunities yet.</p>}
