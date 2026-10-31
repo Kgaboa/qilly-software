@@ -154,30 +154,24 @@ class SupplierDataLayer {
     data: CreateSupplierData,
     userId?: string
   ): Promise<Supplier> {
-    try {
-      const supplierData = {
-        user_id: userId || `user_${Date.now()}`,
-        ...data,
-        status: 'pending' as const,
-        created_at: new Date().toISOString(),
-      };
-
-      const { data: result, error } = await supabase
-        .from('suppliers')
-        .insert([supplierData])
-        .select()
-        .single();
-
-      if (error) {
-        // Silently fall back to demo mode
-        return this.createInDemo(data);
-      }
-
-      return result;
-    } catch (err) {
-      // Silently fall back to demo mode
-      return this.createInDemo(data);
+    // Never create a local/demo supplier when a real registration fails.
+    // The authenticated user must own the record and approval is server-controlled.
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user || !userId || user.id !== userId) {
+      throw new Error('Sign in with the newly registered supplier account before completing registration.');
     }
+    const supplierData = {
+      ...data,
+      user_id: user.id,
+      status: 'pending' as const,
+      created_at: new Date().toISOString(),
+    };
+    const { data: result, error } = await supabase
+      .from('suppliers').insert([supplierData]).select().single();
+    if (error || !result) {
+      throw new Error(error?.message || 'Supplier registration could not be saved.');
+    }
+    return result;
   }
 
   private async getAllFromProduction(): Promise<Supplier[]> {
