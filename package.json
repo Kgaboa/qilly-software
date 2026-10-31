@@ -26,7 +26,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "pre-deploy": "vitest run && vite build"
+    "pre-deploy": "vitest run && vite build",
+    "test:supplier-leads": "vitest run src/app/components/SupplierLeads.test.tsx"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
