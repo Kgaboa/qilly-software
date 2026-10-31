@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase';
+import { toast } from 'sonner';
 
 type Lead = { id: string; title: string; category: string; province: string | null; summary: string; closes_at: string | null; published_at: string };
 
@@ -7,6 +8,10 @@ export function SupplierLeads() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [state, setState] = useState<'loading' | 'ready' | 'not-supplier' | 'signed-out' | 'pending' | 'error'>('loading');
   const [error, setError] = useState('');
+  const [supplierId, setSupplierId] = useState<string | null>(null);
+  const [responseLeadId, setResponseLeadId] = useState<string | null>(null);
+  const [responseMessage, setResponseMessage] = useState('');
+  const [responding, setResponding] = useState(false);
   const refresh = useCallback(async () => {
     setState('loading');
     const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -16,6 +21,7 @@ export function SupplierLeads() {
       .select('id,status').eq('user_id',user.id).limit(1).maybeSingle();
     if (supplierError) { setError('Unable to verify supplier profile.'); setState('error'); return; }
     if (!supplier) { setState('not-supplier'); return; }
+    setSupplierId(supplier.id);
     if (supplier.status !== 'approved') { setLeads([]); setState('pending'); return; }
     const { data, error: failure } = await supabase.from('supplier_lead_offers')
       .select('id,title,category,province,summary,closes_at,published_at')
@@ -24,6 +30,17 @@ export function SupplierLeads() {
     setLeads((data || []) as Lead[]); setState('ready');
   },[]);
   useEffect(()=>{void refresh();},[refresh]);
+  const submitResponse = async (leadId: string) => {
+    if (!supplierId || responseMessage.trim().length < 10) { toast.error('Enter a message of at least 10 characters.'); return; }
+    setResponding(true);
+    const { error: failure } = await supabase.from('supplier_lead_responses').insert({
+      lead_id: leadId, supplier_id: supplierId, message: responseMessage.trim()
+    });
+    setResponding(false);
+    if (failure) { toast.error(failure.code==='23505' ? 'You have already responded to this lead.' : 'Unable to submit response. Please check your eligibility.'); return; }
+    toast.success('Response sent to the contractor');
+    setResponseLeadId(null); setResponseMessage('');
+  };
   return <section className="space-y-4 rounded-xl border bg-white p-5">
     <div className="flex items-center justify-between gap-3"><div>
       <h2 className="text-xl font-semibold">Supplier Leads</h2>
@@ -40,6 +57,11 @@ export function SupplierLeads() {
       <p className="text-xs text-gray-600">{lead.category} · {lead.province || 'All provinces'}</p>
       <p className="mt-2 whitespace-pre-wrap text-sm">{lead.summary}</p>
       {lead.closes_at && <p className="mt-2 text-xs text-gray-600">Closes: {new Date(lead.closes_at).toLocaleDateString()}</p>}
+      <button type="button" className="mt-3 rounded border px-3 py-1 text-cyan-800" onClick={()=>setResponseLeadId(responseLeadId===lead.id?null:lead.id)}>Respond to lead</button>
+      {responseLeadId===lead.id && <div className="mt-3 space-y-2">
+        <textarea aria-label="Supplier response message" className="w-full rounded border p-2" maxLength={2000} placeholder="Describe your interest and relevant offering" value={responseMessage} onChange={e=>setResponseMessage(e.target.value)} />
+        <button type="button" disabled={responding} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50" onClick={()=>void submitResponse(lead.id)}>Submit response</button>
+      </div>}
     </article>)}
   </section>;
 }
