@@ -275,13 +275,10 @@ export function AdminDashboard({ onLogout, onCapitalRaising }: AdminDashboardPro
   const handleApprove = async (supplier: Supplier) => {
     try {
       // Update in Supabase
-      const { error } = await supabase
-        .from('suppliers')
-        .update({ 
-          status: 'approved',
-          approved_at: new Date().toISOString()
-        })
-        .eq('id', supplier.id);
+      const { error } = await supabase.rpc('admin_review_supplier', {
+        p_supplier_id: supplier.id,
+        p_decision: 'approved'
+      });
 
       if (error) throw error;
 
@@ -305,13 +302,10 @@ export function AdminDashboard({ onLogout, onCapitalRaising }: AdminDashboardPro
   const handleReject = async (supplier: Supplier) => {
     try {
       // Update in Supabase
-      const { error } = await supabase
-        .from('suppliers')
-        .update({ 
-          status: 'rejected',
-          rejected_at: new Date().toISOString()
-        })
-        .eq('id', supplier.id);
+      const { error } = await supabase.rpc('admin_review_supplier', {
+        p_supplier_id: supplier.id,
+        p_decision: 'rejected'
+      });
 
       if (error) throw error;
 
