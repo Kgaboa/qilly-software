@@ -9,6 +9,7 @@ export function SupplierLeads() {
   const [state, setState] = useState<'loading' | 'ready' | 'not-supplier' | 'signed-out' | 'pending' | 'error'>('loading');
   const [error, setError] = useState('');
   const [supplierId, setSupplierId] = useState<string | null>(null);
+  const [supplierCriteria, setSupplierCriteria] = useState<{ categories: string[]; provinces: string[] } | null>(null);
   const [responseLeadId, setResponseLeadId] = useState<string | null>(null);
   const [responseMessage, setResponseMessage] = useState('');
   const [responding, setResponding] = useState(false);
@@ -19,10 +20,11 @@ export function SupplierLeads() {
     if (authError || !user) { setState('signed-out'); return; }
     // This lookup is for UI context only. Lead access is enforced by supplier_lead_offers RLS.
     const { data: supplier, error: supplierError } = await supabase.from('suppliers')
-      .select('id,status').eq('user_id',user.id).limit(1).maybeSingle();
+      .select('id,status,product_categories,province,operating_provinces').eq('user_id',user.id).limit(1).maybeSingle();
     if (supplierError) { setError('Unable to verify supplier profile.'); setState('error'); return; }
     if (!supplier) { setState('not-supplier'); return; }
     setSupplierId(supplier.id);
+    setSupplierCriteria({ categories: supplier.product_categories || [], provinces: Array.from(new Set([supplier.province, ...(supplier.operating_provinces || [])].filter(Boolean))) as string[] });
     if (supplier.status !== 'approved') { setLeads([]); setState('pending'); return; }
     const { data, error: failure } = await supabase.from('supplier_lead_offers')
       .select('id,title,category,province,summary,closes_at,published_at')
@@ -58,6 +60,7 @@ export function SupplierLeads() {
     {state==='signed-out' && <p>Your supplier session is not active. Please sign out and sign in again with your approved supplier credentials.</p>}
     {state==='pending' && <p>Your supplier profile has not yet been approved. Lead access becomes available after approval and campaign activation.</p>}
     {state==='error' && <p role="alert" className="text-red-700">{error}</p>}
+    {state==='ready' && leads.length===0 && supplierCriteria && <p className="text-sm text-gray-600">Your registered categories: {supplierCriteria.categories.join(', ') || 'None'} · Operating provinces: {supplierCriteria.provinces.join(', ') || 'None'}</p>}
     {state==='ready' && leads.length===0 && <p>No eligible supplier leads are available for your account. Lead access requires an approved supplier profile, a matching category and operating province, and an active campaign or verified paid entitlement. If you expected an opportunity, check your supplier registration details or contact Qilly support.</p>}
     {state==='ready' && leads.map(lead=><article key={lead.id} className="rounded-lg border p-4">
       <h3 className="font-semibold">{lead.title}</h3>
