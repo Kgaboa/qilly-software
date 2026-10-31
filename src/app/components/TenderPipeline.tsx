@@ -4,11 +4,14 @@ import { toast } from 'sonner';
 
 type Opportunity = { id: string; customer_name: string; tender_title: string; tender_reference: string | null;
   stage: string; due_date: string | null; notes: string | null; linked_bill_id: string | null };
+type PublishedLead = { id: string; title: string; category: string; province: string | null; status: string; published_at: string };
 const stages = ['Lead', 'Qualified', 'BOQ Pricing', 'Submitted', 'Won', 'Lost'];
 export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOpportunityId }: {
   onStartPricing: () => void; onSelectOpportunity: (id: string | null) => void; selectedOpportunityId: string | null;
 }) {
   const [rows, setRows] = useState<Opportunity[]>([]);
+  const [publishedLeads, setPublishedLeads] = useState<PublishedLead[]>([]);
+  const [leadListError, setLeadListError] = useState('');
   const [customer, setCustomer] = useState('');
   const [title, setTitle] = useState('');
   const [reference, setReference] = useState('');
@@ -27,7 +30,16 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
     if (failure) { setError('CRM database unavailable. Apply the tender_opportunities migration and verify access.'); return; }
     setError(''); setRows((data || []) as Opportunity[]);
   }, []);
-  useEffect(() => { void load(); }, [load]);
+  const loadPublishedLeads = useCallback(async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) { setPublishedLeads([]); setLeadListError('Sign in to view your published leads.'); return; }
+    const { data, error: failure } = await supabase.from('supplier_lead_offers')
+      .select('id,title,category,province,status,published_at')
+      .eq('contractor_user_id', user.id).order('published_at', { ascending: false }).limit(100);
+    if (failure) { setLeadListError('Unable to load published supplier leads.'); return; }
+    setLeadListError(''); setPublishedLeads((data || []) as PublishedLead[]);
+  }, []);
+  useEffect(() => { void load(); void loadPublishedLeads(); }, [load, loadPublishedLeads]);
   const create = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!customer.trim() || !title.trim()) return;
@@ -66,7 +78,7 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
     setPublishBusy(null);
     if (failure) { toast.error(failure.message); return; }
     setPublishing(null); setLeadCategory(''); setLeadProvince(''); setLeadSummary('');
-    toast.success('Supplier lead published');
+    toast.success('Supplier lead published'); await loadPublishedLeads();
   };
   return <section className="space-y-5 rounded-xl border bg-white p-5">
     <div><h2 className="text-xl font-semibold">CRM &amp; Tender Pipeline</h2>
@@ -99,5 +111,22 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
       </tr>)}</tbody>
     </table></div>
     {rows.length === 0 && !error && <p className="text-sm text-gray-500">No opportunities yet.</p>}
+    <section aria-label="Published supplier leads" className="space-y-3 border-t pt-5">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div><h3 className="font-semibold">Published Supplier Leads</h3>
+          <p className="text-sm text-gray-600">Your supplier-facing opportunities. Supplier responses will be added in a later release.</p></div>
+        <button type="button" className="rounded border px-3 py-1 text-sm" onClick={()=>void loadPublishedLeads()}>Refresh published leads</button>
+      </div>
+      {leadListError && <p role="alert" className="text-sm text-red-700">{leadListError}</p>}
+      {!leadListError && publishedLeads.length===0 && <p className="text-sm text-gray-600">No supplier leads published yet.</p>}
+      {publishedLeads.length>0 && <div className="overflow-x-auto"><table className="w-full min-w-[500px] text-sm">
+        <thead><tr className="border-b text-left"><th className="p-2">Opportunity</th><th className="p-2">Category</th><th className="p-2">Province</th><th className="p-2">Status</th><th className="p-2">Published</th></tr></thead>
+        <tbody>{publishedLeads.map(lead=><tr key={lead.id} className="border-b">
+          <td className="p-2">{lead.title}</td><td className="p-2">{lead.category}</td>
+          <td className="p-2">{lead.province || 'All provinces'}</td><td className="p-2">{lead.status}</td>
+          <td className="p-2">{new Date(lead.published_at).toLocaleDateString()}</td>
+        </tr>)}</tbody>
+      </table></div>}
+    </section>
   </section>;
 }
