@@ -12,6 +12,7 @@ export function SupplierLeads() {
   const [responseLeadId, setResponseLeadId] = useState<string | null>(null);
   const [responseMessage, setResponseMessage] = useState('');
   const [responding, setResponding] = useState(false);
+  const [respondedLeadIds, setRespondedLeadIds] = useState<string[]>([]);
   const refresh = useCallback(async () => {
     setState('loading');
     const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -27,7 +28,12 @@ export function SupplierLeads() {
       .select('id,title,category,province,summary,closes_at,published_at')
       .eq('status','open').order('published_at',{ascending:false}).limit(50);
     if (failure) { setError('Lead feed is not yet available.'); setState('error'); return; }
-    setLeads((data || []) as Lead[]); setState('ready');
+    setLeads((data || []) as Lead[]);
+    const { data: existing, error: responseError } = await supabase.from('supplier_lead_responses')
+      .select('lead_id').eq('supplier_id',supplier.id).limit(1000);
+    if (responseError) { setError('Unable to verify previously submitted responses.'); setState('error'); return; }
+    setRespondedLeadIds((existing || []).map(row=>row.lead_id));
+    setState('ready');
   },[]);
   useEffect(()=>{void refresh();},[refresh]);
   const submitResponse = async (leadId: string) => {
@@ -38,6 +44,7 @@ export function SupplierLeads() {
     });
     setResponding(false);
     if (failure) { toast.error(failure.code==='23505' ? 'You have already responded to this lead.' : 'Unable to submit response. Please check your eligibility.'); return; }
+    setRespondedLeadIds(previous=>[...previous,leadId]);
     toast.success('Response sent to the contractor');
     setResponseLeadId(null); setResponseMessage('');
   };
@@ -57,8 +64,10 @@ export function SupplierLeads() {
       <p className="text-xs text-gray-600">{lead.category} · {lead.province || 'All provinces'}</p>
       <p className="mt-2 whitespace-pre-wrap text-sm">{lead.summary}</p>
       {lead.closes_at && <p className="mt-2 text-xs text-gray-600">Closes: {new Date(lead.closes_at).toLocaleDateString()}</p>}
-      <button type="button" className="mt-3 rounded border px-3 py-1 text-cyan-800" onClick={()=>setResponseLeadId(responseLeadId===lead.id?null:lead.id)}>Respond to lead</button>
-      {responseLeadId===lead.id && <div className="mt-3 space-y-2">
+      {respondedLeadIds.includes(lead.id)
+        ? <p className="mt-3 text-sm font-medium text-green-700">Response submitted</p>
+        : <button type="button" className="mt-3 rounded border px-3 py-1 text-cyan-800" onClick={()=>setResponseLeadId(responseLeadId===lead.id?null:lead.id)}>Respond to lead</button>}
+      {responseLeadId===lead.id && !respondedLeadIds.includes(lead.id) && <div className="mt-3 space-y-2">
         <textarea aria-label="Supplier response message" className="w-full rounded border p-2" maxLength={2000} placeholder="Describe your interest and relevant offering" value={responseMessage} onChange={e=>setResponseMessage(e.target.value)} />
         <button type="button" disabled={responding} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50" onClick={()=>void submitResponse(lead.id)}>Submit response</button>
       </div>}
