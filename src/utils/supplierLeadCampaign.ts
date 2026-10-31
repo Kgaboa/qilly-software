@@ -33,7 +33,7 @@ export function evaluateSupplierLeadAccess(input: SupplierLeadEligibilityInput) 
   // Existing approved suppliers start on launch; newly approved suppliers start on approval.
   const start = approval && approval > launch ? approval : launch;
   const expires = addCalendarMonthsClamped(start, 6);
-  const freeEligible = input.supplierStatus === 'approved' && now >= start && now < expires;
+  const freeEligible = input.supplierStatus === 'approved' && Boolean(approval) && now >= start && now < expires;
   const paidEligible = Boolean(input.paidLeadAccessUntil && date(input.paidLeadAccessUntil) > now);
   return {
     hasLeadAccess: freeEligible || paidEligible,
