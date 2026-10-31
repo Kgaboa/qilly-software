@@ -58,7 +58,7 @@ export function SupplierLeads() {
     {state==='signed-out' && <p>Your supplier session is not active. Please sign out and sign in again with your approved supplier credentials.</p>}
     {state==='pending' && <p>Your supplier profile has not yet been approved. Lead access becomes available after approval and campaign activation.</p>}
     {state==='error' && <p role="alert" className="text-red-700">{error}</p>}
-    {state==='ready' && leads.length===0 && <p>No matching leads available. Your campaign may not be active yet.</p>}
+    {state==='ready' && leads.length===0 && <p>No eligible supplier leads are available for your account. Lead access requires an approved supplier profile, a matching category and operating province, and an active campaign or verified paid entitlement. If you expected an opportunity, check your supplier registration details or contact Qilly support.</p>}
     {state==='ready' && leads.map(lead=><article key={lead.id} className="rounded-lg border p-4">
       <h3 className="font-semibold">{lead.title}</h3>
       <p className="text-xs text-gray-600">{lead.category} · {lead.province || 'All provinces'}</p>
