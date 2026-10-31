@@ -5,18 +5,18 @@ type Lead = { id: string; title: string; category: string; province: string | nu
 
 export function SupplierLeads() {
   const [leads, setLeads] = useState<Lead[]>([]);
-  const [state, setState] = useState<'loading' | 'ready' | 'not-supplier' | 'error'>('loading');
+  const [state, setState] = useState<'loading' | 'ready' | 'not-supplier' | 'signed-out' | 'pending' | 'error'>('loading');
   const [error, setError] = useState('');
   const refresh = useCallback(async () => {
     setState('loading');
     const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) { setState('not-supplier'); return; }
+    if (authError || !user) { setState('signed-out'); return; }
     // This lookup is for UI context only. Lead access is enforced by supplier_lead_offers RLS.
     const { data: supplier, error: supplierError } = await supabase.from('suppliers')
       .select('id,status').eq('user_id',user.id).limit(1).maybeSingle();
     if (supplierError) { setError('Unable to verify supplier profile.'); setState('error'); return; }
     if (!supplier) { setState('not-supplier'); return; }
-    if (supplier.status !== 'approved') { setLeads([]); setState('ready'); return; }
+    if (supplier.status !== 'approved') { setLeads([]); setState('pending'); return; }
     const { data, error: failure } = await supabase.from('supplier_lead_offers')
       .select('id,title,category,province,summary,closes_at,published_at')
       .eq('status','open').order('published_at',{ascending:false}).limit(50);
@@ -30,7 +30,9 @@ export function SupplierLeads() {
       <p className="text-sm text-gray-600">Matching published opportunities. Access is verified by Qilly.</p>
     </div><button type="button" className="rounded border px-3 py-2 text-sm" onClick={()=>void refresh()}>Refresh</button></div>
     {state==='loading' && <p role="status">Loading supplier opportunities…</p>}
-    {state==='not-supplier' && <p>Sign in with an approved supplier account to view leads.</p>}
+    {state==='not-supplier' && <p>This account is not registered as a supplier. Contractors can publish supplier opportunities from CRM &amp; Tenders.</p>}
+    {state==='signed-out' && <p>Your supplier session is not active. Please sign out and sign in again with your approved supplier credentials.</p>}
+    {state==='pending' && <p>Your supplier profile has not yet been approved. Lead access becomes available after approval and campaign activation.</p>}
     {state==='error' && <p role="alert" className="text-red-700">{error}</p>}
     {state==='ready' && leads.length===0 && <p>No matching leads available. Your campaign may not be active yet.</p>}
     {state==='ready' && leads.map(lead=><article key={lead.id} className="rounded-lg border p-4">
