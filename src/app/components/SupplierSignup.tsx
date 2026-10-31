@@ -163,6 +163,14 @@ export function SupplierSignup({ onSuccess, onBack }: SupplierSignupProps) {
         return;
       }
 
+      // A confirmed session is required by supplier RLS. Never attempt a
+      // privileged profile insert using an unconfirmed signup response.
+      if (!authData.session) {
+        setError('Please verify your email, then sign in to complete supplier registration. Your account is not yet approved.');
+        setIsLoading(false);
+        return;
+      }
+
       console.log('✅ User account created:', authData.user.id);
 
       // Save POPIA consent to audit log
