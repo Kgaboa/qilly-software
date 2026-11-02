@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase';
 import { toast } from 'sonner';
 
-type Lead = { id: string; title: string; category: string; province: string | null; summary: string; closes_at: string | null; published_at: string };
+type Lead = { contractor_user_id: string; id: string; title: string; category: string; province: string | null; summary: string; closes_at: string | null; published_at: string };
 
 export function SupplierLeads() {
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -27,11 +27,12 @@ export function SupplierLeads() {
     setSupplierCriteria({ categories: supplier.product_categories || [], provinces: Array.from(new Set([supplier.province, ...(supplier.operating_provinces || [])].filter(Boolean))) as string[] });
     if (supplier.status !== 'approved') { setLeads([]); setState('pending'); return; }
     const { data, error: failure } = await supabase.from('supplier_lead_offers')
-      .select('id,title,category,province,summary,closes_at,published_at')
+      .select('id,contractor_user_id,title,category,province,summary,closes_at,published_at')
       .neq('contractor_user_id',user.id)
       .eq('status','open').order('published_at',{ascending:false}).limit(50);
     if (failure) { setError('Lead feed is not yet available.'); setState('error'); return; }
-    setLeads((data || []) as Lead[]);
+    // Contractor-owned offers are readable through the contractor RLS policy, but must not appear as supplier opportunities.
+    setLeads(((data || []) as Lead[]).filter(lead => lead.contractor_user_id !== user.id));
     const { data: existing, error: responseError } = await supabase.from('supplier_lead_responses')
       .select('lead_id').eq('supplier_id',supplier.id).limit(1000);
     if (responseError) { setError('Unable to verify previously submitted responses.'); setState('error'); return; }
