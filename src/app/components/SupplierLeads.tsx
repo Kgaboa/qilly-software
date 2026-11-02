@@ -45,7 +45,18 @@ export function SupplierLeads() {
       lead_id: leadId, supplier_id: supplierId, message: responseMessage.trim()
     });
     setResponding(false);
-    if (failure) { toast.error(failure.code==='23505' ? 'You have already responded to this lead.' : 'Unable to submit response. Please check your eligibility.'); return; }
+    if (failure) {
+      const message = failure.code === '23505'
+        ? 'You have already responded to this lead.'
+        : failure.code === '42501'
+          ? 'Your response was blocked by supplier eligibility rules. Please verify your campaign or paid entitlement with Qilly support.'
+          : failure.code === '23514'
+            ? 'Your response does not meet the message requirements (10–2000 characters).'
+            : 'Unable to submit response. Please try again or contact Qilly support.';
+      console.error('Supplier response submission failed', { code: failure.code, message: failure.message });
+      toast.error(message);
+      return;
+    }
     setRespondedLeadIds(previous=>[...previous,leadId]);
     toast.success('Response sent to the contractor');
     setResponseLeadId(null); setResponseMessage('');
