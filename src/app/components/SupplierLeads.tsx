@@ -28,6 +28,7 @@ export function SupplierLeads() {
     if (supplier.status !== 'approved') { setLeads([]); setState('pending'); return; }
     const { data, error: failure } = await supabase.from('supplier_lead_offers')
       .select('id,title,category,province,summary,closes_at,published_at')
+      .neq('contractor_user_id',user.id)
       .eq('status','open').order('published_at',{ascending:false}).limit(50);
     if (failure) { setError('Lead feed is not yet available.'); setState('error'); return; }
     setLeads((data || []) as Lead[]);
