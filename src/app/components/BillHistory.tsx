@@ -1,3 +1,4 @@
+import { ProgrammeCashflow } from './ProgrammeCashflow';
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card';
 import { Button } from '@/app/components/ui/button';
@@ -11,9 +12,10 @@ import * as XLSX from 'xlsx';
 
 interface BillHistoryProps {
   accessToken: string;
+  planningMode?: 'programme' | 'cashflow' | null;
 }
 
-export function BillHistory({ accessToken }: BillHistoryProps) {
+export function BillHistory({ accessToken, planningMode = null }: BillHistoryProps) {
   const [bills, setBills] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedBill, setSelectedBill] = useState<any>(null);
@@ -215,7 +217,7 @@ export function BillHistory({ accessToken }: BillHistoryProps) {
         <CardHeader>
           <CardTitle>Bill History</CardTitle>
           <CardDescription>
-            View and download previously processed bills
+            {planningMode ? 'Select View on an eligible priced BOQ to open its planning scenario' : 'View and download previously processed bills'}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -288,6 +290,19 @@ export function BillHistory({ accessToken }: BillHistoryProps) {
         </CardContent>
       </Card>
 
+      {planningMode && selectedBill && Number(selectedBill.overallTotal) > 0 && (
+        <section aria-label={planningMode === 'programme' ? 'Selected BOQ programme' : 'Selected BOQ cashflow'} className="space-y-3">
+          <div className="rounded-xl border border-cyan-100 bg-cyan-50 p-4">
+            <h3 className="font-semibold text-[#0077b6]">{planningMode === 'programme' ? 'Programme of Works' : 'Cash Flow & S-Curve'}</h3>
+            <p className="text-sm text-slate-700">BOQ: {selectedBill.projectName || selectedBill.billNumber || selectedBill.id} · Priced value: R{formatNumber(selectedBill.overallTotal)}</p>
+            <p className="text-xs text-slate-600">Illustrative scenario only. Confirm programme duration, sequencing and commercial assumptions before approval.</p>
+          </div>
+          <ProgrammeCashflow key={selectedBill.id} projectValue={Number(selectedBill.overallTotal)} durationMonths={12} />
+        </section>
+      )}
+      {planningMode && selectedBill && !(Number(selectedBill.overallTotal) > 0) && (
+        <p role="status" className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm">A priced BOQ with a positive total is required to generate a planning scenario.</p>
+      )}
       {/* Bill Details */}
       {selectedBill && (
         <Card>
