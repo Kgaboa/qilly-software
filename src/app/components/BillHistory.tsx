@@ -21,6 +21,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
   const [historyError, setHistoryError] = useState('');
   const [selectedBill, setSelectedBill] = useState<any>(null);
   const [planningMonths, setPlanningMonths] = useState(12);
+  const [programmeLevel, setProgrammeLevel] = useState<'high' | 'detailed'>('high');
 
   const formatNumber = (value: string | number) => {
     const num = typeof value === 'string' ? parseFloat(value) : value;
@@ -323,10 +324,19 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
             )}
             <p className="mt-1 text-xs text-slate-600">Line-item totals are informational and may differ from the bill total because of allowances, adjustments or incomplete historical records.</p>
           </div>
+          <label className="flex flex-wrap items-center gap-3 text-sm font-medium text-slate-700">
+            Programme level
+            <select aria-label="Programme level" value={programmeLevel} onChange={event => setProgrammeLevel(event.target.value as 'high' | 'detailed')}
+              className="rounded-lg border border-cyan-200 bg-white px-3 py-2">
+              <option value="high">High level</option>
+              <option value="detailed">Detailed</option>
+            </select>
+          </label>
+          <p className="text-xs text-slate-600">Duration is configurable from 1 to 36 months. Historical BOQ project-setting duration is not available in this record; confirm the original duration before approval.</p>
           <p role="status" className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
             BOQ-driven work-group allocation is not yet available for this historical bill: the history record does not contain verified pricing decisions and acceptance evidence. The programme below uses an editable illustrative allocation, not automatically approved BOQ groups.
           </p>
-          <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} />
+          <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths + '-' + programmeLevel} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} programmeLevel={programmeLevel} />
         </section>
       )}
       {planningMode && selectedBill && !(Number(selectedBill.overallTotal) > 0) && (
