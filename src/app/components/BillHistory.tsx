@@ -1,4 +1,5 @@
 import { ProgrammeCashflow } from './ProgrammeCashflow';
+import { deriveHistoricalDraftGroups } from '@/utils/boqProgramme';
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card';
 import { Button } from '@/app/components/ui/button';
@@ -22,6 +23,9 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
   const [selectedBill, setSelectedBill] = useState<any>(null);
   const [planningMonths, setPlanningMonths] = useState(12);
   const [programmeLevel, setProgrammeLevel] = useState<'high' | 'detailed'>('high');
+  const [historyFilter, setHistoryFilter] = useState('');
+
+  const historicalDraft = selectedBill ? deriveHistoricalDraftGroups(selectedBill.items || []) : null;
 
   const formatNumber = (value: string | number) => {
     const num = typeof value === 'string' ? parseFloat(value) : value;
@@ -50,6 +54,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
             bill_number,
             project_name,
             total_cost,
+            project_settings,
             status,
             created_at,
             bill_items (
@@ -78,6 +83,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
             billNumber: bill.bill_number,
             projectName: bill.project_name,
             overallTotal: bill.total_cost,
+            projectDuration: bill.project_settings?.duration,
             status: bill.status,
             createdAt: bill.created_at,
             items: (bill.bill_items || []).map((item: any) => ({
@@ -110,6 +116,12 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!selectedBill) return;
+    const duration = Number(selectedBill.projectDuration);
+    setPlanningMonths(Number.isInteger(duration) && duration >= 1 && duration <= 36 ? duration : 12);
+  }, [selectedBill?.id]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -208,17 +220,30 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
     );
   }
 
+  const filteredBills = bills.filter(bill => !historyFilter || [bill.projectName, bill.billNumber, bill.id, bill.status].some(value => String(value || '').toLowerCase().includes(historyFilter.toLowerCase())));
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <Card>
         <CardHeader>
-          <CardTitle>Bill History</CardTitle>
+          <CardTitle>{planningMode ? 'Select historical priced BOQ' : 'Bill History'}</CardTitle>
           <CardDescription>
             {planningMode ? 'Select a priced BOQ below to open its planning scenario. Only BOQs with a positive priced total are eligible.' : 'View and download previously processed bills'}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Table>
+          {planningMode && <div className="mb-3 flex flex-wrap items-center gap-3 rounded-lg bg-slate-50 p-3">
+            <label htmlFor="historical-boq-picker" className="text-sm font-medium">Priced BOQ</label>
+            <select id="historical-boq-picker" aria-label="Historical priced BOQ" className="min-w-0 flex-1 rounded border border-slate-300 bg-white p-2 text-sm"
+              value={selectedBill?.id || ''} onChange={event => setSelectedBill(bills.find(b => b.id === event.target.value) || null)}>
+              <option value="">Choose a historical priced BOQ</option>
+              {bills.filter(b => Number(b.overallTotal) > 0).map(b => <option key={b.id} value={b.id}>{b.projectName || b.billNumber || b.id} — R{formatNumber(b.overallTotal)}</option>)}
+            </select>
+            <input aria-label="Filter historical BOQs" value={historyFilter} onChange={event => setHistoryFilter(event.target.value)} placeholder="Filter by project, ID or status" className="w-full rounded border border-slate-300 bg-white p-2 text-sm sm:w-60" />
+          </div>}
+          <details open={!planningMode} className="rounded-lg border border-slate-200">
+            <summary className="cursor-pointer px-3 py-2 text-sm font-medium text-slate-700">{planningMode ? `Browse historical BOQ records (${filteredBills.length})` : `All historical BOQs (${filteredBills.length})`}</summary>
+          <div className="max-h-72 overflow-auto"><Table>
             <TableHeader>
               <TableRow>
                 {planningMode && <TableHead>Select BOQ</TableHead>}
@@ -231,7 +256,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
               </TableRow>
             </TableHeader>
             <TableBody>
-              {bills.map((bill) => (
+              {filteredBills.map((bill) => (
                 <TableRow key={bill.id} className={planningMode && selectedBill?.id === bill.id ? 'bg-cyan-50' : ''}>
                   {planningMode && <TableCell>
                     <input type="radio" name="planning-bill" aria-label={`Select priced BOQ ${bill.projectName || bill.billNumber || bill.id}`}
@@ -292,7 +317,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
                 </TableRow>
               ))}
             </TableBody>
-          </Table>
+          </Table></div></details>
         </CardContent>
       </Card>
 
@@ -308,7 +333,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
             <input aria-label="Project duration in months" type="number" min={1} max={36} step={1} value={planningMonths}
               onChange={event => { const value = Number(event.target.value); if (Number.isInteger(value) && value >= 1 && value <= 36) setPlanningMonths(value); }}
               className="w-24 rounded-lg border border-cyan-200 bg-white px-3 py-2" />
-            <span className="text-xs font-normal text-slate-600">Confirm against the project programme; default is illustrative.</span>
+            <span className="text-xs font-normal text-slate-600">{Number.isInteger(Number(selectedBill.projectDuration)) && Number(selectedBill.projectDuration) >= 1 && Number(selectedBill.projectDuration) <= 36 ? 'Defaulted from saved BOQ project settings; editable for scenario planning.' : 'Saved duration unavailable; 12-month scenario default requires confirmation.'}</span>
           </label>
           <div className="rounded-lg border border-slate-200 bg-white p-3 text-sm" aria-label="Historical BOQ planning input summary">
             <h4 className="font-semibold text-slate-800">BOQ planning inputs</h4>
@@ -332,11 +357,14 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
               <option value="detailed">Detailed</option>
             </select>
           </label>
-          <p className="text-xs text-slate-600">Duration is configurable from 1 to 36 months. Historical BOQ project-setting duration is not available in this record; confirm the original duration before approval.</p>
+          <p className="text-xs text-slate-600">Duration is configurable from 1 to 36 months. Where available, the original duration is loaded from the selected BOQ project settings.</p>
           <p role="status" className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
-            BOQ-driven work-group allocation is not yet available for this historical bill: the history record does not contain verified pricing decisions and acceptance evidence. The programme below uses an editable illustrative allocation, not automatically approved BOQ groups.
+            Historical BOQ work packages are provisional groupings of line items with positive, reconciled quantity × rate totals. Pricing approval evidence and activity sequencing are not available in this history record. Review each work package and confirm its value, timing and dependencies before approving a baseline.
           </p>
-          <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths + '-' + programmeLevel} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} programmeLevel={programmeLevel} />
+          <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths + '-' + programmeLevel} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} programmeLevel={programmeLevel}
+            boqGroups={historicalDraft?.groups || []}
+            eligibleValue={historicalDraft?.eligibleTotal || 0}
+            excludedCount={historicalDraft?.excludedCount || 0} />
         </section>
       )}
       {planningMode && selectedBill && !(Number(selectedBill.overallTotal) > 0) && (
