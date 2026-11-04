@@ -19,6 +19,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
   const [bills, setBills] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedBill, setSelectedBill] = useState<any>(null);
+  const [planningMonths, setPlanningMonths] = useState(12);
 
   const formatNumber = (value: string | number) => {
     const num = typeof value === 'string' ? parseFloat(value) : value;
@@ -297,7 +298,14 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
             <p className="text-sm text-slate-700">BOQ: {selectedBill.projectName || selectedBill.billNumber || selectedBill.id} · Priced value: R{formatNumber(selectedBill.overallTotal)}</p>
             <p className="text-xs text-slate-600">Illustrative scenario only. Confirm programme duration, sequencing and commercial assumptions before approval.</p>
           </div>
-          <ProgrammeCashflow key={selectedBill.id} projectValue={Number(selectedBill.overallTotal)} durationMonths={12} />
+          <label className="flex flex-wrap items-center gap-3 text-sm font-medium text-slate-700">
+            Project duration (months)
+            <input aria-label="Project duration in months" type="number" min={1} max={36} step={1} value={planningMonths}
+              onChange={event => { const value = Number(event.target.value); if (Number.isInteger(value) && value >= 1 && value <= 36) setPlanningMonths(value); }}
+              className="w-24 rounded-lg border border-cyan-200 bg-white px-3 py-2" />
+            <span className="text-xs font-normal text-slate-600">Confirm against the project programme; default is illustrative.</span>
+          </label>
+          <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} />
         </section>
       )}
       {planningMode && selectedBill && !(Number(selectedBill.overallTotal) > 0) && (
