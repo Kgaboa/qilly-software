@@ -305,6 +305,20 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
               className="w-24 rounded-lg border border-cyan-200 bg-white px-3 py-2" />
             <span className="text-xs font-normal text-slate-600">Confirm against the project programme; default is illustrative.</span>
           </label>
+          <div className="rounded-lg border border-slate-200 bg-white p-3 text-sm" aria-label="Historical BOQ planning input summary">
+            <h4 className="font-semibold text-slate-800">BOQ planning inputs</h4>
+            <p className="text-slate-700">
+              {Array.isArray(selectedBill.items) ? selectedBill.items.length : 0} historical line items ·
+              Priced total R{formatNumber(selectedBill.overallTotal)}
+            </p>
+            {Array.isArray(selectedBill.items) && selectedBill.items.length > 0 && (
+              <p className="text-xs text-slate-600">
+                Recorded line-item value: R{formatNumber(selectedBill.items.reduce((sum: number, item: any) => sum + (Number(item.totalPrice) || 0), 0))}
+                {' · '}Difference from bill total: R{formatNumber(Number(selectedBill.overallTotal) - selectedBill.items.reduce((sum: number, item: any) => sum + (Number(item.totalPrice) || 0), 0))}
+              </p>
+            )}
+            <p className="mt-1 text-xs text-slate-600">Line-item totals are informational and may differ from the bill total because of allowances, adjustments or incomplete historical records.</p>
+          </div>
           <p role="status" className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
             BOQ-driven work-group allocation is not yet available for this historical bill: the history record does not contain verified pricing decisions and acceptance evidence. The programme below uses an editable illustrative allocation, not automatically approved BOQ groups.
           </p>
