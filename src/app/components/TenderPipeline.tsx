@@ -77,8 +77,10 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
   const setStage = async (id: string, stage: string) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { toast.error('Sign in to update a tender.'); return; }
-    const { error: failure } = await supabase.from('tender_opportunities').update({ stage }).eq('id', id).eq('owner_user_id', user.id);
+    const { data: updated, error: failure } = await supabase.from('tender_opportunities')
+      .update({ stage }).eq('id', id).eq('owner_user_id', user.id).select('id');
     if (failure) { toast.error(failure.message); return; }
+    if (!updated?.length) { toast.error('Tender not found or you do not have permission to update it.'); await load(); return; }
     await load();
   };
   const publishSupplierLead = async (opportunity: Opportunity) => {
