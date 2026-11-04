@@ -60,13 +60,16 @@ export function deriveBoqProgrammeGroups(items: RegionalPricedBillItem[]): {
 /** Historical BOQs lack per-line matching approval evidence. These are explicitly
  * provisional work groups for QS review, never accepted pricing decisions. */
 export function deriveHistoricalDraftGroups(items: Array<{
-  name?: string; description?: string; code?: string; totalPrice?: number | string;
+  name?: string; description?: string; code?: string; quantity?: number | string; unitPrice?: number | string; totalPrice?: number | string;
 }>): { groups: BoqProgrammeGroup[]; excludedCount: number; eligibleTotal: number } {
   const buckets = new Map<string, { value: number; codes: string[] }>();
   let excludedCount = 0;
   for (const item of items) {
     const amount = moneyValue(item.totalPrice);
-    if (amount === null || amount <= 0 || !String(item.name || item.description || '').trim()) {
+    const quantity = moneyValue(item.quantity);
+    const rate = moneyValue(item.unitPrice);
+    const consistent = quantity !== null && rate !== null && quantity > 0 && rate > 0 && amount !== null && Math.abs(quantity * rate - amount) <= Math.max(0.05, amount * 0.001);
+    if (!consistent || !String(item.name || item.description || '').trim()) {
       excludedCount++;
       continue;
     }
