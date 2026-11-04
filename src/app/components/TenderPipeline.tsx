@@ -29,8 +29,11 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
   const [leadSummary, setLeadSummary] = useState('');
   const [error, setError] = useState('');
   const load = useCallback(async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) { setRows([]); setError('Sign in to view your tenders.'); return; }
     const { data, error: failure } = await supabase.from('tender_opportunities')
       .select('id,customer_name,tender_title,tender_reference,stage,due_date,notes,linked_bill_id')
+      .eq('owner_user_id', user.id)
       .order('created_at', { ascending: false }).limit(100);
     if (failure) { setError('CRM database unavailable. Apply the tender_opportunities migration and verify access.'); return; }
     setError(''); setRows((data || []) as Opportunity[]);
@@ -48,6 +51,7 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
   const loadResponses = async (leadId: string) => {
     if (expandedLead === leadId) { setExpandedLead(null); return; }
     setResponseError('');
+    if (!publishedLeads.some(lead => lead.id === leadId)) { setResponseError('This lead is not in your published leads.'); return; }
     const { data, error: failure } = await supabase.from('supplier_lead_responses')
       .select('id,lead_id,message,created_at,supplier_id')
       .eq('lead_id',leadId).order('created_at',{ascending:false}).limit(100);
@@ -71,7 +75,9 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
     toast.success('Tender opportunity created'); await load();
   };
   const setStage = async (id: string, stage: string) => {
-    const { error: failure } = await supabase.from('tender_opportunities').update({ stage }).eq('id', id);
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) { toast.error('Sign in to update a tender.'); return; }
+    const { error: failure } = await supabase.from('tender_opportunities').update({ stage }).eq('id', id).eq('owner_user_id', user.id);
     if (failure) { toast.error(failure.message); return; }
     await load();
   };
@@ -93,7 +99,7 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
     setPublishBusy(null);
     if (failure) { toast.error(failure.message); return; }
     setPublishing(null); setLeadCategory(''); setLeadProvince(''); setLeadSummary('');
-    toast.success('Supplier lead published'); await loadPublishedLeads(); await loadPublishedLeads();
+    toast.success('Supplier lead published'); await loadPublishedLeads();
   };
   return <section className="space-y-5 rounded-xl border bg-white p-5">
     <div><h2 className="text-xl font-semibold text-slate-900">CRM &amp; Tender Pipeline</h2>
