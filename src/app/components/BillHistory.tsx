@@ -218,13 +218,14 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
         <CardHeader>
           <CardTitle>Bill History</CardTitle>
           <CardDescription>
-            {planningMode ? 'Select View on an eligible priced BOQ to open its planning scenario' : 'View and download previously processed bills'}
+            {planningMode ? 'Select a priced BOQ below to open its planning scenario. Only BOQs with a positive priced total are eligible.' : 'View and download previously processed bills'}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
+                {planningMode && <TableHead>Select BOQ</TableHead>}
                 <TableHead>Bill ID</TableHead>
                 <TableHead>Items</TableHead>
                 <TableHead>Total Amount</TableHead>
@@ -235,9 +236,16 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
             </TableHeader>
             <TableBody>
               {bills.map((bill) => (
-                <TableRow key={bill.id}>
+                <TableRow key={bill.id} className={planningMode && selectedBill?.id === bill.id ? 'bg-cyan-50' : ''}>
+                  {planningMode && <TableCell>
+                    <input type="radio" name="planning-bill" aria-label={`Select priced BOQ ${bill.projectName || bill.billNumber || bill.id}`}
+                      checked={selectedBill?.id === bill.id}
+                      disabled={!(Number(bill.overallTotal) > 0)}
+                      onChange={() => setSelectedBill(bill)} />
+                  </TableCell>}
                   <TableCell className="font-mono text-sm">
-                    {bill.id.replace(/^demo-/, '').substring(0, 8)}...
+                    <div>{String(bill.id).replace(/^demo-/, '').substring(0, 8)}...</div>
+                    {planningMode && <div className="font-sans text-xs text-slate-600">{bill.projectName || bill.billNumber || 'Unnamed BOQ'}</div>}
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
@@ -265,8 +273,9 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
                         variant="outline"
                         size="sm"
                         onClick={() => setSelectedBill(selectedBill?.id === bill.id ? null : bill)}
+                        disabled={Boolean(planningMode) && !(Number(bill.overallTotal) > 0)}
                       >
-                        {selectedBill?.id === bill.id ? 'Hide' : 'View'}
+                        {selectedBill?.id === bill.id ? 'Hide' : planningMode ? 'Select for planning' : 'View'}
                       </Button>
                       <Button
                         variant="outline"
