@@ -10,6 +10,7 @@ const stages = ['Lead', 'Qualified', 'BOQ Pricing', 'Submitted', 'Won', 'Lost'];
 export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOpportunityId }: {
   onStartPricing: () => void; onSelectOpportunity: (id: string | null) => void; selectedOpportunityId: string | null;
 }) {
+  const [workspace, setWorkspace] = useState<'crm' | 'tenders' | 'suppliers'>('tenders');
   const [rows, setRows] = useState<Opportunity[]>([]);
   const [publishedLeads, setPublishedLeads] = useState<PublishedLead[]>([]);
   const [leadListError, setLeadListError] = useState('');
@@ -95,17 +96,25 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
     toast.success('Supplier lead published'); await loadPublishedLeads(); await loadPublishedLeads();
   };
   return <section className="space-y-5 rounded-xl border bg-white p-5">
-    <div><h2 className="text-xl font-semibold">CRM &amp; Tender Pipeline</h2>
-      <p className="text-sm text-gray-600">Track customer opportunities and start pricing from the selected tender.</p></div>
+    <div><h2 className="text-xl font-semibold text-slate-900">CRM &amp; Tender Pipeline</h2>
+      <p className="text-sm text-gray-600">Connected opportunities, tender pricing and supplier leads.</p></div>
+    <nav aria-label="CRM and tender workspace" className="flex flex-wrap gap-2 border-b pb-3">
+      {([
+        ['crm','CRM Opportunities'],['tenders','Tender Pipeline'],['suppliers','Supplier Leads']
+      ] as const).map(([key,label]) => (
+        <button key={key} type="button" onClick={() => setWorkspace(key)} aria-current={workspace===key?'page':undefined}
+          className={`rounded-lg border px-3 py-2 text-sm font-medium ${workspace===key?'border-[#0077b6] bg-cyan-50 text-[#0077b6]':'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>{label}</button>
+      ))}
+    </nav>
     {error && <p role="alert" className="rounded bg-amber-50 p-3 text-sm text-amber-800">{error}</p>}
-    <form onSubmit={create} className="grid gap-3 md:grid-cols-5">
+    {workspace !== 'suppliers' && <form onSubmit={create} className="grid gap-3 md:grid-cols-5">
       <input aria-label="Customer name" required placeholder="Customer name" className="border rounded p-2" value={customer} onChange={e=>setCustomer(e.target.value)} />
       <input aria-label="Tender title" required placeholder="Tender title" className="border rounded p-2" value={title} onChange={e=>setTitle(e.target.value)} />
       <input aria-label="Tender reference" placeholder="Tender reference" className="border rounded p-2" value={reference} onChange={e=>setReference(e.target.value)} />
       <input aria-label="Submission deadline" type="date" className="border rounded p-2" value={due} onChange={e=>setDue(e.target.value)} />
       <button type="submit" disabled={busy} className="rounded bg-cyan-700 text-white px-3 py-2 disabled:opacity-50">Add opportunity</button>
-    </form>
-    <div className="overflow-x-auto"><table className="w-full min-w-[650px] text-sm">
+    </form>}
+    {workspace !== 'suppliers' && <div className="overflow-x-auto"><table className="w-full min-w-[650px] text-sm">
       <thead><tr className="border-b text-left"><th className="p-2">Customer</th><th className="p-2">Tender</th><th className="p-2">Deadline</th><th className="p-2">Stage</th><th className="p-2">Action</th></tr></thead>
       <tbody>{rows.map(row=><tr key={row.id} className={row.id === selectedOpportunityId ? 'border-b bg-cyan-50' : 'border-b'}>
         <td className="p-2">{row.customer_name}</td>
@@ -123,9 +132,9 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
           </div>}
         </td>
       </tr>)}</tbody>
-    </table></div>
-    {rows.length === 0 && !error && <p className="text-sm text-gray-500">No opportunities yet.</p>}
-    <section aria-label="Published supplier leads" className="space-y-3 border-t pt-5">
+    </table></div>}
+    {workspace !== 'suppliers' && rows.length === 0 && !error && <p className="text-sm text-gray-500">No opportunities yet.</p>}
+    {workspace === 'suppliers' && <section aria-label="Published supplier leads" className="space-y-3 border-t pt-5">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div><h3 className="font-semibold">Published Supplier Leads</h3>
           <p className="text-sm text-gray-600">Your supplier-facing opportunities and supplier responses.</p></div>
@@ -151,7 +160,7 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
           <p className="mt-1 text-xs text-gray-500">Supplier reference: {response.supplier_id.slice(0,8)} · {new Date(response.created_at).toLocaleString()}</p>
         </article>)}
       </div>}
-    </section>
+    </section>}
 
   </section>;
 }
