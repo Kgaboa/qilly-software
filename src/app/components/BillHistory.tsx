@@ -25,6 +25,8 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
   const [programmeLevel, setProgrammeLevel] = useState<'high' | 'detailed'>('high');
   const [historyFilter, setHistoryFilter] = useState('');
 
+  const historicalDraft = selectedBill ? deriveHistoricalDraftGroups(selectedBill.items || []) : null;
+
   const formatNumber = (value: string | number) => {
     const num = typeof value === 'string' ? parseFloat(value) : value;
     if (isNaN(num)) return '0';
@@ -357,12 +359,12 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
           </label>
           <p className="text-xs text-slate-600">Duration is configurable from 1 to 36 months. Where available, the original duration is loaded from the selected BOQ project settings.</p>
           <p role="status" className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
-            Historical BOQ work packages are provisional groupings of positive-value line items. Pricing approval evidence and activity sequencing are not available in this history record. Review each work package and confirm its value, timing and dependencies before approving a baseline.
+            Historical BOQ work packages are provisional groupings of line items with positive, reconciled quantity × rate totals. Pricing approval evidence and activity sequencing are not available in this history record. Review each work package and confirm its value, timing and dependencies before approving a baseline.
           </p>
           <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths + '-' + programmeLevel} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} programmeLevel={programmeLevel}
-            boqGroups={deriveHistoricalDraftGroups(selectedBill.items || []).groups}
-            eligibleValue={deriveHistoricalDraftGroups(selectedBill.items || []).eligibleTotal}
-            excludedCount={deriveHistoricalDraftGroups(selectedBill.items || []).excludedCount} />
+            boqGroups={historicalDraft?.groups || []}
+            eligibleValue={historicalDraft?.eligibleTotal || 0}
+            excludedCount={historicalDraft?.excludedCount || 0} />
         </section>
       )}
       {planningMode && selectedBill && !(Number(selectedBill.overallTotal) > 0) && (
