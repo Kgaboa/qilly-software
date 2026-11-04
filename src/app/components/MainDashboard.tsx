@@ -1,3 +1,4 @@
+import { TenderIntelligenceOverview } from './TenderIntelligenceOverview';
 import { SupplierLeads } from './SupplierLeads';
 import { TenderPipeline } from './TenderPipeline';
 import { FlexibleBoqImport } from './FlexibleBoqImport';
@@ -1005,6 +1006,11 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
           />}
           {currentPage === 'dashboard' && (
             <>
+              {currentView !== 'history' && currentView !== 'result' && <TenderIntelligenceOverview
+                onOpenTenders={() => setCurrentPage('tender-pipeline')}
+                onOpenPricing={() => { setCurrentPage('dashboard'); setCurrentView('import-hub'); }}
+                onOpenLeads={() => setCurrentPage('supplier-leads')}
+              />}
               {!contractorData && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                   <Card>
