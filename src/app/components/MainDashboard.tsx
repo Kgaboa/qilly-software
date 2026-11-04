@@ -971,9 +971,10 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
           </div>
         </header>
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
           {/* Customer prototype navigation, styled with Qilly's existing cyan/blue skin. */}
           {sessionStorage.getItem('user_type') !== 'supplier' && (
-            <aside aria-label="Qilly expansion modules" className="mb-6 rounded-xl border border-cyan-100 bg-gradient-to-b from-cyan-50 to-white p-4 shadow-sm lg:sticky lg:top-24 lg:float-left lg:mr-6 lg:w-60 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
+            <aside aria-label="Qilly expansion modules" className="mb-6 rounded-xl border border-cyan-100 bg-gradient-to-b from-cyan-50 to-white p-4 shadow-sm lg:sticky lg:top-24 lg:w-60 shrink-0 w-full lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
               <div className="mb-4 border-b border-cyan-100 pb-3">
                 <p className="text-lg font-extrabold tracking-wide text-[#0077b6]">QILLY</p>
                 <p className="text-xs font-medium text-slate-600">Tender intelligence workspace</p>
@@ -995,7 +996,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
               <p className="mt-4 border-t border-cyan-100 pt-3 text-xs text-slate-600">Programme and cashflow open through eligible priced BOQs. Existing access rules apply.</p>
             </aside>
           )}
-          <div className="min-w-0 lg:overflow-hidden">
+          <div className="min-w-0 flex-1">
           {currentPage === 'supplier-leads' && <SupplierLeads />}
           {currentPage === 'tender-pipeline' && <TenderPipeline
             selectedOpportunityId={selectedTenderId}
@@ -1239,6 +1240,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
           {currentPage === 'provincial-pricing' && (<ProvincialPricingPage contractorData={contractorData} />)}
           {currentPage === 'enhanced-matching' && (<EnhancedMatchingDemo contractorData={contractorData} />)}
                   </div>
+          </div>
 </main>
         <footer className="bg-white border-t border-gray-200 mt-auto">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
