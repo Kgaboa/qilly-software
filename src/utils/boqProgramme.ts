@@ -36,8 +36,8 @@ export function deriveBoqProgrammeGroups(items: RegionalPricedBillItem[]): {
     const amount = moneyValue(item.totalPrice);
     const status = item.pricingRequirement;
     const decision = item.matchingDecision;
-    const reviewed = status && status !== 'PRICED';
-    const decisionReview = decision && decision.reviewStatus && decision.reviewStatus !== 'ACCEPTED';
+    const reviewed = status !== 'PRICED';
+    const decisionReview = !decision || decision.reviewStatus !== 'ACCEPTED';
     if (item.rowType === 'heading' || item.rowType === 'subheading' ||
       reviewed || decisionReview || amount === null || amount <= 0) {
       excludedCount++; continue;

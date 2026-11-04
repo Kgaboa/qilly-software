@@ -1,6 +1,7 @@
 import type { BoqProgrammeGroup } from '../../utils/boqProgramme';
 import React, { useMemo, useState } from 'react';
 import { validateProgrammeDependencies, type ProgrammeActivity } from '../../utils/programmeDependencies';
+import { calculateProgrammeCashflow } from '../../utils/programmeCashflow';
 
 type Activity = ProgrammeActivity;
 type Props = { projectValue: number; durationMonths: number; isMasked?: boolean; boqGroups?: BoqProgrammeGroup[]; eligibleValue?: number; excludedCount?: number };
@@ -26,18 +27,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, isMasked = fal
     activities.every(a => a.name.trim() && Number.isInteger(a.start) && Number.isInteger(a.duration) &&
       a.start >= 1 && a.duration >= 1 && a.start + a.duration - 1 <= baselineMonths &&
       Number.isFinite(a.share) && a.share >= 0) && Math.abs(totalShare - 100) < 0.001;
-  const series = useMemo(() => {
-    if (!valid) return [];
-    let cumulative = 0;
-    return Array.from({ length: baselineMonths }, (_, index) => {
-      const month = index + 1;
-      const planned = activities.reduce((sum, a) =>
-        month >= a.start && month < a.start + a.duration
-          ? sum + (scenarioValue * a.share / 100 / a.duration) : sum, 0);
-      cumulative += planned;
-      return { month, planned, cumulative };
-    });
-  }, [valid, baselineMonths, activities, scenarioValue]);
+  const series = useMemo(() => calculateProgrammeCashflow(activities, baselineMonths, scenarioValue), [activities, baselineMonths, scenarioValue]);
   const applyBoqGroups = () => {
     if (!boqGroups.length || eligibleValue <= 0) return;
     setScenarioValue(eligibleValue);
@@ -75,7 +65,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, isMasked = fal
           BOQ work packages are a draft for QS review. {money(eligibleValue)} of {money(projectValue)} is eligible;
           any difference is not allocated. Generation starts all packages in month 1 and requires manual sequencing.
         </p>}
-        <p className="text-xs text-amber-800">Illustrative allocations only. No BOQ-to-activity mapping, actual progress, dependencies or approved baseline is implied.</p>
+        <p className="text-xs text-amber-800">Illustrative allocations only. BOQ categories are proposed work packages, not approved activity mappings. No actual progress or approved baseline is implied.</p>
         <div className="overflow-x-auto"><table className="w-full min-w-[640px] text-sm">
           <thead><tr className="border-b text-left"><th className="p-2">Activity</th><th className="p-2">Start month</th><th className="p-2">Duration</th><th className="p-2">Allocation %</th><th className="p-2">Predecessor</th><th className="p-2">Programme</th></tr></thead>
           <tbody>{activities.map(a => <tr key={a.id} className="border-b">
