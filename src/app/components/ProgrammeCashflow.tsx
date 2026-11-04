@@ -46,7 +46,10 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
   const chartW = 800, chartH = 300, left = 104, right = 32, top = 24, bottom = 64;
   const plotW = chartW - left - right, plotH = chartH - top - bottom;
   const ticks = [0, 0.25, 0.5, 0.75, 1];
-  const monthTicks = Array.from(new Set([1, baselineMonths, ...Array.from({ length: Math.min(6, baselineMonths) }, (_, i) => Math.max(1, Math.round(1 + i * (baselineMonths - 1) / Math.max(1, Math.min(6, baselineMonths) - 1)))] )).sort((a, b) => a - b);
+  const tickCount = Math.min(6, baselineMonths);
+  const monthTicks = Array.from({ length: tickCount }, (_, i) =>
+    Math.max(1, Math.round(1 + i * (baselineMonths - 1) / Math.max(1, tickCount - 1)))
+  );
   const points = series.map(p => `${left + (p.month - 1) * plotW / Math.max(1, baselineMonths - 1)},${top + plotH * (1 - p.cumulative / Math.max(1, scenarioValue))}`).join(' ');
   return (
     <section className="mt-5 rounded-xl border border-cyan-200 bg-white p-4 space-y-4">
