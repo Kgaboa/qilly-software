@@ -28,4 +28,26 @@ describe('interpreted BOQ preview approval gates', () => {
     expect(getApprovalBlockers({...valid,ocrReviewRequired:true})).toHaveLength(1);
     expect(getApprovalBlockers({...valid,ocrReviewRequired:true,ocrReviewed:true})).toEqual([]);
   });
+  it('requires all independent review gates simultaneously', () => {
+    const input = {
+      ...valid, unmatchedCount: 2, unmatchedReviewed: false,
+      ocrReviewRequired: true, ocrReviewed: false, acknowledged: false
+    };
+    expect(getApprovalBlockers(input)).toHaveLength(3);
+    expect(getApprovalBlockers({...input, acknowledged:true, unmatchedReviewed:true})).toHaveLength(1);
+    expect(getApprovalBlockers({...input, acknowledged:true, unmatchedReviewed:true, ocrReviewed:true})).toEqual([]);
+  });
+  it('does not allow acknowledgements to override extraction or validation failures', () => {
+    const input = {...valid, importBlocked:true, lineCount:0, issueCount:4,
+      unmatchedCount:2, unmatchedReviewed:true, ocrReviewRequired:true, ocrReviewed:true};
+    expect(getApprovalBlockers(input)).toHaveLength(3);
+  });
+  it('reports a useful blocker for each independent invalid condition', () => {
+    const input = {...valid, importBlocked:true, lineCount:0, issueCount:1,
+      acknowledged:false, unmatchedCount:1, unmatchedReviewed:false,
+      ocrReviewRequired:true, ocrReviewed:false};
+    const blockers = getApprovalBlockers(input);
+    expect(blockers).toHaveLength(6);
+    expect(new Set(blockers).size).toBe(6);
+  });
 });
