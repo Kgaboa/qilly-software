@@ -45,6 +45,7 @@ const ALL_PROVINCES = [
 export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainDashboardProps) {
   const [user, setUser] = useState<any>(null);
   const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq' | 'import-hub' | 'flexible-import'>('import-hub');
+  const [planningDestination, setPlanningDestination] = useState<'programme' | 'cashflow' | null>(null);
   const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck' | 'tender-pipeline' | 'supplier-leads'>('dashboard');
   const [processedBill, setProcessedBill] = useState<any>(null);
   const [selectedTenderId, setSelectedTenderId] = useState<string | null>(null);
@@ -981,8 +982,8 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                 {([
                   { label: 'Executive Dashboard', active: currentPage === 'dashboard' && currentView !== 'history' && currentView !== 'import-hub', action: () => handlePageChange('dashboard') },
                   { label: 'BOQ Pricing', active: currentPage === 'dashboard' && currentView === 'import-hub', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) setCurrentView('import-hub'); } },
-                  { label: 'Programme of Works', active: currentPage === 'dashboard' && currentView === 'history', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) handleViewHistory(); } },
-                  { label: 'Cash Flow & S-Curve', active: currentPage === 'dashboard' && currentView === 'history', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) handleViewHistory(); } },
+                  { label: 'Programme of Works', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'programme', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) { setPlanningDestination('programme'); handleViewHistory(); } } },
+                  { label: 'Cash Flow & S-Curve', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'cashflow', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) { setPlanningDestination('cashflow'); handleViewHistory(); } } },
                   { label: 'Tender CRM', active: currentPage === 'tender-pipeline', action: () => handlePageChange('tender-pipeline') },
                 ]).map(item => (
                   <button key={item.label} type="button" onClick={item.action} aria-current={item.active ? 'page' : undefined}
@@ -1223,7 +1224,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
               )}
               {currentView === 'template-library' && (<BoqTemplateLibrary contractorProjectTypes={contractorData?.project_types || ['Road Construction', 'Housing Development', 'Infrastructure (Water/Sewer)', 'Civil Works', 'Bridges & Structures', 'Building Construction']} onTemplateSelect={handleTemplateSelect} onManualEntry={handleManualEntry} onBack={handleBackToUpload} canUploadBOQ={canUploadBOQ} contractorTier={contractorTier} />)}
               {currentView === 'result' && processedBill && (<RegionalPricedBillView bill={processedBill} contractorData={contractorData} processingTime={processedBill.processingTime} sanralWorkbook={sanralWorkbook} onBack={handleBackToUpload} />)}
-              {currentView === 'history' && (<BillHistory accessToken={accessToken} />)}
+              {currentView === 'history' && (<section aria-label="BOQ planning workspace" className="space-y-4">{planningDestination && <header className="rounded-xl border border-cyan-100 bg-cyan-50 p-4"><h2 className="text-xl font-semibold text-[#0077b6]">{planningDestination === 'programme' ? 'Programme of Works' : 'Cash Flow & S-Curve'}</h2><p className="mt-1 text-sm text-slate-600">Select an eligible priced BOQ below to open its connected planning and cashflow tools. Forecasts remain illustrative until reviewed and approved.</p></header>}<BillHistory accessToken={accessToken} /></section>)}
               {currentView === 'team-management' && contractorData && (
                 <TeamManagement
                   contractorEmail={contractorData.email || user?.email || ''}
