@@ -698,7 +698,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
     setCurrentView('template-library');
   };
 
-  const handlePageChange = (page: 'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck') => {
+  const handlePageChange = (page: 'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck' | 'tender-pipeline' | 'supplier-leads') => {
     setCurrentPage(page);
     if (page === 'dashboard') {
       // ✅ FIX: FREE tier contractors should see template library, not upload
@@ -976,8 +976,8 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
               <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Tender to bid decision</p>
               <div className="flex flex-wrap gap-2">
                 <button type="button" onClick={() => handlePageChange('tender-pipeline')} aria-current={currentPage === 'tender-pipeline' ? 'page' : undefined} className={`rounded-lg border px-3 py-2 text-sm font-medium ${currentPage === 'tender-pipeline' ? 'border-cyan-600 bg-cyan-50 text-cyan-900' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>CRM &amp; Tenders</button>
-                <button type="button" onClick={() => { handlePageChange('dashboard'); setCurrentView('import-hub'); }} aria-current={currentPage === 'dashboard' && currentView === 'import-hub' ? 'page' : undefined} className={`rounded-lg border px-3 py-2 text-sm font-medium ${currentPage === 'dashboard' && currentView === 'import-hub' ? 'border-cyan-600 bg-cyan-50 text-cyan-900' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>BOQ &amp; Pricing</button>
-                <button type="button" onClick={() => { handlePageChange('dashboard'); handleViewHistory(); }} aria-current={currentPage === 'dashboard' && currentView === 'history' ? 'page' : undefined} className={`rounded-lg border px-3 py-2 text-sm font-medium ${currentPage === 'dashboard' && currentView === 'history' ? 'border-cyan-600 bg-cyan-50 text-cyan-900' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>Programme &amp; S-Curve</button>
+                <button type="button" onClick={() => { handlePageChange('dashboard'); if (canUploadBOQ) setCurrentView('import-hub'); }} aria-current={currentPage === 'dashboard' && currentView === 'import-hub' ? 'page' : undefined} className={`rounded-lg border px-3 py-2 text-sm font-medium ${currentPage === 'dashboard' && currentView === 'import-hub' ? 'border-cyan-600 bg-cyan-50 text-cyan-900' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>BOQ &amp; Pricing</button>
+                <button type="button" onClick={() => { handlePageChange('dashboard'); if (canUploadBOQ) handleViewHistory(); }} aria-current={currentPage === 'dashboard' && currentView === 'history' ? 'page' : undefined} className={`rounded-lg border px-3 py-2 text-sm font-medium ${currentPage === 'dashboard' && currentView === 'history' ? 'border-cyan-600 bg-cyan-50 text-cyan-900' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>Programme &amp; S-Curve</button>
               </div>
               <p className="mt-2 text-xs text-slate-500">Programme and S-Curve are available from an eligible priced BOQ in history. Existing permissions and tender context remain in effect.</p>
             </nav>
