@@ -22,6 +22,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
   const [selectedBill, setSelectedBill] = useState<any>(null);
   const [planningMonths, setPlanningMonths] = useState(12);
   const [programmeLevel, setProgrammeLevel] = useState<'high' | 'detailed'>('high');
+  const [historyFilter, setHistoryFilter] = useState('');
 
   const formatNumber = (value: string | number) => {
     const num = typeof value === 'string' ? parseFloat(value) : value;
@@ -208,17 +209,30 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
     );
   }
 
+  const filteredBills = bills.filter(bill => !historyFilter || [bill.projectName, bill.billNumber, bill.id, bill.status].some(value => String(value || '').toLowerCase().includes(historyFilter.toLowerCase())));
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <Card>
         <CardHeader>
-          <CardTitle>Bill History</CardTitle>
+          <CardTitle>{planningMode ? 'Select historical priced BOQ' : 'Bill History'}</CardTitle>
           <CardDescription>
             {planningMode ? 'Select a priced BOQ below to open its planning scenario. Only BOQs with a positive priced total are eligible.' : 'View and download previously processed bills'}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Table>
+          {planningMode && <div className="mb-3 flex flex-wrap items-center gap-3 rounded-lg bg-slate-50 p-3">
+            <label htmlFor="historical-boq-picker" className="text-sm font-medium">Priced BOQ</label>
+            <select id="historical-boq-picker" aria-label="Historical priced BOQ" className="min-w-0 flex-1 rounded border border-slate-300 bg-white p-2 text-sm"
+              value={selectedBill?.id || ''} onChange={event => setSelectedBill(bills.find(b => b.id === event.target.value) || null)}>
+              <option value="">Choose a historical priced BOQ</option>
+              {bills.filter(b => Number(b.overallTotal) > 0).map(b => <option key={b.id} value={b.id}>{b.projectName || b.billNumber || b.id} — R{formatNumber(b.overallTotal)}</option>)}
+            </select>
+            <input aria-label="Filter historical BOQs" value={historyFilter} onChange={event => setHistoryFilter(event.target.value)} placeholder="Filter by project, ID or status" className="w-full rounded border border-slate-300 bg-white p-2 text-sm sm:w-60" />
+          </div>}
+          <details open={!planningMode} className="rounded-lg border border-slate-200">
+            <summary className="cursor-pointer px-3 py-2 text-sm font-medium text-slate-700">{planningMode ? `Browse historical BOQ records (${filteredBills.length})` : `All historical BOQs (${filteredBills.length})`}</summary>
+          <div className="max-h-72 overflow-auto"><Table>
             <TableHeader>
               <TableRow>
                 {planningMode && <TableHead>Select BOQ</TableHead>}
@@ -231,7 +245,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
               </TableRow>
             </TableHeader>
             <TableBody>
-              {bills.map((bill) => (
+              {filteredBills.map((bill) => (
                 <TableRow key={bill.id} className={planningMode && selectedBill?.id === bill.id ? 'bg-cyan-50' : ''}>
                   {planningMode && <TableCell>
                     <input type="radio" name="planning-bill" aria-label={`Select priced BOQ ${bill.projectName || bill.billNumber || bill.id}`}
@@ -292,7 +306,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
                 </TableRow>
               ))}
             </TableBody>
-          </Table>
+          </Table></div></details>
         </CardContent>
       </Card>
 
