@@ -1,7 +1,7 @@
 import type { BoqProgrammeGroup } from '../../utils/boqProgramme';
 import React, { useMemo, useState } from 'react';
 
-type Activity = { id: number; name: string; start: number; duration: number; share: number };
+type Activity = { id: number; name: string; start: number; duration: number; share: number; predecessorId?: number | null };
 type Props = { projectValue: number; durationMonths: number; isMasked?: boolean; boqGroups?: BoqProgrammeGroup[]; eligibleValue?: number; excludedCount?: number };
 const money = (n: number) => 'R ' + n.toLocaleString('en-ZA', { maximumFractionDigits: 2, minimumFractionDigits: 2 });
 const initial = (months: number): Activity[] => [
@@ -19,8 +19,13 @@ export function ProgrammeCashflow({ projectValue, durationMonths, isMasked = fal
   const [scenarioValue, setScenarioValue] = useState(projectValue);
   const change = (id: number, field: keyof Activity, value: string) =>
     setActivities(current => current.map(a => a.id === id ? { ...a, [field]: field === 'name' ? value : Number(value) } : a));
+  const dependenciesValid = activities.every(a => {
+    if (a.predecessorId == null) return true;
+    const predecessor = activities.find(p => p.id === a.predecessorId);
+    return !!predecessor && predecessor.id !== a.id && a.start > predecessor.start + predecessor.duration - 1;
+  });
   const totalShare = activities.reduce((sum, a) => sum + (Number.isFinite(a.share) ? a.share : 0), 0);
-  const valid = scenarioValue > 0 && Number.isFinite(scenarioValue) && activities.length > 0 &&
+  const valid = dependenciesValid && scenarioValue > 0 && Number.isFinite(scenarioValue) && activities.length > 0 &&
     activities.every(a => a.name.trim() && Number.isInteger(a.start) && Number.isInteger(a.duration) &&
       a.start >= 1 && a.duration >= 1 && a.start + a.duration - 1 <= baselineMonths &&
       Number.isFinite(a.share) && a.share >= 0) && Math.abs(totalShare - 100) < 0.001;
@@ -40,7 +45,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, isMasked = fal
     if (!boqGroups.length || eligibleValue <= 0) return;
     setScenarioValue(eligibleValue);
     setActivities(boqGroups.map((g, i) => ({
-      id: i + 1, name: g.name, start: 1, duration: baselineMonths, share: g.share
+      id: i + 1, name: g.name, start: 1, duration: baselineMonths, share: g.share, predecessorId: null
     })));
     setIncludeProgramme(true);
   };
@@ -75,14 +80,16 @@ export function ProgrammeCashflow({ projectValue, durationMonths, isMasked = fal
         </p>}
         <p className="text-xs text-amber-800">Illustrative allocations only. No BOQ-to-activity mapping, actual progress, dependencies or approved baseline is implied.</p>
         <div className="overflow-x-auto"><table className="w-full min-w-[640px] text-sm">
-          <thead><tr className="border-b text-left"><th className="p-2">Activity</th><th className="p-2">Start month</th><th className="p-2">Duration</th><th className="p-2">Allocation %</th><th className="p-2">Programme</th></tr></thead>
+          <thead><tr className="border-b text-left"><th className="p-2">Activity</th><th className="p-2">Start month</th><th className="p-2">Duration</th><th className="p-2">Allocation %</th><th className="p-2">Predecessor</th><th className="p-2">Programme</th></tr></thead>
           <tbody>{activities.map(a => <tr key={a.id} className="border-b">
             <td className="p-2"><input aria-label="Activity" className="w-52 border rounded p-1" value={a.name} onChange={e => change(a.id, 'name', e.target.value)} /></td>
             <td className="p-2"><input aria-label="Start month" type="number" min="1" max={baselineMonths} className="w-16 border rounded p-1" value={a.start} onChange={e => change(a.id, 'start', e.target.value)} /></td>
             <td className="p-2"><input aria-label="Duration months" type="number" min="1" max={baselineMonths} className="w-16 border rounded p-1" value={a.duration} onChange={e => change(a.id, 'duration', e.target.value)} /></td>
             <td className="p-2"><input aria-label="Cost allocation percent" type="number" min="0" max="100" step="0.1" className="w-20 border rounded p-1" value={a.share} onChange={e => change(a.id, 'share', e.target.value)} /></td>
+            <td className="p-2"><select aria-label="Predecessor activity" className="border rounded p-1" value={a.predecessorId ?? ''} onChange={e => setActivities(current => current.map(item => item.id === a.id ? {...item, predecessorId: e.target.value === '' ? null : Number(e.target.value)} : item))}><option value="">None</option>{activities.filter(p => p.id !== a.id).map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select></td>
             <td className="p-2"><div className="flex min-w-40 h-5 bg-gray-100 rounded overflow-hidden">{Array.from({length:baselineMonths}, (_,i) => <div key={i} className={i+1>=a.start && i+1<a.start+a.duration ? 'bg-cyan-500 border-r border-white/40' : 'border-r border-gray-200'} style={{width:`${100/baselineMonths}%`}} />)}</div></td>
           </tr>)}</tbody></table></div>
+        {!dependenciesValid && <p role="alert" className="text-sm text-red-700">Invalid dependency: successor must start after predecessor finishes.</p>}
         {!valid ? <p role="alert" className="text-sm text-red-700">Review activities: months must fit within the project duration and allocations must total exactly 100% (currently {totalShare.toFixed(1)}%).</p> : <>
           <h4 className="font-medium">Planned cumulative expenditure (S-Curve)</h4>
           <svg viewBox={`0 0 ${chartW} ${chartH}`} role="img" aria-label="Planned cumulative expenditure S-Curve" className="w-full max-w-3xl">
