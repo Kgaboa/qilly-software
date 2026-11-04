@@ -970,6 +970,18 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
           </div>
         </header>
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Prototype-aligned tender-to-bid navigation; reuse existing secured workflows. */}
+          {sessionStorage.getItem('user_type') !== 'supplier' && (
+            <nav aria-label="Qilly tender-to-bid workflow" className="mb-6 rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Tender to bid decision</p>
+              <div className="flex flex-wrap gap-2">
+                <button type="button" onClick={() => handlePageChange('tender-pipeline')} aria-current={currentPage === 'tender-pipeline' ? 'page' : undefined} className={`rounded-lg border px-3 py-2 text-sm font-medium ${currentPage === 'tender-pipeline' ? 'border-cyan-600 bg-cyan-50 text-cyan-900' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>CRM &amp; Tenders</button>
+                <button type="button" onClick={() => { handlePageChange('dashboard'); setCurrentView('import-hub'); }} aria-current={currentPage === 'dashboard' && currentView === 'import-hub' ? 'page' : undefined} className={`rounded-lg border px-3 py-2 text-sm font-medium ${currentPage === 'dashboard' && currentView === 'import-hub' ? 'border-cyan-600 bg-cyan-50 text-cyan-900' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>BOQ &amp; Pricing</button>
+                <button type="button" onClick={() => { handlePageChange('dashboard'); handleViewHistory(); }} aria-current={currentPage === 'dashboard' && currentView === 'history' ? 'page' : undefined} className={`rounded-lg border px-3 py-2 text-sm font-medium ${currentPage === 'dashboard' && currentView === 'history' ? 'border-cyan-600 bg-cyan-50 text-cyan-900' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>Programme &amp; S-Curve</button>
+              </div>
+              <p className="mt-2 text-xs text-slate-500">Programme and S-Curve are available from an eligible priced BOQ in history. Existing permissions and tender context remain in effect.</p>
+            </nav>
+          )}
           {currentPage === 'supplier-leads' && <SupplierLeads />}
           {currentPage === 'tender-pipeline' && <TenderPipeline
             selectedOpportunityId={selectedTenderId}
