@@ -1,7 +1,8 @@
 import type { BoqProgrammeGroup } from '../../utils/boqProgramme';
 import React, { useMemo, useState } from 'react';
+import { validateProgrammeDependencies, type ProgrammeActivity } from '../../utils/programmeDependencies';
 
-type Activity = { id: number; name: string; start: number; duration: number; share: number; predecessorId?: number | null };
+type Activity = ProgrammeActivity;
 type Props = { projectValue: number; durationMonths: number; isMasked?: boolean; boqGroups?: BoqProgrammeGroup[]; eligibleValue?: number; excludedCount?: number };
 const money = (n: number) => 'R ' + n.toLocaleString('en-ZA', { maximumFractionDigits: 2, minimumFractionDigits: 2 });
 const initial = (months: number): Activity[] => [
@@ -19,11 +20,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, isMasked = fal
   const [scenarioValue, setScenarioValue] = useState(projectValue);
   const change = (id: number, field: keyof Activity, value: string) =>
     setActivities(current => current.map(a => a.id === id ? { ...a, [field]: field === 'name' ? value : Number(value) } : a));
-  const dependenciesValid = activities.every(a => {
-    if (a.predecessorId == null) return true;
-    const predecessor = activities.find(p => p.id === a.predecessorId);
-    return !!predecessor && predecessor.id !== a.id && a.start > predecessor.start + predecessor.duration - 1;
-  });
+  const dependenciesValid = validateProgrammeDependencies(activities);
   const totalShare = activities.reduce((sum, a) => sum + (Number.isFinite(a.share) ? a.share : 0), 0);
   const valid = dependenciesValid && scenarioValue > 0 && Number.isFinite(scenarioValue) && activities.length > 0 &&
     activities.every(a => a.name.trim() && Number.isInteger(a.start) && Number.isInteger(a.duration) &&
