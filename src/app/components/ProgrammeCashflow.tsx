@@ -4,7 +4,7 @@ import { validateProgrammeDependencies, type ProgrammeActivity } from '../../uti
 import { calculateProgrammeCashflow } from '../../utils/programmeCashflow';
 
 type Activity = ProgrammeActivity;
-type Props = { projectValue: number; durationMonths: number; isMasked?: boolean; boqGroups?: BoqProgrammeGroup[]; eligibleValue?: number; excludedCount?: number };
+type Props = { projectValue: number; durationMonths: number; programmeLevel?: 'high' | 'detailed'; isMasked?: boolean; boqGroups?: BoqProgrammeGroup[]; eligibleValue?: number; excludedCount?: number };
 const money = (n: number) => 'R ' + n.toLocaleString('en-ZA', { maximumFractionDigits: 2, minimumFractionDigits: 2 });
 const initial = (months: number): Activity[] => [
   { id: 1, name: 'Mobilisation and preliminaries', start: 1, duration: Math.max(1, Math.ceil(months * 0.2)), share: 10 },
@@ -13,9 +13,15 @@ const initial = (months: number): Activity[] => [
 ];
 
 /** Illustrative programme/cashflow scenario, not a contractual baseline or a BOQ-derived activity schedule. */
-export function ProgrammeCashflow({ projectValue, durationMonths, isMasked = false, boqGroups = [], eligibleValue = 0, excludedCount = 0 }: Props) {
+export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel = 'high', isMasked = false, boqGroups = [], eligibleValue = 0, excludedCount = 0 }: Props) {
   const months = Math.max(1, Math.min(36, Math.round(Number(durationMonths) || 6)));
-  const [activities, setActivities] = useState<Activity[]>(() => initial(months));
+  const [activities, setActivities] = useState<Activity[]>(() => programmeLevel === 'detailed' ? [
+    { id: 1, name: 'Mobilisation and preliminaries', start: 1, duration: Math.max(1, Math.ceil(months * 0.15)), share: 10 },
+    { id: 2, name: 'Site preparation and earthworks', start: 1, duration: Math.max(1, Math.ceil(months * 0.3)), share: 20 },
+    { id: 3, name: 'Primary construction activities', start: Math.max(1, Math.floor(months * 0.2)), duration: Math.max(1, months - Math.floor(months * 0.2)), share: 45 },
+    { id: 4, name: 'Finishing and surfacing', start: Math.max(1, Math.floor(months * 0.6)), duration: Math.max(1, months - Math.floor(months * 0.6)), share: 15 },
+    { id: 5, name: 'Testing and handover', start: months, duration: 1, share: 10 },
+  ] : initial(months));
   const [includeProgramme, setIncludeProgramme] = useState(false);
   const [baselineMonths, setBaselineMonths] = useState(months);
   const [scenarioValue, setScenarioValue] = useState(projectValue);
@@ -44,7 +50,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, isMasked = fal
     <section className="mt-5 rounded-xl border border-cyan-200 bg-white p-4 space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div><h3 className="text-lg font-semibold">Programme of Works &amp; S-Curve</h3>
-          <p className="text-sm text-gray-600">Planning scenario based on the priced BOQ total. Edit activities and allocations before using this forecast.</p></div>
+          <p className="text-sm text-gray-600">{programmeLevel === 'detailed' ? 'Detailed illustrative activity breakdown' : 'High-level illustrative activity breakdown'} based on the priced BOQ total. Edit activities and allocations before using this forecast.</p></div>
         <button type="button" className="rounded border px-3 py-2 text-sm" onClick={() => setIncludeProgramme(v => !v)}>
           {includeProgramme ? 'Hide planning scenario' : 'Open planning scenario'}
         </button>
