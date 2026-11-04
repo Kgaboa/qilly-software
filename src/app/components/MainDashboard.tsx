@@ -45,6 +45,7 @@ const ALL_PROVINCES = [
 export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainDashboardProps) {
   const [user, setUser] = useState<any>(null);
   const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq' | 'import-hub' | 'flexible-import'>('import-hub');
+  const [planningDestination, setPlanningDestination] = useState<'programme' | 'cashflow' | null>(null);
   const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck' | 'tender-pipeline' | 'supplier-leads'>('dashboard');
   const [processedBill, setProcessedBill] = useState<any>(null);
   const [selectedTenderId, setSelectedTenderId] = useState<string | null>(null);
@@ -970,18 +971,32 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
           </div>
         </header>
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Prototype-aligned tender-to-bid navigation; reuse existing secured workflows. */}
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+          {/* Customer prototype navigation, styled with Qilly's existing cyan/blue skin. */}
           {sessionStorage.getItem('user_type') !== 'supplier' && (
-            <nav aria-label="Qilly tender-to-bid workflow" className="mb-6 rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Tender to bid decision</p>
-              <div className="flex flex-wrap gap-2">
-                <button type="button" onClick={() => handlePageChange('tender-pipeline')} aria-current={currentPage === 'tender-pipeline' ? 'page' : undefined} className={`rounded-lg border px-3 py-2 text-sm font-medium ${currentPage === 'tender-pipeline' ? 'border-cyan-600 bg-cyan-50 text-cyan-900' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>CRM &amp; Tenders</button>
-                <button type="button" onClick={() => { handlePageChange('dashboard'); if (canUploadBOQ) setCurrentView('import-hub'); }} aria-current={currentPage === 'dashboard' && currentView === 'import-hub' ? 'page' : undefined} className={`rounded-lg border px-3 py-2 text-sm font-medium ${currentPage === 'dashboard' && currentView === 'import-hub' ? 'border-cyan-600 bg-cyan-50 text-cyan-900' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>BOQ &amp; Pricing</button>
-                <button type="button" onClick={() => { handlePageChange('dashboard'); if (canUploadBOQ) handleViewHistory(); }} aria-current={currentPage === 'dashboard' && currentView === 'history' ? 'page' : undefined} className={`rounded-lg border px-3 py-2 text-sm font-medium ${currentPage === 'dashboard' && currentView === 'history' ? 'border-cyan-600 bg-cyan-50 text-cyan-900' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>Programme &amp; S-Curve</button>
+            <aside aria-label="Qilly expansion modules" className="mb-6 rounded-xl border border-cyan-100 bg-gradient-to-b from-cyan-50 to-white p-4 shadow-sm lg:sticky lg:top-24 lg:w-60 shrink-0 w-full lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
+              <div className="mb-4 border-b border-cyan-100 pb-3">
+                <p className="text-lg font-extrabold tracking-wide text-[#0077b6]">QILLY</p>
+                <p className="text-xs font-medium text-slate-600">Tender intelligence workspace</p>
               </div>
-              <p className="mt-2 text-xs text-slate-500">Programme and S-Curve are available from an eligible priced BOQ in history. Existing permissions and tender context remain in effect.</p>
-            </nav>
+              <nav aria-label="Tender-to-bid navigation" className="flex flex-col gap-2">
+                {([
+                  { label: 'Executive Dashboard', active: currentPage === 'dashboard' && currentView !== 'history' && currentView !== 'import-hub', action: () => handlePageChange('dashboard') },
+                  { label: 'BOQ Pricing', active: currentPage === 'dashboard' && currentView === 'import-hub', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) setCurrentView('import-hub'); } },
+                  { label: 'Programme of Works', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'programme', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) { setPlanningDestination('programme'); handleViewHistory(); } } },
+                  { label: 'Cash Flow & S-Curve', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'cashflow', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) { setPlanningDestination('cashflow'); handleViewHistory(); } } },
+                  { label: 'Tender CRM', active: currentPage === 'tender-pipeline', action: () => handlePageChange('tender-pipeline') },
+                ]).map(item => (
+                  <button key={item.label} type="button" onClick={item.action} aria-current={item.active ? 'page' : undefined}
+                    className={`rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors ${item.active ? 'border-[#0077b6] bg-[#0077b6] text-white' : 'border-transparent text-slate-700 hover:border-cyan-200 hover:bg-cyan-100'}`}>
+                    {item.label}
+                  </button>
+                ))}
+              </nav>
+              <p className="mt-4 border-t border-cyan-100 pt-3 text-xs text-slate-600">Programme and cashflow open through eligible priced BOQs. Existing access rules apply.</p>
+            </aside>
           )}
+          <div className="min-w-0 flex-1">
           {currentPage === 'supplier-leads' && <SupplierLeads />}
           {currentPage === 'tender-pipeline' && <TenderPipeline
             selectedOpportunityId={selectedTenderId}
@@ -1210,7 +1225,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
               )}
               {currentView === 'template-library' && (<BoqTemplateLibrary contractorProjectTypes={contractorData?.project_types || ['Road Construction', 'Housing Development', 'Infrastructure (Water/Sewer)', 'Civil Works', 'Bridges & Structures', 'Building Construction']} onTemplateSelect={handleTemplateSelect} onManualEntry={handleManualEntry} onBack={handleBackToUpload} canUploadBOQ={canUploadBOQ} contractorTier={contractorTier} />)}
               {currentView === 'result' && processedBill && (<RegionalPricedBillView bill={processedBill} contractorData={contractorData} processingTime={processedBill.processingTime} sanralWorkbook={sanralWorkbook} onBack={handleBackToUpload} />)}
-              {currentView === 'history' && (<BillHistory accessToken={accessToken} />)}
+              {currentView === 'history' && (<section aria-label="BOQ planning workspace" className="space-y-4">{planningDestination && <header className="rounded-xl border border-cyan-100 bg-cyan-50 p-4"><h2 className="text-xl font-semibold text-[#0077b6]">{planningDestination === 'programme' ? 'Programme of Works' : 'Cash Flow & S-Curve'}</h2><p className="mt-1 text-sm text-slate-600">Select an eligible priced BOQ below to open its connected planning and cashflow tools. Forecasts remain illustrative until reviewed and approved.</p></header>}<BillHistory accessToken={accessToken} planningMode={planningDestination} /></section>)}
               {currentView === 'team-management' && contractorData && (
                 <TeamManagement
                   contractorEmail={contractorData.email || user?.email || ''}
@@ -1224,7 +1239,9 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
           {currentPage === 'suppliers' && (<Suppliers />)}
           {currentPage === 'provincial-pricing' && (<ProvincialPricingPage contractorData={contractorData} />)}
           {currentPage === 'enhanced-matching' && (<EnhancedMatchingDemo contractorData={contractorData} />)}
-        </main>
+                  </div>
+          </div>
+</main>
         <footer className="bg-white border-t border-gray-200 mt-auto">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex justify-end items-center gap-4 text-xs text-gray-600">
