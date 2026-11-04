@@ -18,8 +18,10 @@ interface BillHistoryProps {
 export function BillHistory({ accessToken, planningMode = null }: BillHistoryProps) {
   const [bills, setBills] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [historyError, setHistoryError] = useState('');
   const [selectedBill, setSelectedBill] = useState<any>(null);
   const [planningMonths, setPlanningMonths] = useState(12);
+  const [programmeLevel, setProgrammeLevel] = useState<'high' | 'detailed'>('high');
 
   const formatNumber = (value: string | number) => {
     const num = typeof value === 'string' ? parseFloat(value) : value;
@@ -32,6 +34,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
   }, []);
 
   const fetchBills = async () => {
+    setHistoryError('');
     try {
       // ✅ FIX: Fetch directly from Supabase database instead of sessionStorage
       const supabase = getSupabaseClient(getCurrentEnvironment());
@@ -64,9 +67,8 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
         
         if (error) {
           console.error('❌ Error fetching bills from Supabase:', error);
-          // Fallback to old method
-          const data = await api.getBills(accessToken);
-          setBills(data.bills || []);
+          setHistoryError('Historical BOQs could not be loaded from the database. Check access and retry.');
+          setBills([]);
         } else {
           console.log(`✅ Fetched ${billsData?.length || 0} bills from Supabase`);
           
@@ -93,9 +95,8 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
           setBills(transformedBills);
         }
       } else {
-        // User not authenticated - try old method
-        const data = await api.getBills(accessToken);
-        setBills(data.bills || []);
+        setHistoryError('Sign in to view your historical priced BOQs.');
+        setBills([]);
       }
     } catch (error: any) {
       // Only log unexpected errors (DEMO_MODE is expected)
@@ -103,13 +104,8 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
         console.error('Error fetching bills:', error);
       }
       
-      // Fallback to old method
-      try {
-        const data = await api.getBills(accessToken);
-        setBills(data.bills || []);
-      } catch (fallbackError) {
-        console.error('Fallback also failed:', fallbackError);
-      }
+      setHistoryError('Unable to load historical priced BOQs. Please retry.');
+      setBills([]);
     } finally {
       setIsLoading(false);
     }
@@ -202,9 +198,9 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
         <CardContent className="pt-6">
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <FileText className="h-16 w-16 text-gray-300 mb-4" />
-            <h3 className="text-xl font-semibold mb-2">No Bills Yet</h3>
+            <h3 className="text-xl font-semibold mb-2">{historyError ? 'BOQ history unavailable' : 'No Bills Yet'}</h3>
             <p className="text-gray-600">
-              Upload and process your first bill to see it here.
+              {historyError || 'No historical BOQs were found for this account. Upload and process your first bill to see it here.'}
             </p>
           </div>
         </CardContent>
@@ -218,13 +214,14 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
         <CardHeader>
           <CardTitle>Bill History</CardTitle>
           <CardDescription>
-            {planningMode ? 'Select View on an eligible priced BOQ to open its planning scenario' : 'View and download previously processed bills'}
+            {planningMode ? 'Select a priced BOQ below to open its planning scenario. Only BOQs with a positive priced total are eligible.' : 'View and download previously processed bills'}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
+                {planningMode && <TableHead>Select BOQ</TableHead>}
                 <TableHead>Bill ID</TableHead>
                 <TableHead>Items</TableHead>
                 <TableHead>Total Amount</TableHead>
@@ -235,9 +232,16 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
             </TableHeader>
             <TableBody>
               {bills.map((bill) => (
-                <TableRow key={bill.id}>
+                <TableRow key={bill.id} className={planningMode && selectedBill?.id === bill.id ? 'bg-cyan-50' : ''}>
+                  {planningMode && <TableCell>
+                    <input type="radio" name="planning-bill" aria-label={`Select priced BOQ ${bill.projectName || bill.billNumber || bill.id}`}
+                      checked={selectedBill?.id === bill.id}
+                      disabled={!(Number(bill.overallTotal) > 0)}
+                      onChange={() => setSelectedBill(bill)} />
+                  </TableCell>}
                   <TableCell className="font-mono text-sm">
-                    {bill.id.replace(/^demo-/, '').substring(0, 8)}...
+                    <div>{String(bill.id).replace(/^demo-/, '').substring(0, 8)}...</div>
+                    {planningMode && <div className="font-sans text-xs text-slate-600">{bill.projectName || bill.billNumber || 'Unnamed BOQ'}</div>}
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
@@ -265,8 +269,9 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
                         variant="outline"
                         size="sm"
                         onClick={() => setSelectedBill(selectedBill?.id === bill.id ? null : bill)}
+                        disabled={Boolean(planningMode) && !(Number(bill.overallTotal) > 0)}
                       >
-                        {selectedBill?.id === bill.id ? 'Hide' : 'View'}
+                        {selectedBill?.id === bill.id ? 'Hide' : planningMode ? 'Select for planning' : 'View'}
                       </Button>
                       <Button
                         variant="outline"
@@ -305,10 +310,33 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
               className="w-24 rounded-lg border border-cyan-200 bg-white px-3 py-2" />
             <span className="text-xs font-normal text-slate-600">Confirm against the project programme; default is illustrative.</span>
           </label>
+          <div className="rounded-lg border border-slate-200 bg-white p-3 text-sm" aria-label="Historical BOQ planning input summary">
+            <h4 className="font-semibold text-slate-800">BOQ planning inputs</h4>
+            <p className="text-slate-700">
+              {Array.isArray(selectedBill.items) ? selectedBill.items.length : 0} historical line items ·
+              Priced total R{formatNumber(selectedBill.overallTotal)}
+            </p>
+            {Array.isArray(selectedBill.items) && selectedBill.items.length > 0 && (
+              <p className="text-xs text-slate-600">
+                Recorded line-item value: R{formatNumber(selectedBill.items.reduce((sum: number, item: any) => sum + (Number(item.totalPrice) || 0), 0))}
+                {' · '}Difference from bill total: R{formatNumber(Number(selectedBill.overallTotal) - selectedBill.items.reduce((sum: number, item: any) => sum + (Number(item.totalPrice) || 0), 0))}
+              </p>
+            )}
+            <p className="mt-1 text-xs text-slate-600">Line-item totals are informational and may differ from the bill total because of allowances, adjustments or incomplete historical records.</p>
+          </div>
+          <label className="flex flex-wrap items-center gap-3 text-sm font-medium text-slate-700">
+            Programme level
+            <select aria-label="Programme level" value={programmeLevel} onChange={event => setProgrammeLevel(event.target.value as 'high' | 'detailed')}
+              className="rounded-lg border border-cyan-200 bg-white px-3 py-2">
+              <option value="high">High level</option>
+              <option value="detailed">Detailed</option>
+            </select>
+          </label>
+          <p className="text-xs text-slate-600">Duration is configurable from 1 to 36 months. Historical BOQ project-setting duration is not available in this record; confirm the original duration before approval.</p>
           <p role="status" className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
             BOQ-driven work-group allocation is not yet available for this historical bill: the history record does not contain verified pricing decisions and acceptance evidence. The programme below uses an editable illustrative allocation, not automatically approved BOQ groups.
           </p>
-          <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} />
+          <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths + '-' + programmeLevel} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} programmeLevel={programmeLevel} />
         </section>
       )}
       {planningMode && selectedBill && !(Number(selectedBill.overallTotal) > 0) && (
