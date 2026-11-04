@@ -18,6 +18,7 @@ interface BillHistoryProps {
 export function BillHistory({ accessToken, planningMode = null }: BillHistoryProps) {
   const [bills, setBills] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [historyError, setHistoryError] = useState('');
   const [selectedBill, setSelectedBill] = useState<any>(null);
   const [planningMonths, setPlanningMonths] = useState(12);
 
@@ -32,6 +33,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
   }, []);
 
   const fetchBills = async () => {
+    setHistoryError('');
     try {
       // ✅ FIX: Fetch directly from Supabase database instead of sessionStorage
       const supabase = getSupabaseClient(getCurrentEnvironment());
@@ -64,9 +66,8 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
         
         if (error) {
           console.error('❌ Error fetching bills from Supabase:', error);
-          // Fallback to old method
-          const data = await api.getBills(accessToken);
-          setBills(data.bills || []);
+          setHistoryError('Historical BOQs could not be loaded from the database. Check access and retry.');
+          setBills([]);
         } else {
           console.log(`✅ Fetched ${billsData?.length || 0} bills from Supabase`);
           
@@ -93,9 +94,8 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
           setBills(transformedBills);
         }
       } else {
-        // User not authenticated - try old method
-        const data = await api.getBills(accessToken);
-        setBills(data.bills || []);
+        setHistoryError('Sign in to view your historical priced BOQs.');
+        setBills([]);
       }
     } catch (error: any) {
       // Only log unexpected errors (DEMO_MODE is expected)
@@ -103,13 +103,8 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
         console.error('Error fetching bills:', error);
       }
       
-      // Fallback to old method
-      try {
-        const data = await api.getBills(accessToken);
-        setBills(data.bills || []);
-      } catch (fallbackError) {
-        console.error('Fallback also failed:', fallbackError);
-      }
+      setHistoryError('Unable to load historical priced BOQs. Please retry.');
+      setBills([]);
     } finally {
       setIsLoading(false);
     }
@@ -202,9 +197,9 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
         <CardContent className="pt-6">
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <FileText className="h-16 w-16 text-gray-300 mb-4" />
-            <h3 className="text-xl font-semibold mb-2">No Bills Yet</h3>
+            <h3 className="text-xl font-semibold mb-2">{historyError ? 'BOQ history unavailable' : 'No Bills Yet'}</h3>
             <p className="text-gray-600">
-              Upload and process your first bill to see it here.
+              {historyError || 'No historical BOQs were found for this account. Upload and process your first bill to see it here.'}
             </p>
           </div>
         </CardContent>
