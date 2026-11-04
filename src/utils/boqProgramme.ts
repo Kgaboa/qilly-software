@@ -56,3 +56,34 @@ export function deriveBoqProgrammeGroups(items: RegionalPricedBillItem[]): {
   }));
   return { groups, excludedCount, eligibleTotal };
 }
+
+/** Historical BOQs lack per-line matching approval evidence. These are explicitly
+ * provisional work groups for QS review, never accepted pricing decisions. */
+export function deriveHistoricalDraftGroups(items: Array<{
+  name?: string; description?: string; code?: string; totalPrice?: number | string;
+}>): { groups: BoqProgrammeGroup[]; excludedCount: number; eligibleTotal: number } {
+  const buckets = new Map<string, { value: number; codes: string[] }>();
+  let excludedCount = 0;
+  for (const item of items) {
+    const amount = moneyValue(item.totalPrice);
+    if (amount === null || amount <= 0 || !String(item.name || item.description || '').trim()) {
+      excludedCount++;
+      continue;
+    }
+    const label = category([item.name, item.description].filter(Boolean).join(' '), item.code || '');
+    const bucket = buckets.get(label) || { value: 0, codes: [] };
+    bucket.value += amount;
+    bucket.codes.push(item.code || item.name || 'Unnamed item');
+    buckets.set(label, bucket);
+  }
+  const eligibleTotal = [...buckets.values()].reduce((sum, bucket) => sum + bucket.value, 0);
+  return {
+    groups: [...buckets].map(([name, bucket], index) => ({
+      id: index + 1, name, sourceCodes: bucket.codes, value: bucket.value,
+      share: eligibleTotal > 0 ? bucket.value / eligibleTotal * 100 : 0,
+      requiresReview: true,
+    })),
+    excludedCount,
+    eligibleTotal,
+  };
+}
