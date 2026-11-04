@@ -430,7 +430,12 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
         !Number.isFinite(Number(item.quantity)))
     );
     if (missingQuantity) {
-      toast.error(`Quantity required for item ${missingQuantity.code || missingQuantity.name}. Review the BOQ before pricing.`);
+      const missingIndex = items.indexOf(missingQuantity);
+      toast.error(`Quantity required for item ${missingQuantity.code || missingQuantity.name}. ${areRowsLocked ? 'The imported workbook is read-only; correct the quantity in the source BOQ and re-import.' : 'Enter the quantity in the highlighted BOQ row before pricing.'}`);
+      if (missingIndex >= 0) {
+        document.getElementById(`boq-quantity-${missingIndex}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (!areRowsLocked) document.getElementById(`boq-quantity-${missingIndex}`)?.focus();
+      }
       return;
     }
 
@@ -1459,11 +1464,13 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
                       <Input
                         type="number"
                         placeholder=""
+                        id={`boq-quantity-${index}`}
+                        aria-label={`Quantity for ${item.code || item.name || `BOQ row ${index + 1}`}`}
                         value={item.quantity}
                         onChange={(e) => updateItem(index, 'quantity', e.target.value)}
                         min="0"
                         step="any"
-                        className="text-sm h-9"
+                        className={`text-sm h-9 ${item.rowType !== 'heading' && item.rowType !== 'subheading' && Boolean(item.unit) && !item.quantity?.trim() ? 'border-amber-500 bg-amber-50' : ''}`}
                         disabled={areRowsLocked}
                         title={areRowsLocked ? "Imported workbook rows are locked" : ""}
                       />
