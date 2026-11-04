@@ -1,4 +1,5 @@
 import { ProgrammeCashflow } from './ProgrammeCashflow';
+import { deriveHistoricalDraftGroups } from '@/utils/boqProgramme';
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card';
 import { Button } from '@/app/components/ui/button';
@@ -356,9 +357,12 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
           </label>
           <p className="text-xs text-slate-600">Duration is configurable from 1 to 36 months. Where available, the original duration is loaded from the selected BOQ project settings.</p>
           <p role="status" className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
-            BOQ-driven work-group allocation is not yet available for this historical bill: the history record does not contain verified pricing decisions and acceptance evidence. The programme below uses an editable illustrative allocation, not automatically approved BOQ groups.
+            Historical BOQ work packages are provisional groupings of positive-value line items. Pricing approval evidence and activity sequencing are not available in this history record. Review each work package and confirm its value, timing and dependencies before approving a baseline.
           </p>
-          <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths + '-' + programmeLevel} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} programmeLevel={programmeLevel} />
+          <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths + '-' + programmeLevel} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} programmeLevel={programmeLevel}
+            boqGroups={deriveHistoricalDraftGroups(selectedBill.items || []).groups}
+            eligibleValue={deriveHistoricalDraftGroups(selectedBill.items || []).eligibleTotal}
+            excludedCount={deriveHistoricalDraftGroups(selectedBill.items || []).excludedCount} />
         </section>
       )}
       {planningMode && selectedBill && !(Number(selectedBill.overallTotal) > 0) && (
