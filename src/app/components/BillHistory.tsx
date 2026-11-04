@@ -305,6 +305,9 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
               className="w-24 rounded-lg border border-cyan-200 bg-white px-3 py-2" />
             <span className="text-xs font-normal text-slate-600">Confirm against the project programme; default is illustrative.</span>
           </label>
+          <p role="status" className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+            BOQ-driven work-group allocation is not yet available for this historical bill: the history record does not contain verified pricing decisions and acceptance evidence. The programme below uses an editable illustrative allocation, not automatically approved BOQ groups.
+          </p>
           <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} />
         </section>
       )}
