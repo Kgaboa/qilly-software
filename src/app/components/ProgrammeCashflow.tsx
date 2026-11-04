@@ -43,9 +43,11 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
     setIncludeProgramme(true);
   };
   const reset = () => { setActivities(initial(months)); setBaselineMonths(months); setScenarioValue(projectValue); setIncludeProgramme(false); };
-  const chartW = 720, chartH = 210, inset = 35;
-  const points = series.map((p, i) =>
-    `${inset + i * (chartW - inset * 2) / Math.max(1, series.length - 1)},${chartH - inset - (p.cumulative / scenarioValue) * (chartH - inset * 2)}`).join(' ');
+  const chartW = 800, chartH = 300, left = 104, right = 32, top = 24, bottom = 64;
+  const plotW = chartW - left - right, plotH = chartH - top - bottom;
+  const ticks = [0, 0.25, 0.5, 0.75, 1];
+  const monthTicks = Array.from(new Set([1, ...Array.from({length: Math.min(6, baselineMonths)}, (_, i) => Math.max(1, Math.round(1 + i * (baselineMonths - 1) / Math.max(1, Math.min(6, baselineMonths) - 1))), baselineMonths])).sort((a,b) => a-b);
+  const points = series.map(p => `${left + (p.month - 1) * plotW / Math.max(1, baselineMonths - 1)},${top + plotH * (1 - p.cumulative / Math.max(1, scenarioValue))}`).join(' ');
   return (
     <section className="mt-5 rounded-xl border border-cyan-200 bg-white p-4 space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -65,7 +67,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
             className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50">
             Generate work packages from priced BOQ
           </button>
-          <span>{boqGroups.length} proposed packages · {excludedCount} excluded lines</span>
+          <span>{boqGroups.length ? `${boqGroups.length} proposed packages · ${excludedCount} excluded lines` : 'Unavailable: no eligible BOQ work groups have been mapped for this historical bill.'}</span>
         </div>
         {boqGroups.length > 0 && <p className="text-xs text-amber-800">
           BOQ work packages are a draft for QS review. {money(eligibleValue)} of {money(projectValue)} is eligible;
@@ -85,13 +87,25 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
         {!dependenciesValid && <p role="alert" className="text-sm text-red-700">Invalid dependency: successor must start after predecessor finishes.</p>}
         {!valid ? <p role="alert" className="text-sm text-red-700">Review activities: months must fit within the project duration and allocations must total exactly 100% (currently {totalShare.toFixed(1)}%).</p> : <>
           <h4 className="font-medium">Planned cumulative expenditure (S-Curve)</h4>
-          <svg viewBox={`0 0 ${chartW} ${chartH}`} role="img" aria-label="Planned cumulative expenditure S-Curve" className="w-full max-w-3xl">
-            <line x1={inset} y1={chartH-inset} x2={chartW-inset} y2={chartH-inset} stroke="#94a3b8" />
-            <line x1={inset} y1={inset} x2={inset} y2={chartH-inset} stroke="#94a3b8" />
-            <polyline points={points} fill="none" stroke="#0891b2" strokeWidth="3" strokeLinejoin="round" />
-            <text x="3" y={inset+5} fontSize="12">100%</text><text x="9" y={chartH-inset} fontSize="12">0%</text>
-            <text x={inset} y={chartH-10} fontSize="12">M1</text><text x={chartW-inset-30} y={chartH-10} fontSize="12">M{baselineMonths}</text>
-          </svg>
+          <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+            <p className="mb-2 text-xs text-slate-600">Horizontal axis: project month · Vertical axis: cumulative planned expenditure (R). Values are planned, not actual.</p>
+            <svg viewBox={`0 0 ${chartW} ${chartH}`} role="img" aria-label="S-Curve: cumulative planned expenditure in rand by project month" className="w-full">
+              {ticks.map(t => <g key={t}>
+                <line x1={left} x2={chartW-right} y1={top+plotH*(1-t)} y2={top+plotH*(1-t)} stroke="#dbe4ee" strokeDasharray="4 4" />
+                <text x={left-12} y={top+plotH*(1-t)+4} textAnchor="end" fontSize="12" fill="#475569">{money(scenarioValue*t)}</text>
+              </g>)}
+              {monthTicks.map(m => <g key={m}>
+                <line x1={left+(m-1)*plotW/Math.max(1,baselineMonths-1)} x2={left+(m-1)*plotW/Math.max(1,baselineMonths-1)} y1={top+plotH} y2={top+plotH+5} stroke="#64748b" />
+                <text x={left+(m-1)*plotW/Math.max(1,baselineMonths-1)} y={top+plotH+21} textAnchor="middle" fontSize="12" fill="#475569">M{m}</text>
+              </g>)}
+              <line x1={left} y1={top} x2={left} y2={top+plotH} stroke="#64748b" />
+              <line x1={left} y1={top+plotH} x2={chartW-right} y2={top+plotH} stroke="#64748b" />
+              <polyline points={points} fill="none" stroke="#0877ad" strokeWidth="3" strokeLinejoin="round" />
+              {series.map(p => <circle key={p.month} cx={left+(p.month-1)*plotW/Math.max(1,baselineMonths-1)} cy={top+plotH*(1-p.cumulative/Math.max(1,scenarioValue))} r="3" fill="#0877ad"><title>{`Month ${p.month}: ${money(p.cumulative)} cumulative planned`}</title></circle>)}
+              <text x={left+plotW/2} y={chartH-12} textAnchor="middle" fontSize="13" fill="#334155">Project duration (months)</text>
+            </svg>
+            <p className="text-xs text-slate-600">Blue line — cumulative planned expenditure · Final planned value: {money(scenarioValue)} · Duration: {baselineMonths} months</p>
+          </div>
           <div className="overflow-x-auto"><table className="w-full text-sm">
             <thead><tr className="border-b text-left"><th className="p-2">Month</th><th className="p-2">Planned expenditure</th><th className="p-2">Cumulative</th><th className="p-2">Progress</th></tr></thead>
             <tbody>{series.map(s => <tr key={s.month} className="border-b"><td className="p-2">{s.month}</td><td className="p-2">{money(s.planned)}</td><td className="p-2">{money(s.cumulative)}</td><td className="p-2">{(100*s.cumulative/scenarioValue).toFixed(1)}%</td></tr>)}</tbody>
