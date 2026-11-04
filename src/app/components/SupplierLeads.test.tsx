@@ -20,6 +20,7 @@ vi.mock('@/utils/supabase', () => ({
       const query: any = {};
       query.select = () => query;
       query.eq = () => query;
+      query.neq = () => query;
       query.order = () => query;
       query.limit = () => query;
       query.maybeSingle = async () => ({ data: fixture.supplier, error: null });
