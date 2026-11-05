@@ -958,6 +958,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                 )}
               </div>
             </div>
+            {sessionStorage.getItem('user_type') === 'supplier' && (
             <div className="flex flex-wrap gap-1 pb-0 border-t border-white/20 pt-1">
               <button onClick={() => handlePageChange('dashboard')} className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'dashboard' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Dashboard</button>
               {/* ✅ HIDE Supplier Catalog for Contractors - only show for non-contractors/suppliers */}
@@ -969,6 +970,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
               <button onClick={() => handlePageChange('provincial-pricing')} className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'provincial-pricing' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Provincial Pricing</button>
               <button onClick={() => handlePageChange('enhanced-matching')} className={`px-3 py-2 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'enhanced-matching' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Item matching</button>
             </div>
+            )}
           </div>
         </header>
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -987,6 +989,8 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                   { label: 'Programme of Works', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'programme', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) { setPlanningDestination('programme'); handleViewHistory(); } } },
                   { label: 'Cash Flow & S-Curve', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'cashflow', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) { setPlanningDestination('cashflow'); handleViewHistory(); } } },
                   { label: 'Tender CRM', active: currentPage === 'tender-pipeline', action: () => handlePageChange('tender-pipeline') },
+                  { label: 'Provincial Pricing', active: currentPage === 'provincial-pricing', action: () => handlePageChange('provincial-pricing') },
+                  { label: 'Item Search & Matching', active: currentPage === 'enhanced-matching', action: () => handlePageChange('enhanced-matching') },
                 ]).map(item => (
                   <button key={item.label} type="button" onClick={item.action} aria-current={item.active ? 'page' : undefined}
                     className={`rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors ${item.active ? 'border-[#2273c6] bg-[#2273c6] text-white' : 'border-transparent text-[#d1e0f0] hover:border-white/20 hover:bg-white/10'}`}>
