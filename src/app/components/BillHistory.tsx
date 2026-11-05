@@ -21,6 +21,8 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
   const [isLoading, setIsLoading] = useState(true);
   const [historyError, setHistoryError] = useState('');
   const [selectedBill, setSelectedBill] = useState<any>(null);
+  const [detailsBill, setDetailsBill] = useState<any>(null);
+  const [itemFilter, setItemFilter] = useState('');
   const [planningMonths, setPlanningMonths] = useState(12);
   const [programmeLevel, setProgrammeLevel] = useState<'high' | 'detailed'>('high');
   const [historyFilter, setHistoryFilter] = useState('');
@@ -293,10 +295,10 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setSelectedBill(selectedBill?.id === bill.id ? null : bill)}
+                        onClick={() => { if (planningMode) setSelectedBill(bill); else { setDetailsBill(bill); setItemFilter(''); } }}
                         disabled={Boolean(planningMode) && !(Number(bill.overallTotal) > 0)}
                       >
-                        {selectedBill?.id === bill.id ? 'Hide' : planningMode ? 'Select for planning' : 'View'}
+                        {planningMode ? 'Select for planning' : 'View details'}
                       </Button>
                       <Button
                         variant="outline"
@@ -326,6 +328,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
           <div className="rounded-xl border border-cyan-100 bg-cyan-50 p-4">
             <h3 className="font-semibold text-[#0077b6]">{planningMode === 'programme' ? 'Programme of Works' : 'Cash Flow & S-Curve'}</h3>
             <p className="text-sm text-slate-700">BOQ: {selectedBill.projectName || selectedBill.billNumber || selectedBill.id} · Priced value: R{formatNumber(selectedBill.overallTotal)}</p>
+            <Button variant="outline" size="sm" className="mt-2 bg-white" onClick={() => { setDetailsBill(selectedBill); setItemFilter(''); }}>View BOQ line-item details</Button>
             <p className="text-xs text-slate-600">Illustrative scenario only. Confirm programme duration, sequencing and commercial assumptions before approval.</p>
           </div>
           <label className="flex flex-wrap items-center gap-3 text-sm font-medium text-slate-700">
@@ -371,15 +374,19 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
         <p role="status" className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm">A priced BOQ with a positive total is required to generate a planning scenario.</p>
       )}
       {/* Bill Details */}
-      {selectedBill && (
-        <Card>
+      {detailsBill && (
+        <details key={detailsBill.id} className="rounded-lg border border-slate-200 bg-white shadow-sm" aria-label="Historical BOQ details">
+        <summary className="cursor-pointer px-3 py-2 text-sm font-medium text-slate-700">Bill Details · {detailsBill.projectName || detailsBill.billNumber || detailsBill.id} · {(detailsBill.items || []).length} items</summary>
+        <div className="max-h-[65vh] overflow-auto border-t border-slate-200">
+        <Card className="flex min-h-0 flex-col border-0 shadow-none">
           <CardHeader>
-            <CardTitle>Bill Details</CardTitle>
-            <CardDescription>ID: {selectedBill.id}</CardDescription>
+            <div className="flex items-center justify-between gap-3"><CardTitle>Historical BOQ details</CardTitle><Button variant="outline" size="sm" onClick={() => setDetailsBill(null)}>Hide details</Button></div>
+            <CardDescription>ID: {detailsBill.id}</CardDescription>
           </CardHeader>
           <CardContent>
-            {/* Compact responsive table - no horizontal scroll needed */}
-            <div className="w-full">
+            <input aria-label="Search BOQ line items" value={itemFilter} onChange={event => setItemFilter(event.target.value)} placeholder="Search item number, description or supplier" className="mb-3 w-full rounded-lg border border-slate-300 p-2 text-sm" />
+            {/* Searchable, scroll-contained historical line items */}
+            <div className="max-h-[55vh] w-full overflow-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -393,7 +400,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {selectedBill.items?.map((item: any, index: number) => (
+                  {(detailsBill.items || []).filter((item: any) => !itemFilter || [item.code, item.name, item.description, item.selectedSupplier].some(value => String(value || '').toLowerCase().includes(itemFilter.toLowerCase()))).map((item: any, index: number) => (
                     <TableRow key={index}>
                       <TableCell className="font-mono text-xs">{item.code}</TableCell>
                       <TableCell className="min-w-[180px]">
@@ -424,12 +431,14 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
               <div className="text-right">
                 <p className="text-sm text-gray-600 mb-1">Total</p>
                 <p className="text-2xl font-bold text-green-600">
-                  R{formatNumber(selectedBill.overallTotal)}
+                  R{formatNumber(detailsBill.overallTotal)}
                 </p>
               </div>
             </div>
           </CardContent>
         </Card>
+        </div>
+        </details>
       )}
     </div>
   );
