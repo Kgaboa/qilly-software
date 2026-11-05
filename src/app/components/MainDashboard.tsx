@@ -45,7 +45,7 @@ const ALL_PROVINCES = [
 
 export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainDashboardProps) {
   const [user, setUser] = useState<any>(null);
-  const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq' | 'import-hub' | 'flexible-import'>('import-hub');
+  const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq' | 'import-hub' | 'flexible-import' | 'executive'>('executive');
   const [planningDestination, setPlanningDestination] = useState<'programme' | 'cashflow' | null>(null);
   const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck' | 'tender-pipeline' | 'supplier-leads'>('dashboard');
   const [processedBill, setProcessedBill] = useState<any>(null);
@@ -984,8 +984,8 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
               </div>
               <nav aria-label="Tender-to-bid navigation" className="flex flex-col gap-2">
                 {([
-                  { label: 'Executive Dashboard', active: currentPage === 'dashboard' && currentView !== 'history' && currentView !== 'import-hub', action: () => handlePageChange('dashboard') },
-                  { label: 'BOQ Pricing', active: currentPage === 'dashboard' && currentView === 'import-hub', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) setCurrentView('import-hub'); } },
+                  { label: 'Executive Dashboard', active: currentPage === 'dashboard' && currentView === 'executive', action: () => { setCurrentPage('dashboard'); setCurrentView('executive'); } },
+                  { label: 'BOQ Pricing', active: currentPage === 'dashboard' && currentView !== 'executive' && currentView !== 'history', action: () => { setCurrentPage('dashboard'); if (canUploadBOQ) setCurrentView('import-hub'); else setCurrentView('template-library'); } },
                   { label: 'Programme of Works', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'programme', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) { setPlanningDestination('programme'); handleViewHistory(); } } },
                   { label: 'Cash Flow & S-Curve', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'cashflow', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) { setPlanningDestination('cashflow'); handleViewHistory(); } } },
                   { label: 'Tender CRM', active: currentPage === 'tender-pipeline', action: () => handlePageChange('tender-pipeline') },
@@ -1010,11 +1010,12 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
           />}
           {currentPage === 'dashboard' && (
             <>
-              {currentView !== 'history' && currentView !== 'result' && <TenderIntelligenceOverview
+              {currentView === 'executive' && <TenderIntelligenceOverview
                 onOpenTenders={() => setCurrentPage('tender-pipeline')}
                 onOpenPricing={() => { setCurrentPage('dashboard'); setCurrentView('import-hub'); }}
                 onOpenLeads={() => setCurrentPage('supplier-leads')}
               />}
+              {currentView !== 'executive' && <>
               {!contractorData && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                   <Card>
@@ -1243,6 +1244,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                 />
               )}
               {isDemoMode && user?.is_operator && currentView === 'upload' && (<div className="mt-6"><CatalogManager /></div>)}
+              </>}
             </>
           )}
           {currentPage === 'features' && (<Features />)}
