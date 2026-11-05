@@ -375,7 +375,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
       )}
       {/* Bill Details */}
       {detailsBill && (
-        <details open className="rounded-lg border border-slate-200 bg-white shadow-sm" aria-label="Historical BOQ details">
+        <details key={detailsBill.id} className="rounded-lg border border-slate-200 bg-white shadow-sm" aria-label="Historical BOQ details">
         <summary className="cursor-pointer px-3 py-2 text-sm font-medium text-slate-700">Bill Details · {detailsBill.projectName || detailsBill.billNumber || detailsBill.id} · {(detailsBill.items || []).length} items</summary>
         <div className="max-h-[65vh] overflow-auto border-t border-slate-200">
         <Card className="flex min-h-0 flex-col border-0 shadow-none">
