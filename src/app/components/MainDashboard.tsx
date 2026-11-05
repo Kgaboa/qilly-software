@@ -1007,7 +1007,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
             <>
               {currentView === 'executive' && <TenderIntelligenceOverview
                 onOpenTenders={() => setCurrentPage('tender-pipeline')}
-                onOpenPricing={() => { setCurrentPage('dashboard'); setCurrentView('import-hub'); }}
+                onOpenPricing={() => { setCurrentPage('dashboard'); setPlanningDestination(null); setCurrentView('history'); }}
                 onOpenLeads={() => setCurrentPage('supplier-leads')}
               />}
               {currentView !== 'executive' && <>
