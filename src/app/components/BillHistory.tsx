@@ -375,11 +375,12 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
       )}
       {/* Bill Details */}
       {detailsBill && (
-        <div role="dialog" aria-modal="true" aria-label="Historical BOQ details" className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/60 p-3" onClick={() => setDetailsBill(null)}>
-        <div className="flex max-h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-xl bg-white shadow-2xl" onClick={event => event.stopPropagation()}>
+        <details open className="rounded-lg border border-slate-200 bg-white shadow-sm" aria-label="Historical BOQ details">
+        <summary className="cursor-pointer px-3 py-2 text-sm font-medium text-slate-700">Bill Details · {detailsBill.projectName || detailsBill.billNumber || detailsBill.id} · {(detailsBill.items || []).length} items</summary>
+        <div className="max-h-[65vh] overflow-auto border-t border-slate-200">
         <Card className="flex min-h-0 flex-col border-0 shadow-none">
           <CardHeader>
-            <div className="flex items-center justify-between gap-3"><CardTitle>Historical BOQ details</CardTitle><Button variant="outline" size="sm" onClick={() => setDetailsBill(null)}>Close</Button></div>
+            <div className="flex items-center justify-between gap-3"><CardTitle>Historical BOQ details</CardTitle><Button variant="outline" size="sm" onClick={() => setDetailsBill(null)}>Hide details</Button></div>
             <CardDescription>ID: {detailsBill.id}</CardDescription>
           </CardHeader>
           <CardContent>
@@ -437,7 +438,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
           </CardContent>
         </Card>
         </div>
-        </div>
+        </details>
       )}
     </div>
   );
