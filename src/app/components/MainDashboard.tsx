@@ -45,7 +45,7 @@ const ALL_PROVINCES = [
 
 export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainDashboardProps) {
   const [user, setUser] = useState<any>(null);
-  const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq' | 'import-hub' | 'flexible-import'>('import-hub');
+  const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq' | 'import-hub' | 'flexible-import' | 'executive'>('executive');
   const [planningDestination, setPlanningDestination] = useState<'programme' | 'cashflow' | null>(null);
   const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck' | 'tender-pipeline' | 'supplier-leads'>('dashboard');
   const [processedBill, setProcessedBill] = useState<any>(null);
@@ -958,6 +958,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                 )}
               </div>
             </div>
+            {sessionStorage.getItem('user_type') === 'supplier' && (
             <div className="flex flex-wrap gap-1 pb-0 border-t border-white/20 pt-1">
               <button onClick={() => handlePageChange('dashboard')} className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'dashboard' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Dashboard</button>
               {/* ✅ HIDE Supplier Catalog for Contractors - only show for non-contractors/suppliers */}
@@ -969,6 +970,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
               <button onClick={() => handlePageChange('provincial-pricing')} className={`px-3 py-1.5 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'provincial-pricing' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Provincial Pricing</button>
               <button onClick={() => handlePageChange('enhanced-matching')} className={`px-3 py-2 text-sm font-medium transition-colors rounded-t-md ${currentPage === 'enhanced-matching' ? 'bg-white text-[#00b4d8]' : 'text-white/90 hover:bg-white/10'}`}>Item matching</button>
             </div>
+            )}
           </div>
         </header>
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -982,11 +984,13 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
               </div>
               <nav aria-label="Tender-to-bid navigation" className="flex flex-col gap-2">
                 {([
-                  { label: 'Executive Dashboard', active: currentPage === 'dashboard' && currentView !== 'history' && currentView !== 'import-hub', action: () => handlePageChange('dashboard') },
-                  { label: 'BOQ Pricing', active: currentPage === 'dashboard' && currentView === 'import-hub', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) setCurrentView('import-hub'); } },
+                  { label: 'Executive Dashboard', active: currentPage === 'dashboard' && currentView === 'executive', action: () => { setCurrentPage('dashboard'); setCurrentView('executive'); } },
+                  { label: 'BOQ Pricing', active: currentPage === 'dashboard' && currentView !== 'executive' && currentView !== 'history', action: () => { setCurrentPage('dashboard'); if (canUploadBOQ) setCurrentView('import-hub'); else setCurrentView('template-library'); } },
                   { label: 'Programme of Works', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'programme', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) { setPlanningDestination('programme'); handleViewHistory(); } } },
                   { label: 'Cash Flow & S-Curve', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'cashflow', action: () => { handlePageChange('dashboard'); if (canUploadBOQ) { setPlanningDestination('cashflow'); handleViewHistory(); } } },
                   { label: 'Tender CRM', active: currentPage === 'tender-pipeline', action: () => handlePageChange('tender-pipeline') },
+                  { label: 'Provincial Pricing', active: currentPage === 'provincial-pricing', action: () => handlePageChange('provincial-pricing') },
+                  { label: 'Item Search & Matching', active: currentPage === 'enhanced-matching', action: () => handlePageChange('enhanced-matching') },
                 ]).map(item => (
                   <button key={item.label} type="button" onClick={item.action} aria-current={item.active ? 'page' : undefined}
                     className={`rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors ${item.active ? 'border-[#2273c6] bg-[#2273c6] text-white' : 'border-transparent text-[#d1e0f0] hover:border-white/20 hover:bg-white/10'}`}>
@@ -1006,11 +1010,12 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
           />}
           {currentPage === 'dashboard' && (
             <>
-              {currentView !== 'history' && currentView !== 'result' && <TenderIntelligenceOverview
+              {currentView === 'executive' && <TenderIntelligenceOverview
                 onOpenTenders={() => setCurrentPage('tender-pipeline')}
                 onOpenPricing={() => { setCurrentPage('dashboard'); setCurrentView('import-hub'); }}
                 onOpenLeads={() => setCurrentPage('supplier-leads')}
               />}
+              {currentView !== 'executive' && <>
               {!contractorData && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                   <Card>
@@ -1239,6 +1244,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                 />
               )}
               {isDemoMode && user?.is_operator && currentView === 'upload' && (<div className="mt-6"><CatalogManager /></div>)}
+              </>}
             </>
           )}
           {currentPage === 'features' && (<Features />)}
