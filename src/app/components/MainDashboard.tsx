@@ -703,12 +703,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
   const handlePageChange = (page: 'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck' | 'tender-pipeline' | 'supplier-leads') => {
     setCurrentPage(page);
     if (page === 'dashboard') {
-      // ✅ FIX: FREE tier contractors should see template library, not upload
-      if (contractorData && !canUploadBOQ) {
-        setCurrentView('template-library');
-      } else {
-        setCurrentView('import-hub');
-      }
+      setCurrentView('executive');
       setProcessedBill(null);
     }
   };
@@ -977,10 +972,10 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
           {/* Customer prototype navigation, styled with Qilly's existing cyan/blue skin. */}
           {sessionStorage.getItem('user_type') !== 'supplier' && (
-            <aside aria-label="Qilly expansion modules" className="mb-6 rounded-xl border border-[#12395c] bg-gradient-to-b from-[#071f39] to-[#123c60] p-4 text-[#eaf3ff] shadow-sm lg:sticky lg:top-24 lg:w-60 shrink-0 w-full lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
-              <div className="mb-4 border-b border-white/20 pb-3">
-                <p className="text-lg font-extrabold tracking-wide text-white">QILLY</p>
-                <p className="text-xs font-medium text-[#afc7de]">Infrastructure Tender Intelligence</p>
+            <aside aria-label="Qilly expansion modules" className="mb-6 rounded-xl border border-cyan-200 bg-gradient-to-b from-[#e9fbff] to-white p-4 text-slate-800 shadow-sm lg:sticky lg:top-24 lg:w-60 shrink-0 w-full lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
+              <div className="mb-4 border-b border-cyan-200 pb-3">
+                <p className="text-lg font-extrabold tracking-wide text-[#0077b6]">QILLY</p>
+                <p className="text-xs font-medium text-slate-600">Infrastructure Tender Intelligence</p>
               </div>
               <nav aria-label="Tender-to-bid navigation" className="flex flex-col gap-2">
                 {([
@@ -993,12 +988,12 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                   { label: 'Item Search & Matching', active: currentPage === 'enhanced-matching', action: () => handlePageChange('enhanced-matching') },
                 ]).map(item => (
                   <button key={item.label} type="button" onClick={item.action} aria-current={item.active ? 'page' : undefined}
-                    className={`rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors ${item.active ? 'border-[#2273c6] bg-[#2273c6] text-white' : 'border-transparent text-[#d1e0f0] hover:border-white/20 hover:bg-white/10'}`}>
+                    className={`rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors ${item.active ? 'border-[#00b4d8] bg-[#00b4d8] text-white' : 'border-transparent text-slate-700 hover:border-cyan-200 hover:bg-cyan-50'}`}>
                     {item.label}
                   </button>
                 ))}
               </nav>
-              <p className="mt-4 border-t border-white/20 pt-3 text-xs text-[#afc7de]">Programme and cashflow open through eligible priced BOQs. Existing access rules apply.</p>
+              <p className="mt-4 border-t border-cyan-200 pt-3 text-xs text-slate-600">Programme and cashflow open through eligible priced BOQs. Existing access rules apply.</p>
             </aside>
           )}
           <div className="min-w-0 flex-1">
