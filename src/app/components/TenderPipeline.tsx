@@ -1,3 +1,4 @@
+import { BidDecisionWorkspace } from './BidDecisionWorkspace';
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase';
 import { toast } from 'sonner';
@@ -11,6 +12,7 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
   onStartPricing: () => void; onSelectOpportunity: (id: string | null) => void; selectedOpportunityId: string | null;
 }) {
   const [workspace, setWorkspace] = useState<'crm' | 'tenders' | 'suppliers'>('tenders');
+  const [assessmentTenderId, setAssessmentTenderId] = useState<string | null>(null);
   const [rows, setRows] = useState<Opportunity[]>([]);
   const [publishedLeads, setPublishedLeads] = useState<PublishedLead[]>([]);
   const [leadListError, setLeadListError] = useState('');
@@ -131,6 +133,7 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
         <td className="p-2"><select aria-label="Tender stage" value={row.stage} className="border rounded p-1" onChange={e=>void setStage(row.id,e.target.value)}>
           {stages.map(stage=><option key={stage} value={stage}>{stage}</option>)}</select></td>
         <td className="p-2 space-y-2"><button type="button" className="rounded border px-3 py-1 text-cyan-800" onClick={()=>{onSelectOpportunity(row.id);onStartPricing();}}>Price BOQ</button>
+          <button type="button" className="block rounded border px-3 py-1 text-cyan-800" onClick={()=>setAssessmentTenderId(assessmentTenderId===row.id?null:row.id)}>Bid / No-Bid</button>
           <button type="button" className="block rounded border px-3 py-1 text-cyan-800" onClick={()=>setPublishing(publishing===row.id?null:row.id)}>Publish supplier lead</button>
           {publishing===row.id && <div className="space-y-2 min-w-56">
             <input aria-label="Supplier lead category" className="w-full rounded border p-1" placeholder="Supplier category" value={leadCategory} onChange={e=>setLeadCategory(e.target.value)} />
@@ -141,6 +144,7 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
         </td>
       </tr>)}</tbody>
     </table></div>}
+    {workspace !== 'suppliers' && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (() => { const tender = rows.find(row=>row.id===assessmentTenderId)!; return <BidDecisionWorkspace key={tender.id} boqId={tender.linked_bill_id} tenderTitle={tender.tender_title} />; })()}
     {workspace !== 'suppliers' && rows.length === 0 && !error && <p className="text-sm text-gray-500">No opportunities yet.</p>}
     {workspace === 'suppliers' && <section aria-label="Published supplier leads" className="space-y-3 border-t pt-5">
       <div className="flex flex-wrap items-center justify-between gap-2">
