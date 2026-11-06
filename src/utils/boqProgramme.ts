@@ -108,7 +108,7 @@ export function draftBoqWorkPackageSchedule(groups: BoqProgrammeGroup[], months:
     return 2;
   };
   return [...groups].sort((a, b) => rank(a.name) - rank(b.name) || a.name.localeCompare(b.name))
-    .map((g, i, all) => {
+    .map((g, i) => {
       const phase = rank(g.name);
       const start = months === 1 ? 1 : Math.min(months, 1 + Math.floor((months - 1) * phase / 4));
       const duration = Math.max(1, months - start + 1);
