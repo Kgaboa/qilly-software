@@ -37,3 +37,34 @@ export function validateActualExpenditure(actual: Pick<ActualExpenditure, 'month
   return Number.isInteger(actual.month) && actual.month >= 1 &&
     actual.month <= durationMonths && Number.isFinite(actual.amount) && actual.amount >= 0;
 }
+
+/** Pure authorization gate for baseline lifecycle changes.
+ * Server must independently authenticate actor and verify project membership.
+ * This is NOT an approval endpoint and cannot persist or authorize database writes.
+ */
+export type BaselineTransition = {
+  actorId: string;
+  actorCanApprove: boolean;
+  nextStatus: FinancialBaseline['status'];
+  reviewedAt: string;
+};
+export function evaluateBaselineTransition(
+  baseline: FinancialBaseline,
+  request: BaselineTransition
+): { allowed: boolean; reason: string } {
+  if (!baseline.billId || !baseline.createdBy || !request.actorId ||
+      !Number.isInteger(baseline.version) || baseline.version < 1 ||
+      !validateFinancialBaseline(baseline) ||
+      !Number.isFinite(Date.parse(request.reviewedAt))) {
+    return { allowed: false, reason: 'Invalid baseline or transition metadata' };
+  }
+  if (baseline.status === 'draft' && request.nextStatus === 'submitted' &&
+      request.actorId === baseline.createdBy)
+    return { allowed: true, reason: 'Draft submission permitted' };
+  if (baseline.status === 'submitted' && ['approved', 'rejected'].includes(request.nextStatus)) {
+    if (!request.actorCanApprove) return { allowed: false, reason: 'Approver role required' };
+    if (request.actorId === baseline.createdBy) return { allowed: false, reason: 'Self-approval prohibited' };
+    return { allowed: true, reason: 'Independent review permitted' };
+  }
+  return { allowed: false, reason: 'Invalid or immutable baseline status transition' };
+}
