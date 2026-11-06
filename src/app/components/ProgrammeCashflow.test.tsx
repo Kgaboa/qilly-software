@@ -18,8 +18,17 @@ describe('BOQ-driven programme and S-Curve UI integration', () => {
     expect(screen.getByText((_, el) => el?.tagName === 'SPAN' && el.textContent?.includes('Scenario value:') && el.textContent?.includes((1000).toLocaleString('en-ZA', {minimumFractionDigits:2, maximumFractionDigits:2})) === true)).toBeTruthy();
     expect(screen.getByText(/1 excluded lines/)).toBeTruthy();
     expect(screen.getByText((_, el) => el?.tagName === 'P' && el.textContent?.includes('is eligible;') && el.textContent?.includes((1200).toLocaleString('en-ZA', {minimumFractionDigits:2, maximumFractionDigits:2})) === true)).toBeTruthy();
-    expect(screen.getByRole('img',{name:/S-Curve: cumulative planned expenditure in rand by project month/i})).toBeTruthy();
+    expect(screen.getByRole('img',{name:'S-Curve: cumulative planned expenditure in rand by project month'})).toBeTruthy();
     expect(screen.getByText('100.0%')).toBeTruthy();
+  });
+  it('shows linked allowable cost, profit, margin and monthly breakdown after generating BOQ work packages', () => {
+    render(<ProgrammeCashflow projectValue={1200} durationMonths={4} boqGroups={groups} eligibleValue={1000} excludedCount={1}/>);
+    fireEvent.click(screen.getByRole('button',{name:'Open planning scenario'}));
+    fireEvent.click(screen.getByRole('button',{name:'Generate work packages from priced BOQ'}));
+    fireEvent.change(screen.getByRole('spinbutton',{name:'Total allowable cost in rand'}), {target:{value:'800'}});
+    expect(screen.getByText('20.00%')).toBeTruthy();
+    expect(screen.getByText(/Markup on allowable cost: 25.00%/)).toBeTruthy();
+    expect(screen.getByText('Monthly allowable costs and projected profit')).toBeTruthy();
   });
   it('prevents generating work packages without eligible BOQ values', () => {
     render(<ProgrammeCashflow projectValue={1200} durationMonths={4} boqGroups={[]} eligibleValue={0}/>);
@@ -30,6 +39,6 @@ describe('BOQ-driven programme and S-Curve UI integration', () => {
     render(<ProgrammeCashflow projectValue={1200} durationMonths={4} boqGroups={groups} eligibleValue={1000} isMasked/>);
     fireEvent.click(screen.getByRole('button',{name:'Open planning scenario'}));
     expect(screen.getByText(/Upgrade access is required/)).toBeTruthy();
-    expect(screen.queryByRole('img',{name:'Planned cumulative expenditure S-Curve'})).toBeNull();
+    expect(screen.queryByRole('img',{name:'S-Curve: cumulative planned expenditure in rand by project month'})).toBeNull();
   });
 });
