@@ -1,7 +1,7 @@
 import { draftBoqWorkPackageSchedule, type BoqProgrammeGroup } from '../../utils/boqProgramme';
 import React, { useMemo, useState } from 'react';
 import { validateProgrammeDependencies, type ProgrammeActivity } from '../../utils/programmeDependencies';
-import { calculateProgrammeCashflow } from '../../utils/programmeCashflow';
+import { calculateProgrammeCashflow, calculateWorkPackageMonthlyAllocations } from '../../utils/programmeCashflow';
 
 type Activity = ProgrammeActivity;
 type Props = { projectValue: number; durationMonths: number; programmeLevel?: 'high' | 'detailed'; isMasked?: boolean; boqGroups?: BoqProgrammeGroup[]; eligibleValue?: number; excludedCount?: number };
@@ -34,6 +34,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
       a.start >= 1 && a.duration >= 1 && a.start + a.duration - 1 <= baselineMonths &&
       Number.isFinite(a.share) && a.share >= 0) && Math.abs(totalShare - 100) < 0.001;
   const series = useMemo(() => calculateProgrammeCashflow(activities, baselineMonths, scenarioValue), [activities, baselineMonths, scenarioValue]);
+  const packageAllocations = useMemo(() => calculateWorkPackageMonthlyAllocations(activities, baselineMonths, scenarioValue), [activities, baselineMonths, scenarioValue]);
   const applyBoqGroups = () => {
     if (!boqGroups.length || eligibleValue <= 0) return;
     setScenarioValue(eligibleValue);
@@ -87,6 +88,16 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
           </tr>)}</tbody></table></div>
         {!dependenciesValid && <p role="alert" className="text-sm text-red-700">Invalid dependency: successor must start after predecessor finishes.</p>}
         {!valid ? <p role="alert" className="text-sm text-red-700">Review activities: months must fit within the project duration and allocations must total exactly 100% (currently {totalShare.toFixed(1)}%).</p> : <>
+          <details className="rounded-lg border border-cyan-200 bg-white">
+            <summary className="cursor-pointer px-3 py-2 text-sm font-semibold text-cyan-800">Monthly expenditure by work package — draft BOQ allocation</summary>
+            <div className="max-h-80 overflow-auto border-t border-cyan-100">
+              <table className="min-w-full text-xs">
+                <thead className="sticky top-0 bg-slate-50"><tr><th className="p-2 text-left">Work package</th><th className="p-2 text-right">Planned total</th>{series.map(row => <th key={row.month} className="p-2 text-right">M{row.month}</th>)}</tr></thead>
+                <tbody>{packageAllocations.map(pkg => <tr key={pkg.id} className="border-t"><td className="p-2 whitespace-nowrap">{pkg.name}</td><td className="p-2 text-right whitespace-nowrap">{money(pkg.plannedTotal)}</td>{pkg.months.map((amount, index) => <td key={index} className="p-2 text-right whitespace-nowrap">{money(amount)}</td>)}</tr>)}</tbody>
+              </table>
+            </div>
+            <p className="p-2 text-xs text-amber-800">Illustrative monthly allocation, not approved baseline or actual expenditure.</p>
+          </details>
           <h4 className="font-medium">Planned cumulative expenditure (S-Curve)</h4>
           <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
             <p className="mb-2 text-xs text-slate-600">Horizontal axis: project month · Vertical axis: cumulative planned expenditure (R). Values are planned, not actual.</p>
