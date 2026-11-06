@@ -1,0 +1,16 @@
+-- SECURITY REVIEW ONLY: not executed.
+-- Existing public.team_members has email, organization_id, role, accepted_at,
+-- is_active but NO auth user_id. Do not approve financial baselines by comparing
+-- an unverified email or trusting client-submitted role flags.
+-- Proposed safe prerequisite:
+-- ALTER TABLE public.team_members ADD COLUMN auth_user_id uuid REFERENCES auth.users(id);
+-- CREATE UNIQUE INDEX ... ON public.team_members(organization_id,auth_user_id)
+--   WHERE auth_user_id IS NOT NULL;
+-- Backfill ONLY from an authenticated invitation acceptance process, with
+-- verified Supabase Auth identity and verified email; do not bulk-join emails.
+-- Restrict role assignments to trusted organization administrators.
+-- Before enabling approvals: validate organization_id on bills, accepted_at,
+-- is_active, auth_user_id, allowed finance role, and author != reviewer.
+-- Never expose direct approval table UPDATE grants to browser roles.
+-- Implement atomic status update + append-only audit in server-controlled transaction.
+-- This is a prerequisite proposal, not an applied migration.
