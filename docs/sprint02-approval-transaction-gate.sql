@@ -1,0 +1,17 @@
+-- Sprint 02 financial approval: SECURITY DESIGN, NOT A DEPLOYED MIGRATION.
+-- Server must verify Supabase Auth identity; never trust client-supplied reviewer IDs or roles.
+-- Reviewer's active accepted team_members membership and role must be checked against
+-- the bill's organization_id. The approved finance roles require customer confirmation.
+-- All decisions must be performed atomically in one server-controlled transaction:
+-- BEGIN;
+-- SELECT baseline, bill FOR UPDATE; verify organization, reviewer role and submitted status;
+-- reject baseline.created_by = reviewer; reject concurrent or duplicate decisions;
+-- UPDATE baseline SET status, approved_by, approved_at;
+-- INSERT append-only audit record (baseline, organization, actor, previous/new status,
+-- timestamp, idempotency request ID);
+-- COMMIT; rollback on any failure.
+-- Use an unexposed server-only database path with least-privilege credentials.
+-- Do not create a publicly callable SECURITY DEFINER approval function.
+-- Required release gates: verified role model, audited immutable event storage,
+-- RLS ownership tests across two contractors, idempotency and concurrent review tests.
+-- No changes to customer UAT or production until security gates pass.
