@@ -1,7 +1,7 @@
 import { draftBoqWorkPackageSchedule, type BoqProgrammeGroup } from '../../utils/boqProgramme';
 import React, { useMemo, useState } from 'react';
 import { validateProgrammeDependencies, type ProgrammeActivity } from '../../utils/programmeDependencies';
-import { calculateProgrammeCashflow, calculateWorkPackageMonthlyAllocations } from '../../utils/programmeCashflow';
+import { calculateProgrammeCashflow, calculateWorkPackageMonthlyAllocations, comparePlannedAndActual, type MonthlyCashflow } from '../../utils/programmeCashflow';
 
 type Activity = ProgrammeActivity;
 type Props = { projectValue: number; durationMonths: number; programmeLevel?: 'high' | 'detailed'; isMasked?: boolean; boqGroups?: BoqProgrammeGroup[]; eligibleValue?: number; excludedCount?: number };
@@ -23,6 +23,8 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
     { id: 5, name: 'Testing and handover', start: months, duration: 1, share: 10 },
   ] : initial(months));
   const [includeProgramme, setIncludeProgramme] = useState(false);
+  const [approvedBaseline, setApprovedBaseline] = useState<MonthlyCashflow[] | null>(null);
+  const [actuals, setActuals] = useState<Record<number, number>>({});
   const [baselineMonths, setBaselineMonths] = useState(months);
   const [scenarioValue, setScenarioValue] = useState(projectValue);
   const change = (id: number, field: keyof Activity, value: string) =>
@@ -34,6 +36,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
       a.start >= 1 && a.duration >= 1 && a.start + a.duration - 1 <= baselineMonths &&
       Number.isFinite(a.share) && a.share >= 0) && Math.abs(totalShare - 100) < 0.001;
   const series = useMemo(() => calculateProgrammeCashflow(activities, baselineMonths, scenarioValue), [activities, baselineMonths, scenarioValue]);
+  const comparison = useMemo(() => approvedBaseline ? comparePlannedAndActual(approvedBaseline, Object.entries(actuals).map(([month, amount]) => ({ month: Number(month), amount }))) : [], [approvedBaseline, actuals]);
   const packageAllocations = useMemo(() => calculateWorkPackageMonthlyAllocations(activities, baselineMonths, scenarioValue), [activities, baselineMonths, scenarioValue]);
   const applyBoqGroups = () => {
     if (!boqGroups.length || eligibleValue <= 0) return;
@@ -41,7 +44,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
     setActivities(draftBoqWorkPackageSchedule(boqGroups, baselineMonths));
     setIncludeProgramme(true);
   };
-  const reset = () => { setActivities(initial(months)); setBaselineMonths(months); setScenarioValue(projectValue); setIncludeProgramme(false); };
+  const reset = () => { setApprovedBaseline(null); setActuals({}); setActivities(initial(months)); setBaselineMonths(months); setScenarioValue(projectValue); setIncludeProgramme(false); };
   const chartW = 800, chartH = 300, left = 104, right = 32, top = 24, bottom = 64;
   const plotW = chartW - left - right, plotH = chartH - top - bottom;
   const ticks = [0, 0.25, 0.5, 0.75, 1];
@@ -98,6 +101,23 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
             </div>
             <p className="p-2 text-xs text-amber-800">Illustrative monthly allocation, not approved baseline or actual expenditure.</p>
           </details>
+          <div className="rounded-lg border border-cyan-200 p-3 space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div><h4 className="font-semibold">Baseline review &amp; actual expenditure</h4><p className="text-xs text-slate-600">Local draft workflow only. Approval here is a review marker, not a saved contractual authorisation.</p></div>
+              <button type="button" className="rounded bg-cyan-700 px-3 py-2 text-sm text-white" onClick={() => { setApprovedBaseline(series.map(row => ({ ...row }))); setActuals({}); }}>Mark current plan as reviewed baseline</button>
+            </div>
+            {approvedBaseline ? <>
+              <p className="text-xs text-amber-800">Reviewed baseline captured in this session only. Changing the plan will not overwrite this snapshot. Actual amounts are entered manually; blank means not reported.</p>
+              <div className="max-h-72 overflow-auto"><table className="w-full min-w-[660px] text-sm">
+                <thead className="sticky top-0 bg-slate-50"><tr><th className="p-2 text-left">Month</th><th className="p-2 text-right">Baseline (R)</th><th className="p-2 text-right">Actual expenditure (R)</th><th className="p-2 text-right">Monthly variance (R)</th><th className="p-2 text-right">Cumulative variance (R)</th></tr></thead>
+                <tbody>{comparison.map(row => <tr key={row.month} className="border-t">
+                  <td className="p-2">M{row.month}</td><td className="p-2 text-right">{money(row.planned)}</td>
+                  <td className="p-2 text-right"><input aria-label={`Actual expenditure month ${row.month}`} className="w-32 rounded border p-1 text-right" type="number" min="0" step="0.01" value={actuals[row.month] ?? ''} onChange={e => { const value = e.target.value; setActuals(current => { const next = { ...current }; if (value === '') delete next[row.month]; else next[row.month] = Number(value); return next; }); }} /></td>
+                  <td className="p-2 text-right">{row.variance === null ? 'Not reported' : money(row.variance)}</td>
+                  <td className="p-2 text-right">{row.cumulativeVariance === null ? 'Incomplete actuals' : money(row.cumulativeVariance)}</td>
+                </tr>)}</tbody></table></div>
+            </> : <p className="text-sm text-slate-600">Review the schedule and allocations before capturing an in-session baseline.</p>}
+          </div>
           <h4 className="font-medium">Planned cumulative expenditure (S-Curve)</h4>
           <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
             <p className="mb-2 text-xs text-slate-600">Horizontal axis: project month · Vertical axis: cumulative planned expenditure (R). Values are planned, not actual.</p>
