@@ -5,7 +5,7 @@ import { validateProgrammeDependencies, type ProgrammeActivity } from '../../uti
 import { calculateProgrammeCashflow, calculateWorkPackageMonthlyAllocations, comparePlannedAndActual, type MonthlyCashflow } from '../../utils/programmeCashflow';
 
 type Activity = ProgrammeActivity;
-type Props = { projectValue: number; durationMonths: number; programmeLevel?: 'high' | 'detailed'; isMasked?: boolean; boqGroups?: BoqProgrammeGroup[]; eligibleValue?: number; excludedCount?: number };
+type Props = { projectValue: number; durationMonths: number; programmeLevel?: 'high' | 'detailed'; isMasked?: boolean; boqGroups?: BoqProgrammeGroup[]; eligibleValue?: number; excludedCount?: number; focusAllowables?: boolean };
 const money = (n: number) => 'R ' + n.toLocaleString('en-ZA', { maximumFractionDigits: 2, minimumFractionDigits: 2 });
 const initial = (months: number): Activity[] => [
   { id: 1, name: 'Mobilisation and preliminaries', start: 1, duration: Math.max(1, Math.ceil(months * 0.2)), share: 10 },
@@ -14,7 +14,7 @@ const initial = (months: number): Activity[] => [
 ];
 
 /** Illustrative programme/cashflow scenario, not a contractual baseline or a BOQ-derived activity schedule. */
-export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel = 'high', isMasked = false, boqGroups = [], eligibleValue = 0, excludedCount = 0 }: Props) {
+export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel = 'high', isMasked = false, boqGroups = [], eligibleValue = 0, excludedCount = 0, focusAllowables = false }: Props) {
   const months = Math.max(1, Math.min(36, Math.round(Number(durationMonths) || 6)));
   const [activities, setActivities] = useState<Activity[]>(() => programmeLevel === 'detailed' ? [
     { id: 1, name: 'Mobilisation and preliminaries', start: 1, duration: Math.max(1, Math.ceil(months * 0.15)), share: 10 },
@@ -23,7 +23,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
     { id: 4, name: 'Finishing and surfacing', start: Math.max(1, Math.floor(months * 0.6)), duration: Math.max(1, months - Math.floor(months * 0.6)), share: 15 },
     { id: 5, name: 'Testing and handover', start: months, duration: 1, share: 10 },
   ] : initial(months));
-  const [includeProgramme, setIncludeProgramme] = useState(false);
+  const [includeProgramme, setIncludeProgramme] = useState(focusAllowables);
   const [approvedBaseline, setApprovedBaseline] = useState<MonthlyCashflow[] | null>(null);
   const [actuals, setActuals] = useState<Record<number, number>>({});
   const [baselineMonths, setBaselineMonths] = useState(months);
@@ -79,8 +79,8 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
           <span>{boqGroups.length ? `${boqGroups.length} proposed packages · ${excludedCount} excluded lines` : 'Unavailable: no eligible BOQ work groups have been mapped for this historical bill.'}</span>
         </div>
         {boqGroups.length > 0 && <p className="text-xs text-amber-800">
-          BOQ work packages are a draft for QS review. {money(eligibleValue)} of {money(projectValue)} is eligible;
-          any difference is not allocated. Draft category-based start months are proposed across the project duration; review and adjust sequencing and dependencies.
+          BOQ-derived work packages are proposed for QS review; the priced BOQ remains unchanged. {money(eligibleValue)} of {money(projectValue)} is eligible;
+          any difference is not allocated. Proposed category-based start months are proposed across the project duration; review and adjust sequencing and dependencies.
         </p>}
         <p className="text-xs text-amber-800">Illustrative allocations only. BOQ categories are proposed work packages, not approved activity mappings. No actual progress or approved baseline is implied.</p>
         <div className="overflow-x-auto"><table className="w-full min-w-[640px] text-sm">
@@ -106,7 +106,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
             <p className="p-2 text-xs text-amber-800">Illustrative monthly allocation, not approved baseline or actual expenditure.</p>
           </details>
           <div className="rounded-lg border border-cyan-200 p-3 space-y-3" aria-label="Allowables and margin scenario">
-            <h4 className="font-semibold">Allowables &amp; Margin — draft scenario</h4>
+            <h4 className="font-semibold">Allowables &amp; Margin — planning scenario</h4>
             <p className="text-xs text-slate-600">Enter the contractor's estimated allowable cost. BOQ selling prices do not establish allowable costs. These are planning estimates, not verified costs or an approved financial baseline.</p>
             <label className="flex flex-wrap items-center gap-2 text-sm">Total allowable cost (R)
               <input aria-label="Total allowable cost in rand" type="number" min="0" step="0.01" value={allowableInput} onChange={e => setAllowableInput(e.target.value)} placeholder="Enter estimated cost" className="w-52 rounded border p-2" />
