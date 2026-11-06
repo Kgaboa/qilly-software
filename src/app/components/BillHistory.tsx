@@ -13,7 +13,7 @@ import * as XLSX from 'xlsx';
 
 interface BillHistoryProps {
   accessToken: string;
-  planningMode?: 'programme' | 'cashflow' | null;
+  planningMode?: 'programme' | 'cashflow' | 'allowables' | null;
 }
 
 export function BillHistory({ accessToken, planningMode = null }: BillHistoryProps) {
@@ -326,7 +326,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
       {planningMode && selectedBill && Number(selectedBill.overallTotal) > 0 && (
         <section aria-label={planningMode === 'programme' ? 'Selected BOQ programme' : 'Selected BOQ cashflow'} className="space-y-3">
           <div className="rounded-xl border border-cyan-100 bg-cyan-50 p-4">
-            <h3 className="font-semibold text-[#0077b6]">{planningMode === 'programme' ? 'Programme of Works' : 'Cash Flow & S-Curve'}</h3>
+            <h3 className="font-semibold text-[#0077b6]">{planningMode === 'programme' ? 'Programme of Works' : planningMode === 'allowables' ? 'Allowables & Margin' : 'Cash Flow & S-Curve'}</h3>
             <p className="text-sm text-slate-700">BOQ: {selectedBill.projectName || selectedBill.billNumber || selectedBill.id} · Priced value: R{formatNumber(selectedBill.overallTotal)}</p>
             <Button variant="outline" size="sm" className="mt-2 bg-white" onClick={() => { setDetailsBill(selectedBill); setItemFilter(''); }}>View BOQ line-item details</Button>
             <p className="text-xs text-slate-600">Illustrative scenario only. Confirm programme duration, sequencing and commercial assumptions before approval.</p>
@@ -364,7 +364,7 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
           <p role="status" className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
             Historical BOQ work packages are provisional groupings of line items with positive, reconciled quantity × rate totals. Pricing approval evidence and activity sequencing are not available in this history record. Review each work package and confirm its value, timing and dependencies before approving a baseline.
           </p>
-          <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths + '-' + programmeLevel} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} programmeLevel={programmeLevel}
+          <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths + '-' + programmeLevel} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} programmeLevel={programmeLevel} focusAllowables={planningMode === 'allowables'}
             boqGroups={historicalDraft?.groups || []}
             eligibleValue={historicalDraft?.eligibleTotal || 0}
             excludedCount={historicalDraft?.excludedCount || 0} />
