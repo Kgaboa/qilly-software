@@ -24,7 +24,6 @@ export async function saveNewRepricingDraft(
   if (![sellingValue, allowableCost, riskEscalationPercent].every(Number.isFinite) ||
       sellingValue < 0 || allowableCost < 0 || riskEscalationPercent < 0 || riskEscalationPercent > 1000)
     throw new Error('Invalid financial scenario values');
-  const existing = await listRepricingDrafts(boqId);
   const { data: versions, error: versionsError } = await supabase.from('boq_repricing_scenarios')
     .select('version').eq('boq_id', boqId).order('version', { ascending: false }).limit(1);
   if (versionsError) throw versionsError;
