@@ -43,3 +43,11 @@ export async function saveNewRepricingDraft(
   if (error) throw error;
   return data as StoredRepricingDraft;
 }
+
+/** Atomically submits an owned draft and writes an immutable audit entry server-side. */
+export async function submitRepricingDraft(scenarioId: string): Promise<void> {
+  if (!scenarioId) throw new Error('Select a draft first');
+  const { data, error } = await supabase.rpc('submit_boq_repricing_scenario', { p_scenario_id: scenarioId });
+  if (error) throw error;
+  if (data !== true) throw new Error('Draft not eligible for submission');
+}
