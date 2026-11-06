@@ -90,3 +90,28 @@ export function deriveHistoricalDraftGroups(items: Array<{
     eligibleTotal,
   };
 }
+
+/** Draft scheduling only: category order is a proposal, never an approved programme.
+ * Each package retains its BOQ-derived cost share. Overlapping packages are allowed;
+ * no contractual predecessor or actual progress is inferred.
+ */
+export function draftBoqWorkPackageSchedule(groups: BoqProgrammeGroup[], months: number) {
+  if (!Number.isInteger(months) || months < 1 || months > 36 || !groups.length ||
+      groups.some(g => !Number.isFinite(g.share) || g.share < 0)) return [];
+  const rank = (name: string) => {
+    const n = name.toLowerCase();
+    if (/preliminar|mobilis/.test(n)) return 0;
+    if (/earthwork/.test(n)) return 1;
+    if (/concrete|structure|pipeline|drainage/.test(n)) return 2;
+    if (/roadwork|surfacing|electrical|mechanical/.test(n)) return 3;
+    if (/testing|handover/.test(n)) return 4;
+    return 2;
+  };
+  return [...groups].sort((a, b) => rank(a.name) - rank(b.name) || a.name.localeCompare(b.name))
+    .map((g, i, all) => {
+      const phase = rank(g.name);
+      const start = months === 1 ? 1 : Math.min(months, 1 + Math.floor((months - 1) * phase / 4));
+      const duration = Math.max(1, months - start + 1);
+      return { id: i + 1, name: g.name, start, duration, share: g.share, predecessorId: null as null };
+    });
+}
