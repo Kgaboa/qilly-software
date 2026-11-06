@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - feature/qilly-expansion-sprint-01
+      - feature/qilly-expansion-sprint-02
   pull_request:
     branches:
       - uat-controlled-matching
