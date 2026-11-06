@@ -7,6 +7,7 @@ import { evaluateBaselineTransition, type FinancialBaseline } from './financialB
 export interface FinancialApprovalAdapter {
   authenticate(accessToken: string): Promise<{ id: string } | null>;
   getBaselineForReview(baselineId: string, actorId: string): Promise<FinancialBaseline | null>;
+  /** Resolve identity through trusted auth-to-organisation membership; fail closed if unlinked. */
   isAuthorizedApprover(actorId: string, billId: string): Promise<boolean>;
   transitionWithAudit(input: {
     baselineId: string;
