@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { listRepricingDrafts, saveNewRepricingDraft, type StoredRepricingDraft } from '@/utils/repricingStorage';
+import { listRepricingDrafts, saveNewRepricingDraft, submitRepricingDraft, type StoredRepricingDraft } from '@/utils/repricingStorage';
 import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -63,6 +63,17 @@ export function AllowablesWorkspace({ items, originalTotal, boqId }: Props) {
       setSelectedDraft(saved.id);
       setDraftMessage('Draft version ' + saved.version + ' saved. Original BOQ unchanged.');
     } catch (error) { setDraftMessage(error instanceof Error ? error.message : 'Draft save failed.'); }
+    finally { setDraftBusy(false); }
+  };
+  const submitDraft = async () => {
+    if (!selectedDraft) return;
+    setDraftBusy(true); setDraftMessage('');
+    try {
+      await submitRepricingDraft(selectedDraft);
+      await refreshDrafts();
+      setSelectedDraft('');
+      setDraftMessage('Draft submitted for review. Approval is not yet available.');
+    } catch (error) { setDraftMessage(error instanceof Error ? error.message : 'Submission failed.'); }
     finally { setDraftBusy(false); }
   };
   const loadDraft = () => {
@@ -147,7 +158,8 @@ export function AllowablesWorkspace({ items, originalTotal, boqId }: Props) {
           <option value="">Select saved draft</option>
           {drafts.map(d => <option key={d.id} value={d.id}>Version {d.version}</option>)}
         </select>
-        <button type="button" className="rounded border px-3 py-2 disabled:opacity-50" disabled={!selectedDraft} onClick={loadDraft}>Load Draft</button>
+        <button type="button" className="rounded border px-3 py-2 disabled:opacity-50" disabled={!selectedDraft || draftBusy} onClick={loadDraft}>Load Draft</button>
+        <button type="button" className="rounded border border-cyan-700 px-3 py-2 text-cyan-800 disabled:opacity-50" disabled={!selectedDraft || draftBusy} onClick={() => void submitDraft()}>Submit for Review</button>
       </div>
       {draftMessage && <p role="status">{draftMessage}</p>}
     </div>
