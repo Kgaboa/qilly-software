@@ -6,7 +6,7 @@ import { evaluateBaselineTransition, type FinancialBaseline } from './financialB
  */
 export interface FinancialApprovalAdapter {
   authenticate(accessToken: string): Promise<{ id: string } | null>;
-  getBaselineForReview(baselineId: string): Promise<FinancialBaseline | null>;
+  getBaselineForReview(baselineId: string, actorId: string): Promise<FinancialBaseline | null>;
   isAuthorizedApprover(actorId: string, billId: string): Promise<boolean>;
   transitionWithAudit(input: {
     baselineId: string;
@@ -24,7 +24,7 @@ export async function reviewFinancialBaseline(
     return { ok: false, reason: 'Invalid request' };
   const actor = await adapter.authenticate(input.accessToken);
   if (!actor) return { ok: false, reason: 'Authentication required' };
-  const baseline = await adapter.getBaselineForReview(input.baselineId);
+  const baseline = await adapter.getBaselineForReview(input.baselineId, actor.id);
   if (!baseline) return { ok: false, reason: 'Baseline unavailable' };
   const authorized = await adapter.isAuthorizedApprover(actor.id, baseline.billId);
   const transition = evaluateBaselineTransition(baseline, {
