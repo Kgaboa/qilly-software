@@ -33,6 +33,7 @@ describe('server approval orchestration contract', () => {
   it('requires an atomic audited transition', async () => {
     const service = adapter();
     expect((await reviewFinancialBaseline(service, request)).ok).toBe(true);
+    expect(service.getBaselineForReview).toHaveBeenCalledWith('baseline-1', 'reviewer');
     expect(service.transitionWithAudit).toHaveBeenCalledWith(expect.objectContaining({ expectedStatus: 'submitted', actorId: 'reviewer' }));
     service.transitionWithAudit = vi.fn(async () => false);
     expect((await reviewFinancialBaseline(service, request)).ok).toBe(false);
