@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { calculateProgrammeCashflow } from '@/utils/programmeCashflow';
+import { calculateProgrammeCashflow, calculateWorkPackageMonthlyAllocations, comparePlannedAndActual } from '@/utils/programmeCashflow';
 import type { ProgrammeActivity } from '@/utils/programmeDependencies';
 
 const activities: ProgrammeActivity[] = [
@@ -29,5 +29,27 @@ describe('monthly BOQ programme cashflow', () => {
   it('rejects invalid month horizon and empty activity schedules', () => {
     expect(calculateProgrammeCashflow(activities,37,1000)).toEqual([]);
     expect(calculateProgrammeCashflow([],4,1000)).toEqual([]);
+  });
+});
+
+describe('Sprint 02 monthly allocations and actual expenditure controls', () => {
+  it('reconciles package allocations to the S-Curve by month', () => {
+    const cashflow = calculateProgrammeCashflow(activities, 4, 1000);
+    const packages = calculateWorkPackageMonthlyAllocations(activities, 4, 1000);
+    expect(packages.map(p => p.plannedTotal)).toEqual([400, 600]);
+    expect(cashflow.map((m, index) => packages.reduce((sum, p) => sum + p.months[index], 0))).toEqual(cashflow.map(m => m.planned));
+  });
+  it('shows only explicitly supplied actuals and does not fill missing months with zero', () => {
+    const baseline = calculateProgrammeCashflow(activities, 4, 1000);
+    const comparison = comparePlannedAndActual(baseline, [{month:1,amount:175},{month:2,amount:225}]);
+    expect(comparison[0]).toMatchObject({actual:175,cumulativeActual:175,variance:-25,cumulativeVariance:-25});
+    expect(comparison[1]).toMatchObject({actual:225,cumulativeActual:400,cumulativeVariance:0});
+    expect(comparison[2]).toMatchObject({actual:null,cumulativeActual:null,variance:null,cumulativeVariance:null});
+  });
+  it('rejects duplicate, negative and out-of-horizon actual expenditure', () => {
+    const baseline = calculateProgrammeCashflow(activities, 4, 1000);
+    expect(comparePlannedAndActual(baseline,[{month:1,amount:10},{month:1,amount:20}])).toEqual([]);
+    expect(comparePlannedAndActual(baseline,[{month:1,amount:-1}])).toEqual([]);
+    expect(comparePlannedAndActual(baseline,[{month:5,amount:1}])).toEqual([]);
   });
 });
