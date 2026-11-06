@@ -1,14 +1,21 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { listRepricingDrafts, saveNewRepricingDraft, type StoredRepricingDraft } from '@/utils/repricingStorage';
 import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 type Item = { code?: string; name?: string; description?: string; quantity?: number | string; unit?: string; unitPrice?: number | string; totalPrice?: number | string };
-type Props = { items: Item[]; originalTotal: number };
+type Props = { items: Item[]; originalTotal: number; boqId: string };
 type Override = { selling?: string; allowable?: string };
 const money = (n: number) => 'R ' + n.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const validNumber = (n: unknown) => Number.isFinite(Number(n)) && Number(n) >= 0;
-export function AllowablesWorkspace({ items, originalTotal }: Props) {
+export function AllowablesWorkspace({ items, originalTotal, boqId }: Props) {
+  const [drafts, setDrafts] = useState<StoredRepricingDraft[]>([]);
+  const [draftBusy, setDraftBusy] = useState(false);
+  const [draftMessage, setDraftMessage] = useState('');
+  const [selectedDraft, setSelectedDraft] = useState('');
+  const refreshDrafts = async () => { const data = await listRepricingDrafts(boqId); setDrafts(data); };
+  useEffect(() => { let active = true; void listRepricingDrafts(boqId).then(data => { if(active) setDrafts(data); }).catch(() => { if(active) setDraftMessage('Unable to load saved drafts.'); }); return () => { active = false; }; }, [boqId]);
   const [overrides, setOverrides] = useState<Record<number, Override>>({});
   const [risk, setRisk] = useState('10');
   const [filter, setFilter] = useState('');
@@ -45,6 +52,29 @@ export function AllowablesWorkspace({ items, originalTotal }: Props) {
       });
       return next;
     });
+  };
+  const saveDraft = async () => {
+    if (!complete || !validRisk || sellingValue <= 0) { setDraftMessage('Complete valid costing and risk inputs before saving.'); return; }
+    setDraftBusy(true); setDraftMessage('');
+    try {
+      const lines = eligible.map(r => ({ itemIndex: r.index, proposedRate: r.selling, allowableUnitCost: r.allowable }));
+      const saved = await saveNewRepricingDraft(boqId, lines, sellingValue, allowableCost, escalation);
+      await refreshDrafts();
+      setSelectedDraft(saved.id);
+      setDraftMessage('Draft version ' + saved.version + ' saved. Original BOQ unchanged.');
+    } catch (error) { setDraftMessage(error instanceof Error ? error.message : 'Draft save failed.'); }
+    finally { setDraftBusy(false); }
+  };
+  const loadDraft = () => {
+    const draft = drafts.find(d => d.id === selectedDraft);
+    if (!draft) return;
+    const next: Record<number, Override> = {};
+    for (const line of draft.lines) {
+      if (!Number.isInteger(line.itemIndex) || line.itemIndex < 0 || line.itemIndex >= items.length) { setDraftMessage('Saved draft does not match this BOQ.'); return; }
+      next[line.itemIndex] = { selling: String(line.proposedRate), allowable: line.allowableUnitCost === null ? '' : String(line.allowableUnitCost) };
+    }
+    setOverrides(next); setRisk(String(draft.risk_escalation_percent));
+    setDraftMessage('Loaded draft version ' + draft.version + ' for editing. No BOQ changes applied.');
   };
   const exportRows = rows.map(r => ({
     'Item No': r.item.code || '', Description: r.item.name || r.item.description || '',
@@ -107,6 +137,19 @@ export function AllowablesWorkspace({ items, originalTotal }: Props) {
       <button type="button" className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50" disabled={!validNumber(assumption) || Number(assumption) > 100} onClick={suggestAllowables}>Generate Allowables</button>
       <button type="button" className="rounded border px-3 py-2" onClick={exportExcel}>Export Repriced BOQ — Excel</button>
       <button type="button" className="rounded border px-3 py-2" onClick={exportPDF}>Export Repriced BOQ — PDF</button></div>
+    </div>
+    <div className="rounded-lg border border-cyan-200 p-3 space-y-2 text-sm" aria-label="Repricing draft persistence">
+      <strong>Versioned Repricing Drafts</strong>
+      <p className="text-slate-600">Save or reload a scenario without modifying the original BOQ or using another BOQ credit. Drafts are private to the BOQ owner.</p>
+      <div className="flex flex-wrap items-center gap-2">
+        <button type="button" disabled={draftBusy || !complete || !validRisk || sellingValue <= 0} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50" onClick={() => void saveDraft()}>{draftBusy ? 'Saving...' : 'Save Draft'}</button>
+        <select aria-label="Saved repricing draft" className="rounded border p-2" value={selectedDraft} onChange={e=>setSelectedDraft(e.target.value)}>
+          <option value="">Select saved draft</option>
+          {drafts.map(d => <option key={d.id} value={d.id}>Version {d.version}</option>)}
+        </select>
+        <button type="button" className="rounded border px-3 py-2 disabled:opacity-50" disabled={!selectedDraft} onClick={loadDraft}>Load Draft</button>
+      </div>
+      {draftMessage && <p role="status">{draftMessage}</p>}
     </div>
     <input className="w-full rounded border p-2 text-sm" aria-label="Search BOQ costing items" placeholder="Search BOQ item or description" value={filter} onChange={e=>setFilter(e.target.value)} />
     <div className="max-h-[65vh] overflow-auto"><table className="w-full min-w-[1020px] text-sm"><thead className="sticky top-0 bg-slate-100"><tr>{['BOQ item','Qty','Unit','Original selling rate','Proposed selling rate (R)','Allowable unit cost (R)','Selling total','Profit contribution'].map(h=><th key={h} className="p-2 text-left">{h}</th>)}</tr></thead><tbody>{visible.map(r=><tr key={r.index} className="border-t"><td className="p-2 min-w-52">{r.item.code} {r.item.name || r.item.description}</td><td className="p-2">{r.item.quantity}</td><td className="p-2">{r.item.unit}</td><td className="p-2">{money(r.originalRate || 0)}</td><td className="p-2"><input aria-label={`Proposed selling rate for item ${r.index+1}`} disabled={!r.editable} type="number" min="0" step=".01" className="w-32 rounded border p-1" value={overrides[r.index]?.selling ?? (r.editable ? String(r.originalRate) : '')} onChange={e=>update(r.index,'selling',e.target.value)} /></td><td className="p-2"><input aria-label={`Allowable unit cost for item ${r.index+1}`} disabled={!r.editable} type="number" min="0" step=".01" placeholder="Required" className="w-32 rounded border p-1" value={overrides[r.index]?.allowable ?? ''} onChange={e=>update(r.index,'allowable',e.target.value)} /></td><td className="p-2">{r.valid ? money(r.quantity*r.selling) : 'Review'}</td><td className="p-2">{r.valid && r.allowable !== null ? money(r.quantity*(r.selling-r.allowable)) : 'Pending'}</td></tr>)}</tbody></table></div>
