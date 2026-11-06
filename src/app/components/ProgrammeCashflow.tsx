@@ -1,7 +1,8 @@
-import type { BoqProgrammeGroup } from '../../utils/boqProgramme';
+import { calculateAllowablesMarginScenario } from '../../utils/allowablesMarginScenario';
+import { draftBoqWorkPackageSchedule, type BoqProgrammeGroup } from '../../utils/boqProgramme';
 import React, { useMemo, useState } from 'react';
 import { validateProgrammeDependencies, type ProgrammeActivity } from '../../utils/programmeDependencies';
-import { calculateProgrammeCashflow } from '../../utils/programmeCashflow';
+import { calculateProgrammeCashflow, calculateWorkPackageMonthlyAllocations, comparePlannedAndActual, type MonthlyCashflow } from '../../utils/programmeCashflow';
 
 type Activity = ProgrammeActivity;
 type Props = { projectValue: number; durationMonths: number; programmeLevel?: 'high' | 'detailed'; isMasked?: boolean; boqGroups?: BoqProgrammeGroup[]; eligibleValue?: number; excludedCount?: number };
@@ -23,8 +24,11 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
     { id: 5, name: 'Testing and handover', start: months, duration: 1, share: 10 },
   ] : initial(months));
   const [includeProgramme, setIncludeProgramme] = useState(false);
+  const [approvedBaseline, setApprovedBaseline] = useState<MonthlyCashflow[] | null>(null);
+  const [actuals, setActuals] = useState<Record<number, number>>({});
   const [baselineMonths, setBaselineMonths] = useState(months);
   const [scenarioValue, setScenarioValue] = useState(projectValue);
+  const [allowableInput, setAllowableInput] = useState('');
   const change = (id: number, field: keyof Activity, value: string) =>
     setActivities(current => current.map(a => a.id === id ? { ...a, [field]: field === 'name' ? value : Number(value) } : a));
   const dependenciesValid = validateProgrammeDependencies(activities);
@@ -34,15 +38,17 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
       a.start >= 1 && a.duration >= 1 && a.start + a.duration - 1 <= baselineMonths &&
       Number.isFinite(a.share) && a.share >= 0) && Math.abs(totalShare - 100) < 0.001;
   const series = useMemo(() => calculateProgrammeCashflow(activities, baselineMonths, scenarioValue), [activities, baselineMonths, scenarioValue]);
+  const allowableCost = allowableInput.trim() === '' ? null : Number(allowableInput);
+  const commercial = useMemo(() => allowableCost !== null ? calculateAllowablesMarginScenario(series, scenarioValue, allowableCost) : null, [series, scenarioValue, allowableCost]);
+  const comparison = useMemo(() => approvedBaseline ? comparePlannedAndActual(approvedBaseline, Object.entries(actuals).map(([month, amount]) => ({ month: Number(month), amount }))) : [], [approvedBaseline, actuals]);
+  const packageAllocations = useMemo(() => calculateWorkPackageMonthlyAllocations(activities, baselineMonths, scenarioValue), [activities, baselineMonths, scenarioValue]);
   const applyBoqGroups = () => {
     if (!boqGroups.length || eligibleValue <= 0) return;
     setScenarioValue(eligibleValue);
-    setActivities(boqGroups.map((g, i) => ({
-      id: i + 1, name: g.name, start: 1, duration: baselineMonths, share: g.share, predecessorId: null
-    })));
+    setActivities(draftBoqWorkPackageSchedule(boqGroups, baselineMonths));
     setIncludeProgramme(true);
   };
-  const reset = () => { setActivities(initial(months)); setBaselineMonths(months); setScenarioValue(projectValue); setIncludeProgramme(false); };
+  const reset = () => { setApprovedBaseline(null); setActuals({}); setActivities(initial(months)); setBaselineMonths(months); setScenarioValue(projectValue); setIncludeProgramme(false); setAllowableInput(''); };
   const chartW = 800, chartH = 300, left = 104, right = 32, top = 24, bottom = 64;
   const plotW = chartW - left - right, plotH = chartH - top - bottom;
   const ticks = [0, 0.25, 0.5, 0.75, 1];
@@ -74,7 +80,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
         </div>
         {boqGroups.length > 0 && <p className="text-xs text-amber-800">
           BOQ work packages are a draft for QS review. {money(eligibleValue)} of {money(projectValue)} is eligible;
-          any difference is not allocated. Generation starts all packages in month 1 and requires manual sequencing.
+          any difference is not allocated. Draft category-based start months are proposed across the project duration; review and adjust sequencing and dependencies.
         </p>}
         <p className="text-xs text-amber-800">Illustrative allocations only. BOQ categories are proposed work packages, not approved activity mappings. No actual progress or approved baseline is implied.</p>
         <div className="overflow-x-auto"><table className="w-full min-w-[640px] text-sm">
@@ -89,6 +95,56 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
           </tr>)}</tbody></table></div>
         {!dependenciesValid && <p role="alert" className="text-sm text-red-700">Invalid dependency: successor must start after predecessor finishes.</p>}
         {!valid ? <p role="alert" className="text-sm text-red-700">Review activities: months must fit within the project duration and allocations must total exactly 100% (currently {totalShare.toFixed(1)}%).</p> : <>
+          <details className="rounded-lg border border-cyan-200 bg-white">
+            <summary className="cursor-pointer px-3 py-2 text-sm font-semibold text-cyan-800">Monthly expenditure by work package — draft BOQ allocation</summary>
+            <div className="max-h-80 overflow-auto border-t border-cyan-100">
+              <table className="min-w-full text-xs">
+                <thead className="sticky top-0 bg-slate-50"><tr><th className="p-2 text-left">Work package</th><th className="p-2 text-right">Planned total</th>{series.map(row => <th key={row.month} className="p-2 text-right">M{row.month}</th>)}</tr></thead>
+                <tbody>{packageAllocations.map(pkg => <tr key={pkg.id} className="border-t"><td className="p-2 whitespace-nowrap">{pkg.name}</td><td className="p-2 text-right whitespace-nowrap">{money(pkg.plannedTotal)}</td>{pkg.months.map((amount, index) => <td key={index} className="p-2 text-right whitespace-nowrap">{money(amount)}</td>)}</tr>)}</tbody>
+              </table>
+            </div>
+            <p className="p-2 text-xs text-amber-800">Illustrative monthly allocation, not approved baseline or actual expenditure.</p>
+          </details>
+          <div className="rounded-lg border border-cyan-200 p-3 space-y-3" aria-label="Allowables and margin scenario">
+            <h4 className="font-semibold">Allowables &amp; Margin — draft scenario</h4>
+            <p className="text-xs text-slate-600">Enter the contractor's estimated allowable cost. BOQ selling prices do not establish allowable costs. These are planning estimates, not verified costs or an approved financial baseline.</p>
+            <label className="flex flex-wrap items-center gap-2 text-sm">Total allowable cost (R)
+              <input aria-label="Total allowable cost in rand" type="number" min="0" step="0.01" value={allowableInput} onChange={e => setAllowableInput(e.target.value)} placeholder="Enter estimated cost" className="w-52 rounded border p-2" />
+            </label>
+            {allowableInput.trim() !== '' && !commercial && <p role="alert" className="text-sm text-red-700">Enter a valid non-negative allowable cost and ensure the programme reconciles to the BOQ scenario value.</p>}
+            {commercial && <>
+              <div className="grid grid-cols-2 gap-3 text-sm md:grid-cols-4">
+                <div><p className="text-slate-600">Selling value</p><strong>{money(commercial.sellingValue)}</strong></div>
+                <div><p className="text-slate-600">Allowable cost</p><strong>{money(commercial.allowableCost)}</strong></div>
+                <div><p className="text-slate-600">Projected profit / (loss)</p><strong>{money(commercial.profit)}</strong></div>
+                <div><p className="text-slate-600">Profit margin</p><strong>{commercial.marginPercent.toFixed(2)}%</strong></div>
+              </div>
+              <p className="text-xs text-slate-600">Markup on allowable cost: {commercial.markupPercent === null ? 'N/A (zero cost)' : commercial.markupPercent.toFixed(2) + '%'}. Margin is profit divided by selling value; markup is profit divided by allowable cost.</p>
+              <details><summary className="cursor-pointer text-sm font-semibold text-cyan-800">Monthly allowable costs and projected profit</summary>
+                <div className="overflow-x-auto"><table className="min-w-full text-xs">
+                  <thead><tr><th className="p-2 text-left">Month</th><th className="p-2 text-right">Planned revenue</th><th className="p-2 text-right">Allowable cost</th><th className="p-2 text-right">Projected profit</th><th className="p-2 text-right">Cumulative profit</th></tr></thead>
+                  <tbody>{commercial.monthly.map(row => <tr key={row.month} className="border-t"><td className="p-2">{row.month}</td><td className="p-2 text-right">{money(row.revenue)}</td><td className="p-2 text-right">{money(row.allowableCost)}</td><td className="p-2 text-right">{money(row.projectedProfit)}</td><td className="p-2 text-right">{money(row.cumulativeProfit)}</td></tr>)}</tbody>
+                </table></div>
+              </details>
+            </>}
+          </div>
+          <div className="rounded-lg border border-cyan-200 p-3 space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div><h4 className="font-semibold">Baseline review &amp; actual expenditure</h4><p className="text-xs text-slate-600">Local draft workflow only. Approval here is a review marker, not a saved contractual authorisation.</p></div>
+              <button type="button" className="rounded bg-cyan-700 px-3 py-2 text-sm text-white" onClick={() => { setApprovedBaseline(series.map(row => ({ ...row }))); setActuals({}); }}>Mark current plan as reviewed baseline</button>
+            </div>
+            {approvedBaseline ? <>
+              <p className="text-xs text-amber-800">Reviewed baseline captured in this session only. Changing the plan will not overwrite this snapshot. Actual amounts are entered manually; blank means not reported.</p>
+              <div className="max-h-72 overflow-auto"><table className="w-full min-w-[660px] text-sm">
+                <thead className="sticky top-0 bg-slate-50"><tr><th className="p-2 text-left">Month</th><th className="p-2 text-right">Baseline (R)</th><th className="p-2 text-right">Actual expenditure (R)</th><th className="p-2 text-right">Monthly variance (R)</th><th className="p-2 text-right">Cumulative variance (R)</th></tr></thead>
+                <tbody>{comparison.map(row => <tr key={row.month} className="border-t">
+                  <td className="p-2">M{row.month}</td><td className="p-2 text-right">{money(row.planned)}</td>
+                  <td className="p-2 text-right"><input aria-label={`Actual expenditure month ${row.month}`} className="w-32 rounded border p-1 text-right" type="number" min="0" step="0.01" value={actuals[row.month] ?? ''} onChange={e => { const value = e.target.value; setActuals(current => { const next = { ...current }; if (value === '') delete next[row.month]; else next[row.month] = Number(value); return next; }); }} /></td>
+                  <td className="p-2 text-right">{row.variance === null ? 'Not reported' : money(row.variance)}</td>
+                  <td className="p-2 text-right">{row.cumulativeVariance === null ? 'Incomplete actuals' : money(row.cumulativeVariance)}</td>
+                </tr>)}</tbody></table></div>
+            </> : <p className="text-sm text-slate-600">Review the schedule and allocations before capturing an in-session baseline.</p>}
+          </div>
           <h4 className="font-medium">Planned cumulative expenditure (S-Curve)</h4>
           <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
             <p className="mb-2 text-xs text-slate-600">Horizontal axis: project month · Vertical axis: cumulative planned expenditure (R). Values are planned, not actual.</p>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { deriveBoqProgrammeGroups } from '@/utils/boqProgramme';
+import { deriveBoqProgrammeGroups, draftBoqWorkPackageSchedule } from '@/utils/boqProgramme';
 import type { RegionalPricedBillItem } from '@/utils/regionalPricingEngine';
 
 const item = (overrides: Record<string, unknown> = {}): RegionalPricedBillItem => ({
@@ -43,5 +43,24 @@ describe('BOQ-to-programme eligible work packages', () => {
     expect(result.groups).toHaveLength(2);
     expect(result.groups.reduce((sum,g)=>sum+g.value,0)).toBe(3000);
     expect(result.groups.reduce((sum,g)=>sum+g.share,0)).toBeCloseTo(100);
+  });
+});
+
+describe('Sprint 02 draft BOQ work-package scheduling', () => {
+  const groups = [
+    { id: 1, name: 'Testing and handover', sourceCodes: ['T'], value: 100, share: 10, requiresReview: true },
+    { id: 2, name: 'Preliminaries and mobilisation', sourceCodes: ['P'], value: 200, share: 20, requiresReview: true },
+    { id: 3, name: 'Earthworks', sourceCodes: ['E'], value: 700, share: 70, requiresReview: true }
+  ];
+  it('spreads proposed starts across the configured duration without implying approved dependencies', () => {
+    const result = draftBoqWorkPackageSchedule(groups, 12);
+    expect(result.map(a => a.name)).toEqual(['Preliminaries and mobilisation', 'Earthworks', 'Testing and handover']);
+    expect(result.map(a => a.start)).toEqual([1, 3, 12]);
+    expect(result.every(a => a.start + a.duration - 1 <= 12 && a.predecessorId === null)).toBe(true);
+    expect(result.reduce((sum, a) => sum + a.share, 0)).toBe(100);
+  });
+  it('supports a one-month project and rejects out-of-range durations', () => {
+    expect(draftBoqWorkPackageSchedule(groups, 1).every(a => a.start === 1 && a.duration === 1)).toBe(true);
+    expect(draftBoqWorkPackageSchedule(groups, 37)).toEqual([]);
   });
 });
