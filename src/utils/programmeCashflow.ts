@@ -22,3 +22,18 @@ export function calculateProgrammeCashflow(activities: ProgrammeActivity[], mont
     return { month, planned, cumulative };
   });
 }
+
+/** Monthly cost allocation per scheduled BOQ work package. Draft planned values only. */
+export function calculateWorkPackageMonthlyAllocations(activities: ProgrammeActivity[], months: number, value: number) {
+  if (!calculateProgrammeCashflow(activities, months, value).length) return [];
+  return activities.map(activity => ({
+    id: activity.id,
+    name: activity.name,
+    plannedTotal: value * activity.share / 100,
+    months: Array.from({ length: months }, (_, index) => {
+      const month = index + 1;
+      return month >= activity.start && month < activity.start + activity.duration
+        ? value * activity.share / 100 / activity.duration : 0;
+    })
+  }));
+}
