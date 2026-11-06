@@ -1,3 +1,13 @@
+-- SECURITY REVIEW: development proposal, NOT an executed migration.
+-- Verified public.bills has id, user_id, contractor_id and organization_id.
+-- Before deployment: decide whether ownership is per-user or contractor organization;
+-- current proposal uses user_id only and may exclude legitimate team members.
+-- Apply least-privilege grants as well as RLS; existing default grants may be broad.
+-- Approval must run via a server-authenticated role check against trusted role storage.
+-- Do not trust a client-supplied actorCanApprove flag for any database transition.
+-- Approval records and actuals require audit events and immutable correction history.
+-- RLS integration tests must prove foreign-contractor SELECT/INSERT/UPDATE/DELETE denial.
+-- Review source privileges, policy recursion and indexes before applying.
 -- Sprint 02 proposed schema. REVIEW BEFORE APPLYING. Not executed against UAT or production.
 -- Ownership follows public.bills.user_id; no cross-tenant reads or writes.
 create table if not exists public.boq_financial_baselines (
@@ -26,7 +36,15 @@ create table if not exists public.boq_actual_expenditure (
   unique(baseline_id, month)
 );
 alter table public.boq_financial_baselines enable row level security;
+revoke all on public.boq_financial_baselines from anon, authenticated;
+grant select, insert on public.boq_financial_baselines to authenticated;
+create index if not exists boq_financial_baselines_owner_idx on public.boq_financial_baselines(owner_user_id);
+create index if not exists boq_financial_baselines_bill_idx on public.boq_financial_baselines(bill_id);
 alter table public.boq_actual_expenditure enable row level security;
+revoke all on public.boq_actual_expenditure from anon, authenticated;
+grant select, insert on public.boq_actual_expenditure to authenticated;
+create index if not exists boq_actual_expenditure_owner_idx on public.boq_actual_expenditure(owner_user_id);
+create index if not exists boq_actual_expenditure_baseline_idx on public.boq_actual_expenditure(baseline_id);
 create policy "Owner reads financial baselines" on public.boq_financial_baselines for select to authenticated
   using (owner_user_id = (select auth.uid()) and exists
     (select 1 from public.bills b where b.id = bill_id and b.user_id = (select auth.uid())));
