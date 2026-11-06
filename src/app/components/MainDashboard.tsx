@@ -46,7 +46,7 @@ const ALL_PROVINCES = [
 export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainDashboardProps) {
   const [user, setUser] = useState<any>(null);
   const [currentView, setCurrentView] = useState<'upload' | 'drawing' | 'template-library' | 'result' | 'history' | 'team-management' | 'steel-boq' | 'import-hub' | 'flexible-import' | 'executive'>('executive');
-  const [planningDestination, setPlanningDestination] = useState<'programme' | 'cashflow' | null>(null);
+  const [planningDestination, setPlanningDestination] = useState<'programme' | 'cashflow' | 'allowables' | null>(null);
   const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck' | 'tender-pipeline' | 'supplier-leads'>('dashboard');
   const [processedBill, setProcessedBill] = useState<any>(null);
   const [selectedTenderId, setSelectedTenderId] = useState<string | null>(null);
@@ -983,6 +983,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                   { label: 'BOQ Pricing', active: currentPage === 'dashboard' && currentView !== 'executive' && currentView !== 'history', action: () => { setCurrentPage('dashboard'); if (canUploadBOQ) setCurrentView('import-hub'); else setCurrentView('template-library'); } },
                   { label: 'Programme of Works', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'programme', action: () => { if (canUploadBOQ) { setCurrentPage('dashboard'); setPlanningDestination('programme'); setCurrentView('history'); } } },
                   { label: 'Cash Flow & S-Curve', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'cashflow', action: () => { if (canUploadBOQ) { setCurrentPage('dashboard'); setPlanningDestination('cashflow'); setCurrentView('history'); } } },
+                  { label: 'Allowables & Margin', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'allowables', action: () => { if (canUploadBOQ) { setCurrentPage('dashboard'); setPlanningDestination('allowables'); setCurrentView('history'); } } },
                   { label: 'Tender CRM', active: currentPage === 'tender-pipeline', action: () => handlePageChange('tender-pipeline') },
                   { label: 'Provincial Pricing', active: currentPage === 'provincial-pricing', action: () => handlePageChange('provincial-pricing') },
                   { label: 'Item Search & Matching', active: currentPage === 'enhanced-matching', action: () => handlePageChange('enhanced-matching') },
@@ -1231,7 +1232,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
               )}
               {currentView === 'template-library' && (<BoqTemplateLibrary contractorProjectTypes={contractorData?.project_types || ['Road Construction', 'Housing Development', 'Infrastructure (Water/Sewer)', 'Civil Works', 'Bridges & Structures', 'Building Construction']} onTemplateSelect={handleTemplateSelect} onManualEntry={handleManualEntry} onBack={handleBackToUpload} canUploadBOQ={canUploadBOQ} contractorTier={contractorTier} />)}
               {currentView === 'result' && processedBill && (<RegionalPricedBillView bill={processedBill} contractorData={contractorData} processingTime={processedBill.processingTime} sanralWorkbook={sanralWorkbook} onBack={handleBackToUpload} />)}
-              {currentView === 'history' && (<section aria-label="BOQ planning workspace" className="space-y-4">{planningDestination && <header className="rounded-xl border border-cyan-100 bg-cyan-50 p-4"><h2 className="text-xl font-semibold text-[#0077b6]">{planningDestination === 'programme' ? 'Programme of Works' : 'Cash Flow & S-Curve'}</h2><p className="mt-1 text-sm text-slate-600">Select an eligible priced BOQ below to open its connected planning and cashflow tools. Forecasts remain illustrative until reviewed and approved.</p></header>}<BillHistory key={planningDestination || 'history'} accessToken={accessToken} planningMode={planningDestination} /></section>)}
+              {currentView === 'history' && (<section aria-label="BOQ planning workspace" className="space-y-4">{planningDestination && <header className="rounded-xl border border-cyan-100 bg-cyan-50 p-4"><h2 className="text-xl font-semibold text-[#0077b6]">{planningDestination === 'programme' ? 'Programme of Works' : planningDestination === 'allowables' ? 'Allowables & Margin' : 'Cash Flow & S-Curve'}</h2><p className="mt-1 text-sm text-slate-600">Select an eligible priced BOQ below to open its connected planning and cashflow tools. Forecasts remain illustrative until reviewed and approved.</p></header>}<BillHistory key={planningDestination || 'history'} accessToken={accessToken} planningMode={planningDestination} /></section>)}
               {currentView === 'team-management' && contractorData && (
                 <TeamManagement
                   contractorEmail={contractorData.email || user?.email || ''}
