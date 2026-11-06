@@ -1,4 +1,4 @@
-import type { BoqProgrammeGroup } from '../../utils/boqProgramme';
+import { draftBoqWorkPackageSchedule, type BoqProgrammeGroup } from '../../utils/boqProgramme';
 import React, { useMemo, useState } from 'react';
 import { validateProgrammeDependencies, type ProgrammeActivity } from '../../utils/programmeDependencies';
 import { calculateProgrammeCashflow } from '../../utils/programmeCashflow';
@@ -37,9 +37,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
   const applyBoqGroups = () => {
     if (!boqGroups.length || eligibleValue <= 0) return;
     setScenarioValue(eligibleValue);
-    setActivities(boqGroups.map((g, i) => ({
-      id: i + 1, name: g.name, start: 1, duration: baselineMonths, share: g.share, predecessorId: null
-    })));
+    setActivities(draftBoqWorkPackageSchedule(boqGroups, baselineMonths));
     setIncludeProgramme(true);
   };
   const reset = () => { setActivities(initial(months)); setBaselineMonths(months); setScenarioValue(projectValue); setIncludeProgramme(false); };
@@ -74,7 +72,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
         </div>
         {boqGroups.length > 0 && <p className="text-xs text-amber-800">
           BOQ work packages are a draft for QS review. {money(eligibleValue)} of {money(projectValue)} is eligible;
-          any difference is not allocated. Generation starts all packages in month 1 and requires manual sequencing.
+          any difference is not allocated. Draft category-based start months are proposed across the project duration; review and adjust sequencing and dependencies.
         </p>}
         <p className="text-xs text-amber-800">Illustrative allocations only. BOQ categories are proposed work packages, not approved activity mappings. No actual progress or approved baseline is implied.</p>
         <div className="overflow-x-auto"><table className="w-full min-w-[640px] text-sm">
