@@ -64,3 +64,27 @@ create policy "Owner inserts actual expenditure" on public.boq_actual_expenditur
         and month <= f.duration_months));
 -- No UPDATE/DELETE policies: corrections require a separately audited workflow.
 -- NOTE: column-level privilege and immutable-row controls still require security review.
+
+-- Append-only audit trail. Server-side approval must write this in the SAME
+-- transaction as the baseline transition; a two-request sequence is unsafe.
+create table if not exists public.boq_financial_approval_audit (
+  id uuid primary key default gen_random_uuid(),
+  baseline_id uuid not null references public.boq_financial_baselines(id),
+  actor_user_id uuid not null references auth.users(id),
+  previous_status text not null check (previous_status in ('draft','submitted','approved','rejected')),
+  next_status text not null check (next_status in ('submitted','approved','rejected')),
+  action_at timestamptz not null default now(),
+  reason text,
+  check (previous_status <> next_status)
+);
+create index if not exists boq_financial_approval_audit_baseline_idx
+  on public.boq_financial_approval_audit(baseline_id, action_at);
+alter table public.boq_financial_approval_audit enable row level security;
+revoke all on public.boq_financial_approval_audit from public, anon, authenticated;
+-- Deliberately no client policies. Only a trusted, audited backend may write.
+-- A transaction must: (1) authenticate the actor; (2) check organization
+-- membership and independent approver authority from trusted records;
+-- (3) lock baseline FOR UPDATE; (4) check submitted status and unchanged version;
+-- (5) update status and attribution; (6) append audit row; (7) COMMIT.
+-- Fail closed if any check or audit insert fails. Never use user_metadata as role.
+-- A privileged backend must not expose its service-role key to browsers.
