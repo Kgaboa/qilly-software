@@ -1,4 +1,5 @@
 import { ProgrammeCashflow } from './ProgrammeCashflow';
+import { AllowablesWorkspace } from './AllowablesWorkspace';
 import { deriveHistoricalDraftGroups } from '@/utils/boqProgramme';
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card';
@@ -364,10 +365,10 @@ export function BillHistory({ accessToken, planningMode = null }: BillHistoryPro
           <p role="status" className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
             Historical BOQ work packages are provisional groupings of line items with positive, reconciled quantity × rate totals. Pricing approval evidence and activity sequencing are not available in this history record. Review each work package and confirm its value, timing and dependencies before approving a baseline.
           </p>
-          <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths + '-' + programmeLevel} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} programmeLevel={programmeLevel} focusAllowables={planningMode === 'allowables'}
+          {planningMode === 'allowables' ? <AllowablesWorkspace key={selectedBill.id} items={selectedBill.items || []} originalTotal={Number(selectedBill.overallTotal)} /> : <ProgrammeCashflow key={selectedBill.id + '-' + planningMonths + '-' + programmeLevel} projectValue={Number(selectedBill.overallTotal)} durationMonths={planningMonths} programmeLevel={programmeLevel} focusAllowables={planningMode === 'allowables'}
             boqGroups={historicalDraft?.groups || []}
             eligibleValue={historicalDraft?.eligibleTotal || 0}
-            excludedCount={historicalDraft?.excludedCount || 0} />
+            excludedCount={historicalDraft?.excludedCount || 0} />}
         </section>
       )}
       {planningMode && selectedBill && !(Number(selectedBill.overallTotal) > 0) && (
