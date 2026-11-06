@@ -1,3 +1,4 @@
+import { calculateAllowablesMarginScenario } from '../../utils/allowablesMarginScenario';
 import { draftBoqWorkPackageSchedule, type BoqProgrammeGroup } from '../../utils/boqProgramme';
 import React, { useMemo, useState } from 'react';
 import { validateProgrammeDependencies, type ProgrammeActivity } from '../../utils/programmeDependencies';
@@ -27,6 +28,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
   const [actuals, setActuals] = useState<Record<number, number>>({});
   const [baselineMonths, setBaselineMonths] = useState(months);
   const [scenarioValue, setScenarioValue] = useState(projectValue);
+  const [allowableInput, setAllowableInput] = useState('');
   const change = (id: number, field: keyof Activity, value: string) =>
     setActivities(current => current.map(a => a.id === id ? { ...a, [field]: field === 'name' ? value : Number(value) } : a));
   const dependenciesValid = validateProgrammeDependencies(activities);
@@ -36,6 +38,8 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
       a.start >= 1 && a.duration >= 1 && a.start + a.duration - 1 <= baselineMonths &&
       Number.isFinite(a.share) && a.share >= 0) && Math.abs(totalShare - 100) < 0.001;
   const series = useMemo(() => calculateProgrammeCashflow(activities, baselineMonths, scenarioValue), [activities, baselineMonths, scenarioValue]);
+  const allowableCost = allowableInput.trim() === '' ? null : Number(allowableInput);
+  const commercial = useMemo(() => allowableCost !== null ? calculateAllowablesMarginScenario(series, scenarioValue, allowableCost) : null, [series, scenarioValue, allowableCost]);
   const comparison = useMemo(() => approvedBaseline ? comparePlannedAndActual(approvedBaseline, Object.entries(actuals).map(([month, amount]) => ({ month: Number(month), amount }))) : [], [approvedBaseline, actuals]);
   const packageAllocations = useMemo(() => calculateWorkPackageMonthlyAllocations(activities, baselineMonths, scenarioValue), [activities, baselineMonths, scenarioValue]);
   const applyBoqGroups = () => {
@@ -44,7 +48,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
     setActivities(draftBoqWorkPackageSchedule(boqGroups, baselineMonths));
     setIncludeProgramme(true);
   };
-  const reset = () => { setApprovedBaseline(null); setActuals({}); setActivities(initial(months)); setBaselineMonths(months); setScenarioValue(projectValue); setIncludeProgramme(false); };
+  const reset = () => { setApprovedBaseline(null); setActuals({}); setActivities(initial(months)); setBaselineMonths(months); setScenarioValue(projectValue); setIncludeProgramme(false); setAllowableInput(''); };
   const chartW = 800, chartH = 300, left = 104, right = 32, top = 24, bottom = 64;
   const plotW = chartW - left - right, plotH = chartH - top - bottom;
   const ticks = [0, 0.25, 0.5, 0.75, 1];
@@ -101,6 +105,29 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
             </div>
             <p className="p-2 text-xs text-amber-800">Illustrative monthly allocation, not approved baseline or actual expenditure.</p>
           </details>
+          <div className="rounded-lg border border-cyan-200 p-3 space-y-3" aria-label="Allowables and margin scenario">
+            <h4 className="font-semibold">Allowables &amp; Margin — draft scenario</h4>
+            <p className="text-xs text-slate-600">Enter the contractor's estimated allowable cost. BOQ selling prices do not establish allowable costs. These are planning estimates, not verified costs or an approved financial baseline.</p>
+            <label className="flex flex-wrap items-center gap-2 text-sm">Total allowable cost (R)
+              <input aria-label="Total allowable cost in rand" type="number" min="0" step="0.01" value={allowableInput} onChange={e => setAllowableInput(e.target.value)} placeholder="Enter estimated cost" className="w-52 rounded border p-2" />
+            </label>
+            {allowableInput.trim() !== '' && !commercial && <p role="alert" className="text-sm text-red-700">Enter a valid non-negative allowable cost and ensure the programme reconciles to the BOQ scenario value.</p>}
+            {commercial && <>
+              <div className="grid grid-cols-2 gap-3 text-sm md:grid-cols-4">
+                <div><p className="text-slate-600">Selling value</p><strong>{money(commercial.sellingValue)}</strong></div>
+                <div><p className="text-slate-600">Allowable cost</p><strong>{money(commercial.allowableCost)}</strong></div>
+                <div><p className="text-slate-600">Projected profit / (loss)</p><strong>{money(commercial.profit)}</strong></div>
+                <div><p className="text-slate-600">Profit margin</p><strong>{commercial.marginPercent.toFixed(2)}%</strong></div>
+              </div>
+              <p className="text-xs text-slate-600">Markup on allowable cost: {commercial.markupPercent === null ? 'N/A (zero cost)' : commercial.markupPercent.toFixed(2) + '%'}. Margin is profit divided by selling value; markup is profit divided by allowable cost.</p>
+              <details><summary className="cursor-pointer text-sm font-semibold text-cyan-800">Monthly allowable costs and projected profit</summary>
+                <div className="overflow-x-auto"><table className="min-w-full text-xs">
+                  <thead><tr><th className="p-2 text-left">Month</th><th className="p-2 text-right">Planned revenue</th><th className="p-2 text-right">Allowable cost</th><th className="p-2 text-right">Projected profit</th><th className="p-2 text-right">Cumulative profit</th></tr></thead>
+                  <tbody>{commercial.monthly.map(row => <tr key={row.month} className="border-t"><td className="p-2">{row.month}</td><td className="p-2 text-right">{money(row.revenue)}</td><td className="p-2 text-right">{money(row.allowableCost)}</td><td className="p-2 text-right">{money(row.projectedProfit)}</td><td className="p-2 text-right">{money(row.cumulativeProfit)}</td></tr>)}</tbody>
+                </table></div>
+              </details>
+            </>}
+          </div>
           <div className="rounded-lg border border-cyan-200 p-3 space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div><h4 className="font-semibold">Baseline review &amp; actual expenditure</h4><p className="text-xs text-slate-600">Local draft workflow only. Approval here is a review marker, not a saved contractual authorisation.</p></div>
