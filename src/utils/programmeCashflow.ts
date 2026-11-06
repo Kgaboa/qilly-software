@@ -22,3 +22,50 @@ export function calculateProgrammeCashflow(activities: ProgrammeActivity[], mont
     return { month, planned, cumulative };
   });
 }
+
+/** Monthly cost allocation per scheduled BOQ work package. Draft planned values only. */
+export function calculateWorkPackageMonthlyAllocations(activities: ProgrammeActivity[], months: number, value: number) {
+  if (!calculateProgrammeCashflow(activities, months, value).length) return [];
+  return activities.map(activity => ({
+    id: activity.id,
+    name: activity.name,
+    plannedTotal: value * activity.share / 100,
+    months: Array.from({ length: months }, (_, index) => {
+      const month = index + 1;
+      return month >= activity.start && month < activity.start + activity.duration
+        ? value * activity.share / 100 / activity.duration : 0;
+    })
+  }));
+}
+
+/** Compare a reviewed baseline with explicitly supplied actual expenditure.
+ * Missing actuals remain null (unknown), never zero or fabricated.
+ */
+export function comparePlannedAndActual(
+  baseline: MonthlyCashflow[],
+  actuals: Array<{ month: number; amount: number }>
+) {
+  if (!baseline.length || baseline.some((row, i) => row.month !== i + 1 ||
+      !Number.isFinite(row.planned) || row.planned < 0 ||
+      !Number.isFinite(row.cumulative) || row.cumulative < 0) ||
+      actuals.some(row => !Number.isInteger(row.month) || row.month < 1 ||
+        row.month > baseline.length || !Number.isFinite(row.amount) || row.amount < 0) ||
+      new Set(actuals.map(row => row.month)).size !== actuals.length) return [];
+  const byMonth = new Map(actuals.map(row => [row.month, row.amount]));
+  let cumulativeActual = 0;
+  let hasMissing = false;
+  return baseline.map(row => {
+    const actual = byMonth.get(row.month) ?? null;
+    if (actual === null) hasMissing = true;
+    else cumulativeActual += actual;
+    return {
+      month: row.month,
+      planned: row.planned,
+      cumulativePlanned: row.cumulative,
+      actual,
+      cumulativeActual: hasMissing ? null : cumulativeActual,
+      variance: actual === null ? null : actual - row.planned,
+      cumulativeVariance: hasMissing ? null : cumulativeActual - row.cumulative
+    };
+  });
+}
