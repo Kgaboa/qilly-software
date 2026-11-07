@@ -16,7 +16,7 @@ export type TenderRisk = {
 export type RiskSummary = { totalExposure: number; weightedExposure: number; highRisks: number; blockingRisks: number; riskCount: number };
 export function validateTenderRisk(risk: TenderRisk): string[] {
   const errors: string[] = [];
-  if (!risk.tenderId.trim() || !risk.boqId.trim() || !risk.ownerUserId.trim()) errors.push('Risk must be linked to a tender, BOQ and owner');
+  if (!risk.tenderId.trim() || !risk.ownerUserId.trim()) errors.push('Risk must be linked to a tender and owner');
   if (!risk.description.trim()) errors.push('Risk description required');
   if (!Number.isInteger(risk.probability) || risk.probability < 1 || risk.probability > 5) errors.push('Probability must be 1–5');
   if (!Number.isInteger(risk.impact) || risk.impact < 1 || risk.impact > 5) errors.push('Impact must be 1–5');
