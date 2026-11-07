@@ -1,8 +1,19 @@
+import { getTenderRiskSummary } from '@/utils/tenderRiskStorage';
+import type { RiskSummary } from '@/utils/tenderRisk';
 import { useEffect, useMemo, useState } from 'react';
 import { loadApprovedBidFinancials, type ApprovedBidFinancials } from '@/utils/approvedBidFinancials';
 import { assessBid, type BidAssessmentInput } from '@/utils/bidDecision';
 
 export function BidDecisionWorkspace({ boqId, tenderId, tenderTitle }: { boqId: string | null; tenderId: string; tenderTitle: string }) {
+  const [riskSummary,setRiskSummary]=useState<RiskSummary|null>(null);
+  const [riskStatus,setRiskStatus]=useState('Checking tender risks...');
+  useEffect(()=>{
+    let active=true;setRiskSummary(null);setRiskStatus('Checking tender risks...');
+    void getTenderRiskSummary(tenderId,boqId||'').then(summary=>{
+      if(active){setRiskSummary(summary);setRiskStatus('Risk register loaded');}
+    }).catch(()=>{if(active)setRiskStatus('Risk register unavailable — decision cannot be verified');});
+    return()=>{active=false;};
+  },[tenderId,boqId]);
   const [approved, setApproved] = useState<ApprovedBidFinancials | null>(null);
   const [financialStatus, setFinancialStatus] = useState('Checking approved financial scenarios...');
   const [margin, setMargin] = useState('');
@@ -39,6 +50,8 @@ export function BidDecisionWorkspace({ boqId, tenderId, tenderTitle }: { boqId: 
   return <section aria-label="Bid No-Bid assessment" className="rounded-xl border border-cyan-200 bg-cyan-50/40 p-4 space-y-3">
     <h3 className="font-semibold text-slate-900">Bid / No-Bid Assessment — {tenderTitle}</h3>
     <p role="status" className="text-sm text-cyan-900">{financialStatus}</p>
+    <p role="status" className="text-sm text-cyan-900">{riskStatus}{riskSummary ? ' | Active risks: '+riskSummary.riskCount+' | Weighted exposure: R '+riskSummary.weightedExposure.toFixed(2)+' | Critical compliance risks: '+riskSummary.blockingRisks : ''}</p>
+    {riskSummary && riskSummary.blockingRisks>0 && <p role="alert" className="text-sm text-red-700">Critical compliance risks require mitigation and authorised review before bidding.</p>
     {approved && <p className="text-sm text-slate-700">Approved selling value: R {approved.sellingValue.toFixed(2)} | Allowable cost: R {approved.allowableCost.toFixed(2)} | Escalation: {approved.riskEscalationPercent}% | Expected margin: {approved.expectedMarginPercent.toFixed(2)}% | Risk-adjusted margin: {approved.riskAdjustedMarginPercent.toFixed(2)}%</p>}
     <p className="text-sm text-slate-600">Linked BOQ: {boqId || 'Not linked'}. Enter verified commercial and readiness inputs. Financial values use an approved Allowables scenario when available; otherwise manual estimates are provisional. Draft assessment only; no database changes, approvals or BOQ credits used.</p>
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -52,7 +65,7 @@ export function BidDecisionWorkspace({ boqId, tenderId, tenderTitle }: { boqId: 
       </label>
     </div>
     <div role="status" className="rounded border bg-white p-3 text-sm">
-      <strong>Recommendation: {assessment.recommendation.replaceAll('_', ' ')}</strong>
+      <strong>Recommendation: {(riskSummary===null ? 'INSUFFICIENT_DATA' : riskSummary.blockingRisks>0 ? 'REVIEW' : assessment.recommendation).replaceAll('_', ' ')}</strong>
       <span className="ml-3">Readiness score: {assessment.score === null ? 'Incomplete' : assessment.score + '/100'}</span>
       <ul className="mt-2 list-disc pl-5">{assessment.reasons.map(reason=><li key={reason}>{reason}</li>)}</ul>
       <p className="mt-2 text-slate-600">Indicative decision support only. Final bid approval requires an authorised reviewer. Scores and thresholds are provisional.</p>
