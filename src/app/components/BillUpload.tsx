@@ -141,6 +141,7 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
   const [isLoadingContractor, setIsLoadingContractor] = useState(true);
   const [isFromTemplate, setIsFromTemplate] = useState(false); // ✅ Track if items are from template
   const [itemPage, setItemPage] = useState(0);
+  const [quantityValidationIndex, setQuantityValidationIndex] = useState<number | null>(null);
   const [sanralWorkbook, setSanralWorkbook] = useState<SanralNativeWorkbookContext | null>(null);
   const sanralExistingRateCount = useMemo(
     () => sanralWorkbook ? countExistingSanralRates(sanralWorkbook) : 0,
@@ -329,6 +330,16 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
     if (itemPage > lastPage) setItemPage(lastPage);
   }, [items.length, itemPage]);
 
+  // Quantity errors may occur on a different page of a large imported BOQ.
+  useEffect(() => {
+    if (quantityValidationIndex === null) return;
+    const target = document.getElementById(`boq-quantity-${quantityValidationIndex}`);
+    if (!target) return;
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (!areRowsLocked) target.focus();
+    setQuantityValidationIndex(null);
+  }, [itemPage, quantityValidationIndex, areRowsLocked]);
+
   const totalItemPages = Math.max(1, Math.ceil(items.length / BOQ_PAGE_SIZE));
   const visibleItemStart = itemPage * BOQ_PAGE_SIZE;
   const visibleItems = items.slice(visibleItemStart, visibleItemStart + BOQ_PAGE_SIZE);
@@ -431,10 +442,15 @@ export function BillUpload({ onProcess, isLoading, canProcess, preloadedItems, o
     );
     if (missingQuantity) {
       const missingIndex = items.indexOf(missingQuantity);
-      toast.error(`Quantity required for item ${missingQuantity.code || missingQuantity.name}. ${areRowsLocked ? 'The imported workbook is read-only; correct the quantity in the source BOQ and re-import.' : 'Enter the quantity in the highlighted BOQ row before pricing.'}`);
+      const missingCount = validItems.filter(item =>
+        item.rowType !== 'heading' && item.rowType !== 'subheading' &&
+        !isSummaryRow(item) && (item.quantity === '' || item.quantity === null ||
+          item.quantity === undefined || !Number.isFinite(Number(item.quantity)))
+      ).length;
+      toast.error(`${missingCount} BOQ item(s) need valid quantities. First: ${missingQuantity.code || missingQuantity.name} (row ${missingIndex + 1}, page ${Math.floor(missingIndex / BOQ_PAGE_SIZE) + 1}). ${areRowsLocked ? 'Correct the source BOQ and re-import.' : 'Review the highlighted quantity before pricing.'}`);
       if (missingIndex >= 0) {
-        document.getElementById(`boq-quantity-${missingIndex}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        if (!areRowsLocked) document.getElementById(`boq-quantity-${missingIndex}`)?.focus();
+        setQuantityValidationIndex(missingIndex);
+        setItemPage(Math.floor(missingIndex / BOQ_PAGE_SIZE));
       }
       return;
     }
