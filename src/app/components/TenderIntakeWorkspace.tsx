@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase';
 
 type IntakeDocument={id:string;name:string;kind:string;version:number;extraction_status:string;source_url:string|null};
-type Requirement={id:string;description:string;mandatory:boolean;status:string};
+type Requirement={id:string;description:string;mandatory:boolean;status:string;source_document_id:string|null;evidence_document_id:string|null};
 export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTenderImport:()=>void;opportunity:{id:string;customer_name:string;tender_title:string;tender_reference:string|null;due_date:string|null}}){
  const [issuer,setIssuer]=useState(opportunity.customer_name);
  const [reference,setReference]=useState(opportunity.tender_reference||'');
@@ -22,7 +22,7 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    setTitle(opportunity.tender_title);setClosing(opportunity.due_date||'');
    void supabase.from('tender_intakes').select('issuer,reference,title,closing_date').eq('opportunity_id',opportunity.id).maybeSingle()
    .then(({data,error})=>{if(!active)return;if(error){setMessage(error.message);return;}if(data){setIssuer(data.issuer);setReference(data.reference);setTitle(data.title);setClosing(data.closing_date||'');}});
-   void supabase.from('tender_compliance_requirements').select('id,description,mandatory,status').eq('opportunity_id',opportunity.id).order('created_at')
+   void supabase.from('tender_compliance_requirements').select('id,description,mandatory,status,source_document_id,evidence_document_id').eq('opportunity_id',opportunity.id).order('created_at')
    .then(({data,error})=>{if(active){if(error)setMessage(error.message);else setRequirements(data||[]);}});
    void supabase.from('tender_intake_documents').select('id,name,kind,version,extraction_status,source_url').eq('opportunity_id',opportunity.id).order('created_at')
    .then(({data,error})=>{if(active){if(error)setMessage(error.message);else setDocuments(data||[]);}});
@@ -66,6 +66,20 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    setMessage('Document reference registered. File extraction has not been performed.');
   }catch(e){setMessage(e instanceof Error?e.message:'Unable to register document');}finally{setBusy(false);}
  };
+ const linkEvidence=async(requirement:Requirement,documentId:string)=>{
+  setBusy(true);setMessage('');
+  try{
+   const {data:{user}}=await supabase.auth.getUser();if(!user)throw Error('Sign in required');
+   if(documentId && !documents.some(d=>d.id===documentId))throw Error('Document must belong to this tender');
+   const {data,error}=await supabase.from('tender_compliance_requirements')
+    .update({evidence_document_id:documentId||null,status:documentId?'under_review':'evidence_required'})
+    .eq('id',requirement.id).eq('opportunity_id',opportunity.id).eq('owner_user_id',user.id)
+    .select('id,description,mandatory,status,source_document_id,evidence_document_id').single();
+   if(error)throw error;
+   setRequirements(previous=>previous.map(item=>item.id===data.id?data:item));
+   setMessage(documentId?'Evidence linked; verification remains pending.':'Evidence link cleared.');
+  }catch(e){setMessage(e instanceof Error?e.message:'Unable to link evidence');}finally{setBusy(false);}
+ };
  const verified=requirements.filter(r=>r.mandatory&&r.status==='verified').length;
  const mandatory=requirements.filter(r=>r.mandatory).length;
  return <section aria-label="Tender intake and compliance" className="rounded-lg border p-4 space-y-3">
@@ -92,7 +106,12 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
   <h4 className="font-semibold">Compliance requirements</h4>
   <p className="text-sm">Verified mandatory requirements: {verified}/{mandatory}. Review and supporting evidence are required before declaring tender compliance.</p>
   <div className="flex flex-wrap gap-2"><input aria-label="New compliance requirement" className="min-w-[220px] flex-1 rounded border p-2" placeholder="e.g. CIDB certificate" value={description} onChange={e=>setDescription(e.target.value)}/><button type="button" disabled={busy||!description.trim()} onClick={()=>void addRequirement()} className="rounded border px-3 py-2">Add Requirement</button></div>
-  {requirements.map(r=><p className="text-sm" key={r.id}>{r.description} — {r.status.replaceAll('_',' ')}</p>)}
+  {requirements.map(r=><div className="flex flex-wrap items-center gap-2 rounded border p-2 text-sm" key={r.id}>
+   <span className="flex-1">{r.description} — {r.status.replaceAll('_',' ')}</span>
+   <label>Evidence document <select aria-label={'Evidence for '+r.description} disabled={busy} className="rounded border p-2" value={r.evidence_document_id||''} onChange={e=>void linkEvidence(r,e.target.value)}>
+    <option value="">Not linked</option>{documents.map(doc=><option key={doc.id} value={doc.id}>{doc.name} (v{doc.version})</option>)}
+   </select></label>
+  </div>)}
   {message&&<p role="status" className="text-sm">{message}</p>}
  </section>;
 }
