@@ -33,10 +33,15 @@ export default function App() {
     const fromPublic = params.get('entry') === 'public';
     const recovery = params.get('password-recovery') === '1' || window.location.hash.includes('type=recovery');
     const existingSession = !!sessionStorage.getItem('access_token');
+    // Feature-preview access is an entry-point exception only. It does not bypass
+    // Supabase authentication, tenant RLS, subscription checks or account approval.
+    // Keep normal controlled UAT/public redirect behaviour unchanged.
+    const isNavigationPreview = window.location.hostname === 'qilly-software-git-feature-qilly-n-dca99b-kgaboa-7233s-projects.vercel.app'
+      || window.location.hostname === 'qilly-software-pz8pdv81v-kgaboa-7233s-projects.vercel.app';
     if (fromPublic) {
       window.history.replaceState(null, '', window.location.pathname + window.location.hash);
     }
-    if (fromPublic || recovery || existingSession) { setEntryChecked(true); return; }
+    if (fromPublic || recovery || existingSession || isNavigationPreview) { setEntryChecked(true); return; }
     supabase.auth.getSession().then(({ data }) => {
       if (cancelled) return;
       if (data.session) setEntryChecked(true);
