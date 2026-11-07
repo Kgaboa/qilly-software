@@ -10,8 +10,8 @@ type Opportunity = { id: string; customer_name: string; tender_title: string; te
 type PublishedLead = { id: string; title: string; category: string; province: string | null; status: string; published_at: string };
 type SupplierResponse = { id: string; lead_id: string; message: string; created_at: string; supplier_id: string };
 const stages = ['Lead', 'Qualified', 'BOQ Pricing', 'Submitted', 'Won', 'Lost'];
-export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOpportunityId }: {
-  onStartPricing: () => void; onSelectOpportunity: (id: string | null) => void; selectedOpportunityId: string | null;
+export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOpportunityId, focusBid = false }: {
+  onStartPricing: () => void; onSelectOpportunity: (id: string | null) => void; selectedOpportunityId: string | null; focusBid?: boolean;
 }) {
   const [workspace, setWorkspace] = useState<'crm' | 'tenders' | 'suppliers'>('tenders');
   const [assessmentTenderId, setAssessmentTenderId] = useState<string | null>(null);
@@ -42,7 +42,12 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
     if (failure) { setError('CRM database unavailable. Apply the tender_opportunities migration and verify access.'); return; }
     setError(''); setRows((data || []) as Opportunity[]);
   }, []);
-  const loadPublishedLeads = useCallback(async () => {
+  useEffect(() => {
+    if (!focusBid) return;
+    setWorkspace('tenders');
+    if (rows.length) setAssessmentTenderId(current => current && rows.some(row => row.id === current) ? current : rows[0].id);
+  }, [focusBid, rows]);
+    const loadPublishedLeads = useCallback(async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { setPublishedLeads([]); setLeadListError('Sign in to view your published leads.'); return; }
     const { data, error: failure } = await supabase.from('supplier_lead_offers')
