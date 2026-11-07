@@ -1,3 +1,4 @@
+import { RepricingReviewWorkspace } from './RepricingReviewWorkspace';
 import { BidDecisionWorkspace } from './BidDecisionWorkspace';
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase';
@@ -144,6 +145,7 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
         </td>
       </tr>)}</tbody>
     </table></div>}
+    {workspace !== 'suppliers' && <RepricingReviewWorkspace />}
     {workspace !== 'suppliers' && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (() => { const tender = rows.find(row=>row.id===assessmentTenderId)!; return <BidDecisionWorkspace key={tender.id} boqId={tender.linked_bill_id} tenderTitle={tender.tender_title} />; })()}
     {workspace !== 'suppliers' && rows.length === 0 && !error && <p className="text-sm text-gray-500">No opportunities yet.</p>}
     {workspace === 'suppliers' && <section aria-label="Published supplier leads" className="space-y-3 border-t pt-5">
