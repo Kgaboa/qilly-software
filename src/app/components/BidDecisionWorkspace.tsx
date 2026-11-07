@@ -51,7 +51,7 @@ export function BidDecisionWorkspace({ boqId, tenderId, tenderTitle }: { boqId: 
     <h3 className="font-semibold text-slate-900">Bid / No-Bid Assessment — {tenderTitle}</h3>
     <p role="status" className="text-sm text-cyan-900">{financialStatus}</p>
     <p role="status" className="text-sm text-cyan-900">{riskStatus}{riskSummary ? ' | Active risks: '+riskSummary.riskCount+' | Weighted exposure: R '+riskSummary.weightedExposure.toFixed(2)+' | Critical compliance risks: '+riskSummary.blockingRisks : ''}</p>
-    {riskSummary && riskSummary.blockingRisks>0 && <p role="alert" className="text-sm text-red-700">Critical compliance risks require mitigation and authorised review before bidding.</p>
+    {riskSummary && riskSummary.blockingRisks>0 && <p role="alert" className="text-sm text-red-700">Critical compliance risks require mitigation and authorised review before bidding.</p>}
     {approved && <p className="text-sm text-slate-700">Approved selling value: R {approved.sellingValue.toFixed(2)} | Allowable cost: R {approved.allowableCost.toFixed(2)} | Escalation: {approved.riskEscalationPercent}% | Expected margin: {approved.expectedMarginPercent.toFixed(2)}% | Risk-adjusted margin: {approved.riskAdjustedMarginPercent.toFixed(2)}%</p>}
     <p className="text-sm text-slate-600">Linked BOQ: {boqId || 'Not linked'}. Enter verified commercial and readiness inputs. Financial values use an approved Allowables scenario when available; otherwise manual estimates are provisional. Draft assessment only; no database changes, approvals or BOQ credits used.</p>
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
