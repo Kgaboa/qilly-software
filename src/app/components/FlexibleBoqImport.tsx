@@ -158,7 +158,7 @@ export function FlexibleBoqImport({onBack,accessToken,tenderId}:{onBack:()=>void
         {reviewMessage&&<p role="status">{reviewMessage}</p>}
        </div>}
       <button className="text-blue-700 underline" onClick={onBack}>← Back to Qilly</button>
-      <div className="rounded-xl bg-gradient-to-r from-sky-900 via-blue-800 to-teal-700 text-white p-4 shadow-sm"><h1 className="text-2xl font-bold">Flexible BOQ Import</h1><p className="text-sky-100 text-sm">BOQ import, correction and approval preview. Excel and text remain local to your browser; PDF/DOCX require a configured protected extraction server. No data is saved to Qilly.</p></div>
+      <div className="rounded-xl bg-gradient-to-r from-sky-900 via-blue-800 to-teal-700 text-white p-4 shadow-sm"><h1 className="text-2xl font-bold">Flexible BOQ Import</h1><p className="text-sky-100 text-sm">BOQ import, correction and approval preview. Excel and text remain local to your browser; PDF/DOCX require a configured protected extraction server. Source files are not saved to Qilly. For linked tenders, review evidence is saved only when you select Save Extraction Review.</p></div>
       <section className="bg-white border border-sky-100 shadow-sm rounded-xl p-3 space-y-3">
         <label className="block font-semibold" htmlFor="boq-file">Choose BOQ or tender document</label>
         <input id="boq-file" type="file" accept=".xlsx,.xls,.csv,.tsv,.txt,.pdf,.docx" disabled={busy} onChange={e=>{const f=e.target.files?.[0];if(f)void load(f);}}/>
