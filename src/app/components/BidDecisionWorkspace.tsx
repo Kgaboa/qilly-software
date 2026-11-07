@@ -1,3 +1,4 @@
+import { saveBidAssessment, listBidAssessments } from '@/utils/bidAssessmentStorage';
 import { gateBidRecommendation } from '@/utils/bidRiskGate';
 import { getTenderRiskSummary } from '@/utils/tenderRiskStorage';
 import type { RiskSummary } from '@/utils/tenderRisk';
@@ -6,6 +7,9 @@ import { loadApprovedBidFinancials, type ApprovedBidFinancials } from '@/utils/a
 import { assessBid, type BidAssessmentInput } from '@/utils/bidDecision';
 
 export function BidDecisionWorkspace({ boqId, tenderId, tenderTitle }: { boqId: string | null; tenderId: string; tenderTitle: string }) {
+  const [history,setHistory]=useState<Array<{id:string;version:number;recommendation:string;created_at:string}>>([]);
+  const [saveBusy,setSaveBusy]=useState(false);
+  const [saveMessage,setSaveMessage]=useState('');
   const [riskSummary,setRiskSummary]=useState<RiskSummary|null>(null);
   const [riskStatus,setRiskStatus]=useState('Checking tender risks...');
   useEffect(()=>{
@@ -43,6 +47,17 @@ export function BidDecisionWorkspace({ boqId, tenderId, tenderTitle }: { boqId: 
     mandatoryRequirementsMet: mandatory === 'unknown' ? null : mandatory === 'yes'
   };
   const assessment = useMemo(() => assessBid(input), [boqId, approved, margin, riskMargin, capacity, compliance, delivery, fit, mandatory]);
+  useEffect(()=>{let active=true;void listBidAssessments(tenderId).then(rows=>{if(active)setHistory(rows);}).catch(()=>{});return()=>{active=false;};},[tenderId]);
+  const saveAssessment=async()=>{
+    if(!boqId || !riskSummary) return;
+    setSaveBusy(true);setSaveMessage('');
+    try {
+      await saveBidAssessment(tenderId,boqId,assessment,riskSummary,approved);
+      setHistory(await listBidAssessments(tenderId));
+      setSaveMessage('Assessment version saved. This is not final bid approval.');
+    } catch(e) {setSaveMessage(e instanceof Error?e.message:'Unable to save assessment');}
+    finally{setSaveBusy(false);}
+  };
   const fields = [
     ['Expected margin %', margin, setMargin], ['Risk-adjusted margin %', riskMargin, setRiskMargin],
     ['Capacity score (0–100)', capacity, setCapacity], ['Compliance score (0–100)', compliance, setCompliance],
@@ -71,5 +86,8 @@ export function BidDecisionWorkspace({ boqId, tenderId, tenderTitle }: { boqId: 
       <ul className="mt-2 list-disc pl-5">{assessment.reasons.map(reason=><li key={reason}>{reason}</li>)}</ul>
       <p className="mt-2 text-slate-600">Indicative decision support only. Final bid approval requires an authorised reviewer. Scores and thresholds are provisional.</p>
     </div>
+    <button type="button" disabled={saveBusy || !boqId || !riskSummary || !approved || assessment.recommendation==='INSUFFICIENT_DATA'} onClick={()=>void saveAssessment()} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50">{saveBusy?'Saving...':'Save Bid Assessment'}</button>
+    {saveMessage && <p role="status" className="text-sm">{saveMessage}</p>}
+    <div className="space-y-1 text-sm"><strong>Assessment history</strong>{history.length===0?<p>No saved assessments.</p>:history.map(h=><p key={h.id}>Version {h.version} — {h.recommendation.replaceAll('_',' ')} — {new Date(h.created_at).toLocaleString()}</p>)}</div>
   </section>;
 }
