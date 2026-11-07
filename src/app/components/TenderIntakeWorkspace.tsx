@@ -3,7 +3,7 @@ import { supabase } from '@/utils/supabase';
 
 type IntakeDocument={id:string;name:string;kind:string;version:number;extraction_status:string;source_url:string|null};
 type Requirement={id:string;description:string;mandatory:boolean;status:string};
-export function TenderIntakeWorkspace({opportunity}:{opportunity:{id:string;customer_name:string;tender_title:string;tender_reference:string|null;due_date:string|null}}){
+export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTenderImport:()=>void;opportunity:{id:string;customer_name:string;tender_title:string;tender_reference:string|null;due_date:string|null}}){
  const [issuer,setIssuer]=useState(opportunity.customer_name);
  const [reference,setReference]=useState(opportunity.tender_reference||'');
  const [title,setTitle]=useState(opportunity.tender_title);
@@ -78,6 +78,8 @@ export function TenderIntakeWorkspace({opportunity}:{opportunity:{id:string;cust
    <label className="text-sm">Closing date<input type="date" className="block w-full rounded border p-2" value={closing} onChange={e=>setClosing(e.target.value)}/></label>
   </div>
   <button type="button" disabled={busy} onClick={()=>void save()} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50">Save Intake</button>
+  <button type="button" className="rounded bg-cyan-700 px-3 py-2 text-white" onClick={onOpenTenderImport}>Open Existing PDF / Word / Excel Extraction</button>
+  <p className="text-xs text-amber-800">Extraction opens the existing review-only workspace. Results are not yet automatically attached to this tender; register the document reference here and reconcile manually.</p>
   <h4 className="font-semibold">Tender document register</h4>
   <p className="text-sm">Record the tender pack and its source. This step registers document metadata; it does not upload or extract the file.</p>
   <div className="grid gap-2 md:grid-cols-2">
