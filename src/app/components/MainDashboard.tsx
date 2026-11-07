@@ -52,6 +52,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
   const [processedBill, setProcessedBill] = useState<any>(null);
   const [selectedTenderId, setSelectedTenderId] = useState<string | null>(null);
   const [bidFocus, setBidFocus] = useState(false);
+  const [intakeFocus, setIntakeFocus] = useState(false);
   const [journeyStep,setJourneyStep]=useState(0);
   const [sanralWorkbook, setSanralWorkbook] = useState<SanralNativeWorkbookContext | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -713,13 +714,13 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
   };
 
   const journeyStages = [
-    {name:'1. Tender opportunity',open:()=>{setJourneyStep(0);setBidFocus(false);handlePageChange('tender-pipeline');},active:currentPage==='tender-pipeline'&&!bidFocus},
-    {name:'2. Intake & compliance',open:()=>{setJourneyStep(1);setBidFocus(false);handlePageChange('tender-pipeline');},active:false},
+    {name:'1. Tender opportunity',open:()=>{setJourneyStep(0);setBidFocus(false);setIntakeFocus(false);handlePageChange('tender-pipeline');},active:currentPage==='tender-pipeline'&&!bidFocus},
+    {name:'2. Intake & compliance',open:()=>{setJourneyStep(1);setBidFocus(false);setIntakeFocus(true);handlePageChange('tender-pipeline');},active:false},
     {name:'3. BOQ pricing',open:()=>{setJourneyStep(2);setCurrentPage('dashboard');setCurrentView(canUploadBOQ?'import-hub':'template-library');},active:currentPage==='dashboard'&&currentView==='import-hub'},
     {name:'4. Programme of Works',open:()=>{if(canUploadBOQ){setJourneyStep(3);}if(canUploadBOQ){setCurrentPage('dashboard');setPlanningDestination('programme');setCurrentView('history');}else{toast.error('Your plan does not currently allow this workspace.');}},active:currentPage==='dashboard'&&currentView==='history'&&planningDestination==='programme'},
     {name:'5. Cash Flow & S-Curve',open:()=>{if(canUploadBOQ){setJourneyStep(4);}if(canUploadBOQ){setCurrentPage('dashboard');setPlanningDestination('cashflow');setCurrentView('history');}else{toast.error('Your plan does not currently allow this workspace.');}},active:currentPage==='dashboard'&&currentView==='history'&&planningDestination==='cashflow'},
     {name:'6. Allowables & Margin',open:()=>{if(canUploadBOQ){setJourneyStep(5);}if(canUploadBOQ){setCurrentPage('dashboard');setPlanningDestination('allowables');setCurrentView('history');}else{toast.error('Your plan does not currently allow this workspace.');}},active:currentPage==='dashboard'&&currentView==='history'&&planningDestination==='allowables'},
-    {name:'7. Risk & Bid Decision',open:()=>{setJourneyStep(6);setBidFocus(true);handlePageChange('tender-pipeline');},active:currentPage==='tender-pipeline'&&bidFocus},
+    {name:'7. Risk & Bid Decision',open:()=>{setJourneyStep(6);setIntakeFocus(false);setBidFocus(true);handlePageChange('tender-pipeline');},active:currentPage==='tender-pipeline'&&bidFocus},
   ];
   return (
     <div className="min-h-screen bg-gray-50">
@@ -1020,6 +1021,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
           {currentPage === 'supplier-leads' && <SupplierLeads />}
           {currentPage === 'tender-pipeline' && <TenderPipeline
             focusBid={bidFocus}
+            focusIntake={intakeFocus}
             selectedOpportunityId={selectedTenderId}
             onSelectOpportunity={setSelectedTenderId}
             onStartPricing={() => { setCurrentPage('dashboard'); setCurrentView('upload'); }}
