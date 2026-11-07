@@ -130,24 +130,29 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
       ))}
     </nav>
     {error && <p role="alert" className="rounded bg-amber-50 p-3 text-sm text-amber-800">{error}</p>}
-    {focusIntake && workspace === 'tenders' && <div className="rounded-lg border border-cyan-200 bg-cyan-50 p-4" aria-label="Intake and compliance stage">
+    {focusIntake && <div className="rounded-lg border border-cyan-200 bg-cyan-50 p-4" aria-label="Intake and compliance stage">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div><h3 className="text-lg font-semibold text-slate-900">Intake &amp; Compliance</h3>
           <p className="text-sm text-slate-600">Review tender documents, extraction evidence and compliance requirements for the selected opportunity.</p></div>
         <button type="button" onClick={()=>setWorkspace('crm')} className="rounded border border-cyan-300 bg-white px-3 py-2 text-sm text-cyan-800">Back to Tender CRM</button>
       </div>
+      <label className="mt-3 block text-sm font-medium text-slate-800" htmlFor="intake-tender-select">Tender for intake review</label>
+      <select id="intake-tender-select" className="mt-1 w-full rounded border border-slate-300 bg-white p-2 text-sm" value={assessmentTenderId && rows.some(row=>row.id===assessmentTenderId)?assessmentTenderId:''} onChange={e=>{const id=e.target.value||null;onSelectOpportunity(id);setAssessmentTenderId(id);}}>
+        <option value="">Select a tender</option>
+        {rows.map(row=><option key={row.id} value={row.id}>{row.tender_title} — {row.customer_name}</option>)}
+      </select>
       {assessmentTenderId && rows.some(row=>row.id===assessmentTenderId)
         ? (()=>{const tender=rows.find(row=>row.id===assessmentTenderId)!;return <div className="mt-3"><p className="mb-2 text-sm font-medium">Selected tender: {tender.tender_title}</p><TenderIntakeWorkspace key={'intake-'+tender.id} opportunity={tender} onOpenTenderImport={onOpenTenderImport}/></div>;})()
-        : <p role="status" className="mt-3 rounded bg-white p-3 text-sm text-slate-700">No accessible tender selected. Open CRM Opportunities and select a tender using Bid / No-Bid, then return to Intake &amp; Compliance.</p>}
+        : <p role="status" className="mt-3 rounded bg-white p-3 text-sm text-slate-700">Select a tender above to open its Intake &amp; Compliance workspace.</p>}
     </div>}
-    {workspace !== 'suppliers' && !focusIntake && <form onSubmit={create} className="grid gap-3 md:grid-cols-5">
+    {!focusIntake && workspace !== 'suppliers' && <form onSubmit={create} className="grid gap-3 md:grid-cols-5">
       <input aria-label="Customer name" required placeholder="Customer name" className="border rounded p-2" value={customer} onChange={e=>setCustomer(e.target.value)} />
       <input aria-label="Tender title" required placeholder="Tender title" className="border rounded p-2" value={title} onChange={e=>setTitle(e.target.value)} />
       <input aria-label="Tender reference" placeholder="Tender reference" className="border rounded p-2" value={reference} onChange={e=>setReference(e.target.value)} />
       <input aria-label="Submission deadline" type="date" className="border rounded p-2" value={due} onChange={e=>setDue(e.target.value)} />
       <button type="submit" disabled={busy} className="rounded bg-cyan-700 text-white px-3 py-2 disabled:opacity-50">Add opportunity</button>
     </form>}
-    {workspace !== 'suppliers' && !focusIntake && <div className="overflow-x-auto"><table className="w-full min-w-[650px] text-sm">
+    {!focusIntake && workspace !== 'suppliers' && <div className="overflow-x-auto"><table className="w-full min-w-[650px] text-sm">
       <thead><tr className="border-b text-left"><th className="p-2">Customer</th><th className="p-2">Tender</th><th className="p-2">Deadline</th><th className="p-2">Stage</th><th className="p-2">Action</th></tr></thead>
       <tbody>{rows.map(row=><tr key={row.id} className={row.id === selectedOpportunityId ? 'border-b bg-cyan-50' : 'border-b'}>
         <td className="p-2">{row.customer_name}</td>
