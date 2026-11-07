@@ -38,11 +38,20 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    if(error)throw error;setMessage('Tender intake saved.');
   }catch(e){setMessage(e instanceof Error?e.message:'Unable to save');}finally{setBusy(false);}
  };
+ const ensureIntake=async(userId:string)=>{
+  if(!issuer.trim()||!reference.trim()||!title.trim())throw Error('Issuer, reference and title are required');
+  const {error}=await supabase.from('tender_intakes').upsert({
+   opportunity_id:opportunity.id,owner_user_id:userId,route:'contractor_import',
+   issuer:issuer.trim(),reference:reference.trim(),title:title.trim(),closing_date:closing||null
+  },{onConflict:'opportunity_id'});
+  if(error)throw error;
+ };
  const addRequirement=async()=>{
   if(!description.trim())return;
   setBusy(true);setMessage('');
   try{
    const {data:{user}}=await supabase.auth.getUser();if(!user)throw Error('Sign in required');
+   await ensureIntake(user.id);
    const {error}=await supabase.from('tender_compliance_requirements').insert({opportunity_id:opportunity.id,owner_user_id:user.id,description:description.trim(),mandatory:true,status:'evidence_required'});
    if(error)throw error;
    const result=await supabase.from('tender_compliance_requirements').select('id,description,mandatory,status,source_document_id,evidence_document_id').eq('opportunity_id',opportunity.id).order('created_at');
@@ -56,6 +65,7 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
   try{
    const {data:{user}}=await supabase.auth.getUser();if(!user)throw Error('Sign in required');
    if(documentUrl.trim() && !/^https:\/\//i.test(documentUrl.trim()))throw Error('Document source must be an HTTPS link');
+   await ensureIntake(user.id);
    const {error}=await supabase.from('tender_intake_documents').insert({
     opportunity_id:opportunity.id,owner_user_id:user.id,name:documentName.trim(),kind:documentKind,
     source_url:documentUrl.trim()||null,extraction_status:'pending',version:1
