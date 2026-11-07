@@ -52,6 +52,8 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
   const [processedBill, setProcessedBill] = useState<any>(null);
   const [selectedTenderId, setSelectedTenderId] = useState<string | null>(null);
   const [bidFocus, setBidFocus] = useState(false);
+  const [intakeFocus, setIntakeFocus] = useState(false);
+  const [journeyStep,setJourneyStep]=useState(0);
   const [sanralWorkbook, setSanralWorkbook] = useState<SanralNativeWorkbookContext | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [pricingProgress, setPricingProgress] = useState({ processed: 0, total: 0, itemName: '', stage: 'Preparing BOQ', province: '' });
@@ -711,6 +713,15 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
     }
   };
 
+  const journeyStages = [
+    {name:'1. Tender opportunity',open:()=>{setJourneyStep(0);setBidFocus(false);setIntakeFocus(false);handlePageChange('tender-pipeline');},active:currentPage==='tender-pipeline'&&!bidFocus&&!intakeFocus},
+    {name:'2. Intake & compliance',open:()=>{setJourneyStep(1);setBidFocus(false);setIntakeFocus(true);handlePageChange('tender-pipeline');},active:currentPage==='tender-pipeline'&&intakeFocus},
+    {name:'3. BOQ pricing',open:()=>{setJourneyStep(2);setIntakeFocus(false);setBidFocus(false);setCurrentPage('dashboard');setCurrentView(canUploadBOQ?'import-hub':'template-library');},active:currentPage==='dashboard'&&currentView==='import-hub'},
+    {name:'4. Programme of Works',open:()=>{if(canUploadBOQ){setJourneyStep(3);setIntakeFocus(false);setBidFocus(false);}if(canUploadBOQ){setCurrentPage('dashboard');setPlanningDestination('programme');setCurrentView('history');}else{toast.error('Your plan does not currently allow this workspace.');}},active:currentPage==='dashboard'&&currentView==='history'&&planningDestination==='programme'},
+    {name:'5. Cash Flow & S-Curve',open:()=>{if(canUploadBOQ){setJourneyStep(4);setIntakeFocus(false);setBidFocus(false);}if(canUploadBOQ){setCurrentPage('dashboard');setPlanningDestination('cashflow');setCurrentView('history');}else{toast.error('Your plan does not currently allow this workspace.');}},active:currentPage==='dashboard'&&currentView==='history'&&planningDestination==='cashflow'},
+    {name:'6. Allowables & Margin',open:()=>{if(canUploadBOQ){setJourneyStep(5);setIntakeFocus(false);setBidFocus(false);}if(canUploadBOQ){setCurrentPage('dashboard');setPlanningDestination('allowables');setCurrentView('history');}else{toast.error('Your plan does not currently allow this workspace.');}},active:currentPage==='dashboard'&&currentView==='history'&&planningDestination==='allowables'},
+    {name:'7. Risk & Bid Decision',open:()=>{setJourneyStep(6);setIntakeFocus(false);setBidFocus(true);handlePageChange('tender-pipeline');},active:currentPage==='tender-pipeline'&&bidFocus},
+  ];
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="relative z-10">
@@ -980,15 +991,20 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                 <p className="text-lg font-extrabold tracking-wide text-[#0077b6]">QILLY</p>
                 <p className="text-xs font-medium text-slate-600">Infrastructure Tender Intelligence</p>
               </div>
-              <nav aria-label="Tender-to-bid navigation" className="flex flex-col gap-2">
+              <div className="mb-4 rounded-lg border border-cyan-200 bg-white p-3" aria-label="Tender workflow progress">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#0077b6]">Tender-to-bid journey</p>
+                <p className="mt-1 text-xs text-slate-600">Select a stage to open its existing workspace. Progress is guidance, not completion status.</p>
+                <ol className="mt-3 space-y-1">
+                  {journeyStages.map(stage=><li key={stage.name}><button type="button" onClick={stage.open} aria-current={stage.active?'step':undefined} className={`w-full rounded px-2 py-1.5 text-left text-xs ${stage.active?'bg-cyan-100 font-bold text-cyan-900':'text-slate-700 hover:bg-cyan-50'}`}>{stage.name}</button></li>)}
+                </ol>
+                <button type="button" disabled={journeyStep>=journeyStages.length-1} onClick={()=>{if(!selectedTenderId){toast.error('Select a tender in Tender CRM before continuing.');journeyStages[0].open();return;}journeyStages[Math.min(journeyStep+1,journeyStages.length-1)].open();}} className="mt-3 w-full rounded bg-[#0077b6] px-3 py-2 text-xs font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40">Continue to Next Step</button>
+                <p className="mt-1 text-[11px] text-slate-600">Step {journeyStep+1} of {journeyStages.length}. This does not certify completion or approve a bid.</p>
+                {selectedTenderId?<p className="mt-2 break-all text-[11px] text-slate-500">Selected tender: {selectedTenderId}</p>:<p className="mt-2 text-[11px] text-amber-800">Select a tender in Tender CRM to retain context across stages.</p>}
+              </div>
+              <p className="mb-2 text-xs font-semibold text-slate-600">Additional tools</p>
+              <nav aria-label="Additional Qilly tools" className="flex flex-col gap-2">
                 {([
                   { label: 'Executive Dashboard', active: currentPage === 'dashboard' && currentView === 'executive', action: () => { setCurrentPage('dashboard'); setCurrentView('executive'); } },
-                  { label: 'BOQ Pricing', active: currentPage === 'dashboard' && currentView !== 'executive' && currentView !== 'history', action: () => { setCurrentPage('dashboard'); if (canUploadBOQ) setCurrentView('import-hub'); else setCurrentView('template-library'); } },
-                  { label: 'Programme of Works', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'programme', action: () => { if (canUploadBOQ) { setCurrentPage('dashboard'); setPlanningDestination('programme'); setCurrentView('history'); } } },
-                  { label: 'Cash Flow & S-Curve', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'cashflow', action: () => { if (canUploadBOQ) { setCurrentPage('dashboard'); setPlanningDestination('cashflow'); setCurrentView('history'); } } },
-                  { label: 'Allowables & Margin', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'allowables', action: () => { if (canUploadBOQ) { setCurrentPage('dashboard'); setPlanningDestination('allowables'); setCurrentView('history'); } } },
-                  { label: 'Tender CRM', active: currentPage === 'tender-pipeline' && !bidFocus, action: () => { setBidFocus(false); handlePageChange('tender-pipeline'); } },
-                  { label: 'Bid Decision & Risk', active: currentPage === 'tender-pipeline' && bidFocus, action: () => { setBidFocus(true); handlePageChange('tender-pipeline'); } },
                   { label: 'Provincial Pricing', active: currentPage === 'provincial-pricing', action: () => handlePageChange('provincial-pricing') },
                   { label: 'Item Search & Matching', active: currentPage === 'enhanced-matching', action: () => handlePageChange('enhanced-matching') },
                 ]).map(item => (
@@ -1005,6 +1021,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
           {currentPage === 'supplier-leads' && <SupplierLeads />}
           {currentPage === 'tender-pipeline' && <TenderPipeline
             focusBid={bidFocus}
+            focusIntake={intakeFocus}
             selectedOpportunityId={selectedTenderId}
             onSelectOpportunity={setSelectedTenderId}
             onStartPricing={() => { setCurrentPage('dashboard'); setCurrentView('upload'); }}
