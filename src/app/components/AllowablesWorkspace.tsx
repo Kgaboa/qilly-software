@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { listRepricingDrafts, saveNewRepricingDraft, submitRepricingDraft, type StoredRepricingDraft } from '@/utils/repricingStorage';
+import { assignRepricingReviewer, listRepricingDrafts, saveNewRepricingDraft, submitRepricingDraft, type StoredRepricingDraft } from '@/utils/repricingStorage';
 import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -10,6 +10,7 @@ type Override = { selling?: string; allowable?: string };
 const money = (n: number) => 'R ' + n.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const validNumber = (n: unknown) => Number.isFinite(Number(n)) && Number(n) >= 0;
 export function AllowablesWorkspace({ items, originalTotal, boqId }: Props) {
+  const [reviewerId, setReviewerId] = useState('');
   const [drafts, setDrafts] = useState<StoredRepricingDraft[]>([]);
   const [draftBusy, setDraftBusy] = useState(false);
   const [draftMessage, setDraftMessage] = useState('');
@@ -63,6 +64,14 @@ export function AllowablesWorkspace({ items, originalTotal, boqId }: Props) {
       setSelectedDraft(saved.id);
       setDraftMessage('Draft version ' + saved.version + ' saved. Original BOQ unchanged.');
     } catch (error) { setDraftMessage(error instanceof Error ? error.message : 'Draft save failed.'); }
+    finally { setDraftBusy(false); }
+  };
+  const assignReviewer = async () => {
+    setDraftBusy(true); setDraftMessage('');
+    try {
+      await assignRepricingReviewer(boqId, reviewerId.trim());
+      setDraftMessage('Reviewer assigned to this BOQ.');
+    } catch (error) { setDraftMessage(error instanceof Error ? error.message : 'Reviewer assignment failed'); }
     finally { setDraftBusy(false); }
   };
   const submitDraft = async () => {
@@ -160,6 +169,10 @@ export function AllowablesWorkspace({ items, originalTotal, boqId }: Props) {
         </select>
         <button type="button" className="rounded border px-3 py-2 disabled:opacity-50" disabled={!selectedDraft || draftBusy} onClick={loadDraft}>Load Draft</button>
         <button type="button" className="rounded border border-cyan-700 px-3 py-2 text-cyan-800 disabled:opacity-50" disabled={!selectedDraft || draftBusy} onClick={() => void submitDraft()}>Submit for Review</button>
+      </div>
+      <div className="flex flex-wrap items-center gap-2">
+        <label>Reviewer user ID <input aria-label="Reviewer user ID" className="rounded border p-2" placeholder="Authorised reviewer UUID" value={reviewerId} onChange={e=>setReviewerId(e.target.value)} /></label>
+        <button type="button" className="rounded border px-3 py-2 disabled:opacity-50" disabled={draftBusy || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(reviewerId)} onClick={()=>void assignReviewer()}>Assign Reviewer</button>
       </div>
       {draftMessage && <p role="status">{draftMessage}</p>}
     </div>
