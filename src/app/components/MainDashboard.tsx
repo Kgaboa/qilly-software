@@ -1,3 +1,4 @@
+import { remainingBoqCredits } from '@/utils/boqEntitlements';
 import { TenderIntelligenceOverview } from './TenderIntelligenceOverview';
 import { SupplierLeads } from './SupplierLeads';
 import { TenderPipeline } from './TenderPipeline';
@@ -80,7 +81,8 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
     ? Number(contractorData?.boq_topup_allowance || 0)
     : 0;
   const boqQuota = baseBoqQuota === null ? null : baseBoqQuota + activeTopUpAllowance;
-  const quotaExceeded = boqQuota !== null && monthlyBoqCount >= boqQuota;
+  const remainingCredits = remainingBoqCredits(baseBoqQuota, activeTopUpAllowance, monthlyBoqCount);
+  const quotaExceeded = remainingCredits !== null && remainingCredits === 0;
   const pricingPercentage = pricingProgress.total > 0
     ? Math.min(100, Math.round((pricingProgress.processed / pricingProgress.total) * 100))
     : 0;

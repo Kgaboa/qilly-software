@@ -96,7 +96,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
         {!dependenciesValid && <p role="alert" className="text-sm text-red-700">Invalid dependency: successor must start after predecessor finishes.</p>}
         {!valid ? <p role="alert" className="text-sm text-red-700">Review activities: months must fit within the project duration and allocations must total exactly 100% (currently {totalShare.toFixed(1)}%).</p> : <>
           <details className="rounded-lg border border-cyan-200 bg-white">
-            <summary className="cursor-pointer px-3 py-2 text-sm font-semibold text-cyan-800">Monthly expenditure by work package — draft BOQ allocation</summary>
+            <summary className="cursor-pointer px-3 py-2 text-sm font-semibold text-cyan-800">Monthly expenditure by work package — proposed BOQ-derived allocation</summary>
             <div className="max-h-80 overflow-auto border-t border-cyan-100">
               <table className="min-w-full text-xs">
                 <thead className="sticky top-0 bg-slate-50"><tr><th className="p-2 text-left">Work package</th><th className="p-2 text-right">Planned total</th>{series.map(row => <th key={row.month} className="p-2 text-right">M{row.month}</th>)}</tr></thead>
@@ -105,7 +105,7 @@ export function ProgrammeCashflow({ projectValue, durationMonths, programmeLevel
             </div>
             <p className="p-2 text-xs text-amber-800">Illustrative monthly allocation, not approved baseline or actual expenditure.</p>
           </details>
-          <div className="rounded-lg border border-cyan-200 p-3 space-y-3" aria-label="Allowables and margin scenario">
+          <div id="allowables-margin" className="rounded-lg border border-cyan-200 p-3 space-y-3" aria-label="Allowables and margin scenario">
             <h4 className="font-semibold">Allowables &amp; Margin — planning scenario</h4>
             <p className="text-xs text-slate-600">Enter the contractor's estimated allowable cost. BOQ selling prices do not establish allowable costs. These are planning estimates, not verified costs or an approved financial baseline.</p>
             <label className="flex flex-wrap items-center gap-2 text-sm">Total allowable cost (R)
