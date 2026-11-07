@@ -1,3 +1,4 @@
+import { gateBidRecommendation } from '@/utils/bidRiskGate';
 import { getTenderRiskSummary } from '@/utils/tenderRiskStorage';
 import type { RiskSummary } from '@/utils/tenderRisk';
 import { useEffect, useMemo, useState } from 'react';
@@ -65,7 +66,7 @@ export function BidDecisionWorkspace({ boqId, tenderId, tenderTitle }: { boqId: 
       </label>
     </div>
     <div role="status" className="rounded border bg-white p-3 text-sm">
-      <strong>Recommendation: {(riskSummary===null ? 'INSUFFICIENT_DATA' : riskSummary.blockingRisks>0 ? 'REVIEW' : assessment.recommendation).replaceAll('_', ' ')}</strong>
+      <strong>Recommendation: {gateBidRecommendation(assessment.recommendation,riskSummary).replaceAll('_', ' ')}</strong>
       <span className="ml-3">Readiness score: {assessment.score === null ? 'Incomplete' : assessment.score + '/100'}</span>
       <ul className="mt-2 list-disc pl-5">{assessment.reasons.map(reason=><li key={reason}>{reason}</li>)}</ul>
       <p className="mt-2 text-slate-600">Indicative decision support only. Final bid approval requires an authorised reviewer. Scores and thresholds are provisional.</p>
