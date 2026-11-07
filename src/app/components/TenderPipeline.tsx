@@ -1,3 +1,4 @@
+import { TenderRiskWorkspace } from './TenderRiskWorkspace';
 import { RepricingReviewWorkspace } from './RepricingReviewWorkspace';
 import { BidDecisionWorkspace } from './BidDecisionWorkspace';
 import { useCallback, useEffect, useState } from 'react';
@@ -146,6 +147,7 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
       </tr>)}</tbody>
     </table></div>}
     {workspace !== 'suppliers' && <RepricingReviewWorkspace />}
+    {workspace !== 'suppliers' && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (() => { const tender = rows.find(row=>row.id===assessmentTenderId)!; return <TenderRiskWorkspace key={'risk-'+tender.id} tenderId={tender.id} boqId={tender.linked_bill_id} />; })()}
     {workspace !== 'suppliers' && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (() => { const tender = rows.find(row=>row.id===assessmentTenderId)!; return <BidDecisionWorkspace key={tender.id} tenderId={tender.id} boqId={tender.linked_bill_id} tenderTitle={tender.tender_title} />; })()}
     {workspace !== 'suppliers' && rows.length === 0 && !error && <p className="text-sm text-gray-500">No opportunities yet.</p>}
     {workspace === 'suppliers' && <section aria-label="Published supplier leads" className="space-y-3 border-t pt-5">
