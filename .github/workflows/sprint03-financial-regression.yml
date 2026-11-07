@@ -21,6 +21,6 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - name: BOQ entitlement, repricing and bid financial regression
-        run: npx vitest run src/utils/boqEntitlements.test.ts src/utils/repricingScenario.test.ts src/utils/bidDecision.test.ts src/utils/bidFinancialIntegration.test.ts src/utils/approvedBidFinancials.test.ts src/utils/tenderRisk.test.ts
+        run: npx vitest run src/utils/boqEntitlements.test.ts src/utils/repricingScenario.test.ts src/utils/bidDecision.test.ts src/utils/bidFinancialIntegration.test.ts src/utils/approvedBidFinancials.test.ts src/utils/tenderRisk.test.ts src/utils/bidRiskGate.test.ts
       - name: Compile application
         run: npm run build
