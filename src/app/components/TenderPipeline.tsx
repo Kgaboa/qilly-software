@@ -43,11 +43,16 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
     if (failure) { setError('CRM database unavailable. Apply the tender_opportunities migration and verify access.'); return; }
     setError(''); setRows((data || []) as Opportunity[]);
   }, []);
+  // Keep intake, risk and bid assessment bound to the selected CRM tender.
+  // Never silently switch to another tender when the selected ID is unavailable.
   useEffect(() => {
-    if (!focusBid) return;
-    setWorkspace('tenders');
-    if (rows.length) setAssessmentTenderId(current => current && rows.some(row => row.id === current) ? current : rows[0].id);
-  }, [focusBid, rows]);
+    if (focusBid) setWorkspace('tenders');
+    if (!selectedOpportunityId) {
+      setAssessmentTenderId(null);
+      return;
+    }
+    setAssessmentTenderId(rows.some(row => row.id === selectedOpportunityId) ? selectedOpportunityId : null);
+  }, [focusBid, selectedOpportunityId, rows]);
     const loadPublishedLeads = useCallback(async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { setPublishedLeads([]); setLeadListError('Sign in to view your published leads.'); return; }
@@ -141,7 +146,7 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
         <td className="p-2"><select aria-label="Tender stage" value={row.stage} className="border rounded p-1" onChange={e=>void setStage(row.id,e.target.value)}>
           {stages.map(stage=><option key={stage} value={stage}>{stage}</option>)}</select></td>
         <td className="p-2 space-y-2"><button type="button" className="rounded border px-3 py-1 text-cyan-800" onClick={()=>{onSelectOpportunity(row.id);onStartPricing();}}>Price BOQ</button>
-          <button type="button" className="block rounded border px-3 py-1 text-cyan-800" onClick={()=>setAssessmentTenderId(assessmentTenderId===row.id?null:row.id)}>Bid / No-Bid</button>
+          <button type="button" className="block rounded border px-3 py-1 text-cyan-800" onClick={()=>{onSelectOpportunity(row.id);setAssessmentTenderId(row.id);setWorkspace('tenders');}}>Bid / No-Bid</button>
           <button type="button" className="block rounded border px-3 py-1 text-cyan-800" onClick={()=>setPublishing(publishing===row.id?null:row.id)}>Publish supplier lead</button>
           {publishing===row.id && <div className="space-y-2 min-w-56">
             <input aria-label="Supplier lead category" className="w-full rounded border p-1" placeholder="Supplier category" value={leadCategory} onChange={e=>setLeadCategory(e.target.value)} />
@@ -152,6 +157,7 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
         </td>
       </tr>)}</tbody>
     </table></div>}
+    {workspace !== 'suppliers' && selectedOpportunityId && !rows.some(row=>row.id===selectedOpportunityId) && <p role="alert" className="rounded border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">The selected tender is not available in your account. Select an accessible tender in CRM.</p>}
     {workspace !== 'suppliers' && <RepricingReviewWorkspace />}
     {workspace !== 'suppliers' && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (()=>{const tender=rows.find(row=>row.id===assessmentTenderId)!;return <TenderIntakeWorkspace key={'intake-'+tender.id} opportunity={tender} onOpenTenderImport={onOpenTenderImport}/>;})()}
     {workspace !== 'suppliers' && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (() => { const tender = rows.find(row=>row.id===assessmentTenderId)!; return <TenderRiskWorkspace key={'risk-'+tender.id} tenderId={tender.id} boqId={tender.linked_bill_id} />; })()}
