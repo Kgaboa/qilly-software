@@ -104,8 +104,14 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    if(!document||document.extraction_status!=='review'||!document.extraction_review)
     throw Error('Save extraction review evidence for this document before verification');
    const review=document.extraction_review as {importBlocked?:boolean;issues?:unknown[];pageCoverage?:{unresolved?:number};missingOcrPages?:unknown[]};
-   if(review.importBlocked||review.issues?.length||review.pageCoverage?.unresolved||review.missingOcrPages?.length)
+   if(review.importBlocked||review.issues?.length||review.pageCoverage?.unresolved||review.missingOcrPages?.length||(review as {unparsed?:unknown[]}).unparsed?.length)
     throw Error('Unresolved extraction exceptions prevent verification');
+   const {data:updatedDocument,error:reviewError}=await supabase.from('tender_intake_documents')
+    .update({extraction_review:{...review,verifiedAgainstSource:true,verifiedAt:new Date().toISOString(),verifiedBy:user.id}})
+    .eq('id',requirement.evidence_document_id).eq('opportunity_id',opportunity.id)
+    .eq('owner_user_id',user.id).eq('extraction_status','review').select('id').single();
+   if(reviewError)throw reviewError;
+   if(!updatedDocument)throw Error('Unable to record source review');
    const {data,error}=await supabase.from('tender_compliance_requirements')
     .update({status:'verified'}).eq('id',requirement.id).eq('opportunity_id',opportunity.id)
     .eq('owner_user_id',user.id).eq('evidence_document_id',requirement.evidence_document_id)
