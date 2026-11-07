@@ -1,0 +1,21 @@
+name: Sprint 4A Tender Intake Regression
+on:
+  push:
+    branches:
+      - feature/qilly-expansion-sprint-04
+  workflow_dispatch:
+jobs:
+  tender-intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm install --no-package-lock --ignore-scripts
+      - name: Sprint 4A unit regression
+        run: npx vitest run src/utils/tenderIntake.test.ts
+      - name: Build
+        run: npm run build

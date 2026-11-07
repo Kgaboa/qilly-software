@@ -1,3 +1,4 @@
+import { supabase } from '@/utils/supabase';
 import { useEffect, useState } from 'react';
 import { getApprovalBlockers } from '../../lib/boq-import/approvalReadiness';
 import { previewBoqExcel, previewMappedBoqSheet, type BoqWorkbookPreview, type BoqColumnMap } from '../../lib/boq-import/excel';
@@ -6,8 +7,14 @@ import { normalizeBoqRows, type NormalizedBoqLine } from '../../lib/boq-import/n
 
 type PageAuditRow={page:number;disposition:string;classification:string;fragments:number;ocrRequired:boolean;ocrCompleted:boolean;confidence?:number;requiresReview:boolean;reason:string};
 type Preview = {name:string;pageAudit?:PageAuditRow[];pageCoverage?:{total:number;accounted:number;manualReview:number;unresolved:number};scheduleRows?:{page:number;line:number;type:string;description:string;amounts:{raw:string;value:number}[];periodValues?:{period:string;raw:string;value:number|null;x:number}[];arithmetic?:{expected:number;actual:number;difference:number;matches:boolean}}[];importBlocked?:boolean;missingOcrPages?:number[];ocrConfidenceByPage?:{page:number;confidence:number;rotation:number}[];evidenceRows?:{page:number;line:number;kind:string;label:string;values:string[];source:string;requiresReview:true}[];lines:{sourceRow:number;itemCode:string;description:string;unit:string;quantity:number|null;rate:number|null;amount:number|null}[];issues:{row:number;field:string;message:string}[];warnings:string[];candidates?:{sourceLine:number;sourcePage:number|null;raw:string}[];unparsed?:{sourceLine:number;sourcePage:number;text:string}[];ocrPages?:number[];ocrReviewRequired?:boolean;classification?:{type:string;confidence:string;pageTypes:{page:number;type:string}[]}};
-export function FlexibleBoqImport({onBack,accessToken}:{onBack:()=>void;accessToken:string}) {
+export function FlexibleBoqImport({onBack,accessToken,tenderId}:{onBack:()=>void;accessToken:string;tenderId?:string|null}) {
   const [file,setFile]=useState('');
+  const [registeredDocuments,setRegisteredDocuments]=useState<{id:string;name:string}[]>([]);
+  const [reviewDocumentId,setReviewDocumentId]=useState('');
+  const [reviewSaving,setReviewSaving]=useState(false);
+  const [reviewMessage,setReviewMessage]=useState('');
+  useEffect(()=>{if(!tenderId){setRegisteredDocuments([]);setReviewDocumentId('');return;}let active=true;void supabase.from('tender_intake_documents').select('id,name').eq('opportunity_id',tenderId).then(({data,error})=>{if(active){setRegisteredDocuments(error?[]:data||[]);setReviewDocumentId('');if(error)setReviewMessage(error.message);}});return()=>{active=false;};},[tenderId]);
+
   const [workbook,setWorkbook]=useState<BoqWorkbookPreview|null>(null);
   const [sheet,setSheet]=useState('');
   const [preview,setPreview]=useState<Preview|null>(null);
@@ -26,6 +33,26 @@ export function FlexibleBoqImport({onBack,accessToken}:{onBack:()=>void;accessTo
   const [sourceKind,setSourceKind]=useState<'pdf'|'other'|null>(null);
   useEffect(()=>()=>{if(sourcePdfUrl)URL.revokeObjectURL(sourcePdfUrl);},[sourcePdfUrl]);
   function updatePreview(next:Preview|null){setSelectedPage(null);setPreview(next);setApproved(false);setAcknowledged(false);setUnmatchedReviewed(false);setOcrReviewed(false);}
+  async function saveTenderReview(){
+    if(!tenderId||!reviewDocumentId||!preview)return;
+    setReviewSaving(true);setReviewMessage('');
+    try{
+      const {data:{user}}=await supabase.auth.getUser();if(!user)throw Error('Sign in required');
+      const report={schema:'qilly-tender-extraction-review-v1',sourceFile:preview.name,
+       recordedAt:new Date().toISOString(),pageCoverage:preview.pageCoverage??null,
+       pageAudit:preview.pageAudit??[],issues:preview.issues,warnings:preview.warnings,
+       unparsed:preview.unparsed??[],missingOcrPages:preview.missingOcrPages??[],
+       recognizedLineCount:preview.lines.length,importBlocked:!!preview.importBlocked,
+       reviewerAcknowledged:acknowledged,localPreviewApproved:approved,
+       verifiedAgainstSource:false};
+      const {data,error}=await supabase.from('tender_intake_documents')
+       .update({extraction_review:report,extraction_status:'review',reviewed_at:new Date().toISOString(),reviewed_by:user.id})
+       .eq('id',reviewDocumentId).eq('opportunity_id',tenderId).eq('owner_user_id',user.id).select('id').single();
+      if(error)throw error;if(!data)throw Error('Document not found');
+      setReviewMessage('Extraction review saved to this tender document. Evidence is not verified.');
+    }catch(e){setReviewMessage(e instanceof Error?e.message:'Unable to save extraction review');}
+    finally{setReviewSaving(false);}
+  }
   function exportReview(){
     if(!preview)return;
     const report={schema:'qilly-phase2-customer-review-v1',generatedAt:new Date().toISOString(),sourceFile:preview.name,documentClassification:preview.classification,pageCoverage:preview.pageCoverage,pageAudit:preview.pageAudit,recognizedLines:preview.lines,sourceCandidates:preview.candidates,unmatchedLines:preview.unparsed,scheduleEvidence:preview.scheduleRows,issues:preview.issues,warnings:preview.warnings,importBlocked:preview.importBlocked??false,localPreviewApproved:approved,customerAccepted:false,disclaimer:'Review evidence only. No BOQ pricing, persistence or production approval.'};
@@ -121,8 +148,17 @@ export function FlexibleBoqImport({onBack,accessToken}:{onBack:()=>void;accessTo
   }
   return <main className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-teal-50 p-3 md:p-5 text-slate-900">
     <div className="max-w-7xl mx-auto space-y-3">
+      {tenderId&&<div className="rounded-lg border border-cyan-300 bg-cyan-50 p-3 space-y-2 text-sm">
+        <strong>Tender-linked extraction review</strong>
+        <p>Choose an existing registered tender document. Only review evidence is saved; no source file or priced BOQ is stored by this action.</p>
+        <select aria-label="Registered tender document" className="block w-full rounded border p-2" value={reviewDocumentId} onChange={e=>setReviewDocumentId(e.target.value)}>
+         <option value="">Select registered document</option>{registeredDocuments.map(d=><option key={d.id} value={d.id}>{d.name}</option>)}
+        </select>
+        <button type="button" className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50" disabled={!preview||!reviewDocumentId||reviewSaving} onClick={()=>void saveTenderReview()}>Save Extraction Review to Tender</button>
+        {reviewMessage&&<p role="status">{reviewMessage}</p>}
+       </div>}
       <button className="text-blue-700 underline" onClick={onBack}>← Back to Qilly</button>
-      <div className="rounded-xl bg-gradient-to-r from-sky-900 via-blue-800 to-teal-700 text-white p-4 shadow-sm"><h1 className="text-2xl font-bold">Flexible BOQ Import</h1><p className="text-sky-100 text-sm">BOQ import, correction and approval preview. Excel and text remain local to your browser; PDF/DOCX require a configured protected extraction server. No data is saved to Qilly.</p></div>
+      <div className="rounded-xl bg-gradient-to-r from-sky-900 via-blue-800 to-teal-700 text-white p-4 shadow-sm"><h1 className="text-2xl font-bold">Flexible BOQ Import</h1><p className="text-sky-100 text-sm">BOQ import, correction and approval preview. Excel and text remain local to your browser; PDF/DOCX require a configured protected extraction server. Source files are not saved to Qilly. For linked tenders, review evidence is saved only when you select Save Extraction Review.</p></div>
       <section className="bg-white border border-sky-100 shadow-sm rounded-xl p-3 space-y-3">
         <label className="block font-semibold" htmlFor="boq-file">Choose BOQ or tender document</label>
         <input id="boq-file" type="file" accept=".xlsx,.xls,.csv,.tsv,.txt,.pdf,.docx" disabled={busy} onChange={e=>{const f=e.target.files?.[0];if(f)void load(f);}}/>

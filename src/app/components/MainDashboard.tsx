@@ -1008,6 +1008,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
             selectedOpportunityId={selectedTenderId}
             onSelectOpportunity={setSelectedTenderId}
             onStartPricing={() => { setCurrentPage('dashboard'); setCurrentView('upload'); }}
+            onOpenTenderImport={() => { setCurrentPage('dashboard'); setCurrentView('flexible-import'); }}
           />}
           {currentPage === 'dashboard' && (
             <>
@@ -1187,7 +1188,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                   </div>
                 </section>
               )}
-              {currentView === 'flexible-import' && canUploadBOQ && <FlexibleBoqImport accessToken={accessToken} onBack={() => setCurrentView('import-hub')} />}
+              {currentView === 'flexible-import' && canUploadBOQ && <FlexibleBoqImport accessToken={accessToken} tenderId={selectedTenderId} onBack={() => setCurrentView('import-hub')} />}
               {currentView === 'upload' && (canUploadBOQ || preloadedItems.length > 0) && (
                 isLoading ? (
                   <Card className="mx-auto max-w-3xl overflow-hidden border-sky-200 shadow-lg">
