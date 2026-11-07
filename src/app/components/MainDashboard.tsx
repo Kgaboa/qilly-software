@@ -51,6 +51,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
   const [currentPage, setCurrentPage] = useState<'dashboard' | 'features' | 'suppliers' | 'provincial-pricing' | 'tech-stack' | 'system-architecture' | 'enhanced-matching' | 'investor-deck' | 'tender-pipeline' | 'supplier-leads'>('dashboard');
   const [processedBill, setProcessedBill] = useState<any>(null);
   const [selectedTenderId, setSelectedTenderId] = useState<string | null>(null);
+  const [bidFocus, setBidFocus] = useState(false);
   const [sanralWorkbook, setSanralWorkbook] = useState<SanralNativeWorkbookContext | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [pricingProgress, setPricingProgress] = useState({ processed: 0, total: 0, itemName: '', stage: 'Preparing BOQ', province: '' });
@@ -986,7 +987,8 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                   { label: 'Programme of Works', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'programme', action: () => { if (canUploadBOQ) { setCurrentPage('dashboard'); setPlanningDestination('programme'); setCurrentView('history'); } } },
                   { label: 'Cash Flow & S-Curve', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'cashflow', action: () => { if (canUploadBOQ) { setCurrentPage('dashboard'); setPlanningDestination('cashflow'); setCurrentView('history'); } } },
                   { label: 'Allowables & Margin', active: currentPage === 'dashboard' && currentView === 'history' && planningDestination === 'allowables', action: () => { if (canUploadBOQ) { setCurrentPage('dashboard'); setPlanningDestination('allowables'); setCurrentView('history'); } } },
-                  { label: 'Tender CRM', active: currentPage === 'tender-pipeline', action: () => handlePageChange('tender-pipeline') },
+                  { label: 'Tender CRM', active: currentPage === 'tender-pipeline' && !bidFocus, action: () => { setBidFocus(false); handlePageChange('tender-pipeline'); } },
+                  { label: 'Bid Decision & Risk', active: currentPage === 'tender-pipeline' && bidFocus, action: () => { setBidFocus(true); handlePageChange('tender-pipeline'); } },
                   { label: 'Provincial Pricing', active: currentPage === 'provincial-pricing', action: () => handlePageChange('provincial-pricing') },
                   { label: 'Item Search & Matching', active: currentPage === 'enhanced-matching', action: () => handlePageChange('enhanced-matching') },
                 ]).map(item => (
@@ -1002,6 +1004,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
           <div className="min-w-0 flex-1">
           {currentPage === 'supplier-leads' && <SupplierLeads />}
           {currentPage === 'tender-pipeline' && <TenderPipeline
+            focusBid={bidFocus}
             selectedOpportunityId={selectedTenderId}
             onSelectOpportunity={setSelectedTenderId}
             onStartPricing={() => { setCurrentPage('dashboard'); setCurrentView('upload'); }}
