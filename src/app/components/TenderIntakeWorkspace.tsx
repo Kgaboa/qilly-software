@@ -16,6 +16,7 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
  const [documentUrl,setDocumentUrl]=useState('');
  const [busy,setBusy]=useState(false);
  const [message,setMessage]=useState('');
+ const [verificationConfirmed,setVerificationConfirmed]=useState<Record<string,boolean>>({});
  useEffect(()=>{
    let active=true;
    setIssuer(opportunity.customer_name);setReference(opportunity.tender_reference||'');
@@ -44,7 +45,7 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    const {data:{user}}=await supabase.auth.getUser();if(!user)throw Error('Sign in required');
    const {error}=await supabase.from('tender_compliance_requirements').insert({opportunity_id:opportunity.id,owner_user_id:user.id,description:description.trim(),mandatory:true,status:'evidence_required'});
    if(error)throw error;
-   const result=await supabase.from('tender_compliance_requirements').select('id,description,mandatory,status').eq('opportunity_id',opportunity.id).order('created_at');
+   const result=await supabase.from('tender_compliance_requirements').select('id,description,mandatory,status,source_document_id,evidence_document_id').eq('opportunity_id',opportunity.id).order('created_at');
    if(result.error)throw result.error;
    setRequirements(result.data||[]);setDescription('');setMessage('Requirement added.');
   }catch(e){setMessage(e instanceof Error?e.message:'Unable to add requirement');}finally{setBusy(false);}
@@ -80,6 +81,32 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    setMessage(documentId?'Evidence linked; verification remains pending.':'Evidence link cleared.');
   }catch(e){setMessage(e instanceof Error?e.message:'Unable to link evidence');}finally{setBusy(false);}
  };
+ const verifyEvidence=async(requirement:Requirement)=>{
+  setBusy(true);setMessage('');
+  try{
+   if(!verificationConfirmed[requirement.id])throw Error('Confirm manual source evidence review first');
+   if(!requirement.evidence_document_id)throw Error('Link a registered evidence document first');
+   const {data:{user}}=await supabase.auth.getUser();if(!user)throw Error('Sign in required');
+   const {data:document,error:docError}=await supabase.from('tender_intake_documents')
+    .select('id,extraction_status,extraction_review').eq('id',requirement.evidence_document_id)
+    .eq('opportunity_id',opportunity.id).eq('owner_user_id',user.id).single();
+   if(docError)throw docError;
+   if(!document||document.extraction_status!=='review'||!document.extraction_review)
+    throw Error('Save extraction review evidence for this document before verification');
+   const review=document.extraction_review as {importBlocked?:boolean;issues?:unknown[];pageCoverage?:{unresolved?:number};missingOcrPages?:unknown[]};
+   if(review.importBlocked||review.issues?.length||review.pageCoverage?.unresolved||review.missingOcrPages?.length)
+    throw Error('Unresolved extraction exceptions prevent verification');
+   const {data,error}=await supabase.from('tender_compliance_requirements')
+    .update({status:'verified'}).eq('id',requirement.id).eq('opportunity_id',opportunity.id)
+    .eq('owner_user_id',user.id).eq('evidence_document_id',requirement.evidence_document_id)
+    .select('id,description,mandatory,status,source_document_id,evidence_document_id').single();
+   if(error)throw error;
+   setRequirements(previous=>previous.map(item=>item.id===data.id?data:item));
+   setVerificationConfirmed(previous=>({...previous,[requirement.id]:false}));
+   setMessage('Evidence manually verified for this requirement.');
+  }catch(e){setMessage(e instanceof Error?e.message:'Unable to verify evidence');}
+  finally{setBusy(false);}
+ };
  const verified=requirements.filter(r=>r.mandatory&&r.status==='verified').length;
  const mandatory=requirements.filter(r=>r.mandatory).length;
  return <section aria-label="Tender intake and compliance" className="rounded-lg border p-4 space-y-3">
@@ -111,6 +138,11 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    <label>Evidence document <select aria-label={'Evidence for '+r.description} disabled={busy} className="rounded border p-2" value={r.evidence_document_id||''} onChange={e=>void linkEvidence(r,e.target.value)}>
     <option value="">Not linked</option>{documents.map(doc=><option key={doc.id} value={doc.id}>{doc.name} (v{doc.version})</option>)}
    </select></label>
+   {r.evidence_document_id&&r.status!=='verified'&&<label className="flex items-center gap-1">
+    <input type="checkbox" checked={!!verificationConfirmed[r.id]} onChange={e=>setVerificationConfirmed(prev=>({...prev,[r.id]:e.target.checked}))}/>
+    I manually checked this requirement against the original evidence
+   </label>}
+   {r.evidence_document_id&&r.status!=='verified'&&<button type="button" disabled={busy||!verificationConfirmed[r.id]} onClick={()=>void verifyEvidence(r)} className="rounded border px-3 py-2 disabled:opacity-40">Verify evidence</button>}
   </div>)}
   {message&&<p role="status" className="text-sm">{message}</p>}
  </section>;
