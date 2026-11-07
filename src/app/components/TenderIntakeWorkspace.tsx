@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase';
 
+type IntakeDocument={id:string;name:string;kind:string;version:number;extraction_status:string;source_url:string|null};
 type Requirement={id:string;description:string;mandatory:boolean;status:string};
 export function TenderIntakeWorkspace({opportunity}:{opportunity:{id:string;customer_name:string;tender_title:string;tender_reference:string|null;due_date:string|null}}){
  const [issuer,setIssuer]=useState(opportunity.customer_name);
@@ -9,6 +10,10 @@ export function TenderIntakeWorkspace({opportunity}:{opportunity:{id:string;cust
  const [closing,setClosing]=useState(opportunity.due_date||'');
  const [requirements,setRequirements]=useState<Requirement[]>([]);
  const [description,setDescription]=useState('');
+ const [documents,setDocuments]=useState<IntakeDocument[]>([]);
+ const [documentName,setDocumentName]=useState('');
+ const [documentKind,setDocumentKind]=useState('tender_notice');
+ const [documentUrl,setDocumentUrl]=useState('');
  const [busy,setBusy]=useState(false);
  const [message,setMessage]=useState('');
  useEffect(()=>{
@@ -19,6 +24,8 @@ export function TenderIntakeWorkspace({opportunity}:{opportunity:{id:string;cust
    .then(({data,error})=>{if(!active)return;if(error){setMessage(error.message);return;}if(data){setIssuer(data.issuer);setReference(data.reference);setTitle(data.title);setClosing(data.closing_date||'');}});
    void supabase.from('tender_compliance_requirements').select('id,description,mandatory,status').eq('opportunity_id',opportunity.id).order('created_at')
    .then(({data,error})=>{if(active){if(error)setMessage(error.message);else setRequirements(data||[]);}});
+   void supabase.from('tender_intake_documents').select('id,name,kind,version,extraction_status,source_url').eq('opportunity_id',opportunity.id).order('created_at')
+   .then(({data,error})=>{if(active){if(error)setMessage(error.message);else setDocuments(data||[]);}});
    return()=>{active=false;};
  },[opportunity.id,opportunity.customer_name,opportunity.tender_reference,opportunity.tender_title,opportunity.due_date]);
  const save=async()=>{
@@ -42,6 +49,23 @@ export function TenderIntakeWorkspace({opportunity}:{opportunity:{id:string;cust
    setRequirements(result.data||[]);setDescription('');setMessage('Requirement added.');
   }catch(e){setMessage(e instanceof Error?e.message:'Unable to add requirement');}finally{setBusy(false);}
  };
+ const registerDocument=async()=>{
+  if(!documentName.trim())return;
+  setBusy(true);setMessage('');
+  try{
+   const {data:{user}}=await supabase.auth.getUser();if(!user)throw Error('Sign in required');
+   if(documentUrl.trim() && !/^https:\/\//i.test(documentUrl.trim()))throw Error('Document source must be an HTTPS link');
+   const {error}=await supabase.from('tender_intake_documents').insert({
+    opportunity_id:opportunity.id,owner_user_id:user.id,name:documentName.trim(),kind:documentKind,
+    source_url:documentUrl.trim()||null,extraction_status:'pending',version:1
+   });
+   if(error)throw error;
+   const result=await supabase.from('tender_intake_documents').select('id,name,kind,version,extraction_status,source_url').eq('opportunity_id',opportunity.id).order('created_at');
+   if(result.error)throw result.error;
+   setDocuments(result.data||[]);setDocumentName('');setDocumentUrl('');
+   setMessage('Document reference registered. File extraction has not been performed.');
+  }catch(e){setMessage(e instanceof Error?e.message:'Unable to register document');}finally{setBusy(false);}
+ };
  const verified=requirements.filter(r=>r.mandatory&&r.status==='verified').length;
  const mandatory=requirements.filter(r=>r.mandatory).length;
  return <section aria-label="Tender intake and compliance" className="rounded-lg border p-4 space-y-3">
@@ -54,6 +78,15 @@ export function TenderIntakeWorkspace({opportunity}:{opportunity:{id:string;cust
    <label className="text-sm">Closing date<input type="date" className="block w-full rounded border p-2" value={closing} onChange={e=>setClosing(e.target.value)}/></label>
   </div>
   <button type="button" disabled={busy} onClick={()=>void save()} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50">Save Intake</button>
+  <h4 className="font-semibold">Tender document register</h4>
+  <p className="text-sm">Record the tender pack and its source. This step registers document metadata; it does not upload or extract the file.</p>
+  <div className="grid gap-2 md:grid-cols-2">
+   <input aria-label="Document name" className="rounded border p-2" placeholder="Tender document filename" value={documentName} onChange={e=>setDocumentName(e.target.value)}/>
+   <select aria-label="Document category" className="rounded border p-2" value={documentKind} onChange={e=>setDocumentKind(e.target.value)}>{['tender_notice','boq','specification','drawing','addendum','other'].map(kind=><option key={kind} value={kind}>{kind.replaceAll('_',' ')}</option>)}</select>
+   <input aria-label="Document source URL" className="rounded border p-2 md:col-span-2" placeholder="Source HTTPS URL (optional)" value={documentUrl} onChange={e=>setDocumentUrl(e.target.value)}/>
+  </div>
+  <button type="button" disabled={busy||!documentName.trim()} onClick={()=>void registerDocument()} className="rounded border px-3 py-2">Register Document</button>
+  {documents.map(doc=><p className="text-sm" key={doc.id}>{doc.name} — {doc.kind.replaceAll('_',' ')} · v{doc.version} · {doc.extraction_status}</p>)}
   <h4 className="font-semibold">Compliance requirements</h4>
   <p className="text-sm">Verified mandatory requirements: {verified}/{mandatory}. Review and supporting evidence are required before declaring tender compliance.</p>
   <div className="flex flex-wrap gap-2"><input aria-label="New compliance requirement" className="min-w-[220px] flex-1 rounded border p-2" placeholder="e.g. CIDB certificate" value={description} onChange={e=>setDescription(e.target.value)}/><button type="button" disabled={busy||!description.trim()} onClick={()=>void addRequirement()} className="rounded border px-3 py-2">Add Requirement</button></div>
