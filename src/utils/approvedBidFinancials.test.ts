@@ -1,7 +1,6 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 
-const getUser = vi.fn();
-const from = vi.fn();
+const { getUser, from } = vi.hoisted(() => ({ getUser: vi.fn(), from: vi.fn() }));
 vi.mock('@/utils/supabase', () => ({ supabase: { auth: { getUser }, from } }));
 import { loadApprovedBidFinancials } from './approvedBidFinancials';
 
