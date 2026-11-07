@@ -13,16 +13,16 @@ export function TenderRiskWorkspace({tenderId,boqId,onChanged}:{tenderId:string;
  const [busy,setBusy]=useState(false);
  const [message,setMessage]=useState('');
  const refresh=useCallback(async()=>{
-   if(!boqId) {setRisks([]);return;}
+   if(!tenderId) {setRisks([]);return;}
    try {setRisks(await loadTenderRisks(tenderId,boqId));setMessage('');}
    catch(e){setMessage(e instanceof Error?e.message:'Unable to load risks');}
  },[tenderId,boqId]);
  useEffect(()=>{void refresh();},[refresh]);
  const save=async()=>{
-   if(!boqId)return;
+   if(!tenderId)return;
    setBusy(true);
    try{
-     await createTenderRisk({tenderId,boqId,category,description,probability,impact,exposureAmount:Number(exposure),mitigation,status:'open'});
+     await createTenderRisk({tenderId,boqId:boqId||'',category,description,probability,impact,exposureAmount:Number(exposure),mitigation,status:'open'});
      setDescription('');setExposure('');setMitigation('');
      await refresh();onChanged?.();setMessage('Risk recorded.');
    }catch(e){setMessage(e instanceof Error?e.message:'Unable to save risk');}
@@ -31,7 +31,7 @@ export function TenderRiskWorkspace({tenderId,boqId,onChanged}:{tenderId:string;
  const summary=summariseTenderRisks(risks);
  return <section className="rounded-lg border p-4 space-y-3" aria-label="Tender risk register">
   <h3 className="font-semibold">Tender Risk Register</h3>
-  {!boqId?<p className="text-sm">Link a BOQ to this tender before recording risks.</p>:<>
+  {!tenderId?<p className="text-sm">Select a tender before recording risks.</p>:<>
    <p className="text-sm">Active risks: {summary.riskCount} | Weighted exposure: R {summary.weightedExposure.toFixed(2)} | High risks: {summary.highRisks} | Critical compliance risks: {summary.blockingRisks}</p>
    <div className="grid gap-2 sm:grid-cols-2">
     <label className="text-sm">Category<select className="block w-full rounded border p-2" value={category} onChange={e=>setCategory(e.target.value as TenderRiskCategory)}>{(['commercial','delivery','technical','compliance','supplier','schedule'] as const).map(x=><option key={x} value={x}>{x}</option>)}</select></label>
