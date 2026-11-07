@@ -11,8 +11,8 @@ type Opportunity = { id: string; customer_name: string; tender_title: string; te
 type PublishedLead = { id: string; title: string; category: string; province: string | null; status: string; published_at: string };
 type SupplierResponse = { id: string; lead_id: string; message: string; created_at: string; supplier_id: string };
 const stages = ['Lead', 'Qualified', 'BOQ Pricing', 'Submitted', 'Won', 'Lost'];
-export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOpportunityId, focusBid = false }: {
-  onStartPricing: () => void; onSelectOpportunity: (id: string | null) => void; selectedOpportunityId: string | null; focusBid?: boolean;
+export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpportunity, selectedOpportunityId, focusBid = false }: {
+  onStartPricing: () => void; onOpenTenderImport: () => void; onSelectOpportunity: (id: string | null) => void; selectedOpportunityId: string | null; focusBid?: boolean;
 }) {
   const [workspace, setWorkspace] = useState<'crm' | 'tenders' | 'suppliers'>('tenders');
   const [assessmentTenderId, setAssessmentTenderId] = useState<string | null>(null);
@@ -153,7 +153,7 @@ export function TenderPipeline({ onStartPricing, onSelectOpportunity, selectedOp
       </tr>)}</tbody>
     </table></div>}
     {workspace !== 'suppliers' && <RepricingReviewWorkspace />}
-    {workspace !== 'suppliers' && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (()=>{const tender=rows.find(row=>row.id===assessmentTenderId)!;return <TenderIntakeWorkspace key={'intake-'+tender.id} opportunity={tender}/>;})()}
+    {workspace !== 'suppliers' && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (()=>{const tender=rows.find(row=>row.id===assessmentTenderId)!;return <TenderIntakeWorkspace key={'intake-'+tender.id} opportunity={tender} onOpenTenderImport={onOpenTenderImport}/>;})()}
     {workspace !== 'suppliers' && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (() => { const tender = rows.find(row=>row.id===assessmentTenderId)!; return <TenderRiskWorkspace key={'risk-'+tender.id} tenderId={tender.id} boqId={tender.linked_bill_id} />; })()}
     {workspace !== 'suppliers' && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (() => { const tender = rows.find(row=>row.id===assessmentTenderId)!; return <BidDecisionWorkspace key={tender.id} tenderId={tender.id} boqId={tender.linked_bill_id} tenderTitle={tender.tender_title} />; })()}
     {workspace !== 'suppliers' && rows.length === 0 && !error && <p className="text-sm text-gray-500">No opportunities yet.</p>}
