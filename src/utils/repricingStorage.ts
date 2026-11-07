@@ -51,3 +51,40 @@ export async function submitRepricingDraft(scenarioId: string): Promise<void> {
   if (error) throw error;
   if (data !== true) throw new Error('Draft not eligible for submission');
 }
+
+export type RepricingReview = {
+  id: string; boq_id: string; owner_user_id: string; version: number;
+  status: 'submitted' | 'approved' | 'rejected'; selling_value: number | null;
+  allowable_cost: number | null; risk_escalation_percent: number;
+};
+export async function assignRepricingReviewer(boqId: string, reviewerUserId: string): Promise<void> {
+  const { data, error } = await supabase.rpc('assign_boq_repricing_reviewer', {
+    p_boq_id: boqId, p_reviewer_user_id: reviewerUserId
+  });
+  if (error) throw error;
+  if (data !== true) throw new Error('Reviewer assignment denied');
+}
+export async function listAssignedRepricingReviews(): Promise<RepricingReview[]> {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Sign in to review repricing');
+  const { data: assignments, error: assignmentError } = await supabase
+    .from('boq_repricing_reviewers').select('boq_id').eq('reviewer_user_id', user.id).is('revoked_at', null);
+  if (assignmentError) throw assignmentError;
+  const boqIds = (assignments || []).map(a => a.boq_id);
+  if (!boqIds.length) return [];
+  const { data, error } = await supabase.from('boq_repricing_scenarios')
+    .select('id,boq_id,owner_user_id,version,status,selling_value,allowable_cost,risk_escalation_percent')
+    .in('boq_id', boqIds).eq('status', 'submitted').order('created_at', { ascending: true });
+  if (error) throw error;
+  return (data || []) as RepricingReview[];
+}
+export async function decideRepricingScenario(
+  scenarioId: string, approve: boolean, note: string
+): Promise<void> {
+  if (!scenarioId || (!approve && !note.trim())) throw new Error('Select a scenario and provide a rejection reason');
+  const { data, error } = await supabase.rpc('decide_boq_repricing_scenario', {
+    p_scenario_id: scenarioId, p_approve: approve, p_note: note
+  });
+  if (error) throw error;
+  if (data !== true) throw new Error('Decision denied: check reviewer assignment and scenario status');
+}
