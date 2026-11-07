@@ -980,6 +980,22 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                 <p className="text-lg font-extrabold tracking-wide text-[#0077b6]">QILLY</p>
                 <p className="text-xs font-medium text-slate-600">Infrastructure Tender Intelligence</p>
               </div>
+              <div className="mb-4 rounded-lg border border-cyan-200 bg-white p-3" aria-label="Tender workflow progress">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#0077b6]">Tender-to-bid journey</p>
+                <p className="mt-1 text-xs text-slate-600">Select a stage to open its existing workspace. Progress is guidance, not completion status.</p>
+                <ol className="mt-3 space-y-1">
+                  {([
+                    {name:'1. Tender opportunity',open:()=>{setBidFocus(false);handlePageChange('tender-pipeline');},active:currentPage==='tender-pipeline'&&!bidFocus},
+                    {name:'2. Intake & compliance',open:()=>{setBidFocus(false);handlePageChange('tender-pipeline');},active:false},
+                    {name:'3. BOQ pricing',open:()=>{setCurrentPage('dashboard');setCurrentView(canUploadBOQ?'import-hub':'template-library');},active:currentPage==='dashboard'&&currentView==='import-hub'},
+                    {name:'4. Programme of Works',open:()=>{setCurrentPage('dashboard');setPlanningDestination('programme');setCurrentView('history');},active:currentPage==='dashboard'&&currentView==='history'&&planningDestination==='programme'},
+                    {name:'5. Cash Flow & S-Curve',open:()=>{setCurrentPage('dashboard');setPlanningDestination('cashflow');setCurrentView('history');},active:currentPage==='dashboard'&&currentView==='history'&&planningDestination==='cashflow'},
+                    {name:'6. Allowables & Margin',open:()=>{setCurrentPage('dashboard');setPlanningDestination('allowables');setCurrentView('history');},active:currentPage==='dashboard'&&currentView==='history'&&planningDestination==='allowables'},
+                    {name:'7. Risk & Bid Decision',open:()=>{setBidFocus(true);handlePageChange('tender-pipeline');},active:currentPage==='tender-pipeline'&&bidFocus},
+                  ]).map(stage=><li key={stage.name}><button type="button" onClick={stage.open} aria-current={stage.active?'step':undefined} className={`w-full rounded px-2 py-1.5 text-left text-xs ${stage.active?'bg-cyan-100 font-bold text-cyan-900':'text-slate-700 hover:bg-cyan-50'}`}>{stage.name}</button></li>)}
+                </ol>
+                {selectedTenderId?<p className="mt-2 break-all text-[11px] text-slate-500">Selected tender: {selectedTenderId}</p>:<p className="mt-2 text-[11px] text-amber-800">Select a tender in Tender CRM to retain context across stages.</p>}
+              </div>
               <nav aria-label="Tender-to-bid navigation" className="flex flex-col gap-2">
                 {([
                   { label: 'Executive Dashboard', active: currentPage === 'dashboard' && currentView === 'executive', action: () => { setCurrentPage('dashboard'); setCurrentView('executive'); } },
