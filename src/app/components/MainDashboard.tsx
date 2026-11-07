@@ -1008,6 +1008,7 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
             selectedOpportunityId={selectedTenderId}
             onSelectOpportunity={setSelectedTenderId}
             onStartPricing={() => { setCurrentPage('dashboard'); setCurrentView('upload'); }}
+            onOpenTenderImport={() => { setCurrentPage('dashboard'); setCurrentView('flexible-import'); }}
           />}
           {currentPage === 'dashboard' && (
             <>
