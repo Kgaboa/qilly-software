@@ -120,7 +120,7 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
   </div>
   <button type="button" disabled={busy} onClick={()=>void save()} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50">Save Intake</button>
   <button type="button" className="rounded bg-cyan-700 px-3 py-2 text-white" onClick={onOpenTenderImport}>Open Existing PDF / Word / Excel Extraction</button>
-  <p className="text-xs text-amber-800">Extraction opens the existing review-only workspace. Results are not yet automatically attached to this tender; register the document reference here and reconcile manually.</p>
+  <p className="text-xs text-amber-800">Extraction opens the existing review workspace. Select a registered document there and explicitly save its extraction review to this tender. Source files are not saved by that action.</p>
   <h4 className="font-semibold">Tender document register</h4>
   <p className="text-sm">Record the tender pack and its source. This step registers document metadata; it does not upload or extract the file.</p>
   <div className="grid gap-2 md:grid-cols-2">
@@ -131,7 +131,7 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
   <button type="button" disabled={busy||!documentName.trim()} onClick={()=>void registerDocument()} className="rounded border px-3 py-2">Register Document</button>
   {documents.map(doc=><p className="text-sm" key={doc.id}>{doc.name} — {doc.kind.replaceAll('_',' ')} · v{doc.version} · {doc.extraction_status}</p>)}
   <h4 className="font-semibold">Compliance requirements</h4>
-  <p className="text-sm">Verified mandatory requirements: {verified}/{mandatory}. Review and supporting evidence are required before declaring tender compliance.</p>
+  <p className="text-sm">Verified mandatory requirements: {verified}/{mandatory}. Each mandatory requirement needs linked evidence, an extraction review without unresolved issues, and manual verification. This is not a final tender submission approval.</p>
   <div className="flex flex-wrap gap-2"><input aria-label="New compliance requirement" className="min-w-[220px] flex-1 rounded border p-2" placeholder="e.g. CIDB certificate" value={description} onChange={e=>setDescription(e.target.value)}/><button type="button" disabled={busy||!description.trim()} onClick={()=>void addRequirement()} className="rounded border px-3 py-2">Add Requirement</button></div>
   {requirements.map(r=><div className="flex flex-wrap items-center gap-2 rounded border p-2 text-sm" key={r.id}>
    <span className="flex-1">{r.description} — {r.status.replaceAll('_',' ')}</span>
