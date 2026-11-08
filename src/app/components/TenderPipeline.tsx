@@ -63,6 +63,40 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
     setLeadListError(''); setPublishedLeads((data || []) as PublishedLead[]);
   }, []);
   useEffect(() => { void load(); void loadPublishedLeads(); }, [load, loadPublishedLeads]);
+  const [eligibleBills, setEligibleBills] = useState<Array<{id:string;project_name:string|null;bill_number:string|null;total_cost:number|null}>>([]);
+  const [billSelection, setBillSelection] = useState('');
+  const [linkBusy, setLinkBusy] = useState(false);
+  const loadEligibleBills = useCallback(async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) { setEligibleBills([]); return; }
+    const { data, error: failure } = await supabase.from('bills')
+      .select('id,project_name,bill_number,total_cost').eq('user_id',user.id)
+      .gt('total_cost',0).order('created_at',{ascending:false}).limit(100);
+    if (failure) { toast.error('Unable to load owned priced BOQs.'); return; }
+    setEligibleBills(data || []);
+  }, []);
+  useEffect(() => { if (assessmentTenderId) void loadEligibleBills(); }, [assessmentTenderId,loadEligibleBills]);
+  const linkPricedBill = async (tender: Opportunity) => {
+    const selected = eligibleBills.find(b => b.id === billSelection);
+    if (!selected) { toast.error('Select an eligible priced BOQ.'); return; }
+    if (tender.linked_bill_id === selected.id) { toast.info('This BOQ is already linked.'); return; }
+    if (tender.linked_bill_id && !window.confirm('Replace the current BOQ link for this tender? Saved assessments remain separate and must be reviewed again.')) return;
+    setLinkBusy(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { toast.error('Sign in before linking a BOQ.'); return; }
+      const { data: verified, error: verifyError } = await supabase.from('bills')
+        .select('id').eq('id',selected.id).eq('user_id',user.id).gt('total_cost',0).maybeSingle();
+      if (verifyError || !verified) { toast.error('BOQ is not eligible or not owned by your account.'); return; }
+      const { data: updated, error: failure } = await supabase.from('tender_opportunities')
+        .update({linked_bill_id:selected.id}).eq('id',tender.id).eq('owner_user_id',user.id)
+        .eq('linked_bill_id',tender.linked_bill_id || null).select('id');
+      if (failure || !updated?.length) { toast.error('Link was not saved. Refresh and verify the current tender association.'); await load(); return; }
+      toast.success('Priced BOQ linked to tender. Verify approved financial scenarios before final bid assessment.');
+      setBillSelection('');
+      await load();
+    } finally { setLinkBusy(false); }
+  };
   const loadResponses = async (leadId: string) => {
     if (expandedLead === leadId) { setExpandedLead(null); return; }
     setResponseError('');
@@ -173,6 +207,21 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
       </tr>)}</tbody>
     </table></div>}
     {workspace !== 'suppliers' && selectedOpportunityId && !rows.some(row=>row.id===selectedOpportunityId) && <p role="alert" className="rounded border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">The selected tender is not available in your account. Select an accessible tender in CRM.</p>}
+    {workspace !== 'suppliers' && !focusIntake && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (() => {
+      const tender = rows.find(row=>row.id===assessmentTenderId)!;
+      return <section aria-label="Link existing priced BOQ" className="rounded-lg border border-cyan-200 bg-cyan-50 p-4 space-y-3">
+        <h3 className="font-semibold text-slate-900">Link Existing Priced BOQ — {tender.tender_title}</h3>
+        <p className="text-sm text-slate-700">Current link: {tender.linked_bill_id || 'None'}. Linking does not approve a financial scenario or a bid.</p>
+        <div className="flex flex-wrap gap-2 items-center">
+          <select aria-label="Owned priced BOQ" className="min-w-64 flex-1 rounded border bg-white p-2 text-sm" value={billSelection} onChange={e=>setBillSelection(e.target.value)}>
+            <option value="">Select an owned priced BOQ</option>
+            {eligibleBills.map(b=><option key={b.id} value={b.id}>{b.project_name || b.bill_number || b.id.slice(0,8)} — R {Number(b.total_cost).toLocaleString('en-ZA',{minimumFractionDigits:2})} ({b.id.slice(0,8)})</option>)}
+          </select>
+          <button type="button" disabled={linkBusy || !billSelection} onClick={()=>void linkPricedBill(tender)} className="rounded bg-cyan-700 px-4 py-2 text-white disabled:opacity-50">Link selected BOQ</button>
+        </div>
+        {eligibleBills.length===0 && <p className="text-sm text-amber-800">No eligible priced BOQs found for this account.</p>}
+      </section>;
+    })()}
     {workspace !== 'suppliers' && !focusIntake && <RepricingReviewWorkspace />}
     {workspace !== 'suppliers' && !focusIntake && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (()=>{const tender=rows.find(row=>row.id===assessmentTenderId)!;return <TenderIntakeWorkspace key={'intake-'+tender.id} opportunity={tender} onOpenTenderImport={onOpenTenderImport}/>;})()}
     {workspace !== 'suppliers' && !focusIntake && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (() => { const tender = rows.find(row=>row.id===assessmentTenderId)!; return <TenderRiskWorkspace key={'risk-'+tender.id} tenderId={tender.id} boqId={tender.linked_bill_id} />; })()}
