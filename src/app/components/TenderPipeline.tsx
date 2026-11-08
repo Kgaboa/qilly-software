@@ -5,6 +5,7 @@ import { BidDecisionWorkspace } from './BidDecisionWorkspace';
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase';
 import { toast } from 'sonner';
+import { isDuplicateTender, normaliseSourceUrl } from '@/utils/tenderDiscovery';
 
 type Opportunity = { id: string; customer_name: string; tender_title: string; tender_reference: string | null;
   stage: string; due_date: string | null; notes: string | null; linked_bill_id: string | null };
@@ -125,7 +126,7 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
     toast.success('Tender opportunity created'); await load();
   };
   const registerDiscoveredTender = async () => {
-    if (!customer.trim() || !title.trim() || !reference.trim() || !/^https:\/\//i.test(discoveryUrl.trim())) {
+    if (!customer.trim() || !title.trim() || !reference.trim() || !discoveryUrl.trim()) {
       setError('Enter issuer, title, reference and an HTTPS source URL for the discovered tender.');
       return;
     }
@@ -133,12 +134,12 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw Error('Sign in to register a discovered tender.');
-      const issuer = customer.trim(), tenderRef = reference.trim(), source = discoveryUrl.trim();
+      const issuer = customer.trim(), tenderRef = reference.trim(), source = normaliseSourceUrl(discoveryUrl);
       const { data: existing, error: lookupError } = await supabase.from('tender_opportunities')
         .select('id,customer_name,tender_reference').eq('owner_user_id',user.id)
         .ilike('tender_reference',tenderRef).limit(100);
       if (lookupError) throw lookupError;
-      if (existing?.some(item => item.customer_name.trim().toLowerCase() === issuer.toLowerCase()))
+      if (isDuplicateTender(existing || [],issuer,tenderRef))
         throw Error('This issuer and tender reference already exist in your CRM.');
       const { data: sourceMatches, error: sourceError } = await supabase.from('tender_intakes')
         .select('opportunity_id').eq('owner_user_id',user.id).eq('source_url',source).limit(1);
