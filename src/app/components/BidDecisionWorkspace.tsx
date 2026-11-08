@@ -8,9 +8,9 @@ import { loadApprovedBidFinancials, type ApprovedBidFinancials } from '@/utils/a
 import { assessBid, type BidAssessmentInput } from '@/utils/bidDecision';
 
 export function BidDecisionWorkspace({ boqId, tenderId, tenderTitle }: { boqId: string | null; tenderId: string; tenderTitle: string }) {
-  const [history,setHistory]=useState<Array<{id:string;version:number;recommendation:string;created_at:string}>>([]);
+  const [history,setHistory]=useState<Array<{id:string;version:number;recommendation:string;created_at:string;boq_id:string;financial_scenario_id:string|null}>>([]);
   const [saveBusy,setSaveBusy]=useState(false);
-  const [draftHistory,setDraftHistory]=useState<Array<{id:string;version:number;created_at:string;assessment:{recommendation?:string}}>>([]);
+  const [draftHistory,setDraftHistory]=useState<Array<{id:string;version:number;created_at:string;boq_reference:string|null;assessment:{recommendation?:string}}>>([]);
   const [saveMessage,setSaveMessage]=useState('');
   const [riskSummary,setRiskSummary]=useState<RiskSummary|null>(null);
   const [riskStatus,setRiskStatus]=useState('Checking tender risks...');
@@ -49,7 +49,7 @@ export function BidDecisionWorkspace({ boqId, tenderId, tenderTitle }: { boqId: 
     mandatoryRequirementsMet: mandatory === 'unknown' ? null : mandatory === 'yes'
   };
   const assessment = useMemo(() => assessBid(input), [boqId, approved, margin, riskMargin, capacity, compliance, delivery, fit, mandatory]);
-  useEffect(()=>{let active=true;void supabase.from('tender_bid_drafts').select('id,version,created_at,assessment').eq('tender_id',tenderId).order('version',{ascending:false}).then(({data})=>{if(active)setDraftHistory(data||[]);});return()=>{active=false;};},[tenderId]);
+  useEffect(()=>{let active=true;void supabase.from('tender_bid_drafts').select('id,version,created_at,boq_reference,assessment').eq('tender_id',tenderId).order('version',{ascending:false}).then(({data})=>{if(active)setDraftHistory(data||[]);});return()=>{active=false;};},[tenderId]);
   useEffect(()=>{let active=true;void listBidAssessments(tenderId).then(rows=>{if(active)setHistory(rows);}).catch(()=>{});return()=>{active=false;};},[tenderId]);
   const saveAssessment=async()=>{
     if(!boqId || !riskSummary) return;
@@ -119,7 +119,7 @@ export function BidDecisionWorkspace({ boqId, tenderId, tenderTitle }: { boqId: 
     {!approved&&<button type="button" disabled={saveBusy || !riskSummary || assessment.recommendation==='INSUFFICIENT_DATA'} onClick={()=>void saveDraft()} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50">{saveBusy?'Saving...':'Save Provisional Assessment'}</button>}
     {approved&&<button type="button" disabled={saveBusy || !boqId || !riskSummary || assessment.recommendation==='INSUFFICIENT_DATA'} onClick={()=>void saveAssessment()} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50">{saveBusy?'Saving...':'Save Verified Bid Assessment'}</button>}
     {saveMessage && <p role="status" className="text-sm">{saveMessage}</p>}
-    <div className="space-y-1 text-sm"><strong>Provisional assessment history</strong>{draftHistory.length===0?<p>No saved drafts.</p>:draftHistory.map(h=><p key={h.id}>Draft v{h.version} — {h.assessment?.recommendation||'REVIEW'} — {new Date(h.created_at).toLocaleString()}</p>)}</div>
-    <div className="space-y-1 text-sm"><strong>Verified assessment history</strong>{history.length===0?<p>No saved assessments.</p>:history.map(h=><p key={h.id}>Version {h.version} — {h.recommendation.replaceAll('_',' ')} — {new Date(h.created_at).toLocaleString()}</p>)}</div>
+    <div className="space-y-1 text-sm"><strong>Provisional assessment history</strong>{draftHistory.length===0?<p>No saved drafts.</p>:draftHistory.map(h=><p key={h.id}>Draft v{h.version} — {h.assessment?.recommendation||'REVIEW'} — {h.boq_reference === boqId ? 'Current BOQ reference' : 'Historical BOQ reference — reassess'} — {new Date(h.created_at).toLocaleString()}</p>)}</div>
+    <div className="space-y-1 text-sm"><strong>Verified assessment history</strong>{history.length===0?<p>No saved assessments.</p>:history.map(h=><p key={h.id}>Version {h.version} — {h.recommendation.replaceAll('_',' ')} — {h.boq_id === boqId ? 'Linked BOQ matches' : 'OUTDATED: BOQ link changed; reassessment required'} — {h.financial_scenario_id ? 'Financial scenario '+h.financial_scenario_id : 'No approved scenario'} — {new Date(h.created_at).toLocaleString()}</p>)}</div>
   </section>;
 }
