@@ -5,6 +5,7 @@ import { BidDecisionWorkspace } from './BidDecisionWorkspace';
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase';
 import { toast } from 'sonner';
+import { isDuplicateTender, normaliseSourceUrl } from '@/utils/tenderDiscovery';
 
 type Opportunity = { id: string; customer_name: string; tender_title: string; tender_reference: string | null;
   stage: string; due_date: string | null; notes: string | null; linked_bill_id: string | null };
@@ -22,6 +23,30 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
   const [responsesByLead, setResponsesByLead] = useState<Record<string, SupplierResponse[]>>({});
   const [expandedLead, setExpandedLead] = useState<string | null>(null);
   const [responseError, setResponseError] = useState('');
+  const [discoveryUrl,setDiscoveryUrl]=useState('');
+  type DiscoveredTender = { id:string; title:string; issuer:string; reference:string; closingDate:string|null; sourceUrl:string; publishedAt:string|null };
+  const [discoveryQuery,setDiscoveryQuery]=useState('');
+  const [discoveredTenders,setDiscoveredTenders]=useState<DiscoveredTender[]>([]);
+  const [discoveryBusy,setDiscoveryBusy]=useState(false);
+  const [discoveryError,setDiscoveryError]=useState('');
+  const searchPublicTenders = async () => {
+    setDiscoveryBusy(true);setDiscoveryError('');setDiscoveredTenders([]);
+    try {
+      const { data:{ session } } = await supabase.auth.getSession();
+      if (!session?.access_token) throw Error('Sign in to search public tenders.');
+      const response=await fetch('/api/tender-discovery?q='+encodeURIComponent(discoveryQuery.trim()),{headers:{Authorization:'Bearer '+session.access_token}});
+      const payload=await response.json();
+      if (!response.ok) throw Error(payload.error || 'Tender discovery unavailable.');
+      setDiscoveredTenders(Array.isArray(payload.tenders)?payload.tenders:[]);
+    } catch(e) {setDiscoveryError(e instanceof Error?e.message:'Unable to search tenders');}
+    finally {setDiscoveryBusy(false);}
+  };
+  const selectDiscoveredTender = (item:DiscoveredTender) => {
+    setCustomer(item.issuer);setTitle(item.title);setReference(item.reference);
+    setDue(item.closingDate && /^\\d{4}-\\d{2}-\\d{2}/.test(item.closingDate)?item.closingDate.slice(0,10):'');
+    setDiscoveryUrl(item.sourceUrl);
+    toast.info('Review tender details and the original notice before registering.');
+  };
   const [customer, setCustomer] = useState('');
   const [title, setTitle] = useState('');
   const [reference, setReference] = useState('');
@@ -123,6 +148,44 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
     setCustomer(''); setTitle(''); setReference(''); setDue('');
     toast.success('Tender opportunity created'); await load();
   };
+  const registerDiscoveredTender = async () => {
+    if (!customer.trim() || !title.trim() || !reference.trim() || !discoveryUrl.trim()) {
+      setError('Enter issuer, title, reference and an HTTPS source URL for the discovered tender.');
+      return;
+    }
+    setBusy(true); setError('');
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw Error('Sign in to register a discovered tender.');
+      const issuer = customer.trim(), tenderRef = reference.trim(), source = normaliseSourceUrl(discoveryUrl);
+      const { data: existing, error: lookupError } = await supabase.from('tender_opportunities')
+        .select('id,customer_name,tender_reference').eq('owner_user_id',user.id)
+        .ilike('tender_reference',tenderRef).limit(100);
+      if (lookupError) throw lookupError;
+      if (isDuplicateTender(existing || [],issuer,tenderRef))
+        throw Error('This issuer and tender reference already exist in your CRM.');
+      const { data: sourceMatches, error: sourceError } = await supabase.from('tender_intakes')
+        .select('opportunity_id').eq('owner_user_id',user.id).eq('source_url',source).limit(1);
+      if (sourceError) throw sourceError;
+      if (sourceMatches?.length) throw Error('This tender source is already registered.');
+      const { data: opportunity, error: createError } = await supabase.from('tender_opportunities')
+        .insert({owner_user_id:user.id,customer_name:issuer,tender_title:title.trim(),tender_reference:tenderRef,due_date:due||null})
+        .select('id').single();
+      if (createError) throw createError;
+      const { error: intakeError } = await supabase.from('tender_intakes').insert({
+        opportunity_id:opportunity.id,owner_user_id:user.id,route:'qilly_discovery',
+        issuer,reference:tenderRef,title:title.trim(),closing_date:due||null,source_url:source
+      });
+      if (intakeError) {
+        await supabase.from('tender_opportunities').delete().eq('id',opportunity.id).eq('owner_user_id',user.id);
+        throw intakeError;
+      }
+      setCustomer('');setTitle('');setReference('');setDue('');setDiscoveryUrl('');
+      toast.success('Source-linked tender registered for review');
+      await load();onSelectOpportunity(opportunity.id);setAssessmentTenderId(opportunity.id);
+    } catch (e) { setError(e instanceof Error ? e.message : 'Unable to register tender'); }
+    finally { setBusy(false); }
+  };
   const setStage = async (id: string, stage: string) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { toast.error('Sign in to update a tender.'); return; }
@@ -186,6 +249,27 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
       <input aria-label="Submission deadline" type="date" className="border rounded p-2" value={due} onChange={e=>setDue(e.target.value)} />
       <button type="submit" disabled={busy} className="rounded bg-cyan-700 text-white px-3 py-2 disabled:opacity-50">Add opportunity</button>
     </form>}
+    {!focusIntake && workspace !== 'suppliers' && <div className="rounded-lg border border-slate-200 p-3 space-y-2">
+      <h3 className="font-semibold">Route A — Register a discovered public tender</h3>
+      <p className="text-sm text-slate-600">Enter the details from an authorised public tender notice above, then its original HTTPS source below. Search public notices below or enter an authorised public tender manually. Review the original notice before registration.</p>
+      <div className="space-y-2 rounded bg-slate-50 p-3">
+        <label htmlFor="public-tender-search" className="block text-sm font-medium">Search public tender notices</label>
+        <div className="flex flex-wrap gap-2">
+          <input id="public-tender-search" aria-label="Public tender search" className="min-w-0 flex-1 rounded border p-2" value={discoveryQuery} onChange={e=>setDiscoveryQuery(e.target.value)} placeholder="Tender reference or keyword" maxLength={100}/>
+          <button type="button" disabled={discoveryBusy} onClick={()=>void searchPublicTenders()} className="rounded border border-cyan-700 px-3 py-2 disabled:opacity-50">{discoveryBusy?'Searching…':'Search notices'}</button>
+        </div>
+        {discoveryError && <p role="alert" className="text-sm text-red-700">{discoveryError}</p>}
+        {discoveredTenders.length===0 && !discoveryBusy && !discoveryError && <p className="text-xs text-slate-600">Search results will appear here once the official provider is configured.</p>}
+        {discoveredTenders.map(item=><div key={item.id+'-'+item.reference} className="rounded border bg-white p-2 text-sm">
+          <p className="font-medium">{item.title}</p><p>{item.issuer} · {item.reference}</p>
+          <p className="text-xs text-slate-600">Closing: {item.closingDate?.slice(0,10)||'Verify on source'}</p>
+          <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-cyan-700 underline">Original notice</a>
+          <button type="button" onClick={()=>selectDiscoveredTender(item)} className="ml-3 rounded border px-2 py-1">Select for review</button>
+        </div>)}
+      </div>
+      <input aria-label="Discovered tender source URL" type="url" className="w-full rounded border p-2" placeholder="https://official-tender-source.example/notice" value={discoveryUrl} onChange={e=>setDiscoveryUrl(e.target.value)}/>
+      <button type="button" disabled={busy} onClick={()=>void registerDiscoveredTender()} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50">Register discovered tender</button>
+    </div>}
     {!focusIntake && workspace !== 'suppliers' && <div className="overflow-x-auto"><table className="w-full min-w-[650px] text-sm">
       <thead><tr className="border-b text-left"><th className="p-2">Customer</th><th className="p-2">Tender</th><th className="p-2">Deadline</th><th className="p-2">Stage</th><th className="p-2">Action</th></tr></thead>
       <tbody>{rows.map(row=><tr key={row.id} className={row.id === selectedOpportunityId ? 'border-b bg-cyan-50' : 'border-b'}>
