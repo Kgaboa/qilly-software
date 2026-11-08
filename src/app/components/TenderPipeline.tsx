@@ -6,7 +6,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase';
 import { toast } from 'sonner';
 import { isDuplicateTender, normaliseSourceUrl } from '@/utils/tenderDiscovery';
-import { isDuplicateTender, normaliseSourceUrl } from '@/utils/tenderDiscovery';
 
 type Opportunity = { id: string; customer_name: string; tender_title: string; tender_reference: string | null;
   stage: string; due_date: string | null; notes: string | null; linked_bill_id: string | null };
