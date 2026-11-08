@@ -26,7 +26,7 @@ export async function listBidAssessments(tenderId:string) {
  const {data:{user}}=await supabase.auth.getUser();
  if(!user) throw new Error('Sign in to view bid history');
  const {data,error}=await supabase.from('tender_bid_assessments')
- .select('id,version,recommendation,readiness_score,financial_scenario_id,weighted_risk_exposure,created_at')
+ .select('id,version,boq_id,recommendation,readiness_score,financial_scenario_id,weighted_risk_exposure,created_at')
  .eq('tender_id',tenderId).eq('owner_user_id',user.id).order('version',{ascending:false});
  if(error) throw error;
  return data||[];
