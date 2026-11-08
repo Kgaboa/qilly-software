@@ -5,6 +5,8 @@ type IntakeDocument={id:string;name:string;kind:string;version:number;extraction
 type Requirement={id:string;description:string;mandatory:boolean;status:string;source_document_id:string|null;evidence_document_id:string|null};
 export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTenderImport:()=>void;opportunity:{id:string;customer_name:string;tender_title:string;tender_reference:string|null;due_date:string|null}}){
  const [route,setRoute]=useState<'contractor_import'|'manual_entry'|'qilly_discovery'>('contractor_import');
+ const [sourceUrl,setSourceUrl]=useState('');
+ const [sourcePublishedAt,setSourcePublishedAt]=useState('');
  const [issuer,setIssuer]=useState(opportunity.customer_name);
  const [reference,setReference]=useState(opportunity.tender_reference||'');
  const [title,setTitle]=useState(opportunity.tender_title);
@@ -22,8 +24,8 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    let active=true;
    setIssuer(opportunity.customer_name);setReference(opportunity.tender_reference||'');
    setTitle(opportunity.tender_title);setClosing(opportunity.due_date||'');
-   void supabase.from('tender_intakes').select('route,issuer,reference,title,closing_date').eq('opportunity_id',opportunity.id).maybeSingle()
-   .then(({data,error})=>{if(!active)return;if(error){setMessage(error.message);return;}if(data){setRoute(data.route === 'manual_entry' || data.route === 'qilly_discovery' ? data.route : 'contractor_import');setIssuer(data.issuer);setReference(data.reference);setTitle(data.title);setClosing(data.closing_date||'');}});
+   void supabase.from('tender_intakes').select('route,issuer,reference,title,closing_date,source_url,source_published_at').eq('opportunity_id',opportunity.id).maybeSingle()
+   .then(({data,error})=>{if(!active)return;if(error){setMessage(error.message);return;}if(data){setRoute(data.route === 'manual_entry' || data.route === 'qilly_discovery' ? data.route : 'contractor_import');setSourceUrl(data.source_url||'');setSourcePublishedAt(data.source_published_at?.slice(0,10)||'');setIssuer(data.issuer);setReference(data.reference);setTitle(data.title);setClosing(data.closing_date||'');}});
    void supabase.from('tender_compliance_requirements').select('id,description,mandatory,status,source_document_id,evidence_document_id').eq('opportunity_id',opportunity.id).order('created_at')
    .then(({data,error})=>{if(active){if(error)setMessage(error.message);else setRequirements(data||[]);}});
    void supabase.from('tender_intake_documents').select('id,name,kind,version,extraction_status,source_url').eq('opportunity_id',opportunity.id).order('created_at')
@@ -35,15 +37,18 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
   try{
    const {data:{user}}=await supabase.auth.getUser();if(!user)throw Error('Sign in required');
    if(!issuer.trim()||!reference.trim()||!title.trim())throw Error('Issuer, reference and title are required');
-   const {error}=await supabase.from('tender_intakes').upsert({opportunity_id:opportunity.id,owner_user_id:user.id,route,issuer:issuer.trim(),reference:reference.trim(),title:title.trim(),closing_date:closing||null},{onConflict:'opportunity_id'});
+   if(sourceUrl.trim() && !/^https:\/\//i.test(sourceUrl.trim()))throw Error('Tender source must use HTTPS');
+   if(route === 'qilly_discovery' && !sourceUrl.trim())throw Error('Discovered tenders require a source URL');
+   const {error}=await supabase.from('tender_intakes').upsert({opportunity_id:opportunity.id,owner_user_id:user.id,route,issuer:issuer.trim(),reference:reference.trim(),title:title.trim(),closing_date:closing||null,source_url:sourceUrl.trim()||null,source_published_at:sourcePublishedAt?new Date(sourcePublishedAt+'T00:00:00Z').toISOString():null},{onConflict:'opportunity_id'});
    if(error)throw error;setMessage('Tender intake saved.');
   }catch(e){setMessage(e instanceof Error?e.message:'Unable to save');}finally{setBusy(false);}
  };
  const ensureIntake=async(userId:string)=>{
   if(!issuer.trim()||!reference.trim()||!title.trim())throw Error('Issuer, reference and title are required');
+  if(sourceUrl.trim() && !/^https:\/\//i.test(sourceUrl.trim()))throw Error('Tender source must use HTTPS');
   const {error}=await supabase.from('tender_intakes').upsert({
    opportunity_id:opportunity.id,owner_user_id:userId,route,
-   issuer:issuer.trim(),reference:reference.trim(),title:title.trim(),closing_date:closing||null
+   issuer:issuer.trim(),reference:reference.trim(),title:title.trim(),closing_date:closing||null,source_url:sourceUrl.trim()||null,source_published_at:sourcePublishedAt?new Date(sourcePublishedAt+'T00:00:00Z').toISOString():null
   },{onConflict:'opportunity_id'});
   if(error)throw error;
  };
@@ -141,6 +146,10 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    <label className="text-sm">Tender reference<input className="block w-full rounded border p-2" value={reference} onChange={e=>setReference(e.target.value)}/></label>
    <label className="text-sm">Title<input className="block w-full rounded border p-2" value={title} onChange={e=>setTitle(e.target.value)}/></label>
    <label className="text-sm">Closing date<input type="date" className="block w-full rounded border p-2" value={closing} onChange={e=>setClosing(e.target.value)}/></label>
+  </div>
+  <div className="grid gap-2 md:grid-cols-2">
+   <label className="text-sm">Original tender source URL<input aria-label="Original tender source URL" type="url" placeholder="https://..." className="block w-full rounded border p-2" value={sourceUrl} onChange={e=>setSourceUrl(e.target.value)}/></label>
+   <label className="text-sm">Source publication date<input aria-label="Source publication date" type="date" className="block w-full rounded border p-2" value={sourcePublishedAt} onChange={e=>setSourcePublishedAt(e.target.value)}/></label>
   </div>
   <button type="button" disabled={busy} onClick={()=>void save()} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50">Save Intake</button>
   <button type="button" className="rounded bg-cyan-700 px-3 py-2 text-white" onClick={onOpenTenderImport}>Open Existing PDF / Word / Excel Extraction</button>
