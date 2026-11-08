@@ -24,6 +24,29 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
   const [expandedLead, setExpandedLead] = useState<string | null>(null);
   const [responseError, setResponseError] = useState('');
   const [discoveryUrl,setDiscoveryUrl]=useState('');
+  type DiscoveredTender = { id:string; title:string; issuer:string; reference:string; closingDate:string|null; sourceUrl:string; publishedAt:string|null };
+  const [discoveryQuery,setDiscoveryQuery]=useState('');
+  const [discoveredTenders,setDiscoveredTenders]=useState<DiscoveredTender[]>([]);
+  const [discoveryBusy,setDiscoveryBusy]=useState(false);
+  const [discoveryError,setDiscoveryError]=useState('');
+  const searchPublicTenders = async () => {
+    setDiscoveryBusy(true);setDiscoveryError('');setDiscoveredTenders([]);
+    try {
+      const { data:{ session } } = await supabase.auth.getSession();
+      if (!session?.access_token) throw Error('Sign in to search public tenders.');
+      const response=await fetch('/api/tender-discovery?q='+encodeURIComponent(discoveryQuery.trim()),{headers:{Authorization:'Bearer '+session.access_token}});
+      const payload=await response.json();
+      if (!response.ok) throw Error(payload.error || 'Tender discovery unavailable.');
+      setDiscoveredTenders(Array.isArray(payload.tenders)?payload.tenders:[]);
+    } catch(e) {setDiscoveryError(e instanceof Error?e.message:'Unable to search tenders');}
+    finally {setDiscoveryBusy(false);}
+  };
+  const selectDiscoveredTender = (item:DiscoveredTender) => {
+    setCustomer(item.issuer);setTitle(item.title);setReference(item.reference);
+    setDue(item.closingDate && /^\\d{4}-\\d{2}-\\d{2}/.test(item.closingDate)?item.closingDate.slice(0,10):'');
+    setDiscoveryUrl(item.sourceUrl);
+    toast.info('Review tender details and the original notice before registering.');
+  };
   const [customer, setCustomer] = useState('');
   const [title, setTitle] = useState('');
   const [reference, setReference] = useState('');
@@ -228,7 +251,22 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
     </form>}
     {!focusIntake && workspace !== 'suppliers' && <div className="rounded-lg border border-slate-200 p-3 space-y-2">
       <h3 className="font-semibold">Route A — Register a discovered public tender</h3>
-      <p className="text-sm text-slate-600">Enter the details from an authorised public tender notice above, then its original HTTPS source below. This registers a source-linked tender for review; automated discovery is not yet connected.</p>
+      <p className="text-sm text-slate-600">Enter the details from an authorised public tender notice above, then its original HTTPS source below. Search public notices below or enter an authorised public tender manually. Review the original notice before registration.</p>
+      <div className="space-y-2 rounded bg-slate-50 p-3">
+        <label htmlFor="public-tender-search" className="block text-sm font-medium">Search public tender notices</label>
+        <div className="flex flex-wrap gap-2">
+          <input id="public-tender-search" aria-label="Public tender search" className="min-w-0 flex-1 rounded border p-2" value={discoveryQuery} onChange={e=>setDiscoveryQuery(e.target.value)} placeholder="Tender reference or keyword" maxLength={100}/>
+          <button type="button" disabled={discoveryBusy} onClick={()=>void searchPublicTenders()} className="rounded border border-cyan-700 px-3 py-2 disabled:opacity-50">{discoveryBusy?'Searching…':'Search notices'}</button>
+        </div>
+        {discoveryError && <p role="alert" className="text-sm text-red-700">{discoveryError}</p>}
+        {discoveredTenders.length===0 && !discoveryBusy && !discoveryError && <p className="text-xs text-slate-600">Search results will appear here once the official provider is configured.</p>}
+        {discoveredTenders.map(item=><div key={item.id+'-'+item.reference} className="rounded border bg-white p-2 text-sm">
+          <p className="font-medium">{item.title}</p><p>{item.issuer} · {item.reference}</p>
+          <p className="text-xs text-slate-600">Closing: {item.closingDate?.slice(0,10)||'Verify on source'}</p>
+          <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-cyan-700 underline">Original notice</a>
+          <button type="button" onClick={()=>selectDiscoveredTender(item)} className="ml-3 rounded border px-2 py-1">Select for review</button>
+        </div>)}
+      </div>
       <input aria-label="Discovered tender source URL" type="url" className="w-full rounded border p-2" placeholder="https://official-tender-source.example/notice" value={discoveryUrl} onChange={e=>setDiscoveryUrl(e.target.value)}/>
       <button type="button" disabled={busy} onClick={()=>void registerDiscoveredTender()} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50">Register discovered tender</button>
     </div>}
