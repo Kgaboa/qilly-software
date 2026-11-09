@@ -49,14 +49,26 @@ export default async function handler(req: any, res: any) {
   if (!upstream.searchParams.has('PageSize')) upstream.searchParams.set('PageSize', '100');
   try {
     const response = await fetch(upstream, { signal: AbortSignal.timeout(8000), headers: { Accept: 'application/json' }, redirect: 'error' });
-    if (!response.ok) return send(res, 502, { error: 'Tender discovery provider unavailable' });
+    if (!response.ok) {
+      console.error('[tender-discovery] upstream HTTP status:', response.status);
+      return send(res, 502, { error: 'National Treasury service returned HTTP ' + response.status + '. Please retry later.' });
+    }
     const length = Number(response.headers.get('content-length') || 0);
     if (length > 1_000_000) return send(res, 502, { error: 'Tender discovery response too large' });
     const body = await response.text();
     if (body.length > 1_000_000) return send(res, 502, { error: 'Tender discovery response too large' });
-    const all = mapTenderRecords(JSON.parse(body));
+    const parsed = JSON.parse(body);
+    const all = mapTenderRecords(parsed);
+    if (!Array.isArray(parsed) && !['records','results','data','value'].some(key => Array.isArray(parsed?.[key]))) {
+      console.error('[tender-discovery] unrecognised response structure');
+      return send(res, 502, { error: 'National Treasury returned an unsupported data format. Integration mapping requires correction.' });
+    }
     const needle = query.toLocaleLowerCase('en-ZA');
     const tenders = needle ? all.filter(t => [t.title, t.issuer, t.reference].some(v => v.toLocaleLowerCase('en-ZA').includes(needle))) : all;
     return send(res, 200, { source: 'National Treasury OCDS', tenders, reviewRequired: true, pageLimited: true, notice: 'Search covers the first page of published records; verify each tender and its source on the official portal.' });
-  } catch { return send(res, 502, { error: 'Tender discovery provider unavailable' }); }
+  } catch (err) {
+    const reason = err instanceof Error ? err.name : 'UnknownError';
+    console.error('[tender-discovery] upstream request failed:', reason);
+    return send(res, 502, { error: reason === 'TimeoutError' || reason === 'AbortError' ? 'National Treasury service timed out. Please retry later.' : reason === 'SyntaxError' ? 'National Treasury returned an invalid JSON response.' : 'National Treasury service could not be reached.' });
+  }
 }
