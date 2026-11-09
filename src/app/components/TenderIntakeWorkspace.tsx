@@ -163,6 +163,7 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
   </div>
   <button type="button" disabled={busy} onClick={()=>void save()} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50">Save Intake</button>
   <p className="text-xs text-amber-800">Extraction opens the existing review workspace. Select a registered document there and explicitly save its extraction review to this tender. Source files are not saved by that action.</p>
+  {route==='qilly_discovery' && sourceUrl && /^https:\/\//i.test(sourceUrl) && <p className="text-sm"><a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="text-cyan-800 underline">Open published tender source to locate its BOQ attachments</a></p>}
   <h4 className="font-semibold">Tender document register</h4>
   <p className="text-sm">Record the tender pack and its source. This step registers document metadata; it does not upload or extract the file.</p>
   <div className="grid gap-2 md:grid-cols-2">
@@ -171,7 +172,11 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    <input aria-label="Document source URL" className="rounded border p-2 md:col-span-2" placeholder="Source HTTPS URL (optional)" value={documentUrl} onChange={e=>setDocumentUrl(e.target.value)}/>
   </div>
   <button type="button" disabled={busy||!documentName.trim()} onClick={()=>void registerDocument()} className="rounded border px-3 py-2">Register Document</button>
-  {documents.map(doc=><p className="text-sm" key={doc.id}>{doc.name} — {doc.kind.replaceAll('_',' ')} · v{doc.version} · {doc.extraction_status}</p>)}
+  {documents.map(doc=><div className="rounded border p-2 text-sm" key={doc.id}>
+   <p className="font-medium">{doc.name} — {doc.kind.replaceAll('_',' ')} · v{doc.version}</p>
+   <p className="text-slate-600">Extraction: {doc.extraction_status==='review'?'Review evidence saved; pricing approval not yet confirmed':doc.extraction_status==='pending'?'Not extracted':doc.extraction_status.replaceAll('_',' ')}</p>
+   {doc.source_url && /^https:\/\//i.test(doc.source_url) && <a className="text-cyan-800 underline" href={doc.source_url} target="_blank" rel="noopener noreferrer">Open original registered document</a>}
+  </div>)}
   <h4 className="font-semibold">Compliance requirements</h4>
   <p className="text-sm">Verified mandatory requirements: {verified}/{mandatory}. Each mandatory requirement needs linked evidence, an extraction review without unresolved issues, and manual verification. This is not a final tender submission approval.</p>
   <div className="flex flex-wrap gap-2"><input aria-label="New compliance requirement" className="min-w-[220px] flex-1 rounded border p-2" placeholder="e.g. CIDB certificate" value={description} onChange={e=>setDescription(e.target.value)}/><button type="button" disabled={busy||!description.trim()} onClick={()=>void addRequirement()} className="rounded border px-3 py-2">Add Requirement</button></div>
