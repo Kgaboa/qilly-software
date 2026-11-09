@@ -9,12 +9,12 @@ type PageAuditRow={page:number;disposition:string;classification:string;fragment
 type Preview = {name:string;pageAudit?:PageAuditRow[];pageCoverage?:{total:number;accounted:number;manualReview:number;unresolved:number};scheduleRows?:{page:number;line:number;type:string;description:string;amounts:{raw:string;value:number}[];periodValues?:{period:string;raw:string;value:number|null;x:number}[];arithmetic?:{expected:number;actual:number;difference:number;matches:boolean}}[];importBlocked?:boolean;missingOcrPages?:number[];ocrConfidenceByPage?:{page:number;confidence:number;rotation:number}[];evidenceRows?:{page:number;line:number;kind:string;label:string;values:string[];source:string;requiresReview:true}[];lines:{sourceRow:number;itemCode:string;description:string;unit:string;quantity:number|null;rate:number|null;amount:number|null}[];issues:{row:number;field:string;message:string}[];warnings:string[];candidates?:{sourceLine:number;sourcePage:number|null;raw:string}[];unparsed?:{sourceLine:number;sourcePage:number;text:string}[];ocrPages?:number[];ocrReviewRequired?:boolean;classification?:{type:string;confidence:string;pageTypes:{page:number;type:string}[]}};
 export function FlexibleBoqImport({onBack,accessToken,tenderId,onPriceApproved}:{onBack:()=>void;accessToken:string;tenderId?:string|null;onPriceApproved?:(lines:Preview['lines'])=>void}) {
   const [file,setFile]=useState('');
-  const [registeredDocuments,setRegisteredDocuments]=useState<{id:string;name:string}[]>([]);
+  const [registeredDocuments,setRegisteredDocuments]=useState<{id:string;name:string;source_url:string|null}[]>([]);
   const [reviewDocumentId,setReviewDocumentId]=useState('');
   const [reviewSaving,setReviewSaving]=useState(false);
   const [reviewMessage,setReviewMessage]=useState('');
   const [savedApprovedReview,setSavedApprovedReview]=useState(false);
-  useEffect(()=>{if(!tenderId){setRegisteredDocuments([]);setReviewDocumentId('');return;}let active=true;void supabase.from('tender_intake_documents').select('id,name').eq('opportunity_id',tenderId).then(({data,error})=>{if(active){setRegisteredDocuments(error?[]:data||[]);setReviewDocumentId('');if(error)setReviewMessage(error.message);}});return()=>{active=false;};},[tenderId]);
+  useEffect(()=>{if(!tenderId){setRegisteredDocuments([]);setReviewDocumentId('');return;}let active=true;void supabase.from('tender_intake_documents').select('id,name,source_url').eq('opportunity_id',tenderId).then(({data,error})=>{if(active){setRegisteredDocuments(error?[]:data||[]);setReviewDocumentId('');if(error)setReviewMessage(error.message);}});return()=>{active=false;};},[tenderId]);
 
   const [workbook,setWorkbook]=useState<BoqWorkbookPreview|null>(null);
   const [sheet,setSheet]=useState('');
@@ -102,6 +102,23 @@ export function FlexibleBoqImport({onBack,accessToken,tenderId,onPriceApproved}:
     if(row.periodValues?.some(value=>!value.period.trim()||value.value===null&&value.raw.trim()!=='R'))return 'Exception';
     return 'Mapped — review required';
   }
+  async function retrieveRegisteredDocument(){
+    if(!tenderId||!reviewDocumentId)return;
+    setBusy(true);setError('');
+    try{
+      const {data:{session}}=await supabase.auth.getSession();
+      if(!session?.access_token)throw Error('Sign in required');
+      const response=await fetch('/api/retrieve-tender-document',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,'Content-Type':'application/json'},body:JSON.stringify({tenderId,documentId:reviewDocumentId})});
+      if(!response.ok){const body=await response.json().catch(()=>({}));throw Error(body.error||'Unable to retrieve document');}
+      const type=response.headers.get('X-Qilly-Document-Type');
+      if(!['pdf','docx','xlsx'].includes(type||''))throw Error('Unsupported retrieved document type');
+      const original=registeredDocuments.find(d=>d.id===reviewDocumentId)?.name||'published-tender';
+      const filename=original.replace(/[^a-z0-9._-]/gi,'_').replace(/\\.(pdf|docx|xlsx)$/i,'')+'.'+type;
+      const file=new File([await response.blob()],filename,{type:response.headers.get('Content-Type')||'application/octet-stream'});
+      await load(file);
+    }catch(e){setError(e instanceof Error?e.message:'Unable to retrieve published document');}
+    finally{setBusy(false);}
+  }
   async function load(f:File) {
     setError('');updatePreview(null);setWorkbook(null);setSheet('');setExcelBytes(null);setFile(f.name);setBusy(true);
     setSourcePdfUrl(null);setSourceKind(/\.pdf$/i.test(f.name)?'pdf':'other');
@@ -159,6 +176,7 @@ export function FlexibleBoqImport({onBack,accessToken,tenderId,onPriceApproved}:
         <select aria-label="Registered tender document" className="block w-full rounded border p-2" value={reviewDocumentId} onChange={e=>{setReviewDocumentId(e.target.value);setSavedApprovedReview(false);}}>
          <option value="">Select registered document</option>{registeredDocuments.map(d=><option key={d.id} value={d.id}>{d.name}</option>)}
         </select>
+        <button type="button" className="rounded border border-cyan-700 px-3 py-2 text-cyan-900 disabled:opacity-50" disabled={!reviewDocumentId||!registeredDocuments.find(d=>d.id===reviewDocumentId)?.source_url||busy} onClick={()=>void retrieveRegisteredDocument()}>Retrieve and extract registered document</button>
         <button type="button" className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50" disabled={!preview||!reviewDocumentId||reviewSaving} onClick={()=>void saveTenderReview()}>Save Extraction Review to Tender</button>
         {reviewMessage&&<p role="status">{reviewMessage}</p>}
        </div>}
