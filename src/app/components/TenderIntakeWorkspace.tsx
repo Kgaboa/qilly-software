@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase';
 
-type IntakeDocument={id:string;name:string;kind:string;version:number;extraction_status:string;source_url:string|null};
+type IntakeDocument={id:string;name:string;kind:string;version:number;extraction_status:string;source_url:string|null;extraction_review?:{interpretationApproved?:boolean;interpretedLines?:unknown[]}|null};
 type Requirement={id:string;description:string;mandatory:boolean;status:string;source_document_id:string|null;evidence_document_id:string|null};
-export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTenderImport:()=>void;opportunity:{id:string;customer_name:string;tender_title:string;tender_reference:string|null;due_date:string|null}}){
+export function TenderIntakeWorkspace({opportunity,onOpenTenderImport,onPriceSavedReview}:{onOpenTenderImport:()=>void;onPriceSavedReview?:(documentId:string)=>void;opportunity:{id:string;customer_name:string;tender_title:string;tender_reference:string|null;due_date:string|null}}){
  const [route,setRoute]=useState<'contractor_import'|'manual_entry'|'qilly_discovery'>('contractor_import');
  const [sourceUrl,setSourceUrl]=useState('');
  const [sourcePublishedAt,setSourcePublishedAt]=useState('');
@@ -28,7 +28,7 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    .then(({data,error})=>{if(!active)return;if(error){setMessage(error.message);return;}if(data){setRoute(data.route === 'manual_entry' || data.route === 'qilly_discovery' ? data.route : 'contractor_import');setSourceUrl(data.source_url||'');setSourcePublishedAt(data.source_published_at?.slice(0,10)||'');setIssuer(data.issuer);setReference(data.reference);setTitle(data.title);setClosing(data.closing_date||'');}});
    void supabase.from('tender_compliance_requirements').select('id,description,mandatory,status,source_document_id,evidence_document_id').eq('opportunity_id',opportunity.id).order('created_at')
    .then(({data,error})=>{if(active){if(error)setMessage(error.message);else setRequirements(data||[]);}});
-   void supabase.from('tender_intake_documents').select('id,name,kind,version,extraction_status,source_url').eq('opportunity_id',opportunity.id).order('created_at')
+   void supabase.from('tender_intake_documents').select('id,name,kind,version,extraction_status,source_url,extraction_review').eq('opportunity_id',opportunity.id).order('created_at')
    .then(({data,error})=>{if(active){if(error)setMessage(error.message);else setDocuments(data||[]);}});
    return()=>{active=false;};
  },[opportunity.id,opportunity.customer_name,opportunity.tender_reference,opportunity.tender_title,opportunity.due_date]);
@@ -77,7 +77,7 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
     source_url:documentUrl.trim()||null,extraction_status:'pending',version:1
    });
    if(error)throw error;
-   const result=await supabase.from('tender_intake_documents').select('id,name,kind,version,extraction_status,source_url').eq('opportunity_id',opportunity.id).order('created_at');
+   const result=await supabase.from('tender_intake_documents').select('id,name,kind,version,extraction_status,source_url,extraction_review').eq('opportunity_id',opportunity.id).order('created_at');
    if(result.error)throw result.error;
    setDocuments(result.data||[]);setDocumentName('');setDocumentUrl('');
    setMessage('Document reference registered. File extraction has not been performed.');
@@ -175,6 +175,7 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
   {documents.map(doc=><div className="rounded border p-2 text-sm" key={doc.id}>
    <p className="font-medium">{doc.name} — {doc.kind.replaceAll('_',' ')} · v{doc.version}</p>
    <p className="text-slate-600">Extraction: {doc.extraction_status==='review'?'Review evidence saved; pricing approval not yet confirmed':doc.extraction_status==='pending'?'Not extracted':doc.extraction_status.replaceAll('_',' ')}</p>
+   {doc.extraction_status==='review' && doc.extraction_review?.interpretationApproved && Array.isArray(doc.extraction_review.interpretedLines) && doc.extraction_review.interpretedLines.length>0 && onPriceSavedReview && <button type="button" className="mt-2 rounded border border-cyan-700 px-3 py-1 text-cyan-900" onClick={()=>onPriceSavedReview(doc.id)}>Price saved approved BOQ ({doc.extraction_review.interpretedLines.length} lines)</button>}
    {doc.source_url && /^https:\/\//i.test(doc.source_url) && <a className="text-cyan-800 underline" href={doc.source_url} target="_blank" rel="noopener noreferrer">Open original registered document</a>}
   </div>)}
   <h4 className="font-semibold">Compliance requirements</h4>
