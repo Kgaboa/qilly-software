@@ -29,6 +29,16 @@ export default async function handler(req:any,res:any) {
     if(!size) return res.status(400).json({error:'Empty document'});
     const bytes=new Uint8Array(Buffer.concat(chunks));
     const result=type==='pdf'?await parseTenderPdfServer(bytes):await parseTenderDocxServer(bytes);
+    // Classification is a pricing safety gate, not a claim that every tender has a BOQ.
+    // Known SBD preference forms must never produce priced line items, even if tables resemble schedules.
+    const filename=String(req.headers['x-qilly-source-filename']||'').slice(0,250);
+    const isPreferenceForm=/\\bsbd[\\s._-]*6[\\s._-]*1\\b/i.test(filename)||/preference[\\s._-]*points[\\s._-]*(claim[\\s._-]*)?form/i.test(filename);
+    if(isPreferenceForm){
+      return res.status(200).json({...result,lines:[],importBlocked:true,
+        classification:{type:'compliance_preference_form',confidence:'high',pageTypes:result.classification?.pageTypes??[]},
+        warnings:[...(result.warnings??[]),'SBD 6.1 preference points claim form is a compliance document, not a bill of quantities. No BOQ lines were created.'],
+        issues:[],documentDisposition:'compliance_only'});
+    }
     return res.status(200).json(result);
   }catch(e) {
     // Log only a bounded error category, never uploaded content, tokens or stack traces.
