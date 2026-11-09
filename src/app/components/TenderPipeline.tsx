@@ -12,8 +12,8 @@ type Opportunity = { id: string; customer_name: string; tender_title: string; te
 type PublishedLead = { id: string; title: string; category: string; province: string | null; status: string; published_at: string };
 type SupplierResponse = { id: string; lead_id: string; message: string; created_at: string; supplier_id: string };
 const stages = ['Lead', 'Qualified', 'BOQ Pricing', 'Submitted', 'Won', 'Lost'];
-export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpportunity, selectedOpportunityId, focusBid = false, focusIntake = false }: {
-  onStartPricing: () => void; onOpenTenderImport: () => void; onSelectOpportunity: (id: string | null) => void; selectedOpportunityId: string | null; focusBid?: boolean; focusIntake?: boolean;
+export function TenderPipeline({ onStartPricing, onOpenTenderImport, onPriceSavedReview, onSelectOpportunity, selectedOpportunityId, focusBid = false, focusIntake = false }: {
+  onStartPricing: () => void; onOpenTenderImport: () => void; onPriceSavedReview?: (documentId:string)=>void; onSelectOpportunity: (id: string | null) => void; selectedOpportunityId: string | null; focusBid?: boolean; focusIntake?: boolean;
 }) {
   const [workspace, setWorkspace] = useState<'crm' | 'tenders' | 'suppliers'>('tenders');
   const [assessmentTenderId, setAssessmentTenderId] = useState<string | null>(null);
@@ -239,7 +239,7 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
         {rows.map(row=><option key={row.id} value={row.id}>{row.tender_title} — {row.customer_name}</option>)}
       </select>
       {assessmentTenderId && rows.some(row=>row.id===assessmentTenderId)
-        ? (()=>{const tender=rows.find(row=>row.id===assessmentTenderId)!;return <div className="mt-3"><p className="mb-2 text-sm font-medium">Selected tender: {tender.tender_title}</p><TenderIntakeWorkspace key={'intake-'+tender.id} opportunity={tender} onOpenTenderImport={onOpenTenderImport}/></div>;})()
+        ? (()=>{const tender=rows.find(row=>row.id===assessmentTenderId)!;return <div className="mt-3"><p className="mb-2 text-sm font-medium">Selected tender: {tender.tender_title}</p><TenderIntakeWorkspace key={'intake-'+tender.id} opportunity={tender} onOpenTenderImport={onOpenTenderImport} onPriceSavedReview={onPriceSavedReview}/></div>;})()
         : <p role="status" className="mt-3 rounded bg-white p-3 text-sm text-slate-700">Select a tender above to open its Intake &amp; Compliance workspace.</p>}
     </div>}
     {!focusIntake && workspace !== 'suppliers' && <form onSubmit={create} className="grid gap-3 md:grid-cols-5">
@@ -307,7 +307,7 @@ export function TenderPipeline({ onStartPricing, onOpenTenderImport, onSelectOpp
       </section>;
     })()}
     {workspace !== 'suppliers' && !focusIntake && <RepricingReviewWorkspace />}
-    {workspace !== 'suppliers' && !focusIntake && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (()=>{const tender=rows.find(row=>row.id===assessmentTenderId)!;return <TenderIntakeWorkspace key={'intake-'+tender.id} opportunity={tender} onOpenTenderImport={onOpenTenderImport}/>;})()}
+    {workspace !== 'suppliers' && !focusIntake && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (()=>{const tender=rows.find(row=>row.id===assessmentTenderId)!;return <TenderIntakeWorkspace key={'intake-'+tender.id} opportunity={tender} onOpenTenderImport={onOpenTenderImport} onPriceSavedReview={onPriceSavedReview}/>;})()}
     {workspace !== 'suppliers' && !focusIntake && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (() => { const tender = rows.find(row=>row.id===assessmentTenderId)!; return <TenderRiskWorkspace key={'risk-'+tender.id} tenderId={tender.id} boqId={tender.linked_bill_id} />; })()}
     {workspace !== 'suppliers' && !focusIntake && assessmentTenderId && rows.some(row=>row.id===assessmentTenderId) && (() => { const tender = rows.find(row=>row.id===assessmentTenderId)!; return <BidDecisionWorkspace key={tender.id} tenderId={tender.id} boqId={tender.linked_bill_id} tenderTitle={tender.tender_title} />; })()}
     {workspace !== 'suppliers' && rows.length === 0 && !error && <p className="text-sm text-gray-500">No opportunities yet.</p>}
