@@ -137,7 +137,7 @@ export function FlexibleBoqImport({onBack,accessToken,tenderId,onPriceApproved}:
         const {data:sessionData}=await (await import('../../utils/supabase')).supabase.auth.getSession();
         const verifiedToken=sessionData.session?.access_token;
         if(!verifiedToken)throw new Error('No active login session. Please sign in again.');
-        const response=await fetch('/api/parse-tender',{method:'POST',headers:{Authorization:'Bearer '+verifiedToken,'Content-Type':'application/octet-stream','x-qilly-file-type':type},body:await f.arrayBuffer()});
+        const response=await fetch('/api/parse-tender',{method:'POST',headers:{Authorization:'Bearer '+verifiedToken,'Content-Type':'application/octet-stream','x-qilly-file-type':type,'x-qilly-source-filename':encodeURIComponent(f.name).slice(0,500)},body:await f.arrayBuffer()});
         const responseText=await response.text();
         let result:any;
         try { result=JSON.parse(responseText); } catch {
