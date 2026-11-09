@@ -74,8 +74,10 @@ describe('Flexible BOQ customer import integration contracts', () => {
     expect(build).toContain("['pdf-server', 'docx-server']");
   });
 
-  it('does not silently persist or price a preview', () => {
+  it('requires explicit approval and saved review before tender pricing handoff', () => {
     expect(ui).toContain('Approve interpreted BOQ (preview only)');
-    expect(ui).toContain('Pricing and saving remain unavailable');
+    expect(ui).toContain('setSavedApprovedReview(');
+    expect(ui).toContain('disabled={!onPriceApproved||!savedApprovedReview');
+    expect(ui).toContain('Continue to BOQ pricing with reviewed lines');
   });
 });

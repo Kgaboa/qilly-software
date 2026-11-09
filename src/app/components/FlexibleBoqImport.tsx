@@ -7,13 +7,14 @@ import { normalizeBoqRows, type NormalizedBoqLine } from '../../lib/boq-import/n
 
 type PageAuditRow={page:number;disposition:string;classification:string;fragments:number;ocrRequired:boolean;ocrCompleted:boolean;confidence?:number;requiresReview:boolean;reason:string};
 type Preview = {name:string;pageAudit?:PageAuditRow[];pageCoverage?:{total:number;accounted:number;manualReview:number;unresolved:number};scheduleRows?:{page:number;line:number;type:string;description:string;amounts:{raw:string;value:number}[];periodValues?:{period:string;raw:string;value:number|null;x:number}[];arithmetic?:{expected:number;actual:number;difference:number;matches:boolean}}[];importBlocked?:boolean;missingOcrPages?:number[];ocrConfidenceByPage?:{page:number;confidence:number;rotation:number}[];evidenceRows?:{page:number;line:number;kind:string;label:string;values:string[];source:string;requiresReview:true}[];lines:{sourceRow:number;itemCode:string;description:string;unit:string;quantity:number|null;rate:number|null;amount:number|null}[];issues:{row:number;field:string;message:string}[];warnings:string[];candidates?:{sourceLine:number;sourcePage:number|null;raw:string}[];unparsed?:{sourceLine:number;sourcePage:number;text:string}[];ocrPages?:number[];ocrReviewRequired?:boolean;classification?:{type:string;confidence:string;pageTypes:{page:number;type:string}[]}};
-export function FlexibleBoqImport({onBack,accessToken,tenderId}:{onBack:()=>void;accessToken:string;tenderId?:string|null}) {
+export function FlexibleBoqImport({onBack,accessToken,tenderId,onPriceApproved}:{onBack:()=>void;accessToken:string;tenderId?:string|null;onPriceApproved?:(lines:Preview['lines'])=>void}) {
   const [file,setFile]=useState('');
-  const [registeredDocuments,setRegisteredDocuments]=useState<{id:string;name:string}[]>([]);
+  const [registeredDocuments,setRegisteredDocuments]=useState<{id:string;name:string;source_url:string|null}[]>([]);
   const [reviewDocumentId,setReviewDocumentId]=useState('');
   const [reviewSaving,setReviewSaving]=useState(false);
   const [reviewMessage,setReviewMessage]=useState('');
-  useEffect(()=>{if(!tenderId){setRegisteredDocuments([]);setReviewDocumentId('');return;}let active=true;void supabase.from('tender_intake_documents').select('id,name').eq('opportunity_id',tenderId).then(({data,error})=>{if(active){setRegisteredDocuments(error?[]:data||[]);setReviewDocumentId('');if(error)setReviewMessage(error.message);}});return()=>{active=false;};},[tenderId]);
+  const [savedApprovedReview,setSavedApprovedReview]=useState(false);
+  useEffect(()=>{if(!tenderId){setRegisteredDocuments([]);setReviewDocumentId('');return;}let active=true;void supabase.from('tender_intake_documents').select('id,name,source_url').eq('opportunity_id',tenderId).then(({data,error})=>{if(active){setRegisteredDocuments(error?[]:data||[]);setReviewDocumentId('');if(error)setReviewMessage(error.message);}});return()=>{active=false;};},[tenderId]);
 
   const [workbook,setWorkbook]=useState<BoqWorkbookPreview|null>(null);
   const [sheet,setSheet]=useState('');
@@ -32,10 +33,10 @@ export function FlexibleBoqImport({onBack,accessToken,tenderId}:{onBack:()=>void
   const [sourcePdfUrl,setSourcePdfUrl]=useState<string|null>(null);
   const [sourceKind,setSourceKind]=useState<'pdf'|'other'|null>(null);
   useEffect(()=>()=>{if(sourcePdfUrl)URL.revokeObjectURL(sourcePdfUrl);},[sourcePdfUrl]);
-  function updatePreview(next:Preview|null){setSelectedPage(null);setPreview(next);setApproved(false);setAcknowledged(false);setUnmatchedReviewed(false);setOcrReviewed(false);}
+  function updatePreview(next:Preview|null){setSavedApprovedReview(false);setSelectedPage(null);setPreview(next);setApproved(false);setAcknowledged(false);setUnmatchedReviewed(false);setOcrReviewed(false);}
   async function saveTenderReview(){
     if(!tenderId||!reviewDocumentId||!preview)return;
-    setReviewSaving(true);setReviewMessage('');
+    setReviewSaving(true);setReviewMessage('');setSavedApprovedReview(false);
     try{
       const {data:{user}}=await supabase.auth.getUser();if(!user)throw Error('Sign in required');
       const report={schema:'qilly-tender-extraction-review-v1',sourceFile:preview.name,
@@ -43,13 +44,17 @@ export function FlexibleBoqImport({onBack,accessToken,tenderId}:{onBack:()=>void
        pageAudit:preview.pageAudit??[],issues:preview.issues,warnings:preview.warnings,
        unparsed:preview.unparsed??[],missingOcrPages:preview.missingOcrPages??[],
        recognizedLineCount:preview.lines.length,importBlocked:!!preview.importBlocked,
+       // Persist the reconciled interpretation as tenant-scoped review evidence, not as a priced BOQ.
+       interpretedLines:preview.lines.map(line=>({sourceRow:line.sourceRow,itemCode:line.itemCode,description:line.description,unit:line.unit,quantity:line.quantity,rate:line.rate,amount:line.amount})),
+       interpretationApproved:approved && getApprovalBlockers({importBlocked:preview.importBlocked,lineCount:preview.lines.length,issueCount:preview.issues.length,acknowledged,unmatchedCount:preview.unparsed?.length??0,unmatchedReviewed,ocrReviewRequired:!!preview.ocrReviewRequired,ocrReviewed}).length===0,
        reviewerAcknowledged:acknowledged,localPreviewApproved:approved,
        verifiedAgainstSource:false};
       const {data,error}=await supabase.from('tender_intake_documents')
        .update({extraction_review:report,extraction_status:'review',reviewed_at:new Date().toISOString(),reviewed_by:user.id})
        .eq('id',reviewDocumentId).eq('opportunity_id',tenderId).eq('owner_user_id',user.id).select('id').single();
       if(error)throw error;if(!data)throw Error('Document not found');
-      setReviewMessage('Extraction review saved to this tender document. Evidence is not verified.');
+      setSavedApprovedReview(approved && getApprovalBlockers({importBlocked:preview.importBlocked,lineCount:preview.lines.length,issueCount:preview.issues.length,acknowledged,unmatchedCount:preview.unparsed?.length??0,unmatchedReviewed,ocrReviewRequired:!!preview.ocrReviewRequired,ocrReviewed}).length===0);
+      setReviewMessage('Interpreted BOQ lines and extraction evidence saved to this tender document. Pricing remains blocked until the tender-to-BOQ approval and pricing handoff is implemented.');
     }catch(e){setReviewMessage(e instanceof Error?e.message:'Unable to save extraction review');}
     finally{setReviewSaving(false);}
   }
@@ -96,6 +101,23 @@ export function FlexibleBoqImport({onBack,accessToken,tenderId}:{onBack:()=>void
     if(row.arithmetic&&!row.arithmetic.matches)return 'Exception';
     if(row.periodValues?.some(value=>!value.period.trim()||value.value===null&&value.raw.trim()!=='R'))return 'Exception';
     return 'Mapped — review required';
+  }
+  async function retrieveRegisteredDocument(){
+    if(!tenderId||!reviewDocumentId)return;
+    setBusy(true);setError('');
+    try{
+      const {data:{session}}=await supabase.auth.getSession();
+      if(!session?.access_token)throw Error('Sign in required');
+      const response=await fetch('/api/retrieve-tender-document',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,'Content-Type':'application/json'},body:JSON.stringify({tenderId,documentId:reviewDocumentId})});
+      if(!response.ok){const body=await response.json().catch(()=>({}));throw Error(body.error||'Unable to retrieve document');}
+      const type=response.headers.get('X-Qilly-Document-Type');
+      if(!['pdf','docx','xlsx'].includes(type||''))throw Error('Unsupported retrieved document type');
+      const original=registeredDocuments.find(d=>d.id===reviewDocumentId)?.name||'published-tender';
+      const filename=original.replace(/[^a-z0-9._-]/gi,'_').replace(/\\.(pdf|docx|xlsx)$/i,'')+'.'+type;
+      const file=new File([await response.blob()],filename,{type:response.headers.get('Content-Type')||'application/octet-stream'});
+      await load(file);
+    }catch(e){setError(e instanceof Error?e.message:'Unable to retrieve published document');}
+    finally{setBusy(false);}
   }
   async function load(f:File) {
     setError('');updatePreview(null);setWorkbook(null);setSheet('');setExcelBytes(null);setFile(f.name);setBusy(true);
@@ -151,9 +173,10 @@ export function FlexibleBoqImport({onBack,accessToken,tenderId}:{onBack:()=>void
       {tenderId&&<div className="rounded-lg border border-cyan-300 bg-cyan-50 p-3 space-y-2 text-sm">
         <strong>Tender-linked extraction review</strong>
         <p>Choose an existing registered tender document. Only review evidence is saved; no source file or priced BOQ is stored by this action.</p>
-        <select aria-label="Registered tender document" className="block w-full rounded border p-2" value={reviewDocumentId} onChange={e=>setReviewDocumentId(e.target.value)}>
+        <select aria-label="Registered tender document" className="block w-full rounded border p-2" value={reviewDocumentId} onChange={e=>{setReviewDocumentId(e.target.value);setSavedApprovedReview(false);}}>
          <option value="">Select registered document</option>{registeredDocuments.map(d=><option key={d.id} value={d.id}>{d.name}</option>)}
         </select>
+        <button type="button" className="rounded border border-cyan-700 px-3 py-2 text-cyan-900 disabled:opacity-50" disabled={!reviewDocumentId||!registeredDocuments.find(d=>d.id===reviewDocumentId)?.source_url||busy} onClick={()=>void retrieveRegisteredDocument()}>Retrieve and extract registered document</button>
         <button type="button" className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50" disabled={!preview||!reviewDocumentId||reviewSaving} onClick={()=>void saveTenderReview()}>Save Extraction Review to Tender</button>
         {reviewMessage&&<p role="status">{reviewMessage}</p>}
        </div>}
@@ -213,7 +236,7 @@ export function FlexibleBoqImport({onBack,accessToken,tenderId}:{onBack:()=>void
         {preview.candidates&&<p className="text-sm text-slate-600">Source evidence: {preview.candidates.length} matched tender lines. Verify source page and line against the original document.</p>}{preview.unparsed&&preview.unparsed.length>0&&<details className="border rounded p-3"><summary className="font-semibold text-amber-800">Unmatched tender lines ({preview.unparsed.length}) — review manually</summary><ul className="text-sm space-y-1 mt-2">{preview.unparsed.slice(0,100).map((u,i)=><li key={i}>Page {u.sourcePage}, line {u.sourceLine}: {u.text}</li>)}</ul></details>}{preview.warnings.map((w,i)=><p key={i} className="text-amber-800 bg-amber-50 p-2">{w}</p>)}
         {preview.issues.length>0&&<details open><summary className="font-semibold">Validation issues</summary><ul className="list-disc pl-6">{preview.issues.slice(0,100).map((x,i)=><li key={i}>Row {x.row}: {x.field} — {x.message}</li>)}</ul></details>}
         <div className="overflow-auto"><table className="w-full text-sm border-collapse"><thead><tr>{['Row','Item','Description','Unit','Quantity','Rate','Amount'].map(x=><th key={x} className="border p-2 text-left">{x}</th>)}</tr></thead><tbody>{preview.lines.slice(0,200).map((x,i)=><tr key={i}><td className="border p-2">{x.sourceRow}</td>{(['itemCode','description','unit','quantity','rate','amount'] as const).map(field=><td key={field} className="border p-1"><input aria-label={`Row ${x.sourceRow} ${field}`} className="border rounded p-1 w-full min-w-20" type={['quantity','rate','amount'].includes(field)?'number':'text'} step="any" value={x[field]??''} onChange={e=>editLine(i,field,e.target.value)}/></td>)}</tr>)}</tbody></table></div>
-        <div className="border-t pt-4 space-y-3"><h3 className="font-semibold">Customer review and approval</h3><p className="text-sm text-slate-600">Edit line items above, resolve every validation issue, and check the original tender document before approval. Approval is local to this preview and does not submit or price the BOQ.</p>{preview.ocrReviewRequired&&<label className="flex gap-2 items-start text-sm"><input type="checkbox" checked={ocrReviewed} onChange={e=>{setOcrReviewed(e.target.checked);setApproved(false);}}/>I have verified OCR-derived numeric fields against the original scanned pages.</label>}{(preview.unparsed?.length??0)>0&&<label className="flex gap-2 items-start text-sm"><input type="checkbox" checked={unmatchedReviewed} onChange={e=>{setUnmatchedReviewed(e.target.checked);setApproved(false);}}/>I have manually reviewed the unmatched tender lines against the source document.</label>}<label className="flex gap-2 items-start text-sm"><input type="checkbox" checked={acknowledged} onChange={e=>{setAcknowledged(e.target.checked);setApproved(false);}}/>I reviewed the source document, mappings, warnings and interpreted line items.</label>{!approved && <div role="status" aria-live="polite" className="rounded border border-slate-300 bg-slate-50 p-3 text-sm"><strong>Approval readiness</strong><ul className="list-disc pl-5 mt-1">{getApprovalBlockers({importBlocked:preview.importBlocked,lineCount:preview.lines.length,issueCount:preview.issues.length,acknowledged,unmatchedCount:preview.unparsed?.length??0,unmatchedReviewed,ocrReviewRequired:!!preview.ocrReviewRequired,ocrReviewed}).map((reason,i)=><li key={i}>{reason}</li>)}{getApprovalBlockers({importBlocked:preview.importBlocked,lineCount:preview.lines.length,issueCount:preview.issues.length,acknowledged,unmatchedCount:preview.unparsed?.length??0,unmatchedReviewed,ocrReviewRequired:!!preview.ocrReviewRequired,ocrReviewed}).length===0&&<li>All checks passed. You can approve the preview.</li>}</ul></div>}<button type="button" className="bg-[#0077b6] disabled:opacity-40 text-white rounded px-4 py-2" disabled={getApprovalBlockers({importBlocked:preview.importBlocked,lineCount:preview.lines.length,issueCount:preview.issues.length,acknowledged,unmatchedCount:preview.unparsed?.length??0,unmatchedReviewed,ocrReviewRequired:!!preview.ocrReviewRequired,ocrReviewed}).length>0} onClick={()=>setApproved(true)}>Approve interpreted BOQ (preview only)</button>{approved&&<p role="status" className="text-green-800 font-semibold">BOQ interpretation approved for this session. Pricing and saving remain unavailable pending security and integration gates.</p>}</div>
+        <div className="border-t pt-4 space-y-3"><h3 className="font-semibold">Customer review and approval</h3><p className="text-sm text-slate-600">Edit line items above, resolve every validation issue, and check the original tender document before approval. Approval is local to this preview and does not submit or price the BOQ.</p>{preview.ocrReviewRequired&&<label className="flex gap-2 items-start text-sm"><input type="checkbox" checked={ocrReviewed} onChange={e=>{setOcrReviewed(e.target.checked);setApproved(false);}}/>I have verified OCR-derived numeric fields against the original scanned pages.</label>}{(preview.unparsed?.length??0)>0&&<label className="flex gap-2 items-start text-sm"><input type="checkbox" checked={unmatchedReviewed} onChange={e=>{setUnmatchedReviewed(e.target.checked);setApproved(false);}}/>I have manually reviewed the unmatched tender lines against the source document.</label>}<label className="flex gap-2 items-start text-sm"><input type="checkbox" checked={acknowledged} onChange={e=>{setAcknowledged(e.target.checked);setApproved(false);}}/>I reviewed the source document, mappings, warnings and interpreted line items.</label>{!approved && <div role="status" aria-live="polite" className="rounded border border-slate-300 bg-slate-50 p-3 text-sm"><strong>Approval readiness</strong><ul className="list-disc pl-5 mt-1">{getApprovalBlockers({importBlocked:preview.importBlocked,lineCount:preview.lines.length,issueCount:preview.issues.length,acknowledged,unmatchedCount:preview.unparsed?.length??0,unmatchedReviewed,ocrReviewRequired:!!preview.ocrReviewRequired,ocrReviewed}).map((reason,i)=><li key={i}>{reason}</li>)}{getApprovalBlockers({importBlocked:preview.importBlocked,lineCount:preview.lines.length,issueCount:preview.issues.length,acknowledged,unmatchedCount:preview.unparsed?.length??0,unmatchedReviewed,ocrReviewRequired:!!preview.ocrReviewRequired,ocrReviewed}).length===0&&<li>All checks passed. You can approve the preview.</li>}</ul></div>}<button type="button" className="bg-[#0077b6] disabled:opacity-40 text-white rounded px-4 py-2" disabled={getApprovalBlockers({importBlocked:preview.importBlocked,lineCount:preview.lines.length,issueCount:preview.issues.length,acknowledged,unmatchedCount:preview.unparsed?.length??0,unmatchedReviewed,ocrReviewRequired:!!preview.ocrReviewRequired,ocrReviewed}).length>0} onClick={()=>setApproved(true)}>Approve interpreted BOQ (preview only)</button>{approved&&<div className="space-y-2"><p role="status" className="text-green-800 font-semibold">BOQ interpretation approved for this session. Save the review to the selected tender document before pricing.</p><button type="button" disabled={!onPriceApproved||!savedApprovedReview||!tenderId||!reviewDocumentId||reviewSaving||!preview.lines.length} onClick={()=>{if(preview&&onPriceApproved)onPriceApproved(preview.lines);}} className="rounded border border-cyan-700 px-3 py-2 text-cyan-900 disabled:opacity-50">Continue to BOQ pricing with reviewed lines</button></div>}</div>
       </section>}
     </div>
   </main>;

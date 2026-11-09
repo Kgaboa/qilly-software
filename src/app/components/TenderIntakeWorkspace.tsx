@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase';
 
-type IntakeDocument={id:string;name:string;kind:string;version:number;extraction_status:string;source_url:string|null};
+type IntakeDocument={id:string;name:string;kind:string;version:number;extraction_status:string;source_url:string|null;extraction_review?:{interpretationApproved?:boolean;interpretedLines?:unknown[]}|null};
 type Requirement={id:string;description:string;mandatory:boolean;status:string;source_document_id:string|null;evidence_document_id:string|null};
-export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTenderImport:()=>void;opportunity:{id:string;customer_name:string;tender_title:string;tender_reference:string|null;due_date:string|null}}){
+export function TenderIntakeWorkspace({opportunity,onOpenTenderImport,onPriceSavedReview}:{onOpenTenderImport:()=>void;onPriceSavedReview?:(documentId:string)=>void;opportunity:{id:string;customer_name:string;tender_title:string;tender_reference:string|null;due_date:string|null}}){
  const [route,setRoute]=useState<'contractor_import'|'manual_entry'|'qilly_discovery'>('contractor_import');
  const [sourceUrl,setSourceUrl]=useState('');
  const [sourcePublishedAt,setSourcePublishedAt]=useState('');
@@ -28,7 +28,7 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    .then(({data,error})=>{if(!active)return;if(error){setMessage(error.message);return;}if(data){setRoute(data.route === 'manual_entry' || data.route === 'qilly_discovery' ? data.route : 'contractor_import');setSourceUrl(data.source_url||'');setSourcePublishedAt(data.source_published_at?.slice(0,10)||'');setIssuer(data.issuer);setReference(data.reference);setTitle(data.title);setClosing(data.closing_date||'');}});
    void supabase.from('tender_compliance_requirements').select('id,description,mandatory,status,source_document_id,evidence_document_id').eq('opportunity_id',opportunity.id).order('created_at')
    .then(({data,error})=>{if(active){if(error)setMessage(error.message);else setRequirements(data||[]);}});
-   void supabase.from('tender_intake_documents').select('id,name,kind,version,extraction_status,source_url').eq('opportunity_id',opportunity.id).order('created_at')
+   void supabase.from('tender_intake_documents').select('id,name,kind,version,extraction_status,source_url,extraction_review').eq('opportunity_id',opportunity.id).order('created_at')
    .then(({data,error})=>{if(active){if(error)setMessage(error.message);else setDocuments(data||[]);}});
    return()=>{active=false;};
  },[opportunity.id,opportunity.customer_name,opportunity.tender_reference,opportunity.tender_title,opportunity.due_date]);
@@ -77,7 +77,7 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
     source_url:documentUrl.trim()||null,extraction_status:'pending',version:1
    });
    if(error)throw error;
-   const result=await supabase.from('tender_intake_documents').select('id,name,kind,version,extraction_status,source_url').eq('opportunity_id',opportunity.id).order('created_at');
+   const result=await supabase.from('tender_intake_documents').select('id,name,kind,version,extraction_status,source_url,extraction_review').eq('opportunity_id',opportunity.id).order('created_at');
    if(result.error)throw result.error;
    setDocuments(result.data||[]);setDocumentName('');setDocumentUrl('');
    setMessage('Document reference registered. File extraction has not been performed.');
@@ -131,9 +131,12 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
  };
  const verified=requirements.filter(r=>r.mandatory&&r.status==='verified').length;
  const mandatory=requirements.filter(r=>r.mandatory).length;
+ const boqDocuments=documents.filter(doc=>doc.kind==='boq');
+ const reviewedBoqDocuments=boqDocuments.filter(doc=>doc.extraction_status==='review');
+ const pendingBoqDocuments=boqDocuments.filter(doc=>doc.extraction_status!=='review');
  return <section aria-label="Tender intake and compliance" className="rounded-lg border p-4 space-y-3">
   <h3 className="font-semibold">Tender Intake &amp; Compliance</h3>
-  <p className="text-sm text-slate-600">Capture tender details and compliance evidence. Existing BOQ import remains available through Price BOQ. Automated discovery is not yet enabled.</p>
+  <p className="text-sm text-slate-600">Review discovered tender details and compliance evidence. Discovery does not imply that a BOQ was published or extracted.</p>
   <label className="block text-sm">Tender intake route
    <select aria-label="Tender intake route" className="mt-1 rounded border p-2" value={route} onChange={e=>setRoute(e.target.value as typeof route)}>
     <option value="contractor_import">Route B — Contractor-supplied tender</option>
@@ -151,9 +154,16 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    <label className="text-sm">Original tender source URL<input aria-label="Original tender source URL" type="url" placeholder="https://..." className="block w-full rounded border p-2" value={sourceUrl} onChange={e=>setSourceUrl(e.target.value)}/></label>
    <label className="text-sm">Source publication date<input aria-label="Source publication date" type="date" className="block w-full rounded border p-2" value={sourcePublishedAt} onChange={e=>setSourcePublishedAt(e.target.value)}/></label>
   </div>
+  <div role="status" className="rounded border border-amber-300 bg-amber-50 p-3 text-sm space-y-2">
+   <h4 className="font-semibold">Tender-to-BOQ readiness</h4>
+   {boqDocuments.length===0 ? <p>No BOQ document is registered for this tender. A tender notice alone does not provide priceable BOQ lines. Check the original tender pack for a bill of quantities.</p> :
+    <p>{boqDocuments.length} BOQ document reference(s) registered; {reviewedBoqDocuments.length} extraction review(s) saved; {pendingBoqDocuments.length} awaiting extraction review. A saved review does not yet mean that BOQ lines have been approved and linked to pricing.</p>}
+   <p className="text-slate-700">Required: obtain the BOQ file, extract its line items, reconcile quantities and units, approve the reviewed BOQ, then link it to pricing. Until that handoff is implemented, the existing import remains necessary.</p>
+   <button type="button" onClick={onOpenTenderImport} className="rounded border border-cyan-700 px-3 py-2 text-cyan-900">Open BOQ extraction and review</button>
+  </div>
   <button type="button" disabled={busy} onClick={()=>void save()} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50">Save Intake</button>
-  <button type="button" className="rounded bg-cyan-700 px-3 py-2 text-white" onClick={onOpenTenderImport}>Open Existing PDF / Word / Excel Extraction</button>
   <p className="text-xs text-amber-800">Extraction opens the existing review workspace. Select a registered document there and explicitly save its extraction review to this tender. Source files are not saved by that action.</p>
+  {route==='qilly_discovery' && sourceUrl && /^https:\/\//i.test(sourceUrl) && <p className="text-sm"><a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="text-cyan-800 underline">Open published tender source to locate its BOQ attachments</a></p>}
   <h4 className="font-semibold">Tender document register</h4>
   <p className="text-sm">Record the tender pack and its source. This step registers document metadata; it does not upload or extract the file.</p>
   <div className="grid gap-2 md:grid-cols-2">
@@ -162,7 +172,12 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    <input aria-label="Document source URL" className="rounded border p-2 md:col-span-2" placeholder="Source HTTPS URL (optional)" value={documentUrl} onChange={e=>setDocumentUrl(e.target.value)}/>
   </div>
   <button type="button" disabled={busy||!documentName.trim()} onClick={()=>void registerDocument()} className="rounded border px-3 py-2">Register Document</button>
-  {documents.map(doc=><p className="text-sm" key={doc.id}>{doc.name} — {doc.kind.replaceAll('_',' ')} · v{doc.version} · {doc.extraction_status}</p>)}
+  {documents.map(doc=><div className="rounded border p-2 text-sm" key={doc.id}>
+   <p className="font-medium">{doc.name} — {doc.kind.replaceAll('_',' ')} · v{doc.version}</p>
+   <p className="text-slate-600">Extraction: {doc.extraction_status==='review'?'Review evidence saved; pricing approval not yet confirmed':doc.extraction_status==='pending'?'Not extracted':doc.extraction_status.replaceAll('_',' ')}</p>
+   {doc.extraction_status==='review' && doc.extraction_review?.interpretationApproved && Array.isArray(doc.extraction_review.interpretedLines) && doc.extraction_review.interpretedLines.length>0 && onPriceSavedReview && <button type="button" className="mt-2 rounded border border-cyan-700 px-3 py-1 text-cyan-900" onClick={()=>onPriceSavedReview(doc.id)}>Price saved approved BOQ ({doc.extraction_review.interpretedLines.length} lines)</button>}
+   {doc.source_url && /^https:\/\//i.test(doc.source_url) && <a className="text-cyan-800 underline" href={doc.source_url} target="_blank" rel="noopener noreferrer">Open original registered document</a>}
+  </div>)}
   <h4 className="font-semibold">Compliance requirements</h4>
   <p className="text-sm">Verified mandatory requirements: {verified}/{mandatory}. Each mandatory requirement needs linked evidence, an extraction review without unresolved issues, and manual verification. This is not a final tender submission approval.</p>
   <div className="flex flex-wrap gap-2"><input aria-label="New compliance requirement" className="min-w-[220px] flex-1 rounded border p-2" placeholder="e.g. CIDB certificate" value={description} onChange={e=>setDescription(e.target.value)}/><button type="button" disabled={busy||!description.trim()} onClick={()=>void addRequirement()} className="rounded border px-3 py-2">Add Requirement</button></div>
