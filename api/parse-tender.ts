@@ -31,7 +31,8 @@ export default async function handler(req:any,res:any) {
     const result=type==='pdf'?await parseTenderPdfServer(bytes):await parseTenderDocxServer(bytes);
     // Classification is a pricing safety gate, not a claim that every tender has a BOQ.
     // Known SBD preference forms must never produce priced line items, even if tables resemble schedules.
-    const filename=String(req.headers['x-qilly-source-filename']||'').slice(0,250);
+    const encodedFilename=String(req.headers['x-qilly-source-filename']||'').slice(0,500);
+    let filename='';try{filename=decodeURIComponent(encodedFilename).slice(0,250);}catch{filename=encodedFilename;}
     const isPreferenceForm=/\\bsbd[\\s._-]*6[\\s._-]*1\\b/i.test(filename)||/preference[\\s._-]*points[\\s._-]*(claim[\\s._-]*)?form/i.test(filename);
     if(isPreferenceForm){
       return res.status(200).json({...result,lines:[],importBlocked:true,
