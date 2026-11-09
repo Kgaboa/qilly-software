@@ -1026,6 +1026,22 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
             onSelectOpportunity={setSelectedTenderId}
             onStartPricing={() => { setCurrentPage('dashboard'); setCurrentView('upload'); }}
             onOpenTenderImport={() => { setCurrentPage('dashboard'); setCurrentView('flexible-import'); }}
+            onPriceSavedReview={async documentId => {
+              if (!selectedTenderId) {toast.error('Select a tender first');return;}
+              const {data:{user:currentUser},error:authError}=await supabase.auth.getUser();
+              if(authError||!currentUser){toast.error('Sign in required');return;}
+              const {data,error}=await supabase.from('tender_intake_documents')
+                .select('id,kind,extraction_status,extraction_review')
+                .eq('id',documentId).eq('opportunity_id',selectedTenderId).eq('owner_user_id',currentUser.id).single();
+              if(error||!data){toast.error('Saved BOQ not found for this contractor and tender');return;}
+              const review=data.extraction_review as {interpretationApproved?:boolean;interpretedLines?:Array<{itemCode?:string;description?:string;unit?:string;quantity?:number|null}>;importBlocked?:boolean;issues?:unknown[];unparsed?:unknown[];missingOcrPages?:unknown[];pageCoverage?:{unresolved?:number}}|null;
+              if(data.kind!=='boq'||data.extraction_status!=='review'||!review?.interpretationApproved||review.importBlocked||review.issues?.length||review.unparsed?.length||review.missingOcrPages?.length||review.pageCoverage?.unresolved){toast.error('BOQ review is not approved or has unresolved extraction exceptions');return;}
+              const lines=review.interpretedLines;
+              if(!Array.isArray(lines)||!lines.length||lines.some(l=>!l.description?.trim()||typeof l.quantity!=='number'||!Number.isFinite(l.quantity)||l.quantity<=0)){toast.error('Approved BOQ lines are missing or invalid');return;}
+              setPreloadedItems(lines.map((l,i)=>({code:l.itemCode||String(i+1),name:l.description!,description:l.description!,unit:l.unit||'item',quantity:String(l.quantity),isRateOnly:false,rowType:'item' as const})));
+              setCurrentPage('dashboard');setCurrentView('upload');
+              toast.success(lines.length+' saved approved BOQ lines loaded for pricing');
+            }}
           />}
           {currentPage === 'dashboard' && (
             <>
