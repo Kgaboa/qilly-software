@@ -131,9 +131,12 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
  };
  const verified=requirements.filter(r=>r.mandatory&&r.status==='verified').length;
  const mandatory=requirements.filter(r=>r.mandatory).length;
+ const boqDocuments=documents.filter(doc=>doc.kind==='boq');
+ const reviewedBoqDocuments=boqDocuments.filter(doc=>doc.extraction_status==='review');
+ const pendingBoqDocuments=boqDocuments.filter(doc=>doc.extraction_status!=='review');
  return <section aria-label="Tender intake and compliance" className="rounded-lg border p-4 space-y-3">
   <h3 className="font-semibold">Tender Intake &amp; Compliance</h3>
-  <p className="text-sm text-slate-600">Capture tender details and compliance evidence. Existing BOQ import remains available through Price BOQ. Automated discovery is not yet enabled.</p>
+  <p className="text-sm text-slate-600">Review discovered tender details and compliance evidence. Discovery does not imply that a BOQ was published or extracted.</p>
   <label className="block text-sm">Tender intake route
    <select aria-label="Tender intake route" className="mt-1 rounded border p-2" value={route} onChange={e=>setRoute(e.target.value as typeof route)}>
     <option value="contractor_import">Route B — Contractor-supplied tender</option>
@@ -151,8 +154,14 @@ export function TenderIntakeWorkspace({opportunity,onOpenTenderImport}:{onOpenTe
    <label className="text-sm">Original tender source URL<input aria-label="Original tender source URL" type="url" placeholder="https://..." className="block w-full rounded border p-2" value={sourceUrl} onChange={e=>setSourceUrl(e.target.value)}/></label>
    <label className="text-sm">Source publication date<input aria-label="Source publication date" type="date" className="block w-full rounded border p-2" value={sourcePublishedAt} onChange={e=>setSourcePublishedAt(e.target.value)}/></label>
   </div>
+  <div role="status" className="rounded border border-amber-300 bg-amber-50 p-3 text-sm space-y-2">
+   <h4 className="font-semibold">Tender-to-BOQ readiness</h4>
+   {boqDocuments.length===0 ? <p>No BOQ document is registered for this tender. A tender notice alone does not provide priceable BOQ lines. Check the original tender pack for a bill of quantities.</p> :
+    <p>{boqDocuments.length} BOQ document reference(s) registered; {reviewedBoqDocuments.length} extraction review(s) saved; {pendingBoqDocuments.length} awaiting extraction review. A saved review does not yet mean that BOQ lines have been approved and linked to pricing.</p>}
+   <p className="text-slate-700">Required: obtain the BOQ file, extract its line items, reconcile quantities and units, approve the reviewed BOQ, then link it to pricing. Until that handoff is implemented, the existing import remains necessary.</p>
+   <button type="button" onClick={onOpenTenderImport} className="rounded border border-cyan-700 px-3 py-2 text-cyan-900">Open BOQ extraction and review</button>
+  </div>
   <button type="button" disabled={busy} onClick={()=>void save()} className="rounded bg-cyan-700 px-3 py-2 text-white disabled:opacity-50">Save Intake</button>
-  <button type="button" className="rounded bg-cyan-700 px-3 py-2 text-white" onClick={onOpenTenderImport}>Open Existing PDF / Word / Excel Extraction</button>
   <p className="text-xs text-amber-800">Extraction opens the existing review workspace. Select a registered document there and explicitly save its extraction review to this tender. Source files are not saved by that action.</p>
   <h4 className="font-semibold">Tender document register</h4>
   <p className="text-sm">Record the tender pack and its source. This step registers document metadata; it does not upload or extract the file.</p>
