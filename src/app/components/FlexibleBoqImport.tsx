@@ -43,13 +43,16 @@ export function FlexibleBoqImport({onBack,accessToken,tenderId}:{onBack:()=>void
        pageAudit:preview.pageAudit??[],issues:preview.issues,warnings:preview.warnings,
        unparsed:preview.unparsed??[],missingOcrPages:preview.missingOcrPages??[],
        recognizedLineCount:preview.lines.length,importBlocked:!!preview.importBlocked,
+       // Persist the reconciled interpretation as tenant-scoped review evidence, not as a priced BOQ.
+       interpretedLines:preview.lines.map(line=>({sourceRow:line.sourceRow,itemCode:line.itemCode,description:line.description,unit:line.unit,quantity:line.quantity,rate:line.rate,amount:line.amount})),
+       interpretationApproved:approved && getApprovalBlockers({importBlocked:preview.importBlocked,lineCount:preview.lines.length,issueCount:preview.issues.length,acknowledged,unmatchedCount:preview.unparsed?.length??0,unmatchedReviewed,ocrReviewRequired:!!preview.ocrReviewRequired,ocrReviewed}).length===0,
        reviewerAcknowledged:acknowledged,localPreviewApproved:approved,
        verifiedAgainstSource:false};
       const {data,error}=await supabase.from('tender_intake_documents')
        .update({extraction_review:report,extraction_status:'review',reviewed_at:new Date().toISOString(),reviewed_by:user.id})
        .eq('id',reviewDocumentId).eq('opportunity_id',tenderId).eq('owner_user_id',user.id).select('id').single();
       if(error)throw error;if(!data)throw Error('Document not found');
-      setReviewMessage('Extraction review saved to this tender document. Evidence is not verified.');
+      setReviewMessage('Interpreted BOQ lines and extraction evidence saved to this tender document. Pricing remains blocked until the tender-to-BOQ approval and pricing handoff is implemented.');
     }catch(e){setReviewMessage(e instanceof Error?e.message:'Unable to save extraction review');}
     finally{setReviewSaving(false);}
   }
