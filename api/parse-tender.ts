@@ -33,11 +33,21 @@ export default async function handler(req:any,res:any) {
     // Known SBD preference forms must never produce priced line items, even if tables resemble schedules.
     const encodedFilename=String(req.headers['x-qilly-source-filename']||'').slice(0,500);
     let filename='';try{filename=decodeURIComponent(encodedFilename).slice(0,250);}catch{filename=encodedFilename;}
-    const isPreferenceForm=/\\bsbd[\\s._-]*6[\\s._-]*1\\b/i.test(filename)||/preference[\\s._-]*points[\\s._-]*(claim[\\s._-]*)?form/i.test(filename);
-    if(isPreferenceForm){
+    // Inspect the parser's bounded, already-extracted text as well as the filename.
+    // This is conservative: ambiguous/mixed tender packs require manual review.
+    const evidence=[
+      ...(Array.isArray(result.candidates)?result.candidates.map((v:any)=>v.raw):[]),
+      ...(Array.isArray(result.unparsed)?result.unparsed.map((v:any)=>v.text):[]),
+      ...(Array.isArray(result.lines)?result.lines.flatMap((v:any)=>[v.description,v.itemCode]):[])
+    ].filter((v:unknown)=>typeof v==='string').join(' ').slice(0,200000);
+    const filenameMatch=/\\bsbd[\\s._-]*6[\\s._-]*1\\b/i.test(filename)||
+      /preference[\\s._-]*points[\\s._-]*(claim[\\s._-]*)?form/i.test(filename);
+    const contentMatch=/\\bsbd\\s*6[.\\s-]*1\\b/i.test(evidence) &&
+      /preference\\s+points|specific\\s+goals|preference\\s+points\\s+claim/i.test(evidence);
+    if(filenameMatch||contentMatch){
       return res.status(200).json({...result,lines:[],importBlocked:true,
-        classification:{type:'compliance_preference_form',confidence:'high',pageTypes:result.classification?.pageTypes??[]},
-        warnings:[...(result.warnings??[]),'SBD 6.1 preference points claim form is a compliance document, not a bill of quantities. No BOQ lines were created.'],
+        classification:{type:'compliance_preference_form',confidence:filenameMatch&&contentMatch?'high':'requires_review',pageTypes:result.classification?.pageTypes??[]},
+        warnings:[...(result.warnings??[]),'Possible SBD 6.1 preference points claim form: compliance review required; no BOQ lines were created. If this is a mixed tender pack, extract its BOQ schedule separately.'],
         issues:[],documentDisposition:'compliance_only'});
     }
     return res.status(200).json(result);
