@@ -1205,7 +1205,14 @@ export function MainDashboard({ accessToken, onLogout, onChangePassword }: MainD
                   </div>
                 </section>
               )}
-              {currentView === 'flexible-import' && canUploadBOQ && <FlexibleBoqImport accessToken={accessToken} tenderId={selectedTenderId} onBack={() => setCurrentView('import-hub')} />}
+              {currentView === 'flexible-import' && canUploadBOQ && <FlexibleBoqImport accessToken={accessToken} tenderId={selectedTenderId} onBack={() => setCurrentView('import-hub')} onPriceApproved={lines => {
+                const mapped=lines.filter(line=>line.description.trim()&&line.quantity!==null&&Number.isFinite(line.quantity)&&line.quantity>0).map((line,i)=>({
+                  code:line.itemCode||String(i+1),name:line.description,description:line.description,
+                  quantity:String(line.quantity),unit:line.unit||'item',isRateOnly:false,rowType:'item' as const
+                }));
+                if(mapped.length!==lines.length||!mapped.length){toast.error('Some BOQ rows lack a valid description or quantity. Correct the extraction before pricing.');return;}
+                setPreloadedItems(mapped);setCurrentView('upload');toast.success(mapped.length+' reviewed BOQ lines loaded for pricing');
+              }} />}
               {currentView === 'upload' && (canUploadBOQ || preloadedItems.length > 0) && (
                 isLoading ? (
                   <Card className="mx-auto max-w-3xl overflow-hidden border-sky-200 shadow-lg">
